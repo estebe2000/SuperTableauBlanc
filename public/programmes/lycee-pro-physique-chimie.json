@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Physique-Chimie",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de physique-chimie CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer une démarche scientifique adaptée",
+    "Comprendre les phénomènes physiques et chimiques du quotidien et du monde professionnel",
+    "Utiliser des outils de mesure et de calcul",
+    "Respecter les règles de sécurité en laboratoire et en atelier",
+    "Développer un regard critique sur les enjeux scientifiques"
+  ],
+  "domaines": [
+    {
+      "nom": "L'électricité appliquée",
+      "description": "Les circuits électriques dans la vie quotidienne et professionnelle.",
+      "competences": [
+        {
+          "intitule": "Comprendre les circuits électriques et les lois fondamentales",
+          "exemples_themes": ["Loi d'Ohm : mesure de tension et d'intensité (TP multimètre)", "Les circuits série et parallèle (montage avec ampoules ou LED)", "La puissance électrique et la consommation (lecture d'une facture EDF)", "La sécurité électrique : disjoncteur, mise à la terre, habilitation"]
+        }
+      ]
+    },
+    {
+      "nom": "Les matériaux et leurs propriétés",
+      "description": "Les matériaux utilisés dans les métiers.",
+      "competences": [
+        {
+          "intitule": "Identifier les matériaux et comprendre leurs propriétés",
+          "exemples_themes": ["Classification des matériaux : métaux, plastiques, céramiques, bois", "Tests de conductivité, de dureté, de résistance mécanique (TP)", "Corrosion et protection des métaux (traitement de surface)", "Le recyclage et le choix de matériaux écoresponsables"]
+        }
+      ]
+    },
+    {
+      "nom": "L'énergie dans les systèmes techniques",
+      "description": "Les transformations et les conversions d'énergie.",
+      "competences": [
+        {
+          "intitule": "Comprendre les formes d'énergie et leurs conversions",
+          "exemples_themes": ["Le rendement d'un moteur ou d'un appareil de chauffage", "Les énergies renouvelables : panneau solaire, éolienne (mesures)", "Le bilan énergétique d'un bâtiment (DPE simplifié)", "La consommation d'énergie d'un appareil professionnel (calcul)"]
+        }
+      ]
+    },
+    {
+      "nom": "La chimie dans la vie quotidienne et professionnelle",
+      "description": "Les transformations chimiques et la sécurité.",
+      "competences": [
+        {
+          "intitule": "Comprendre les réactions chimiques et les règles de sécurité associées",
+          "exemples_themes": ["Les pictogrammes de sécurité et les FDS (Fiches de Données de Sécurité)", "Le pH : mesure et applications (piscine, cuisine, nettoyage)", "Les réactions acido-basiques dans le quotidien (détartrage, lessive)", "La combustion et les risques d'incendie (prévention)"]
+        },
+        {
+          "intitule": "Comprendre les solutions et les concentrations",
+          "exemples_themes": ["Préparation d'une solution à une concentration donnée (TP)", "Les dilutions en milieu professionnel (produits d'entretien, cuisine)", "L'eau potable : critères de qualité et analyse", "Les dosages simples en cuisine ou en cosmétique"]
+        }
+      ]
+    },
+    {
+      "nom": "Acoustique et optique",
+      "description": "Le son et la lumière dans l'environnement professionnel.",
+      "competences": [
+        {
+          "intitule": "Comprendre les phénomènes sonores et lumineux",
+          "exemples_themes": ["Le niveau sonore et la protection auditive (sonomètre, TP)", "La réglementation sur le bruit au travail", "La lumière et les couleurs : éclairage d'un espace de travail", "Les signaux lumineux et sonores de sécurité"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de physique-chimie en lycée professionnel est ancré dans les situations professionnelles et le quotidien. Il aborde l'électricité, les matériaux, l'énergie, la chimie appliquée, l'acoustique et l'optique. L'accent est mis sur la sécurité, les mesures et les applications concrètes liées aux secteurs professionnels des élèves."
+}

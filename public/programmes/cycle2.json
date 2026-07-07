@@ -1,0 +1,586 @@
+{
+  "meta": {
+    "cycle": "cycle2",
+    "niveau": "CP, CE1, CE2",
+    "source": "B.O. n°41 du 31 octobre 2024 (Français et Maths) + Programme 2020 (autres domaines)",
+    "date_creation": "2026-03-28"
+  },
+  "programme_resume": "Le cycle 2 (CP-CE1-CE2) est le cycle des apprentissages fondamentaux. Les nouveaux programmes 2025 en français et mathématiques renforcent la progressivité avec des attendus annuels explicites. En français, l'approche graphémique structure l'entrée dans la lecture, avec un objectif de fluence (30 mots/min fin CP, 90 mots/min fin CE2). En maths, les 4 opérations sont introduites dès le CP, les fractions dès le CE1. L'enseignement explicite, le calcul mental quotidien et la résolution de problèmes par analogie sont au cœur de la démarche.",
+  "domaines": {
+    "Français": {
+      "label": "Français",
+      "sous_domaines": {
+        "Lecture": {
+          "attendus": [
+            {
+              "intitule": "Identifier des mots de manière de plus en plus aisée (correspondances graphèmes-phonèmes)",
+              "sujets": [
+                "Les syllabes du mot « chocolat » (cho-co-lat)",
+                "Les sons [ou], [on], [an] dans un texte court",
+                "Les mots-outils fréquents (dans, avec, pour, sur)",
+                "L'affiche des graphèmes complexes (eau, ain, oin)",
+                "Le jeu de loto des syllabes",
+                "Les étiquettes-mots de l'album étudié"
+              ]
+            },
+            {
+              "intitule": "Lire à voix haute avec fluidité",
+              "sujets": [
+                "Un extrait du Petit Nicolas (Sempé/Goscinny)",
+                "Un poème de Jacques Prévert (Pour faire le portrait d'un oiseau)",
+                "Une saynète de théâtre (Le médecin malgré lui adapté)",
+                "Un passage de La Belle Lisse Poire du Prince de Motordu",
+                "Un article de Mon Quotidien",
+                "Un dialogue extrait d'un album (Loup, Cornebidouille)"
+              ]
+            },
+            {
+              "intitule": "Comprendre un texte et contrôler sa compréhension",
+              "sujets": [
+                "Album : Le géant de Zéralda (Ungerer)",
+                "Album : Le monstre du tableau",
+                "Texte documentaire sur les volcans",
+                "Album : Journal d'un chat assassin (Fine)",
+                "L'histoire d'Arlequin (texte et illustrations)",
+                "Un conte détourné (Le loup est revenu)"
+              ]
+            }
+          ]
+        },
+        "Culture littéraire et artistique": {
+          "attendus": [
+            {
+              "intitule": "Écouter et lire des œuvres intégrales, notamment de littérature de jeunesse",
+              "sujets": [
+                "Roman : La cabane magique (Osborne)",
+                "Roman : Fantastique Maître Renard (Dahl)",
+                "Album : L'énorme crocodile (Dahl)",
+                "Contes de Perrault (Le Chat botté, Cendrillon)",
+                "BD : Ariol (Guibert/Boutavant)",
+                "Roman : Le buveur d'encre (Sanvoisin)"
+              ]
+            },
+            {
+              "intitule": "Lire et comprendre des textes variés, adaptés à la maturité et à la culture scolaire des élèves",
+              "sujets": [
+                "Une recette de crêpes illustrée",
+                "Un mode d'emploi de jeu de société",
+                "Un article du magazine Youpi ou Astrapi",
+                "Une fiche documentaire sur les abeilles",
+                "Une affiche de cinéma (décrire et comprendre)",
+                "Un extrait de BD (Les Schtroumpfs, Astérix)"
+              ]
+            }
+          ]
+        },
+        "Écriture": {
+          "attendus": [
+            {
+              "intitule": "Copier de manière lisible, en respectant la mise en page, un texte en écriture cursive",
+              "sujets": [
+                "Un poème court (Le chat de Baudelaire adapté)",
+                "La leçon de sciences du jour",
+                "Un extrait de l'album étudié",
+                "Les paroles d'une chanson apprise en classe",
+                "La règle du jeu inventée collectivement"
+              ]
+            },
+            {
+              "intitule": "Produire des écrits en commençant à s'approprier une démarche",
+              "sujets": [
+                "Écrire la suite de l'histoire du Loup",
+                "Écrire une lettre au Père Noël ou à un correspondant",
+                "Rédiger le compte-rendu de la sortie au zoo",
+                "Inventer un dialogue entre deux personnages de l'album",
+                "Écrire la recette réalisée en classe",
+                "Rédiger les règles de vie de la classe"
+              ]
+            },
+            {
+              "intitule": "Réviser et améliorer l'écrit qu'on a produit",
+              "sujets": [
+                "Le brouillon de la lettre au correspondant",
+                "Le texte du journal de classe (relire et corriger)",
+                "La description de l'animal de compagnie (enrichir)",
+                "Le récit de la sortie (vérifier les accords)",
+                "Le portrait d'un personnage (ajouter des détails)"
+              ]
+            }
+          ]
+        },
+        "Oral": {
+          "attendus": [
+            {
+              "intitule": "Écouter pour comprendre des messages oraux ou des textes lus par un adulte",
+              "sujets": [
+                "Un épisode du podcast Les Odyssées (France Inter)",
+                "L'album lu : Le loup qui voyageait dans le temps",
+                "Les consignes d'un jeu collectif (écouter puis refaire)",
+                "Un conte audio (Ali Baba, Sindbad le marin)"
+              ]
+            },
+            {
+              "intitule": "Dire pour être entendu et compris, participer à des échanges",
+              "sujets": [
+                "Raconter son week-end au groupe (quoi de neuf)",
+                "Présenter un livre lu à la classe",
+                "Présenter un objet personnel et expliquer pourquoi il est important",
+                "Réciter une fable de La Fontaine",
+                "Participer au conseil de classe (proposer, argumenter)",
+                "Décrire une image projetée au tableau"
+              ]
+            },
+            {
+              "intitule": "Adopter une distance critique par rapport au langage produit",
+              "sujets": [
+                "S'écouter sur un enregistrement (tablette)",
+                "Reformuler une explication qui n'a pas été comprise",
+                "Chercher un mot plus précis que « truc » ou « machin »",
+                "Corriger une phrase incorrecte affichée au tableau"
+              ]
+            }
+          ]
+        },
+        "Vocabulaire": {
+          "attendus": [
+            {
+              "intitule": "Enrichir son lexique par la catégorisation et les relations entre les mots",
+              "sujets": [
+                "Le champ lexical de la mer (vagues, sable, coquillage...)",
+                "Les familles de mots : lait, laitier, laitage, allaiter",
+                "Les contraires dans l'album (grand/petit, courageux/peureux)",
+                "Les synonymes de « content » (joyeux, heureux, ravi)",
+                "Le dictionnaire : chercher le mot « extraordinaire »",
+                "Les mots étiquettes (les fruits : pomme, poire, cerise...)"
+              ]
+            }
+          ]
+        },
+        "Grammaire et orthographe": {
+          "attendus": [
+            {
+              "intitule": "Maîtriser les relations entre l'oral et l'écrit (orthographe)",
+              "sujets": [
+                "Les mots invariables de la semaine (toujours, jamais, souvent)",
+                "Le son [o] et ses graphies : o, au, eau dans un texte",
+                "Les homophones a/à dans une phrase à corriger",
+                "La phrase du jour (dictée et correction collective)",
+                "Les mots fréquents à mémoriser (liste de fréquence)"
+              ]
+            },
+            {
+              "intitule": "Identifier les principaux constituants d'une phrase simple (sujet, verbe, complément)",
+              "sujets": [
+                "La phrase : « Le chat mange la souris dans le jardin »",
+                "Les étiquettes-mots mobiles pour construire des phrases",
+                "La phrase minimum vs la phrase enrichie (Le chat dort / Le gros chat noir dort sur le canapé)",
+                "Trouver le verbe conjugué dans un texte de l'album",
+                "La phrase du jour au tableau (analyse collective)"
+              ]
+            },
+            {
+              "intitule": "Raisonner pour résoudre des problèmes orthographiques et appliquer les accords",
+              "sujets": [
+                "Les accords dans le GN : les petits chats noirs",
+                "Singulier/pluriel : un chien → des chiens",
+                "Le féminin/masculin : un ami → une amie",
+                "Conjuguer au présent les verbes du 1er groupe dans un texte",
+                "La dictée négociée (débattre de l'orthographe entre élèves)"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Mathématiques": {
+      "label": "Mathématiques",
+      "sous_domaines": {
+        "Nombres et numération": {
+          "attendus": [
+            {
+              "intitule": "Comprendre et utiliser des nombres entiers pour dénombrer, ordonner, repérer, comparer",
+              "sujets": [
+                "Les prix au marché (comparer 45 et 54 centimes)",
+                "Les numéros des maisons de la rue",
+                "Les scores au jeu de société (qui a le plus ?)",
+                "Les températures de la semaine (ranger)",
+                "La monnaie (pièces et billets)",
+                "Les étages d'un immeuble (se repérer)"
+              ]
+            },
+            {
+              "intitule": "Nommer, lire, écrire, représenter des nombres entiers",
+              "sujets": [
+                "Le chèque à remplir (écrire en lettres)",
+                "Le nombre du jour (le décomposer de toutes les façons)",
+                "Les populations de villes (lire de grands nombres)",
+                "Le compteur kilométrique de la voiture",
+                "Les résultats sportifs (tableau de scores)"
+              ]
+            },
+            {
+              "intitule": "Comprendre le système de numération décimale de position",
+              "sujets": [
+                "Le matériel de numération (cubes, barres, plaques)",
+                "Le boulier",
+                "Le compteur à roues (unités, dizaines, centaines)",
+                "Les billets et pièces (1€, 10€, 100€)",
+                "Décomposer le nombre d'élèves de l'école"
+              ]
+            },
+            {
+              "intitule": "Utiliser des fractions pour exprimer une mesure (CE1-CE2)",
+              "sujets": [
+                "La pizza partagée en parts égales",
+                "La tablette de chocolat (moitié, quart, tiers)",
+                "La bande de papier pliée en 2, en 4",
+                "Le gâteau d'anniversaire découpé en 8",
+                "La règle graduée (1/2 cm, 1/4 de m)"
+              ]
+            }
+          ]
+        },
+        "Calcul": {
+          "attendus": [
+            {
+              "intitule": "Calculer avec des nombres entiers (mémoriser des faits numériques et élaborer des procédures de calcul)",
+              "sujets": [
+                "Les tables de multiplication affichées et chantées",
+                "Le jeu de la cible (additionner les scores)",
+                "Les doubles et moitiés des prix au marché",
+                "Le jeu du furet (compter de 5 en 5, de 10 en 10)",
+                "Le défi calcul mental du matin",
+                "L'addition et la soustraction posées du score de bowling"
+              ]
+            },
+            {
+              "intitule": "Résoudre des problèmes en utilisant les quatre opérations",
+              "sujets": [
+                "La sortie scolaire (combien coûtent 24 entrées à 3€ ?)",
+                "La recette pour 6 : adapter pour 12 personnes",
+                "Le partage des bonbons d'Halloween (division)",
+                "L'achat au magasin (addition + rendu de monnaie)",
+                "Combien de tables de 4 pour asseoir 28 élèves ?",
+                "Le bus : 35 places, 22 passagers montent, combien de places libres ?"
+              ]
+            }
+          ]
+        },
+        "Résolution de problèmes": {
+          "attendus": [
+            {
+              "intitule": "Modéliser et résoudre des problèmes arithmétiques en une ou plusieurs étapes",
+              "sujets": [
+                "Le problème du jardinier (3 rangées de 8 plants + 5 plants)",
+                "Le trajet de la sortie (distance aller + retour)",
+                "Les économies pour acheter un livre (combien par semaine pendant 4 semaines ?)",
+                "Le tournoi de football (nombre de matchs avec 6 équipes)",
+                "Le problème de la marchande (prix unitaire × quantité − réduction)"
+              ]
+            }
+          ]
+        },
+        "Géométrie": {
+          "attendus": [
+            {
+              "intitule": "Reconnaître, nommer, décrire, reproduire, construire quelques figures géométriques",
+              "sujets": [
+                "Le drapeau français (rectangles, symétrie)",
+                "Les panneaux de signalisation (triangle, cercle, carré)",
+                "Le plan de la classe (reproduire sur quadrillage)",
+                "Un vitrail d'église (figures géométriques imbriquées)",
+                "Les motifs de carrelage (carrés, triangles)",
+                "Le tangram (reconstituer des figures)"
+              ]
+            },
+            {
+              "intitule": "Se repérer et se déplacer en utilisant des repères et des représentations",
+              "sujets": [
+                "Le plan de l'école (tracer un chemin)",
+                "Le plan du quartier (situer la boulangerie, la mairie)",
+                "Le jeu du robot (coder un déplacement : avance 3, tourne à droite)",
+                "La carte au trésor (suivre un itinéraire codé)",
+                "Le logiciel Scratch (programmer un parcours)"
+              ]
+            }
+          ]
+        },
+        "Grandeurs et mesures": {
+          "attendus": [
+            {
+              "intitule": "Comparer, estimer, mesurer des longueurs, masses, contenances, durées, prix",
+              "sujets": [
+                "La taille des élèves de la classe (mesurer et comparer)",
+                "La masse des cartables (peser avec une balance)",
+                "Les bouteilles d'eau (1L, 50cL, 33cL)",
+                "La durée de la récréation (chronométrer)",
+                "Les prix au supermarché (comparer les étiquettes)",
+                "Estimer la longueur de la cour avant de mesurer"
+              ]
+            },
+            {
+              "intitule": "Résoudre des problèmes impliquant des grandeurs (longueurs, masses, durées, prix)",
+              "sujets": [
+                "La durée du trajet maison-école",
+                "Le périmètre du terrain de football de la cour",
+                "Le poids des ingrédients de la recette",
+                "Le prix total des courses au marché",
+                "Combien de temps dure le film ? (heure début / heure fin)"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Questionner le monde": {
+      "label": "Questionner le monde",
+      "sous_domaines": {
+        "Le vivant, la matière, les objets": {
+          "attendus": [
+            {
+              "intitule": "Connaître des caractéristiques du monde vivant, ses interactions, sa diversité",
+              "sujets": [
+                "L'élevage de phasmes en classe",
+                "Le cycle de vie du papillon (chenille → chrysalide → papillon)",
+                "Le potager de l'école (planter, arroser, observer)",
+                "Les animaux de la mare (sortie nature)",
+                "Le documentaire sur les animaux de la savane",
+                "Le squelette humain (maquette)"
+              ]
+            },
+            {
+              "intitule": "Identifier les états de la matière et réaliser des transformations",
+              "sujets": [
+                "Les glaçons qui fondent au soleil",
+                "L'eau qui bout dans la bouilloire",
+                "Le sel qui disparaît dans l'eau (dissolution)",
+                "L'expérience « flotte ou coule » (objets variés)",
+                "La buée sur les vitres en hiver (condensation)"
+              ]
+            },
+            {
+              "intitule": "Réaliser des objets techniques simples",
+              "sujets": [
+                "Le moulin à vent en papier",
+                "Le circuit électrique pile + ampoule + fil",
+                "La balance avec un cintre et deux gobelets",
+                "Le char à voile miniature",
+                "La catapulte en bâtonnets de glace"
+              ]
+            }
+          ]
+        },
+        "Le temps": {
+          "attendus": [
+            {
+              "intitule": "Se situer dans le temps et mesurer des durées",
+              "sujets": [
+                "La frise chronologique de la famille (grands-parents, parents, enfant)",
+                "La vie quotidienne autrefois vs aujourd'hui (photos anciennes)",
+                "Les objets d'autrefois (moulin à café, fer à repasser)",
+                "Le calendrier de l'année scolaire (vacances, fêtes)",
+                "Comparer la vie au temps des châteaux forts et aujourd'hui"
+              ]
+            }
+          ]
+        },
+        "L'espace": {
+          "attendus": [
+            {
+              "intitule": "Se situer dans l'espace et le représenter",
+              "sujets": [
+                "Le plan de la classe et de l'école",
+                "La maquette du quartier en carton",
+                "Les paysages de France (littoral, montagne, ville, campagne)",
+                "La carte de France (fleuves, montagnes, grandes villes)",
+                "Le globe terrestre (les continents et les océans)",
+                "La photo aérienne du quartier (Google Maps)"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "EMC": {
+      "label": "Enseignement moral et civique",
+      "attendus": [
+        {
+          "intitule": "Identifier et exprimer ses émotions et ses sentiments",
+          "sujets": [
+            "Album : La couleur des émotions (Llenas)",
+            "Album : Grosse colère (D'Allancé)",
+            "Les cartes des émotions (joie, tristesse, peur, colère)",
+            "Le film Vice-Versa (extrait sur les émotions)",
+            "Le journal des émotions (dessiner son humeur du jour)"
+          ]
+        },
+        {
+          "intitule": "Respecter autrui et accepter les différences",
+          "sujets": [
+            "Album : Elmer l'éléphant bariolé",
+            "Album : Quatre petits coins de rien du tout (handicap)",
+            "Le film Azur et Asmar (Ocelot)",
+            "La Journée internationale des droits de l'enfant",
+            "Album : Tous différents, tous pareils"
+          ]
+        },
+        {
+          "intitule": "Comprendre les principes et valeurs de la République",
+          "sujets": [
+            "Le drapeau et la Marseillaise",
+            "L'élection des délégués de classe (voter)",
+            "La devise Liberté Égalité Fraternité (sur la mairie)",
+            "Le portrait de Marianne",
+            "La Journée de la laïcité (9 décembre)"
+          ]
+        }
+      ]
+    },
+    "EPS": {
+      "label": "Éducation physique et sportive",
+      "attendus": [
+        {
+          "intitule": "Produire une performance maximale, mesurable, à une échéance donnée",
+          "sujets": [
+            "La course de 30m chronométrée",
+            "Le saut en longueur dans le bac à sable",
+            "Le lancer de vortex",
+            "Le cross de l'école (courir 6 minutes)",
+            "Le relais 4×25m",
+            "Le pentathlon (5 épreuves)"
+          ]
+        },
+        {
+          "intitule": "Adapter ses déplacements à des environnements variés",
+          "sujets": [
+            "La piscine (nager 25m)",
+            "Le parcours d'orientation dans le parc",
+            "Le mur d'escalade du gymnase",
+            "La randonnée en forêt (sentier balisé)",
+            "Le vélo et le permis piéton (savoir rouler)"
+          ]
+        },
+        {
+          "intitule": "S'exprimer devant les autres par une prestation artistique et/ou acrobatique",
+          "sujets": [
+            "La danse africaine (djembé)",
+            "Les figures d'acrosport (duo et trio)",
+            "Le spectacle de cirque (jonglage, équilibre)",
+            "La gymnastique au sol (enchaînement libre)",
+            "Le mime d'une scène de film muet"
+          ]
+        },
+        {
+          "intitule": "Conduire et maîtriser un affrontement collectif ou interindividuel",
+          "sujets": [
+            "La balle au prisonnier",
+            "Le mini-handball (terrain réduit)",
+            "Le jeu de poules-renards-vipères",
+            "Le badminton simplifié (un volant, une raquette)",
+            "L'ultimate frisbee",
+            "Le jeu d'opposition (lutte au sol)"
+          ]
+        }
+      ]
+    },
+    "Arts": {
+      "label": "Enseignements artistiques",
+      "sous_domaines": {
+        "Arts plastiques": {
+          "attendus": [
+            {
+              "intitule": "Réaliser et donner à voir des productions plastiques de natures diverses",
+              "sujets": [
+                "Les empreintes de feuilles d'automne (encre et rouleau)",
+                "Le portrait à la manière de Picasso (cubisme)",
+                "La fresque collective de la jungle",
+                "La gravure sur polystyrène",
+                "Le collage à la manière de Matisse",
+                "La sculpture en papier mâché"
+              ]
+            },
+            {
+              "intitule": "Proposer des réponses inventives dans un projet artistique",
+              "sujets": [
+                "Illustrer la couverture d'un album inventé",
+                "Le land art dans la cour (feuilles, pierres, bâtons)",
+                "La photo d'art : cadrage et point de vue inhabituel",
+                "Créer une affiche pour le spectacle de l'école",
+                "L'exposition de classe (choisir, accrocher, présenter)"
+              ]
+            }
+          ]
+        },
+        "Éducation musicale": {
+          "attendus": [
+            {
+              "intitule": "Chanter et interpréter un répertoire varié",
+              "sujets": [
+                "Armstrong (Claude Nougaro)",
+                "Pirouette cacahuète (comptine traditionnelle)",
+                "Le lion est mort ce soir (canon)",
+                "Chanter en anglais : Head Shoulders Knees and Toes",
+                "La chorale de l'école (répertoire variété française)"
+              ]
+            },
+            {
+              "intitule": "Écouter, comparer et commenter des extraits musicaux",
+              "sujets": [
+                "Pierre et le Loup (Prokofiev) — les instruments",
+                "Le Boléro de Ravel (la montée en puissance)",
+                "Un extrait de jazz (Louis Armstrong)",
+                "Une musique traditionnelle africaine (djembé, balafon)",
+                "Les Quatre Saisons de Vivaldi (L'Hiver vs L'Été)"
+              ]
+            },
+            {
+              "intitule": "Explorer, imaginer et créer des paysages sonores",
+              "sujets": [
+                "Les sons de la cour de récréation (enregistrer)",
+                "Bruiter un extrait de conte (pluie, vent, pas)",
+                "Créer un orchestre avec des objets recyclés",
+                "Le paysage sonore de la forêt (voix et corps)",
+                "Inventer la bande-son d'un album sans texte"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Langues vivantes": {
+      "label": "Langues vivantes étrangères ou régionales",
+      "attendus": [
+        {
+          "intitule": "Comprendre des mots familiers et des expressions très courantes",
+          "sujets": [
+            "Les flashcards des couleurs en anglais",
+            "La chanson Head Shoulders Knees and Toes",
+            "Les consignes de classe en anglais (sit down, stand up, listen)",
+            "La météo en anglais (sunny, rainy, cloudy)",
+            "Les nombres de 1 à 20 en anglais (comptine)"
+          ]
+        },
+        {
+          "intitule": "Utiliser des expressions et des phrases simples pour se décrire et décrire son environnement",
+          "sujets": [
+            "Se présenter : My name is… I'm 7 years old",
+            "Décrire un animal : It's big, it's grey, it's an elephant",
+            "La météo du jour : Today it's sunny and warm",
+            "Les goûts : I like chocolate, I don't like spinach",
+            "La famille : This is my mum, this is my dad"
+          ]
+        },
+        {
+          "intitule": "Découvrir quelques aspects culturels d'une langue vivante étrangère",
+          "sujets": [
+            "Halloween (citrouille, déguisement, trick or treat)",
+            "Christmas crackers et mince pies (Noël anglais)",
+            "Thanksgiving (la dinde, les pèlerins)",
+            "La vie d'un écolier anglais (school uniform, lunch box)",
+            "Les monuments de Londres (Big Ben, Tower Bridge)"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "discipline": "Langue et Grammaire",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Maîtrise de la langue (C1/C2)",
+      "details": [
+        "Produire des textes complexes et structurés",
+        "Maîtriser la morphosyntaxe de l'anglais",
+        "Utiliser un lexique varié et idiomatique",
+        "S'exprimer avec fluidité à l'oral"
+      ]
+    },
+    {
+      "intitule": "Grammaire théorique",
+      "details": [
+        "Analyser le système verbal (temps, aspects, modalités)",
+        "Comprendre la structure de la phrase complexe",
+        "Utiliser les outils d'analyse linguistique"
+      ]
+    }
+  ]
+}

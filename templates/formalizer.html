@@ -1,0 +1,67 @@
+            <div class="workspace-header">
+                <h2>Outil : Formalizer</h2>
+                <p>Ajustez le ton de vos écrits et adaptez votre communication.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>Reformuler un message</h2>
+                    </div>
+
+                    <div class="formalizer-form">
+                        <div class="input-wrapper">
+                            <textarea id="formalizerInput" rows="5" placeholder="Entrez le texte ou l'idée générale à reformuler..."></textarea>
+                        </div>
+
+                        <div class="tone-section">
+                            <label class="section-label">Sélectionnez le ton souhaité :</label>
+                            <div class="tones-grid" id="tonesGrid">
+                                <button class="tone-btn active" data-tone="professionnel">💼 Plus professionnel</button>
+                                <button class="tone-btn" data-tone="technique">⚙️ Plus technique</button>
+                                <button class="tone-btn" data-tone="accessible">🤝 Plus accessible</button>
+                                <button class="tone-btn" data-tone="poli">🌸 Plus poli</button>
+                                <button class="tone-btn" data-tone="moins-sarcastique">🧊 Moins sarcastique</button>
+                                <button class="tone-btn" data-tone="colere">🤬 Plus en colère</button>
+                                <button class="tone-btn" data-tone="facile-lire">📖 Plus facile à lire</button>
+                                <button class="tone-btn" data-tone="formel">👔 Plus formel</button>
+                                <button class="tone-btn" data-tone="informel">👕 Plus informel</button>
+                                <button class="tone-btn" data-tone="sociable">💬 Plus sociable (détails)</button>
+                                <button class="tone-btn" data-tone="concis">🎯 Plus concis (bref)</button>
+                                <button class="tone-btn" data-tone="moins-emotionnel">🤖 Moins émotionnel</button>
+                                <button class="tone-btn" data-tone="passionne">🔥 Plus passionné</button>
+                                <button class="tone-btn" data-tone="sarcastique">🎭 Plus sarcastique</button>
+                                <button class="tone-btn" data-tone="grammaire">✍️ Grammaticalement correct</button>
+                                <button class="tone-btn" data-tone="puces">📋 Points à puces</button>
+                                <button class="tone-btn" data-tone="un-mot">🔑 Un seul mot (thésaurus)</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="formalizerSubmitBtn">
+                            <span class="btn-text">Reformuler</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Résultat de la reformulation</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="formalizerCopyBtn" title="Copier le texte" disabled>📋</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="formalizerPlaceholder">
+                            <p>Le texte reformulé s'affichera ici.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="formalizerSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                        </div>
+
+                        <div class="output-text" id="formalizerOutput" style="display: none;"></div>
+                    </div>
+                </section>
+            </div>

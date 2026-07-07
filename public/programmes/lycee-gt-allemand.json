@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "discipline": "Allemand",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de langues vivantes 2nde, 1ère, Terminale GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B2 en LVA / B1 en LVB du CECRL",
+    "Comprendre des documents authentiques en allemand",
+    "S'exprimer à l'oral et à l'écrit de manière structurée",
+    "Acquérir une culture des pays germanophones",
+    "Développer une réflexion interculturelle"
+  ],
+  "domaines": [
+    {
+      "nom": "Axe — Identités et échanges (Identität und Austausch)",
+      "description": "Les identités culturelles et les échanges dans le monde germanophone.",
+      "competences": [
+        {
+          "intitule": "Explorer les identités et les échanges dans le monde germanophone",
+          "exemples_themes": ["La diversité régionale en Allemagne (Bundesländer, dialectes)", "L'immigration en Allemagne (Gastarbeiter, intégration)", "Un extrait de Das Parfum de Patrick Süskind", "Les échanges franco-allemands (OFAJ, Erasmus, jumelages)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Espace privé et espace public (Privatleben und öffentlicher Raum)",
+      "description": "Les rapports entre sphère privée et publique dans les sociétés germanophones.",
+      "competences": [
+        {
+          "intitule": "Réfléchir aux rapports entre espace privé et public dans les sociétés germanophones",
+          "exemples_themes": ["La protection des données en Allemagne (Datenschutz, RGPD)", "Le modèle de vie en colocation (WG) en Allemagne", "Un extrait de Die Vermessung der Welt de Daniel Kehlmann", "La notion de Heimat : patrie, chez-soi, appartenance"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Art et pouvoir (Kunst und Macht)",
+      "description": "Les relations entre création artistique et pouvoir dans le monde germanophone.",
+      "competences": [
+        {
+          "intitule": "Étudier le rôle de l'art face au pouvoir dans le monde germanophone",
+          "exemples_themes": ["L'art dégénéré sous le IIIe Reich (entartete Kunst)", "Le cinéma expressionniste allemand (Metropolis, Nosferatu)", "La musique engagée (Wolf Biermann, Rammstein, Nina Hagen)", "Le Bauhaus : art, design et utopie sociale"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Citoyenneté et mondes virtuels",
+      "description": "Les nouvelles formes de citoyenneté et le numérique.",
+      "competences": [
+        {
+          "intitule": "Analyser les enjeux citoyens et numériques dans le monde germanophone",
+          "exemples_themes": ["La transition énergétique en Allemagne (Energiewende)", "Le mouvement Fridays for Future en Allemagne (Greta Thunberg)", "Un article de Der Spiegel ou Die Zeit sur le numérique", "La cybersécurité et la vie privée en ligne en Allemagne"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Fictions et réalités (Fiktion und Realität)",
+      "description": "Les rapports entre fiction et réalité dans la culture germanophone.",
+      "competences": [
+        {
+          "intitule": "Explorer la frontière entre fiction et réalité dans la culture germanophone",
+          "exemples_themes": ["Un extrait de Der Vorleser (Le Liseur) de Bernhard Schlink", "Le film Good Bye, Lenin! (2003) : mémoire et fiction", "Les contes des frères Grimm et leurs réécritures modernes", "Le film Das Leben der Anderen (La Vie des autres) et la Stasi"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Histoire et mémoire (Geschichte und Gedächtnis)",
+      "description": "Le rapport à l'histoire et à la mémoire dans les pays germanophones.",
+      "competences": [
+        {
+          "intitule": "Comprendre le rapport à l'histoire et à la mémoire en Allemagne",
+          "exemples_themes": ["Le mur de Berlin et la réunification (témoignages, musée)", "La Vergangenheitsbewältigung (surmonter le passé nazi)", "Le Mémorial de l'Holocauste à Berlin (Denkmal)", "La chute du Mur vue par les Ossis et les Wessis"]
+        }
+      ]
+    },
+    {
+      "nom": "Compétences langagières",
+      "description": "Les cinq activités langagières au service de la communication.",
+      "competences": [
+        {
+          "intitule": "Comprendre un document oral ou écrit authentique en allemand",
+          "exemples_themes": ["Un reportage de Deutsche Welle sur un sujet de société", "Un article de presse allemand (Spiegel, Zeit, FAZ)", "Un podcast en allemand (langsam gesprochene Nachrichten)", "Un extrait de film allemand avec sous-titres"]
+        },
+        {
+          "intitule": "S'exprimer à l'oral et à l'écrit de manière argumentée",
+          "exemples_themes": ["Exposé oral sur un aspect de la culture germanophone", "Rédaction d'un Erörterung (essai argumenté en allemand)", "Débat en classe sur un enjeu de société", "Jeu de rôle : entretien d'embauche ou situation professionnelle"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'allemand au lycée GT vise le niveau B2 (LVA) ou B1 (LVB) du CECRL. Il s'organise autour d'axes culturels appliqués au monde germanophone (Allemagne, Autriche, Suisse). Les élèves étudient des documents authentiques variés (littérature, presse, cinéma, musique) et développent leurs compétences dans les cinq activités langagières. L'histoire et la mémoire occupent une place importante."
+}

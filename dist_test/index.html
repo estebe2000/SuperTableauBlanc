@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAcadémie — Portail Pédagogique Inclusif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/index-BUuRQfJN.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CDaNuiMc.css">
+</head>
+
+<body>
+
+    <!-- Curseur Personnalisé -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Barre de Progression -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Arrière-plan Animé -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">✓ Outil ouvert avec succès !</div>
+
+    <!-- Barre d'Accessibilité -->
+    <div class="access-bar">
+        <div class="access-btn" id="btn-contrast" title="Contraste élevé">🌗</div>
+        <div class="access-btn" id="btn-dyslexie" title="Police dyslexie">Aa</div>
+        <div class="access-btn" id="btn-font-up" title="Agrandir le texte">A+</div>
+        <div class="access-btn" id="btn-font-down" title="Réduire le texte">A-</div>
+        <div class="access-btn" id="btn-motion" title="Réduire les animations">⏸</div>
+    </div>
+
+    <!-- ═══ NAV / HEADER ═══ -->
+    <nav id="navbar">
+        <a href="#" class="logo tab-link" data-tab="home">
+            <img src="https://pytel.fr/site/ia/image/medias/logo.png" alt="Académie de Normandie" class="logo-img">
+            <div class="logo-text">
+                <span class="logo-title">IA<span>cadémie</span></span>
+                <span class="logo-subtitle">Atelier Pédagogique</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navTabs">
+            <li><button class="nav-btn tab-link active" data-tab="home">Accueil</button></li>
+            <li><button class="nav-btn tab-link" data-tab="vision">Vision AI</button></li>
+            <li><button class="nav-btn tab-link" data-tab="todo">Magic ToDo</button></li>
+            <li><button class="nav-btn tab-link" data-tab="formalizer">Formalizer</button></li>
+            <li><button class="nav-btn tab-link" data-tab="audio">Voice AI</button></li>
+            <li><button class="nav-btn tab-link" data-tab="professor">Professor</button></li>
+            <li><button class="nav-btn tab-link" data-tab="settings">⚙️ Configuration</button></li>
+        </ul>
+        <div class="status-badge checking" id="serverStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">Vérification Ollama...</span>
+        </div>
+    </nav>
+
+    <!-- ═══ APP WRAPPER ═══ -->
+    <main class="app-container">
+
+        <!-- TAB 1: HOME HUB -->
+        <section class="tab-content active" id="tab-home">
+            <!-- HERO -->
+            <section class="hero" id="hero">
+                <div class="floating-cards">
+                    <div class="float-card"><span class="fc-icon">📖</span> Vision Art</div>
+                    <div class="float-card"><span class="fc-icon">🧠</span> TDAH · DYS · TSA</div>
+                    <div class="float-card"><span class="fc-icon">🎯</span> Découpe Tâches</div>
+                    <div class="float-card"><span class="fc-icon">🎙️</span> Synthèse Vocale</div>
+                </div>
+
+                <div class="hero-badge">Portail académique inclusif & local</div>
+
+                <h1>
+                    La puissance de l'IA,<br>
+                    <span class="highlight">en local</span>, en toute<br>
+                    <em>sécurité</em>
+                </h1>
+
+                <p>
+                    Des outils intelligents conçus pour accompagner les élèves et enseignants dans leurs activités quotidiennes — sans qu'aucune donnée ne quitte votre ordinateur.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="#outils" class="btn-primary" onclick="showToast('Défilement vers les outils')">Découvrir les outils</a>
+                    <button class="btn-secondary" onclick="checkOllamaStatus()">Vérifier le serveur</button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number" data-count="1">gemma4</div>
+                        <div class="stat-label">Modèle local principal</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="4">4</div>
+                        <div class="stat-label">Outils disponibles</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="100">%</div>
+                        <div class="stat-label">Confidentialité garantie</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEARCH BAR -->
+            <div class="search-section" id="outils">
+                <div class="search-wrap reveal">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Chercher un outil, un profil d'adaptation..." id="searchInput">
+                    <div class="search-tags">
+                        <span class="stag" onclick="filterTools('vision')">Vision</span>
+                        <span class="stag" onclick="filterTools('todo')">ToDo</span>
+                        <span class="stag" onclick="filterTools('formalizer')">Formalizer</span>
+                        <span class="stag" onclick="filterTools('audio')">Voice AI</span>
+                        <span class="stag" onclick="filterTools('tout')">Tout afficher</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOLS GRID -->
+            <section class="tools-section">
+                <div class="section-header reveal">
+                    <div class="section-tag">🛠 Outils pédagogiques</div>
+                    <h2 class="section-title">Des outils intelligents pour <em>tous</em></h2>
+                    <p class="section-desc">Chaque outil exploite l'IA locale pour simplifier des tâches d'analyse d'image, d'organisation, d'écriture et de transcription.</p>
+                </div>
+
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Tool 1: Vision AI -->
+                    <div class="tool-card reveal" data-tags="vision image description" data-target-tab="vision" style="--card-accent: linear-gradient(90deg,#dc2626,#ea580c)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(220,38,38,0.08);--icon-glow:rgba(220,38,38,0.12)">👁️</div>
+                        <div class="tool-tag" style="background:rgba(220,38,38,0.06);color:var(--accent1)">Vision</div>
+                        <h3>Vision AI</h3>
+                        <p>Analysez le contenu de vos images, extrayez du texte (OCR) ou réalisez une analyse artistique en local grâce aux capacités multimodales du modèle gemma4.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Modèle local actif</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Magic ToDo -->
+                    <div class="tool-card reveal reveal-delay-1" data-tags="todo organisation planification" data-target-tab="todo" style="--card-accent: linear-gradient(90deg,#ea580c,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(234,88,12,0.08);--icon-glow:rgba(234,88,12,0.12)">🎯</div>
+                        <div class="tool-tag" style="background:rgba(234,88,12,0.06);color:var(--accent2)">Organisation</div>
+                        <h3>Magic ToDo</h3>
+                        <p>Découpe des tâches ou projets complexes en étapes simples à réaliser. Idéal pour surmonter l'immobilisme face à un projet intimidant.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Adaptatif (Piquant)</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Formalizer -->
+                    <div class="tool-card reveal reveal-delay-2" data-tags="formalizer ecriture reformulation" data-target-tab="formalizer" style="--card-accent: linear-gradient(90deg,#16a34a,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(22,163,74,0.08);--icon-glow:rgba(22,163,74,0.12)">✍️</div>
+                        <div class="tool-tag" style="background:rgba(22,163,74,0.06);color:var(--accent3)">Écriture</div>
+                        <h3>Formalizer</h3>
+                        <p>Reformule vos écrits pour en adapter le ton. Exprimez vos idées et laissez l'IA les rendre plus professionnelles, polies, amicales ou simples.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">6 profils de tons</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: Voice AI -->
+                    <div class="tool-card reveal reveal-delay-3" data-tags="audio voix transcription" data-target-tab="audio" style="--card-accent: linear-gradient(90deg,#7c3aed,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(124,58,237,0.08);--icon-glow:rgba(124,58,237,0.12)">🎙️</div>
+                        <div class="tool-tag" style="background:rgba(124,58,237,0.06);color:var(--accent5)">Audio</div>
+                        <h3>Voice AI</h3>
+                        <p>Transcrit vos fichiers audio avec horodatage et identification des interlocuteurs, puis génère automatiquement des résumés, fiches ou cartes mentales.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Diarisation locale</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Chef (Prochainement) -->
+                    <div class="tool-card disabled reveal hidden-tool" data-tags="cuisine" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🍳</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Cuisine</div>
+                        <h3>Chef</h3>
+                        <p>Trouve des recettes créatives à partir d'une simple liste des ingrédients restants dans vos placards ou votre réfrigérateur.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Estimator (Prochainement) -->
+                    <div class="tool-card disabled reveal reveal-delay-1 hidden-tool" data-tags="temps estimation" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">⏱️</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Planification</div>
+                        <h3>Estimator</h3>
+                        <p>Estime le temps nécessaire pour réaliser une activité en se basant sur des profils de concentration réglables.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Judge (Prochainement) -->
+                    <div class="tool-card disabled reveal reveal-delay-2 hidden-tool" data-tags="judge decryptage message emotions" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">⚖️</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Analyse de ton</div>
+                        <h3>Judge</h3>
+                        <p>Décrypte le ton d'un message (e.g. e-mail ou SMS) pour vous aider à en déceler l'émotion sous-jacente ou les intentions cachées.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 5: Professor -->
+                    <div class="tool-card reveal reveal-delay-3" data-tags="professor explication concept apprentissage" data-target-tab="professor" style="--card-accent: linear-gradient(90deg,#dc2626,#ea580c)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(220,38,38,0.08);--icon-glow:rgba(220,38,38,0.12)">🧑‍🏫</div>
+                        <div class="tool-tag" style="background:rgba(220,38,38,0.06);color:var(--accent1)">Enseignement</div>
+                        <h3>Professor</h3>
+                        <p>Explique des concepts complexes en multipliant les représentations : texte simple, métaphores, schémas ou définitions clés.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Option UDL Représentation</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Compiler (Prochainement) -->
+                    <div class="tool-card disabled reveal hidden-tool" data-tags="compiler organisation idees notes" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🗂️</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Organisation</div>
+                        <h3>Compiler</h3>
+                        <p>Prend un vrac d'idées, des notes confuses ou un remue-méninges désordonné et les compile en une liste de tâches structurée.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Consultant (Prochainement) -->
+                    <div class="tool-card disabled reveal reveal-delay-1 hidden-tool" data-tags="consultant conseils decision aide" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🤝</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Aide à la décision</div>
+                        <h3>Consultant</h3>
+                        <p>Propose des conseils, des suggestions et un accompagnement logique lorsque vous hésitez face à un choix difficile.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROFILS D'APPRENTISSAGE -->
+            <section class="profiles-section" id="profils">
+                <div class="section-header reveal">
+                    <div class="section-tag">👤 Accessibilité</div>
+                    <h2 class="section-title">Adapté à <em>votre profil d'apprentissage</em></h2>
+                    <p class="section-desc">Découvrez comment nos interfaces s'adaptent et comment les profils favorisent un parcours adapté.</p>
+                </div>
+                <div class="profiles-grid">
+                    <div class="profile-card reveal" style="--prof-color:var(--accent1);--prof-border:rgba(220,38,38,0.2)" onclick="showToast('Profil Dyslexie : Police et espacements adaptés')">
+                        <span class="profile-emoji">📖</span>
+                        <h4>Dyslexie / Dysorthographie</h4>
+                        <p>Police simplifiée (Aa), espacement élargi, contrastes ajustés et retours sonores.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-1" style="--prof-color:var(--accent2);--prof-border:rgba(234,88,12,0.2)" onclick="showToast('Profil TDAH : Tâches morcelées & timers')">
+                        <span class="profile-emoji">⚡</span>
+                        <h4>TDAH / TDA</h4>
+                        <p>Morcellement extrême des projets avec Magic ToDo pour vaincre le découragement.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-2" style="--prof-color:var(--accent3);--prof-border:rgba(22,163,74,0.2)" onclick="showToast('Profil TSA : Langage structuré')">
+                        <span class="profile-emoji">🌈</span>
+                        <h4>TSA (Autisme)</h4>
+                        <p>Consignes explicites, pas-à-pas et ton de reformulation très direct.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-3" style="--prof-color:var(--accent5);--prof-border:rgba(124,58,237,0.2)" onclick="showToast('Profil Enseignant : Préparation de cours')">
+                        <span class="profile-emoji">🧑‍🏫</span>
+                        <h4>Enseignants & AVS</h4>
+                        <p>Création rapide de fiches, résumés et cartes mentales pour diversifier vos supports.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURES DESCRIPTION -->
+            <section class="features-section" id="fonctions">
+                <div class="section-header reveal">
+                    <div class="section-tag">⚙️ Performances</div>
+                    <h2 class="section-title">Une technologie <em>local-first</em></h2>
+                </div>
+                <div class="features-layout">
+                    <div class="features-visual reveal">
+                        <div class="features-screen">
+                            <div class="screen-bar"><span></span><span></span><span></span></div>
+                            <div class="screen-line long accent"></div>
+                            <div class="screen-line medium" style="animation-delay:.2s"></div>
+                            <div class="screen-line short" style="animation-delay:.4s"></div>
+                            <div class="screen-cards">
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(220,38,38,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(234,88,12,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(22,163,74,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(124,58,237,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                            </div>
+                            <div class="screen-line medium" style="margin-top:16px;animation-delay:.6s"></div>
+                        </div>
+                        <div class="features-badge b1"><span class="badge-icon">🔒</span> Données 100% privées</div>
+                        <div class="features-badge b2"><span class="badge-icon">🤖</span> Ollama gemma4:12b</div>
+                    </div>
+
+                    <div class="features-list reveal reveal-delay-2">
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(220,38,38,0.08)">🤖</div>
+                            <div class="fi-content">
+                                <h4>Traitement Multimodal Rapide</h4>
+                                  <p>Grâce aux avancées de gemma4, les requêtes contenant des fichiers images ou audios sont traitées de manière fluide en local.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(22,163,74,0.08)">🔒</div>
+                            <div class="fi-content">
+                                <h4>Souveraineté des Données</h4>
+                                <p>Idéal pour l'Éducation Nationale et les règlements RGPD : aucun stockage externe, aucun serveur tiers, totale conformité.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(234,88,12,0.08)">⚙️</div>
+                            <div class="fi-content">
+                                <h4>Zéro Coût de Requête</h4>
+                                <p>Pas d'abonnement API, pas de limites d'utilisation journalières. L'intelligence tourne tant que votre machine est allumée.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TÉMOIGNAGES -->
+            <section class="testimonials-section" id="temoignages">
+                <div class="section-header reveal">
+                    <div class="section-tag">💬 Témoignages</div>
+                    <h2 class="section-title">Ce qu'ils <em>en pensent</em></h2>
+                </div>
+                <div class="testimonials-track">
+                    <div class="testimonials-inner" id="testiInner">
+                        <!-- Original -->
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« Magic ToDo a débloqué mon approche face à la préparation des cours de SVT. En morcelant les étapes, je gagne un temps précieux. »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(220,38,38,0.2);color:var(--accent1)">J</div>
+                                <div>
+                                    <div class="testi-name">Jean-Baptiste R.</div>
+                                    <div class="testi-role">Professeur de collège, Caen</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« La transcription audio combinée aux cartes mentales Mermaid générées par Voice AI me permet de réviser mes cours de manière très visuelle. »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(22,163,74,0.2);color:var(--accent3)">L</div>
+                                <div>
+                                    <div class="testi-name">Lucie D.</div>
+                                    <div class="testi-role">Étudiante en licence, Rouen</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« Grâce à Vision AI et à l'extraction de texte OCR en local, je peux rapidement récupérer et adapter des documents imprimés pour mes élèves DYS. »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(234,88,12,0.2);color:var(--accent2)">A</div>
+                                <div>
+                                    <div class="testi-name">Aurélie H.</div>
+                                    <div class="testi-role">Accompagnatrice AESH, Evreux</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- TAB 2: VISION AI -->
+        <section class="tab-content" id="tab-vision">
+            <div class="workspace-header">
+                <h2>Outil : Vision AI</h2>
+                <p>Uploadez une image et laissez <code>gemma4:12b</code> l'analyser ou transcrire son texte.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>1. Charger une image</h2>
+                    </div>
+
+                    <div class="drop-zone" id="dropZone">
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+                        <div class="drop-zone-content" id="dropZoneContent">
+                            <div class="upload-icon">📸</div>
+                            <p class="primary-text">Glissez-déposez une image ici</p>
+                            <p class="secondary-text">ou cliquez pour parcourir les fichiers</p>
+                            <div class="paste-badge">Supporte le copier-coller (Ctrl+V)</div>
+                        </div>
+
+                        <div class="preview-container" id="previewContainer" style="display: none;">
+                            <img id="imagePreview" src="" alt="Aperçu de l'image">
+                            <div class="preview-overlay">
+                                <button class="btn btn-secondary btn-sm" id="changeImageBtn">
+                                    Changer d'image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prompt-section">
+                        <div class="panel-header">
+                            <h2>2. Consigne pour le modèle</h2>
+                        </div>
+
+                        <div class="presets-container">
+                            <button class="preset-btn active" data-prompt="Décris en détail le contenu de cette image.">Description générale</button>
+                            <button class="preset-btn" data-prompt="Extrais tout le texte visible dans cette image sous forme de transcription fidèle.">Extraire le texte (OCR)</button>
+                            <button class="preset-btn" data-prompt="Quels sont les objets clés présents sur cette image et où se trouvent-ils ? (Fais une liste)">Détecter les objets</button>
+                            <button class="preset-btn" data-prompt="Analyse l'ambiance, les couleurs et le style artistique de cette image.">Analyse artistique</button>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <textarea id="promptInput" rows="3" placeholder="Entrez vos instructions pour l'analyse de l'image...">Décris en détail le contenu de cette image.</textarea>
+                        </div>
+
+                        <button class="btn btn-primary" id="generateBtn" disabled>
+                            <span class="btn-text">Générer la description</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>3. Analyse de l'image</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="copyBtn" title="Copier le résultat" disabled>📋</button>
+                            <button class="btn btn-icon" id="clearBtn" title="Effacer" disabled>🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="outputPlaceholder">
+                            <p>Le résultat de l'analyse s'affichera ici en temps réel.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="skeletonLoader" style="display: none;">
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 70%;"></div>
+                        </div>
+
+                        <div class="output-text markdown-content" id="outputText" style="display: none;"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- TAB 3: MAGIC TO DO -->
+        <section class="tab-content" id="tab-todo">
+            <div class="workspace-header">
+                <h2>Outil : Magic ToDo</h2>
+                <p>Divisez n'importe quelle tâche intimidante en micro-étapes gérables.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>Découper une tâche complexe</h2>
+                    </div>
+
+                    <div class="todo-form">
+                        <div class="input-wrapper">
+                            <textarea id="todoInput" rows="3" placeholder="Saisissez la tâche que vous souhaitez découper... (ex: 'Ranger la bibliothèque de la classe', 'Préparer mon exposé de géographie')"></textarea>
+                        </div>
+
+                        <div class="spiciness-section">
+                            <div class="spiciness-header">
+                                <span>Niveau de détail (Piquant) :</span>
+                                <span id="spicinessVal" class="spiciness-label">3🌶️</span>
+                            </div>
+                            <input type="range" id="todoSpiciness" min="1" max="5" value="3" class="spiciness-slider">
+                            <div class="spiciness-ticks">
+                                <span>Peu détaillé</span>
+                                <span>Très détaillé</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="todoSubmitBtn">
+                            <span class="btn-text">Découper la tâche</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Plan d'action</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="todoCopyBtn" title="Copier la liste" disabled>📋</button>
+                            <button class="btn btn-icon" id="todoClearBtn" title="Effacer" disabled>🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="todoPlaceholder">
+                            <p>Entrez une tâche pour générer des étapes claires et surmontables.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="todoSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                            <div class="skeleton-line" style="width: 75%;"></div>
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                        </div>
+
+                        <div class="todo-list-container" id="todoListContainer" style="display: none;">
+                            <!-- La checklist dynamique sera injectée ici -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- TAB 4: FORMALIZER -->
+        <section class="tab-content" id="tab-formalizer">
+            <div class="workspace-header">
+                <h2>Outil : Formalizer</h2>
+                <p>Ajustez le ton de vos écrits et adaptez votre communication.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>Reformuler un message</h2>
+                    </div>
+
+                    <div class="formalizer-form">
+                        <div class="input-wrapper">
+                            <textarea id="formalizerInput" rows="5" placeholder="Entrez le texte ou l'idée générale à reformuler..."></textarea>
+                        </div>
+
+                        <div class="tone-section">
+                            <label class="section-label">Sélectionnez le ton souhaité :</label>
+                            <div class="tones-grid" id="tonesGrid">
+                                <button class="tone-btn active" data-tone="professionnel">💼 Professionnel</button>
+                                <button class="tone-btn" data-tone="poli">🌸 Poli & Courtois</button>
+                                <button class="tone-btn" data-tone="direct">🎯 Direct & Concis</button>
+                                <button class="tone-btn" data-tone="amical">😊 Chaleureux & Amical</button>
+                                <button class="tone-btn" data-tone="simple">💡 Plus Simple (Facile)</button>
+                                <button class="tone-btn" data-tone="sarcastique">🎭 Sarcastique</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="formalizerSubmitBtn">
+                            <span class="btn-text">Reformuler</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Résultat de la reformulation</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="formalizerCopyBtn" title="Copier le texte" disabled>📋</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="formalizerPlaceholder">
+                            <p>Le texte reformulé s'affichera ici.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="formalizerSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                        </div>
+
+                        <div class="output-text" id="formalizerOutput" style="display: none;"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- TAB 5: VOICE AI -->
+        <section class="tab-content" id="tab-audio">
+            <div class="workspace-header">
+                <h2>Outil : Voice AI</h2>
+                <p>Transcrivez vos enregistrements et générez des supports pédagogiques.</p>
+            </div>
+            <div class="app-grid">
+                <!-- Panneau de chargement -->
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>1. Analyser un fichier audio</h2>
+                    </div>
+
+                    <div class="drop-zone" id="audioDropZone">
+                        <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+
+                        <div class="drop-zone-content" id="audioDropZoneContent">
+                            <div class="upload-icon">🎙️</div>
+                            <p class="primary-text">Glissez-déposez un fichier audio ici</p>
+                            <p class="secondary-text">ou cliquez pour sélectionner (MP3, WAV, M4A)</p>
+                        </div>
+
+                        <div class="preview-container audio-preview" id="audioPreviewContainer" style="display: none;">
+                            <div class="audio-player-wrapper">
+                                <div class="audio-wave-anim">
+                                    <span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                                <p id="audioFileName" class="file-name-display">nom_du_fichier.mp3</p>
+                                <audio id="audioPlayer" controls></audio>
+                            </div>
+                            <div class="preview-overlay">
+                                <button class="btn btn-secondary btn-sm" id="changeAudioBtn">
+                                    Changer de fichier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prompt-section">
+                        <button class="btn btn-primary" id="transcribeBtn" disabled>
+                            <span class="btn-text">Transcrire & Identifier</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Panneau de transcription -->
+                <section class="panel result-panel" id="transcriptionPanel">
+                    <div class="panel-header">
+                        <h2>2. Transcription Détaillée</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="audioCopyBtn" title="Copier" disabled>📋</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="audioPlaceholder">
+                            <p>La transcription apparaîtra ici avec l'horodatage et les interlocuteurs.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="audioSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 30%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                            <div class="skeleton-line" style="width: 25%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                        </div>
+
+                        <div class="output-text markdown-content" id="audioOutput" style="display: none;"></div>
+                    </div>
+                </section>
+
+                <!-- Documents dérivés (Plein écran sous les deux colonnes) -->
+                <section class="panel result-panel" id="documentsPanel" style="display: none; grid-column: 1 / -1; min-height: auto;">
+                    <div class="panel-header">
+                        <h2>3. Générer des documents (Post-traitement)</h2>
+                    </div>
+                    <div class="tones-grid post-doc-grid">
+                        <button class="tone-btn doc-btn" data-doc="resume">📝 Résumé rapide</button>
+                        <button class="tone-btn doc-btn" data-doc="fiche">📋 Fiche de Synthèse</button>
+                        <button class="tone-btn doc-btn" data-doc="mindmap">🧠 Carte Mentale (Mermaid)</button>
+                    </div>
+                    <div class="output-container" id="docOutputContainer" style="display: none; margin-top: 1.5rem; min-height: 200px; max-height:none;">
+                        <div class="skeleton-loader" id="docSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 60%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 70%;"></div>
+                        </div>
+                        <div class="output-text markdown-content" id="docOutput"></div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- TAB 6: PROFESSOR -->
+        <section class="tab-content" id="tab-professor">
+            <div class="workspace-header">
+                <h2>Outil : Professor (Conception UDL)</h2>
+                <p>Expliquez n'importe quelle notion en adaptant la représentation selon vos besoins d'apprentissage.</p>
+            </div>
+            
+            <div class="professor-layout">
+                <!-- CUA Modes Selector Sidebar -->
+                <div class="cua-sidebar">
+                    <h3 class="sidebar-title">Modes de Représentation</h3>
+                    <p class="sidebar-desc">Comment souhaitez-vous que le concept soit représenté ? (Principe I de l'UDL)</p>
+                    
+                    <div class="cua-options-list">
+                        <label class="cua-option active" data-mode="simplifie">
+                            <input type="radio" name="cua-mode" value="simplifie" checked style="display:none;">
+                            <span class="cua-option-icon">💡</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Texte Simplifié</span>
+                                <span class="cua-option-desc">Focus sur l'essentiel et les idées directrices.</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="metaphore">
+                            <input type="radio" name="cua-mode" value="metaphore" style="display:none;">
+                            <span class="cua-option-icon">🎭</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Métaphore & Analogie</span>
+                                <span class="cua-option-desc">Explication imagée reliée au quotidien.</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="schema">
+                            <input type="radio" name="cua-mode" value="schema" style="display:none;">
+                            <span class="cua-option-icon">🗺️</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Schéma Conceptuel</span>
+                                <span class="cua-option-desc">Relations logiques et cartographie conceptuelle (Mermaid).</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="glossaire">
+                            <input type="radio" name="cua-mode" value="glossaire" style="display:none;">
+                            <span class="cua-option-icon">📖</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Glossaire & Vocabulaire</span>
+                                <span class="cua-option-desc">Définition pas-à-pas des mots clés indispensables.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Chat Window -->
+                <div class="chat-panel">
+                    <div class="panel-header">
+                        <h2>Expliquer une notion (Chat local)</h2>
+                        <button class="btn btn-secondary btn-sm" id="clearChatBtn">Recommencer</button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-bubble system-message">
+                            <p>Bonjour ! Quel concept souhaitez-vous comprendre aujourd'hui ? Saisissez une notion ci-dessous et sélectionnez la représentation de votre choix dans le volet de gauche.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-wrapper">
+                        <div class="input-wrapper">
+                            <textarea id="professorInput" rows="2" placeholder="Ex: 'La photosynthèse', 'Les fractions', 'Le théorème de Pythagore'..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="sendConceptBtn">
+                            <span class="btn-text">Expliquer</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: SETTINGS -->
+        <section class="tab-content" id="tab-settings">
+            <div class="workspace-header">
+                <h2>Configuration de l'IA</h2>
+                <p>Configurez le fournisseur d'intelligence artificielle (local ou distant) et sélectionnez le modèle actif.</p>
+            </div>
+            
+            <div class="app-grid">
+                <!-- Panneau Configuration -->
+                <section class="panel input-panel" style="min-height:auto;">
+                    <div class="panel-header">
+                        <h2>1. Gestion des Fournisseurs</h2>
+                    </div>
+                    
+                    <div class="settings-form">
+                        <div class="tone-section">
+                            <label class="section-label">Sélectionnez une plateforme :</label>
+                            <div class="provider-options" id="providerOptionsContainer">
+                                <!-- Dynamically populated by settings.js -->
+                            </div>
+                        </div>
+
+                        <!-- Add Custom Provider Form -->
+                        <div id="addProviderForm" style="display: none; margin-top: 16px; border: 1px solid var(--border); padding: 16px; border-radius: var(--radius); background: var(--surface2);">
+                            <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: var(--accent1); font-weight:600;">Nouveau fournisseur</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 70px; gap: 12px; margin-bottom: 12px;">
+                                <div>
+                                    <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">Nom du fournisseur :</label>
+                                    <input type="text" id="customProviderName" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Ex: Mon API OpenAI">
+                                </div>
+                                <div>
+                                    <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px; text-align:center;">Emoji :</label>
+                                    <input type="text" id="customProviderIcon" class="search-input" style="height: 38px; width:100%; border-radius: 8px; text-align: center; font-size: 1.1rem; padding: 0;" value="⚡">
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">URL de l'API :</label>
+                                <input type="text" id="customProviderUrl" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Ex: https://api.openai.com/v1">
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">Clé API (optionnelle) :</label>
+                                <input type="password" id="customProviderKey" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Saisir la clé...">
+                            </div>
+
+                            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                <button class="btn" id="cancelAddProviderBtn" style="height: 36px; font-size: 0.8rem; padding: 0 16px; background: transparent; border: 1px solid var(--border);">Annuler</button>
+                                <button class="btn btn-primary" id="confirmAddProviderBtn" style="height: 36px; font-size: 0.8rem; padding: 0 16px;">Ajouter</button>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper" style="margin-top: 14px;">
+                            <label class="section-label" style="display:block; margin-bottom: 6px;">URL de l'API :</label>
+                            <input type="text" id="apiEndpointInput" class="search-input" style="border-radius: 8px; padding-left: 16px;">
+                        </div>
+
+                        <div class="input-wrapper" style="margin-top: 14px;">
+                            <label class="section-label" style="display:block; margin-bottom: 6px;">Clé API (si nécessaire) :</label>
+                            <input type="password" id="apiKeyInput" class="search-input" style="border-radius: 8px; padding-left: 16px;" placeholder="Saisir la clé API...">
+                        </div>
+                        
+                        <button class="btn btn-primary" id="saveSettingsBtn" style="margin-top:16px; width:100%;">
+                            <span class="btn-text">Vérifier & Enregistrer</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Panneau Configuration des Outils -->
+                <section class="panel result-panel" style="min-height:auto;">
+                    <div class="panel-header">
+                        <h2>2. Configuration des Outils</h2>
+                    </div>
+                    
+                    <div class="settings-results">
+                        <div class="tool-config-list" id="toolConfigList" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
+                            <!-- Dynamically populated by settings.js -->
+                        </div>
+                        
+                        <div id="settingsConnectionStatus" class="status-box info-box" style="margin-top:20px;">
+                            <p>Prêt. Configurez vos outils ci-dessus.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#" class="logo tab-link" data-tab="home">
+                <img src="https://pytel.fr/site/ia/image/medias/logo.png" alt="Académie de Normandie" class="logo-img" style="height: 32px; width: auto;">
+                <div class="logo-text">
+                    <span class="logo-title" style="font-size: 1.1rem;">IA<span>cadémie</span></span>
+                </div>
+            </a>
+            <div class="footer-links">
+                <a href="#">À propos</a>
+                <a href="#">Accessibilité</a>
+                <a href="#">RGPD</a>
+                <a href="#">Académie de Normandie</a>
+            </div>
+            <div class="footer-copy">© 2026 IAcadémie — Tous droits réservés</div>
+        </div>
+    </footer>
+
+    <!-- Marked Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Mermaid diagram library -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+</body>
+
+</html>

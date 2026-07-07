@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "discipline": "Marketing",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC",
+    "mise_a_jour": "2026-06-13"
+  },
+  "competences": [
+    {
+      "intitule": "Conduire les actions marketing",
+      "details": [
+        "Analyser les contextes économiques, juridiques et financiers",
+        "Évaluer les acteurs de l'offre et quantifier la demande",
+        "Élaborer un mix marketing adapté et positionné",
+        "Adopter une posture éthique et écologique"
+      ]
+    },
+    {
+      "intitule": "Marketing stratégique",
+      "details": [
+        "Segmenter le marché et cibler les segments prioritaires",
+        "Définir le positionnement de la marque ou du produit",
+        "Réaliser un diagnostic SWOT (Forces, Faiblesses, Opportunités, Menaces)"
+      ]
+    },
+    {
+      "intitule": "Marketing opérationnel",
+      "details": [
+        "Définir la politique produit et les services associés",
+        "Fixer les prix selon la valeur perçue et les coûts",
+        "Choisir les canaux de distribution (Omnicanalité)"
+      ]
+    }
+  ]
+}

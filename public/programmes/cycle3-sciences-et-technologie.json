@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "discipline": "Sciences et technologie",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°25 du 22 juin 2023 — Programme de sciences et technologie du cycle 3",
+    "mise_a_jour": "2023-06-22"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer des démarches scientifiques et technologiques",
+    "Concevoir, créer, réaliser un objet technique",
+    "S'approprier des outils et des méthodes",
+    "Pratiquer des langages scientifiques",
+    "Mobiliser des outils numériques",
+    "Adopter un comportement éthique et responsable"
+  ],
+  "domaines": [
+    {
+      "nom": "Le vivant, sa diversité et les fonctions qui le caractérisent",
+      "description": "Classer les êtres vivants, comprendre les fonctions de nutrition, reproduction et relation.",
+      "competences": [
+        {
+          "intitule": "Classer les organismes, exploiter les liens de parenté pour comprendre et expliquer l'évolution",
+          "exemples_themes": ["Classer les vertébrés et invertébrés", "L'arbre du vivant et les critères de classification", "Observer et classer les êtres vivants de la cour", "Fossiles et évolution des espèces"]
+        },
+        {
+          "intitule": "Expliquer les besoins variables en aliments de l'être humain ; les fonctions de nutrition",
+          "exemples_themes": ["La digestion : le trajet des aliments", "La respiration et les échanges gazeux", "La circulation sanguine", "L'alimentation équilibrée et les groupes d'aliments"]
+        },
+        {
+          "intitule": "Décrire comment les êtres vivants se développent et deviennent aptes à se reproduire",
+          "exemples_themes": ["Le cycle de vie d'un papillon, d'une grenouille", "Reproduction sexuée et asexuée", "La germination et la croissance des plantes", "Puberté et reproduction humaine (6e)"]
+        },
+        {
+          "intitule": "Expliquer l'origine de la matière organique des êtres vivants et son devenir",
+          "exemples_themes": ["La photosynthèse (expérience avec des plantes)", "Les chaînes et réseaux alimentaires", "La décomposition de la matière organique", "Le rôle des décomposeurs dans le sol"]
+        }
+      ]
+    },
+    {
+      "nom": "La planète Terre. Les êtres vivants dans leur environnement",
+      "description": "Situer la Terre dans le système solaire, comprendre les phénomènes naturels et les enjeux environnementaux.",
+      "competences": [
+        {
+          "intitule": "Situer la Terre dans le système solaire et caractériser les conditions de la vie terrestre",
+          "exemples_themes": ["Le système solaire (maquette à l'échelle)", "Jour/nuit : la rotation de la Terre", "Les saisons : l'inclinaison de l'axe terrestre", "La Lune et ses phases"]
+        },
+        {
+          "intitule": "Identifier des enjeux liés à l'environnement",
+          "exemples_themes": ["Les écosystèmes locaux (mare, forêt, haie)", "L'impact de l'homme sur l'environnement", "Le changement climatique expliqué simplement", "La biodiversité : pourquoi la protéger ?", "Le tri des déchets et le recyclage"]
+        },
+        {
+          "intitule": "Identifier les composantes biologiques et géologiques d'un paysage",
+          "exemples_themes": ["Les roches et les minéraux (observation, tri)", "Volcans et séismes : les manifestations de l'activité interne de la Terre", "Le cycle de l'eau dans la nature", "L'érosion et la formation des paysages"]
+        }
+      ]
+    },
+    {
+      "nom": "Matière, mouvement, énergie, information",
+      "description": "Identifier les états de la matière, les sources d'énergie, les mouvements et les signaux.",
+      "competences": [
+        {
+          "intitule": "Décrire les états et la constitution de la matière à l'échelle macroscopique",
+          "exemples_themes": ["Les trois états de l'eau (solide, liquide, gaz)", "Les changements d'état (fusion, solidification, évaporation)", "Mélanges et solutions (sel dans l'eau, huile et eau)", "La masse et le volume"]
+        },
+        {
+          "intitule": "Observer et décrire différents types de mouvements",
+          "exemples_themes": ["Mouvement rectiligne, circulaire, oscillatoire", "Vitesse et trajectoire", "Le mouvement des planètes", "Mesurer des vitesses simples"]
+        },
+        {
+          "intitule": "Identifier différentes sources et formes d'énergie",
+          "exemples_themes": ["Énergies renouvelables et non renouvelables", "Le circuit électrique simple (pile, ampoule, interrupteur)", "Conducteurs et isolants électriques", "L'énergie au quotidien (chauffage, transport, alimentation)"]
+        },
+        {
+          "intitule": "Identifier un signal et une information",
+          "exemples_themes": ["Signaux lumineux, sonores, radio", "Le code Morse et le codage de l'information", "Les capteurs dans la vie quotidienne", "Signal analogique vs signal numérique (initiation)"]
+        }
+      ]
+    },
+    {
+      "nom": "Matériaux et objets techniques",
+      "description": "Concevoir et réaliser des objets techniques, comprendre le fonctionnement d'objets du quotidien.",
+      "competences": [
+        {
+          "intitule": "Identifier les principales familles de matériaux et leurs propriétés",
+          "exemples_themes": ["Bois, métal, plastique, verre, céramique", "Tester les propriétés (conductivité, résistance, souplesse)", "Choisir un matériau adapté à une fonction", "Le recyclage des matériaux"]
+        },
+        {
+          "intitule": "Concevoir et produire un objet technique en équipe",
+          "exemples_themes": ["Concevoir un objet qui résout un problème", "Le cahier des charges simplifié", "Réaliser un prototype et le tester", "Améliorer un objet après évaluation"]
+        },
+        {
+          "intitule": "Repérer et comprendre la communication et la gestion de l'information",
+          "exemples_themes": ["Programmer un robot (Scratch, mBot)", "Les capteurs et actionneurs", "Algorithme : séquence, boucle, condition", "Créer un programme simple avec Scratch"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de sciences et technologie du cycle 3 s'organise en quatre thèmes : le vivant, la planète Terre, matière-mouvement-énergie-information, et matériaux-objets techniques. La démarche d'investigation est centrale : observer, questionner, expérimenter, modéliser, conclure. Les élèves développent un esprit scientifique et une culture technologique. La programmation (Scratch) est introduite dans le cadre des objets techniques. Le programme prépare la transition vers les disciplines séparées du cycle 4 (SVT, physique-chimie, technologie)."
+}

@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Histoire des Arts",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'histoire des arts option et spécialité lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Analyser une œuvre d'art en mobilisant des outils méthodologiques variés",
+    "Situer les œuvres dans leur contexte historique, social et culturel",
+    "Construire une réflexion personnelle et argumentée sur l'art",
+    "Fréquenter les lieux de culture et développer une pratique de spectateur",
+    "Maîtriser un vocabulaire technique et critique"
+  ],
+  "domaines": [
+    {
+      "nom": "Les arts et la cité (2nde)",
+      "description": "Les fonctions de l'art dans l'espace public et la vie collective.",
+      "competences": [
+        {
+          "intitule": "Analyser le rôle de l'art dans l'espace public et la vie collective",
+          "exemples_themes": ["Un monument commémoratif (Arc de triomphe, mémorial du 11-Septembre)", "L'architecture et l'urbanisme (Haussmann, Le Corbusier, Gehry)", "Le street art comme art public (Banksy, JR, C215)", "L'art et la commande publique en France (1 % artistique)"]
+        }
+      ]
+    },
+    {
+      "nom": "Formes et circulations artistiques (1ère)",
+      "description": "Les échanges artistiques à travers le temps et l'espace.",
+      "competences": [
+        {
+          "intitule": "Étudier les circulations et les influences artistiques entre cultures et époques",
+          "exemples_themes": ["Le japonisme en Europe au XIXe siècle (estampes, Van Gogh, Monet)", "L'art africain et les avant-gardes européennes (Picasso, Matisse)", "La diffusion mondiale du cinéma (Hollywood, Bollywood, Nollywood)", "Le design et la mondialisation (IKEA, design scandinave)"]
+        },
+        {
+          "intitule": "Analyser l'évolution d'un genre ou d'un thème à travers les époques",
+          "exemples_themes": ["Le portrait de l'Antiquité au selfie", "La représentation de la nature : du paysage romantique au land art", "Le nu dans l'art : de la Vénus de Milo à Lucian Freud", "L'architecture religieuse : cathédrale gothique, mosquée, temple"]
+        }
+      ]
+    },
+    {
+      "nom": "L'art et le sacré (Terminale)",
+      "description": "Les rapports entre art et spiritualité.",
+      "competences": [
+        {
+          "intitule": "Analyser les relations entre art et sacré à travers les civilisations",
+          "exemples_themes": ["Les vitraux de la Sainte-Chapelle ou de Chartres", "L'iconoclasme et la querelle des images (Byzance, Réforme)", "L'art sacré au XXe siècle (Matisse à Vence, Le Corbusier à Ronchamp)", "Les masques et l'art rituel dans les cultures non européennes"]
+        }
+      ]
+    },
+    {
+      "nom": "L'art et le pouvoir (Terminale)",
+      "description": "Les usages politiques de l'art.",
+      "competences": [
+        {
+          "intitule": "Étudier les rapports entre art et pouvoir politique",
+          "exemples_themes": ["La propagande par l'image (David et Napoléon, réalisme socialiste)", "L'art de résistance (Guernica de Picasso, littérature clandestine)", "Le mécénat d'État et la politique culturelle (Malraux, Mitterrand)", "L'art contemporain et la censure"]
+        }
+      ]
+    },
+    {
+      "nom": "Méthodologie de l'analyse d'œuvre",
+      "description": "Les outils et les méthodes pour analyser une œuvre d'art.",
+      "competences": [
+        {
+          "intitule": "Maîtriser les outils d'analyse d'une œuvre d'art (visuelle, musicale, scénique, littéraire)",
+          "exemples_themes": ["Analyse plastique d'un tableau (composition, couleur, lumière)", "Analyse filmique (plan, séquence, montage, bande-son)", "Analyse architecturale (plan, élévation, matériaux, programme)", "Rédaction d'un commentaire d'œuvre structuré"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'histoire des arts au lycée GT aborde les fonctions de l'art dans la cité (2nde), les circulations artistiques (1ère), et les rapports entre art, sacré et pouvoir (Terminale). Les élèves développent leurs compétences d'analyse d'œuvres variées (peinture, architecture, cinéma, musique, design) et construisent une culture artistique transversale."
+}

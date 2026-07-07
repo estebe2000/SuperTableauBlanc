@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Économie",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC"
+  },
+  "competences": [
+    {
+      "intitule": "Comprendre l'environnement économique",
+      "details": [
+        "Analyser les mécanismes de marché (offre et demande)",
+        "Comprendre les agrégats macroéconomiques (PIB, Inflation)",
+        "Étudier les politiques économiques et leurs impacts",
+        "Analyser la conjoncture internationale"
+      ]
+    }
+  ]
+}

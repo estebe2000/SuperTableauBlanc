@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "discipline": "Éducation Physique et Sportive (EPS)",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'EPS CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Développer sa motricité et construire un langage du corps",
+    "S'approprier une culture physique sportive et artistique",
+    "Exercer sa responsabilité individuelle et au sein d'un collectif",
+    "Construire durablement sa santé par l'activité physique",
+    "S'adapter aux exigences physiques de son futur métier"
+  ],
+  "domaines": [
+    {
+      "nom": "Champ d'apprentissage 1 — Réaliser une performance motrice maximale",
+      "description": "Les activités athlétiques et la natation.",
+      "competences": [
+        {
+          "intitule": "Réaliser une performance mesurée dans les activités athlétiques ou en natation",
+          "exemples_themes": ["Course de demi-fond : plan de course et gestion de l'effort", "Course de vitesse : réaction et technique de course", "Natation de vitesse : amélioration du crawl (50m)", "Saut en longueur ou lancer : technique et performance"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 2 — Adapter ses déplacements à des environnements variés",
+      "description": "Se déplacer en milieu incertain en gérant le risque.",
+      "competences": [
+        {
+          "intitule": "Se déplacer dans un environnement incertain en gérant le risque",
+          "exemples_themes": ["Escalade : lecture de voie et techniques d'assurage", "Course d'orientation : carte, boussole, gestion de l'effort", "Natation de sauvetage : techniques de sauvetage aquatique", "Randonnée : orientation terrain et gestion du groupe"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 3 — S'exprimer par une prestation artistique ou acrobatique",
+      "description": "La danse, la gymnastique, les arts du cirque.",
+      "competences": [
+        {
+          "intitule": "Concevoir et réaliser une prestation à visée artistique ou acrobatique",
+          "exemples_themes": ["Composition chorégraphique collective (danse contemporaine, hip-hop)", "Enchaînement gymnique au sol", "Création d'un numéro d'arts du cirque", "Présentation d'un spectacle de classe"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 4 — Conduire un affrontement collectif ou individuel",
+      "description": "Les sports collectifs et les sports de raquette ou de combat.",
+      "competences": [
+        {
+          "intitule": "Coopérer et s'opposer dans un sport collectif ou individuel",
+          "exemples_themes": ["Handball ou futsal : jeu de montée de balle et défense", "Volleyball ou basketball : stratégie d'équipe et communication", "Badminton : construction du point et placement", "Boxe française : touche et gestion de la distance"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 5 — Réaliser une activité physique pour entretenir sa santé",
+      "description": "La santé et la préparation physique en lien avec le métier.",
+      "competences": [
+        {
+          "intitule": "Construire un programme d'activité physique pour sa santé et son métier",
+          "exemples_themes": ["Musculation adaptée aux contraintes du métier (port de charges, posture)", "Step ou course en durée : endurance et fréquence cardiaque cible", "Étirements et prévention des TMS liés au métier", "Carnet d'entraînement et suivi de ses progrès"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EPS en lycée professionnel s'organise en cinq champs d'apprentissage identiques au lycée GT, avec une attention particulière à la santé et à la préparation physique en lien avec le futur métier. La prévention des risques professionnels (TMS, postures, port de charges) et la construction d'une pratique physique durable sont des axes prioritaires."
+}

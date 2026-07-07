@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "discipline": "Physique-Chimie",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme de physique-chimie du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer des démarches scientifiques",
+    "Concevoir et réaliser des expériences",
+    "S'approprier des outils et des méthodes",
+    "Pratiquer des langages scientifiques (formules, schémas, unités)",
+    "Mobiliser des outils numériques (tableur, simulation)",
+    "Adopter un comportement éthique et responsable"
+  ],
+  "domaines": [
+    {
+      "nom": "Organisation et transformations de la matière",
+      "description": "Constitution de la matière, transformations chimiques, molécules et atomes.",
+      "competences": [
+        {
+          "intitule": "Décrire la constitution et les états de la matière",
+          "exemples_themes": ["Les états de la matière à l'échelle microscopique", "Masse volumique et densité", "Les mélanges : homogènes et hétérogènes", "Techniques de séparation (filtration, distillation, chromatographie)"]
+        },
+        {
+          "intitule": "Décrire et expliquer des transformations chimiques",
+          "exemples_themes": ["Transformation chimique vs physique", "La combustion (bougie, fer, charbon)", "L'équation de réaction chimique", "Conservation de la masse (Lavoisier)", "Réactions acido-basiques (3e)"]
+        },
+        {
+          "intitule": "Décrire l'organisation de la matière dans l'Univers",
+          "exemples_themes": ["Atomes et molécules : modèles", "La classification périodique (initiation)", "Les ions et les solutions ioniques (3e)", "De l'atome à l'Univers : les ordres de grandeur"]
+        }
+      ]
+    },
+    {
+      "nom": "Mouvements et interactions",
+      "description": "Décrire les mouvements, modéliser les interactions, comprendre la gravitation.",
+      "competences": [
+        {
+          "intitule": "Caractériser un mouvement (trajectoire, vitesse)",
+          "exemples_themes": ["Trajectoire rectiligne, circulaire, curviligne", "Vitesse moyenne : calcul et unités", "Mouvement uniforme, accéléré, décéléré", "Relativité du mouvement (référentiel)"]
+        },
+        {
+          "intitule": "Modéliser une interaction par une force caractérisée par un point d'application, une direction, un sens et une valeur",
+          "exemples_themes": ["Le poids et la masse (P = m × g)", "La gravitation universelle (attraction Terre-Lune)", "Les forces de contact et à distance", "Diagramme objet-interactions", "Équilibre d'un objet soumis à deux forces"]
+        }
+      ]
+    },
+    {
+      "nom": "L'énergie et ses conversions",
+      "description": "Sources, formes, conversions et conservation de l'énergie ; circuits électriques.",
+      "competences": [
+        {
+          "intitule": "Identifier les sources, les transferts et les conversions d'énergie",
+          "exemples_themes": ["Les formes d'énergie (cinétique, potentielle, thermique, chimique)", "La chaîne énergétique", "Énergies renouvelables et non renouvelables", "Conservation et dissipation de l'énergie", "Puissance et énergie électrique (P = U × I)"]
+        },
+        {
+          "intitule": "Réaliser des circuits électriques simples et exploiter les lois de l'électricité",
+          "exemples_themes": ["Circuit série et circuit dérivation", "Tension (volt) et intensité (ampère)", "Loi d'Ohm (U = R × I)", "Loi d'additivité des tensions et des intensités", "Sécurité électrique (fusibles, disjoncteurs)"]
+        }
+      ]
+    },
+    {
+      "nom": "Des signaux pour observer et communiquer",
+      "description": "Signaux lumineux, sonores, communication.",
+      "competences": [
+        {
+          "intitule": "Caractériser différents types de signaux (lumineux, sonores)",
+          "exemples_themes": ["La propagation rectiligne de la lumière", "Vitesse de la lumière et vitesse du son", "Réflexion et réfraction (initiation)", "Le spectre de la lumière blanche (prisme)", "Fréquence et hauteur d'un son"]
+        },
+        {
+          "intitule": "Utiliser les propriétés de ces signaux pour communiquer",
+          "exemples_themes": ["Signal analogique vs signal numérique", "La fibre optique", "Les ondes radio et les télécommunications", "Vitesse de propagation et distance (radar, échographie)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de physique-chimie du cycle 4 s'organise en quatre thèmes : organisation et transformations de la matière (atomes, molécules, réactions chimiques), mouvements et interactions (vitesse, forces, gravitation), énergie et ses conversions (circuits électriques, puissance, chaînes énergétiques), signaux pour observer et communiquer (lumière, son, ondes). L'enseignement repose sur la démarche expérimentale : les élèves formulent des hypothèses, réalisent des mesures, exploitent des résultats et concluent. Le calcul littéral et les unités du système international sont mobilisés systématiquement."
+}

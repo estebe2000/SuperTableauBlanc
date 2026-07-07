@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "discipline": "Arts Plastiques",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'arts appliqués et cultures artistiques CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Développer sa créativité et son sens de l'observation",
+    "Expérimenter des techniques et des matériaux variés",
+    "Analyser des productions artistiques et des objets de design",
+    "Situer des œuvres dans leur contexte culturel",
+    "Communiquer visuellement ses idées"
+  ],
+  "domaines": [
+    {
+      "nom": "Pratique plastique et expérimentation",
+      "description": "La création plastique au service de l'expression et du métier.",
+      "competences": [
+        {
+          "intitule": "Expérimenter des techniques plastiques variées (dessin, peinture, collage, volume)",
+          "exemples_themes": ["Le croquis d'observation (objet du quotidien, nature morte)", "Le collage et les techniques mixtes (composition abstraite)", "La réalisation d'un volume simple (maquette, modelage)", "L'utilisation de la couleur : cercle chromatique, contrastes, harmonies"]
+        },
+        {
+          "intitule": "Créer des productions plastiques en lien avec le secteur professionnel",
+          "exemples_themes": ["Réalisation d'une enseigne ou d'un logo pour un commerce fictif", "Croquis d'ambiance pour un aménagement intérieur", "Création d'un motif textile ou d'un design de surface", "Planche de tendances pour un projet professionnel"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture artistique",
+      "description": "La découverte des œuvres et des mouvements artistiques.",
+      "competences": [
+        {
+          "intitule": "Situer des œuvres dans l'histoire de l'art et les courants esthétiques",
+          "exemples_themes": ["Analyse d'une œuvre majeure (peinture, sculpture, architecture)", "Visite virtuelle d'un musée ou d'une exposition", "Les mouvements artistiques du XXe siècle (pop art, street art, design)", "Le lien entre art et métier (artisanat d'art, design industriel)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts plastiques en lycée professionnel développe la créativité et l'expression visuelle à travers des pratiques variées (dessin, peinture, collage, volume) en lien avec le secteur professionnel des élèves. La culture artistique complète la formation par la découverte d'œuvres et de mouvements esthétiques."
+}

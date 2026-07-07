@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "discipline": "Sciences et Technologies de la Santé (ST2S)",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme ST2S 1ère/Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre les déterminants de la santé et du bien-être social",
+    "Analyser les politiques de santé publique et d'action sociale",
+    "Maîtriser les notions fondamentales de biologie et physiopathologie humaine",
+    "Mener une étude documentaire ou un projet technologique",
+    "Développer un regard critique sur les enjeux sanitaires et sociaux"
+  ],
+  "domaines": [
+    {
+      "nom": "Sciences et techniques sanitaires et sociales (STSS)",
+      "description": "Les enjeux de santé publique et de protection sociale.",
+      "competences": [
+        {
+          "intitule": "Analyser les déterminants de la santé et les indicateurs sanitaires",
+          "exemples_themes": ["Les indicateurs de santé (espérance de vie, taux de mortalité — données OMS)", "Les déterminants de la santé (biologiques, sociaux, environnementaux)", "Une étude de cas : l'obésité en France (données Santé publique France)", "La veille sanitaire et les alertes (Santé publique France, ARS)"]
+        },
+        {
+          "intitule": "Comprendre le système de protection sociale et les politiques de santé",
+          "exemples_themes": ["L'organisation du système de santé français (schéma)", "La Sécurité sociale : branches et financement", "Les politiques de prévention (Plan national de santé publique)", "L'accès aux soins et les déserts médicaux"]
+        },
+        {
+          "intitule": "Analyser les dispositifs d'action sociale et médico-sociale",
+          "exemples_themes": ["Les structures d'accueil pour personnes âgées (EHPAD, SAD)", "La protection de l'enfance (PMI, ASE)", "Le handicap et l'inclusion (loi de 2005, MDPH)", "Les associations et l'économie sociale et solidaire"]
+        }
+      ]
+    },
+    {
+      "nom": "Biologie et physiopathologie humaines (BPH)",
+      "description": "Le fonctionnement du corps humain et ses pathologies.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'organisation et le fonctionnement du corps humain",
+          "exemples_themes": ["L'appareil cardiovasculaire (cœur, vaisseaux, circulation)", "Le système digestif et la nutrition", "Le système immunitaire et la défense de l'organisme", "Le système nerveux et la transmission de l'information"]
+        },
+        {
+          "intitule": "Analyser les grandes pathologies et leurs mécanismes",
+          "exemples_themes": ["Le diabète de type 1 et de type 2 (mécanisme et traitement)", "Les maladies cardiovasculaires (facteurs de risque, prévention)", "Les maladies infectieuses (contamination, diagnostic, traitement)", "Le cancer : mécanisme cellulaire et stratégies thérapeutiques"]
+        },
+        {
+          "intitule": "Comprendre les techniques d'exploration et d'imagerie médicale",
+          "exemples_themes": ["La radiographie et le scanner (principe physique simplifié)", "L'IRM et l'échographie : indications et interprétation", "L'analyse de sang : hémogramme et biochimie", "Le diagnostic biologique d'une infection (antibiogramme)"]
+        }
+      ]
+    },
+    {
+      "nom": "Activités interdisciplinaires et projet technologique",
+      "description": "Travaux pratiques, études documentaires et projet en équipe.",
+      "competences": [
+        {
+          "intitule": "Mener une étude ou un projet technologique en santé-social",
+          "exemples_themes": ["Enquête sur les habitudes alimentaires des lycéens (questionnaire)", "Dossier sur un problème de santé publique local", "Projet de prévention (affiche, vidéo, intervention)", "Présentation orale d'une étude documentaire structurée"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La série ST2S forme les élèves aux sciences sanitaires et sociales et à la biologie-physiopathologie humaine. Elle aborde les déterminants de la santé, le système de protection sociale, les grandes pathologies et les techniques médicales. Les élèves développent des compétences d'analyse à travers des études documentaires et un projet technologique, préparant aux formations paramédicales et sociales."
+}

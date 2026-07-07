@@ -1,0 +1,84 @@
+            <div class="workspace-header">
+                <h2>Outil : Professor (Conception UDL)</h2>
+                <p>Expliquez n'importe quelle notion en adaptant la représentation selon vos besoins d'apprentissage.</p>
+            </div>
+            
+            <div class="professor-layout">
+                <!-- CUA Modes Selector Sidebar -->
+                <div class="cua-sidebar">
+                    <h3 class="sidebar-title">Modes de Représentation</h3>
+                    <p class="sidebar-desc">Comment souhaitez-vous que le concept soit représenté ? (Principe I de l'UDL)</p>
+                    
+                    <div class="cua-options-list">
+                        <label class="cua-option active" data-mode="simplifie">
+                            <input type="radio" name="cua-mode" value="simplifie" checked style="display:none;">
+                            <span class="cua-option-icon">💡</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Texte Simplifié</span>
+                                <span class="cua-option-desc">Focus sur l'essentiel et les idées directrices.</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="metaphore">
+                            <input type="radio" name="cua-mode" value="metaphore" style="display:none;">
+                            <span class="cua-option-icon">🎭</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Métaphore & Analogie</span>
+                                <span class="cua-option-desc">Explication imagée reliée au quotidien.</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="schema">
+                            <input type="radio" name="cua-mode" value="schema" style="display:none;">
+                            <span class="cua-option-icon">🗺️</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Schéma Conceptuel</span>
+                                <span class="cua-option-desc">Relations logiques et cartographie conceptuelle (Mermaid).</span>
+                            </div>
+                        </label>
+                        
+                        <label class="cua-option" data-mode="glossaire">
+                            <input type="radio" name="cua-mode" value="glossaire" style="display:none;">
+                            <span class="cua-option-icon">📖</span>
+                            <div class="cua-option-text">
+                                <span class="cua-option-title">Glossaire & Vocabulaire</span>
+                                <span class="cua-option-desc">Définition pas-à-pas des mots clés indispensables.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Chat Window -->
+                <div class="chat-panel">
+                    <div class="panel-header">
+                        <h2>Expliquer une notion (Chat local)</h2>
+                        <div class="header-actions" style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary btn-sm" id="courseUploadBtn" title="Charger un document PDF pour donner du contexte à l'IA">📚 Charger un cours (PDF)</button>
+                            <input type="file" id="courseFileInput" accept="application/pdf" style="display: none;">
+                            <button class="btn btn-secondary btn-sm" id="clearChatBtn">Recommencer</button>
+                        </div>
+                    </div>
+                    
+                    <div id="courseBadge" class="course-status-badge" style="display: none;">
+                        <span class="badge-icon">📄</span>
+                        <span id="courseName" class="badge-text">Cours chargé</span>
+                        <button id="removeCourseBtn" class="badge-remove" title="Supprimer le cours">×</button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-bubble system-message">
+                            <p>Bonjour ! Quel concept souhaitez-vous comprendre aujourd'hui ? Saisissez une notion ci-dessous et sélectionnez la représentation de votre choix dans le volet de gauche.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-wrapper">
+                        <div class="input-wrapper">
+                            <textarea id="professorInput" rows="2" placeholder="Ex: 'La photosynthèse', 'Les fractions', 'Le théorème de Pythagore'..."></textarea>
+                        </div>
+                        <button class="btn btn-primary" id="sendConceptBtn">
+                            <span class="btn-text">Expliquer</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>

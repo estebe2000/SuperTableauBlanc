@@ -1,0 +1,14 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+dist-ssr/
+*.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# User specific exclusions
+trash/

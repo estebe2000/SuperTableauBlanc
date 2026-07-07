@@ -1,0 +1,94 @@
+            <div class="workspace-header">
+                <h2>Outil : Judge AI</h2>
+                <p>Décryptez le ton, le sous-texte émotionnel et les intentions réelles de vos messages reçus, et obtenez des suggestions de réponses adaptées.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>Analyser un message reçu</h2>
+                    </div>
+
+                    <div class="judge-form">
+                        <div class="input-wrapper">
+                            <textarea id="judgeInput" rows="8" placeholder="Collez le message reçu ici... (ex: un e-mail professionnel ambigu, un SMS sec ou passif-agressif, un commentaire...)"></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" id="judgeSubmitBtn">
+                            <span class="btn-text">⚖️ Décrypter le message</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Analyse & Réponses suggérées</h2>
+                    </div>
+
+                    <div class="output-container">
+                        <!-- Placeholder initial -->
+                        <div class="output-placeholder" id="judgePlaceholder">
+                            <p>Collez un message à gauche et lancez l'analyse pour afficher le décryptage et les suggestions de réponses.</p>
+                        </div>
+
+                        <!-- Skeleton Loader -->
+                        <div class="skeleton-loader" id="judgeSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 40%; height: 24px; margin-bottom: 20px;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                            <div class="skeleton-line" style="width: 60%; margin-bottom: 30px;"></div>
+                            <div class="skeleton-line" style="width: 30%; height: 20px; margin-bottom: 15px;"></div>
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                        </div>
+
+                        <!-- Zone de résultat finale -->
+                        <div class="judge-results" id="judgeResults" style="display: none;">
+                            
+                            <!-- Analyse de l'intention -->
+                            <div class="analysis-section-box">
+                                <h3 class="result-subtitle">⚖️ Jugement & Analyse du ton</h3>
+                                <div id="judgeAnalysisText" class="markdown-content"></div>
+                            </div>
+
+                            <!-- Suggestions de réponse -->
+                            <h3 class="result-subtitle" style="margin-top: 25px; margin-bottom: 15px;">💬 Suggestions de réponses</h3>
+                            
+                            <div class="response-suggestions-grid">
+                                <!-- Option A: Professionnel -->
+                                <div class="response-option-card">
+                                    <div class="response-card-header">
+                                        <span class="response-badge badge-pro">💼 Professionnelle</span>
+                                        <button class="btn btn-icon copy-suggestion-btn" data-target="judgeResponsePro" title="Copier la réponse">📋</button>
+                                    </div>
+                                    <div class="response-card-body">
+                                        <textarea id="judgeResponsePro" readonly rows="4" class="suggestion-textarea"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Option B: Direct -->
+                                <div class="response-option-card">
+                                    <div class="response-card-header">
+                                        <span class="response-badge badge-direct">🎯 Neutre & Directe</span>
+                                        <button class="btn btn-icon copy-suggestion-btn" data-target="judgeResponseDirect" title="Copier la réponse">📋</button>
+                                    </div>
+                                    <div class="response-card-body">
+                                        <textarea id="judgeResponseDirect" readonly rows="4" class="suggestion-textarea"></textarea>
+                                    </div>
+                                </div>
+
+                                <!-- Option C: Diplomatique -->
+                                <div class="response-option-card">
+                                    <div class="response-card-header">
+                                        <span class="response-badge badge-diplomatic">🌸 Diplomatique</span>
+                                        <button class="btn btn-icon copy-suggestion-btn" data-target="judgeResponseDiplomatic" title="Copier la réponse">📋</button>
+                                    </div>
+                                    <div class="response-card-body">
+                                        <textarea id="judgeResponseDiplomatic" readonly rows="4" class="suggestion-textarea"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+            </div>

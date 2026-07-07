@@ -1,0 +1,85 @@
+            <div class="workspace-header">
+                <h2>Configuration de l'IA</h2>
+                <p>Configurez le fournisseur d'intelligence artificielle (local ou distant) et sélectionnez le modèle actif.</p>
+            </div>
+            
+            <div class="app-grid">
+                <!-- Panneau Configuration -->
+                <section class="panel input-panel" style="min-height:auto;">
+                    <div class="panel-header">
+                        <h2>1. Gestion des Fournisseurs</h2>
+                    </div>
+                    
+                    <div class="settings-form">
+                        <div class="tone-section">
+                            <label class="section-label">Sélectionnez une plateforme :</label>
+                            <div class="provider-options" id="providerOptionsContainer">
+                                <!-- Dynamically populated by settings.js -->
+                            </div>
+                        </div>
+
+                        <!-- Add Custom Provider Form -->
+                        <div id="addProviderForm" style="display: none; margin-top: 16px; border: 1px solid var(--border); padding: 16px; border-radius: var(--radius); background: var(--surface2);">
+                            <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: var(--accent1); font-weight:600;">Nouveau fournisseur</h3>
+                            
+                            <div style="display: grid; grid-template-columns: 1fr 70px; gap: 12px; margin-bottom: 12px;">
+                                <div>
+                                    <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">Nom du fournisseur :</label>
+                                    <input type="text" id="customProviderName" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Ex: Mon API OpenAI">
+                                </div>
+                                <div>
+                                    <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px; text-align:center;">Emoji :</label>
+                                    <input type="text" id="customProviderIcon" class="search-input" style="height: 38px; width:100%; border-radius: 8px; text-align: center; font-size: 1.1rem; padding: 0;" value="⚡">
+                                </div>
+                            </div>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">URL de l'API :</label>
+                                <input type="text" id="customProviderUrl" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Ex: https://api.openai.com/v1">
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <label class="section-label" style="font-size: 0.75rem; display:block; margin-bottom: 6px;">Clé API (optionnelle) :</label>
+                                <input type="password" id="customProviderKey" class="search-input" style="height: 38px; border-radius: 8px; padding-left: 12px; font-size: 0.8rem; width:100%;" placeholder="Saisir la clé...">
+                            </div>
+
+                            <div style="display: flex; gap: 8px; justify-content: flex-end;">
+                                <button class="btn" id="cancelAddProviderBtn" style="height: 36px; font-size: 0.8rem; padding: 0 16px; background: transparent; border: 1px solid var(--border);">Annuler</button>
+                                <button class="btn btn-primary" id="confirmAddProviderBtn" style="height: 36px; font-size: 0.8rem; padding: 0 16px;">Ajouter</button>
+                            </div>
+                        </div>
+
+                        <div class="input-wrapper" style="margin-top: 14px;">
+                            <label class="section-label" style="display:block; margin-bottom: 6px;">URL de l'API :</label>
+                            <input type="text" id="apiEndpointInput" class="search-input" style="border-radius: 8px; padding-left: 16px;">
+                        </div>
+
+                        <div class="input-wrapper" style="margin-top: 14px;">
+                            <label class="section-label" style="display:block; margin-bottom: 6px;">Clé API (si nécessaire) :</label>
+                            <input type="password" id="apiKeyInput" class="search-input" style="border-radius: 8px; padding-left: 16px;" placeholder="Saisir la clé API...">
+                        </div>
+                        
+                        <button class="btn btn-primary" id="saveSettingsBtn" style="margin-top:16px; width:100%;">
+                            <span class="btn-text">Vérifier & Enregistrer</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Panneau Configuration des Outils -->
+                <section class="panel result-panel" style="min-height:auto;">
+                    <div class="panel-header">
+                        <h2>2. Configuration des Outils</h2>
+                    </div>
+                    
+                    <div class="settings-results">
+                        <div class="tool-config-list" id="toolConfigList" style="display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px;">
+                            <!-- Dynamically populated by settings.js -->
+                        </div>
+                        
+                        <div id="settingsConnectionStatus" class="status-box info-box" style="margin-top:20px;">
+                            <p>Prêt. Configurez vos outils ci-dessus.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>

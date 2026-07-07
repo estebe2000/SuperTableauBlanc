@@ -1,0 +1,166 @@
+            <div class="workspace-header">
+                <h2>Outil : Professor + (Ingénierie CUA)</h2>
+                <p>Concevez des séances pédagogiques inclusives à partir des référentiels officiels et de vos propres documents.</p>
+            </div>
+            
+            <div class="app-grid">
+                <!-- Panneau Configuration de la Séance -->
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>1. Référentiel & Contexte</h2>
+                    </div>
+                    
+                    <div class="professor-plus-form">
+                        <div class="row2">
+                            <div class="field">
+                                <label class="section-label">Cycle / Niveau</label>
+                                <select id="pp-cycle" class="search-input" style="height: 50px; padding-left: 15px; font-size: 1rem; border-radius: 12px;">
+                                    <option value="">— Choisir —</option>
+                                    <option value="cycle1">Cycle 1 — Maternelle</option>
+                                    <option value="cycle2">Cycle 2 — CP, CE1, CE2</option>
+                                    <option value="cycle3">Cycle 3 — CM1, CM2, 6e</option>
+                                    <option value="cycle4">Cycle 4 — 5e, 4e, 3e</option>
+                                    <option value="lycee-gt">Lycée général et technologique</option>
+                                    <option value="lycee-pro">Lycée professionnel</option>
+                                    <option value="post-bac">Post-Bac (IUT, Licence, etc.)</option>
+                                </select>
+                            </div>
+                            <div class="field" id="pp-filiere-field" style="display: none;">
+                                <label class="section-label">Filière</label>
+                                <select id="pp-filiere" class="search-input" style="height: 50px; padding-left: 15px; font-size: 1rem; border-radius: 12px;">
+                                    <option value="">— Choisir —</option>
+                                    <option value="but-tc">BUT Techniques de Commercialisation</option>
+                                    <option value="licence-anglais">Licence Anglais (LLCER/EAD)</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label class="section-label">Discipline / UE</label>
+                                <select id="pp-discipline" class="search-input" style="height: 50px; padding-left: 15px; font-size: 1rem; border-radius: 12px;" disabled>
+                                    <option value="">— Choisir le niveau —</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field" style="margin-top: 12px;">
+                            <label class="section-label">Compétence visée</label>
+                            <div id="pp-competence-container" class="pp-scroll-area">
+                                <p class="placeholder-text">Sélectionnez un cycle et une discipline pour charger les compétences.</p>
+                            </div>
+                        </div>
+
+                        <div class="field" style="margin-top: 12px;">
+                            <label class="section-label">Sujet ou Thème libre</label>
+                            <input type="text" id="pp-theme" class="search-input" style="height: 50px; padding-left: 15px; font-size: 1rem; border-radius: 12px;" placeholder="Ex: Les fractions, La Révolution française...">
+                        </div>
+
+                        <div class="panel-header" style="margin-top: 24px;">
+                            <h2>2. Piliers CUA à privilégier</h2>
+                        </div>
+                        <div class="tones-grid" style="grid-template-columns: 1fr; gap: 8px;">
+                            <label class="check-option">
+                                <input type="checkbox" id="pp-pillar-engagement" checked>
+                                <span>🎯 Engagement (Motivation & Intérêt)</span>
+                            </label>
+                            <label class="check-option">
+                                <input type="checkbox" id="pp-pillar-representation" checked>
+                                <span>📖 Représentation (Modes de perception)</span>
+                            </label>
+                            <label class="check-option">
+                                <input type="checkbox" id="pp-pillar-action" checked>
+                                <span>✍️ Action & Expression (Modes de réponse)</span>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Panneau Sources & Génération -->
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>3. Sources Multimédias (Optionnel)</h2>
+                    </div>
+
+                    <div class="pp-sources">
+                        <div class="pp-source-tabs">
+                            <button class="pp-source-tab active" data-source="text">✍️ Texte</button>
+                            <button class="pp-source-tab" data-source="doc">📄 Document</button>
+                            <button class="pp-source-tab" data-source="audio">🎙️ Audio</button>
+                        </div>
+
+                        <div class="pp-source-content" id="pp-source-text">
+                            <textarea id="pp-input-text" rows="4" placeholder="Collez ici un extrait de texte ou vos notes de préparation..." class="search-input" style="border-radius: 8px;"></textarea>
+                        </div>
+
+                        <div class="pp-source-content" id="pp-source-doc" style="display:none;">
+                            <div class="drop-zone mini" id="pp-drop-zone-doc">
+                                <div class="upload-icon">📄</div>
+                                <p>PDF ou DOCX</p>
+                                <input type="file" id="pp-file-input-doc" accept=".pdf,.docx" style="display:none;">
+                            </div>
+                            <div id="pp-doc-status" class="file-status" style="display:none;"></div>
+                        </div>
+
+                        <div class="pp-source-content" id="pp-source-audio" style="display:none;">
+                            <div class="drop-zone mini" id="pp-drop-zone-audio">
+                                <div class="upload-icon">🎙️</div>
+                                <p>Audio ou Dictée</p>
+                                <input type="file" id="pp-file-input-audio" accept="audio/*" style="display:none;">
+                            </div>
+                            <div class="recording-actions-mini">
+                                <button class="btn btn-secondary btn-sm" id="pp-record-btn">Enregistrer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-header" style="margin-top: 24px;">
+                        <h2>4. Format de Sortie</h2>
+                    </div>
+                    <div class="tones-grid" id="pp-output-format">
+                        <button class="tone-btn active" data-format="fiche">📋 Fiche Prep</button>
+                        <button class="tone-btn" data-format="eleve">🧒 Pour l'élève</button>
+                        <button class="tone-btn" data-format="mindmap">🧠 Carte Mentale</button>
+                        <button class="tone-btn" data-format="todo">🎯 Micro-tâches</button>
+                        <button class="tone-btn" data-format="defia">🎮 Défi Defia</button>
+                    </div>
+
+                    <button class="btn btn-primary" id="pp-generate-btn" style="margin-top: 24px; width:100%;">
+                        <span class="btn-text">Générer la séance inclusive</span>
+                        <div class="btn-loader" style="display: none;"></div>
+                    </button>
+                </section>
+
+                <!-- Panneau Résultats (Plein écran sous les deux colonnes) -->
+                <section class="panel result-panel" style="grid-column: 1 / -1;">
+                    <div class="panel-header">
+                        <h2>Résultat de la conception</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="pp-copy-btn" title="Copier" disabled>📋</button>
+                            <div class="export-dropdown disabled">
+                                <button class="btn btn-icon" id="pp-export-btn" title="Exporter la séance" disabled>📥</button>
+                                <div class="export-dropdown-content">
+                                    <button class="export-opt" data-format="pdf">📄 PDF (.pdf)</button>
+                                    <button class="export-opt" data-format="word">📝 Word (.doc)</button>
+                                    <button class="export-opt" data-format="md">✍️ Markdown (.md)</button>
+                                    <button class="export-opt" data-format="odt">📖 LibreOffice (.odt)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="output-container" style="min-height: 400px; position: relative;">
+                        <div class="output-placeholder" id="pp-placeholder">
+                            <p>Remplissez la configuration et cliquez sur "Générer" pour voir apparaître votre séance.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="pp-skeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                        </div>
+
+                        <div class="output-text markdown-content" id="pp-output" style="display: none;"></div>
+                        
+                        <!-- Zone dédiée aux jeux Defia intégrés -->
+                        <div id="pp-game-container" style="display: none; padding: 20px;"></div>
+                    </div>
+                </section>
+            </div>

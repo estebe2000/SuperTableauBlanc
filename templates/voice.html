@@ -1,0 +1,101 @@
+            <div class="workspace-header">
+                <h2>Outil : Voice AI</h2>
+                <p>Transcrivez vos enregistrements et générez des supports pédagogiques.</p>
+            </div>
+            <div class="app-grid">
+                <!-- Panneau de chargement -->
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>1. Analyser un fichier audio</h2>
+                    </div>
+
+                    <div class="drop-zone" id="audioDropZone">
+                        <input type="file" id="audioFileInput" accept="audio/*" style="display: none;">
+
+                        <div class="drop-zone-content" id="audioDropZoneContent">
+                            <div class="upload-icon">🎙️</div>
+                            <p class="primary-text">Glissez-déposez un fichier audio ici</p>
+                            <p class="secondary-text">ou cliquez pour sélectionner (MP3, WAV, M4A)</p>
+                            <div class="recording-actions" style="margin-top: 20px;">
+                                <button class="btn btn-secondary record-btn" id="startRecordBtn">
+                                    <span class="record-dot"></span>
+                                    <span class="btn-text">Enregistrer en direct</span>
+                                </button>
+                                <button class="btn btn-danger record-btn" id="stopRecordBtn" style="display: none;">
+                                    <span class="record-dot active"></span>
+                                    <span class="btn-text">Arrêter l'enregistrement</span>
+                                    <span id="recordTimer" style="margin-left: 10px; font-variant-numeric: tabular-nums;">00:00</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="preview-container audio-preview" id="audioPreviewContainer" style="display: none;">
+                            <div class="audio-player-wrapper">
+                                <div class="audio-wave-anim">
+                                    <span></span><span></span><span></span><span></span><span></span>
+                                </div>
+                                <p id="audioFileName" class="file-name-display">nom_du_fichier.mp3</p>
+                                <audio id="audioPlayer" controls></audio>
+                            </div>
+                            <div class="preview-overlay">
+                                <button class="btn btn-secondary btn-sm" id="changeAudioBtn">
+                                    Changer de fichier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prompt-section">
+                        <button class="btn btn-primary" id="transcribeBtn" disabled>
+                            <span class="btn-text">Transcrire & Identifier</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Panneau de transcription -->
+                <section class="panel result-panel" id="transcriptionPanel">
+                    <div class="panel-header">
+                        <h2>2. Transcription Détaillée</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="audioCopyBtn" title="Copier" disabled>📋</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="audioPlaceholder">
+                            <p>La transcription apparaîtra ici avec l'horodatage et les interlocuteurs.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="audioSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 30%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                            <div class="skeleton-line" style="width: 25%;"></div>
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                        </div>
+
+                        <div class="output-text markdown-content" id="audioOutput" style="display: none;"></div>
+                    </div>
+                </section>
+
+                <!-- Documents dérivés (Plein écran sous les deux colonnes) -->
+                <section class="panel result-panel" id="documentsPanel" style="display: none; grid-column: 1 / -1; min-height: auto;">
+                    <div class="panel-header">
+                        <h2>3. Générer des documents (Post-traitement)</h2>
+                    </div>
+                    <div class="tones-grid post-doc-grid">
+                        <button class="tone-btn doc-btn" data-doc="resume">📝 Résumé rapide</button>
+                        <button class="tone-btn doc-btn" data-doc="fiche">📋 Fiche de Synthèse</button>
+                        <button class="tone-btn doc-btn" data-doc="mindmap">🧠 Carte Mentale (Mermaid)</button>
+                    </div>
+                    <div class="output-container" id="docOutputContainer" style="display: none; margin-top: 1.5rem; min-height: 200px; max-height:none;">
+                        <div class="skeleton-loader" id="docSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 60%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 70%;"></div>
+                        </div>
+                        <div class="output-text markdown-content" id="docOutput"></div>
+                    </div>
+                </section>
+            </div>

@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "discipline": "Français",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "Projet de programme de français du cycle 4 — CSP mai 2025 + Programme en vigueur B.O. n°31 du 30 juillet 2020",
+    "mise_a_jour": "2025-05-15",
+    "url_source": "https://www.education.gouv.fr/media/227318/download"
+  },
+  "attendus_fin_cycle": [
+    "S'exprimer de façon maîtrisée à l'oral et à l'écrit",
+    "Comprendre et interpréter des textes littéraires et des documents variés",
+    "Formuler un jugement fondé sur des émotions, des critères esthétiques, des idées et des valeurs",
+    "Acquérir des connaissances littéraires et culturelles structurées",
+    "Maîtriser le fonctionnement de la langue pour écrire et réviser ses textes",
+    "Construire une pensée autonome appuyée sur un usage correct et précis de la langue"
+  ],
+  "perspectives_annuelles": {
+    "5e": "Éprouver, expérimenter : la découverte de soi, d'autrui et du monde",
+    "4e": "Rêver, délibérer, développer son jugement : en quête de valeurs et de vérité",
+    "3e": "Se construire, s'engager, agir dans la cité : devenir un citoyen éclairé"
+  },
+  "domaines": [
+    {
+      "nom": "Langage oral",
+      "description": "Développer l'expression orale, l'écoute, le débat argumenté et la mise en voix de textes littéraires.",
+      "competences": [
+        {
+          "intitule": "Pratiquer un oral adapté à la situation de communication",
+          "exemples_themes": [
+            "Exposé oral structuré de quelques minutes",
+            "Présentation argumentée d'un point de vue",
+            "Entretien oral pour le brevet"
+          ]
+        },
+        {
+          "intitule": "Entrer dans un dialogue et participer à un débat",
+          "exemples_themes": [
+            "Débat interprétatif autour d'une œuvre",
+            "Débat argumentatif sur une question éthique ou sociale",
+            "Cercle de lecture avec échanges critiques"
+          ]
+        },
+        {
+          "intitule": "Écouter et comprendre une production orale",
+          "exemples_themes": [
+            "Écoute d'un discours, d'un podcast, d'une lecture",
+            "Prise de notes à partir d'un oral",
+            "Reformulation et synthèse orale"
+          ]
+        },
+        {
+          "intitule": "Lire et réciter avec fluidité",
+          "exemples_themes": [
+            "Lecture expressive de textes littéraires",
+            "Récitation de poèmes et de textes en prose",
+            "Mise en voix théâtrale"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Lecture et compréhension de l'écrit",
+      "description": "Lire des œuvres intégrales et des groupements de textes, développer des stratégies de compréhension et d'interprétation, construire une culture littéraire.",
+      "competences": [
+        {
+          "intitule": "Lire des œuvres littéraires et les comprendre",
+          "exemples_themes": [
+            "Lecture d'œuvres intégrales (6 minimum par an en 6e, adaptées ensuite)",
+            "Lecture cursive de romans, nouvelles, récits",
+            "Lecture de pièces de théâtre"
+          ]
+        },
+        {
+          "intitule": "Lire des textes variés et des documents composites",
+          "exemples_themes": [
+            "Textes documentaires, articles de presse",
+            "Documents iconographiques en lien avec les textes",
+            "Textes et images : analyse croisée"
+          ]
+        },
+        {
+          "intitule": "Formuler un jugement fondé et justifier son point de vue de lecteur",
+          "exemples_themes": [
+            "Carnet de lecteur",
+            "Critique littéraire argumentée",
+            "Comparaison d'interprétations entre pairs"
+          ]
+        },
+        {
+          "intitule": "Contrôler sa compréhension et devenir un lecteur autonome",
+          "exemples_themes": [
+            "Stratégies de compréhension explicites",
+            "Lecture silencieuse autonome prolongée",
+            "Fréquentation régulière du CDI et de la médiathèque"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Écriture",
+      "description": "Produire des écrits variés (invention, réflexion, travail), réviser ses textes, développer une pratique créative de l'écriture.",
+      "competences": [
+        {
+          "intitule": "Écrire des textes d'invention et de réflexion",
+          "exemples_themes": [
+            "Récits fictifs (nouvelle, conte, début de roman)",
+            "Textes poétiques",
+            "Textes argumentatifs simples (5e) à complexes (3e)",
+            "Écrits d'appropriation d'une lecture"
+          ]
+        },
+        {
+          "intitule": "Produire des écrits de travail pour apprendre et réfléchir",
+          "exemples_themes": [
+            "Brouillons, listes, synthèses",
+            "Prise de notes en cours",
+            "Écrits intermédiaires dans toutes les disciplines"
+          ]
+        },
+        {
+          "intitule": "Évaluer son écrit et savoir le faire évoluer",
+          "exemples_themes": [
+            "Utilisation du brouillon pour retravailler",
+            "Révision avec grille de critères",
+            "Réécriture après échanges entre pairs"
+          ]
+        },
+        {
+          "intitule": "S'initier à une pratique artistique et créative de l'écriture",
+          "exemples_themes": [
+            "Ateliers d'écriture",
+            "Écriture collaborative",
+            "Création de textes hybrides (texte + image)"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Étude de la langue",
+      "description": "Consolider et approfondir la maîtrise de l'orthographe, de la grammaire et du lexique pour écrire et réviser ses textes.",
+      "competences": [
+        {
+          "intitule": "Connaître les aspects fondamentaux du fonctionnement syntaxique",
+          "exemples_themes": [
+            "Phrase simple et phrase complexe (juxtaposition, coordination, subordination)",
+            "Propositions subordonnées relatives, conjonctives, interrogatives indirectes",
+            "Voix active et voix passive"
+          ]
+        },
+        {
+          "intitule": "Maîtriser la forme des mots",
+          "exemples_themes": [
+            "Conjugaison de tous les temps et modes",
+            "Accords complexes (participe passé, attribut)",
+            "Homophones et homonymies"
+          ]
+        },
+        {
+          "intitule": "Maîtriser le sens et l'orthographe des mots",
+          "exemples_themes": [
+            "Étymologie latine et grecque",
+            "Champs lexicaux et réseaux de sens",
+            "Figures de style (métaphore, comparaison, antithèse, hyperbole)"
+          ]
+        },
+        {
+          "intitule": "Construire les notions d'analyse littéraire et linguistique",
+          "exemples_themes": [
+            "Valeurs des temps verbaux dans un récit",
+            "Discours direct, indirect, indirect libre",
+            "Point de vue narratif (focalisation)"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Culture littéraire et artistique",
+      "description": "Acquérir une culture littéraire structurée autour d'entrées thématiques progressives de la 5e à la 3e.",
+      "competences": [
+        {
+          "intitule": "5e — Se chercher, se construire : le voyage et l'aventure",
+          "exemples_themes": [
+            "Récits de voyage et d'exploration",
+            "Robinson Crusoé, L'Île au trésor, Le Tour du monde en 80 jours",
+            "Carnets de voyage, récits d'aventure contemporains"
+          ]
+        },
+        {
+          "intitule": "5e — Vivre en société : avec autrui (famille, amis, réseaux)",
+          "exemples_themes": [
+            "Récits d'enfance et d'adolescence",
+            "Le roman d'apprentissage",
+            "Récits de vie en communauté"
+          ]
+        },
+        {
+          "intitule": "5e — Regarder le monde, inventer des mondes : imaginer des univers nouveaux",
+          "exemples_themes": [
+            "Récits de science-fiction et d'anticipation",
+            "Utopies et contre-utopies",
+            "Mondes imaginaires et fantastiques"
+          ]
+        },
+        {
+          "intitule": "4e — Sonder, explorer, anticiper : la fiction aux limites de notre monde",
+          "exemples_themes": [
+            "Le fantastique (Maupassant, Poe, Mérimée)",
+            "Le roman gothique",
+            "Nouvelles à chute"
+          ]
+        },
+        {
+          "intitule": "4e — Contempler, célébrer, veiller : habiter la terre en poète",
+          "exemples_themes": [
+            "Poésie lyrique (Baudelaire, Verlaine, Rimbaud)",
+            "Poésie engagée",
+            "Correspondances entre poésie et arts visuels"
+          ]
+        },
+        {
+          "intitule": "4e — Obéir, désobéir, trahir : conflits de valeurs sur scène",
+          "exemples_themes": [
+            "Tragédie classique (Corneille, Racine)",
+            "Comédie et satire sociale (Molière)",
+            "Théâtre contemporain"
+          ]
+        },
+        {
+          "intitule": "4e — Critiquer, dénoncer, penser : les Lumières en héritage",
+          "exemples_themes": [
+            "Textes des philosophes des Lumières (Voltaire, Montesquieu, Diderot)",
+            "Conte philosophique",
+            "La satire et l'ironie comme armes critiques"
+          ]
+        },
+        {
+          "intitule": "3e — Se raconter, se représenter : l'autobiographie",
+          "exemples_themes": [
+            "Autobiographie et autofiction",
+            "Journal intime, mémoires, correspondances",
+            "L'autoportrait dans les arts"
+          ]
+        },
+        {
+          "intitule": "3e — Dénoncer les travers de la société : satire et engagement",
+          "exemples_themes": [
+            "Textes satiriques et pamphlets",
+            "Le roman engagé",
+            "Discours et textes fondateurs des droits de l'homme"
+          ]
+        },
+        {
+          "intitule": "3e — Défendre les valeurs humanistes : écrivains et journalistes acteurs de leur temps",
+          "exemples_themes": [
+            "Littérature de témoignage (guerre, Shoah, résistance)",
+            "Le reportage et le journalisme littéraire",
+            "Discours et plaidoyers"
+          ]
+        },
+        {
+          "intitule": "3e — Agir dans la cité : individu et pouvoir",
+          "exemples_themes": [
+            "Poésie engagée (Éluard, Aragon, Desnos, Césaire)",
+            "Théâtre et pouvoir (Anouilh, Ionesco)",
+            "Récits de résistance et de liberté"
+          ]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Au cycle 4, l'enseignement du français vise la construction d'une pensée autonome appuyée sur un usage correct et précis de la langue. Chaque année est orientée par une perspective : en 5e, la découverte de soi, d'autrui et du monde ; en 4e, le développement du jugement et la quête de valeurs ; en 3e, la construction du citoyen éclairé. Les élèves lisent des œuvres intégrales et des groupements de textes, produisent des écrits variés (invention, argumentation, réflexion), développent leurs compétences orales (débat, exposé, mise en voix) et approfondissent leur maîtrise de la langue (syntaxe, conjugaison, figures de style, étymologie). La culture littéraire et artistique s'organise autour d'entrées thématiques progressives : aventure et voyage en 5e, fantastique et Lumières en 4e, engagement et autobiographie en 3e."
+}

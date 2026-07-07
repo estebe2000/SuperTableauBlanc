@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "CAP Électricien",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année"],
+    "source": "Référentiel CAP Électricien (arrêté du 14 février 2018)",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des installations électriques simples conformes aux normes",
+    "Mettre en service une installation électrique résidentielle",
+    "Respecter les règles de sécurité électrique",
+    "Communiquer avec le client et l'équipe de travail",
+    "Lire et interpréter un schéma électrique simple"
+  ],
+  "domaines": [
+    {
+      "nom": "Préparation d'une intervention",
+      "description": "La lecture de plans et la préparation du chantier.",
+      "competences": [
+        {
+          "intitule": "Lire un schéma électrique et préparer son intervention",
+          "exemples_themes": ["Les symboles électriques normalisés (NF C 03-201)", "La lecture d'un plan architectural avec implantation électrique", "La liste de matériel : câbles, appareillage, fixations", "Le repérage des circuits sur le tableau électrique"]
+        }
+      ]
+    },
+    {
+      "nom": "Réalisation d'installations résidentielles",
+      "description": "Le câblage et le raccordement en habitat.",
+      "competences": [
+        {
+          "intitule": "Réaliser le câblage d'une installation électrique résidentielle",
+          "exemples_themes": ["Le circuit d'éclairage : simple allumage, double allumage, va-et-vient", "Le circuit de prises de courant (section, protection)", "Le tableau électrique : raccordement des disjoncteurs et des différentiels", "Le cheminement des câbles : moulures, goulottes, encastrement"]
+        },
+        {
+          "intitule": "Poser et raccorder l'appareillage électrique",
+          "exemples_themes": ["La pose d'interrupteurs, prises et boîtes de dérivation", "Le raccordement d'un chauffe-eau électrique", "Le raccordement d'un volet roulant électrique", "La pose d'un luminaire (plafonnier, applique, spot)"]
+        }
+      ]
+    },
+    {
+      "nom": "Mise en service et vérification",
+      "description": "Les essais et la mise en service d'une installation.",
+      "competences": [
+        {
+          "intitule": "Mettre en service et vérifier une installation électrique",
+          "exemples_themes": ["Les mesures de base : tension, continuité, isolement (multimètre)", "La vérification de la conformité à la norme NF C 15-100", "La mise sous tension et les essais de fonctionnement", "Le remplissage d'un rapport de vérification simplifié"]
+        }
+      ]
+    },
+    {
+      "nom": "Sécurité électrique",
+      "description": "Les règles de sécurité et la prévention des risques électriques.",
+      "competences": [
+        {
+          "intitule": "Appliquer les règles de sécurité électrique",
+          "exemples_themes": ["Les risques électriques : électrisation, électrocution, incendie", "Les EPI de l'électricien : gants isolants, tapis, VAT", "La consignation d'une installation (procédure simplifiée)", "L'habilitation électrique : niveaux B1V et BR (préparation)"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication professionnelle",
+      "description": "La communication avec le client et l'équipe.",
+      "competences": [
+        {
+          "intitule": "Communiquer en situation professionnelle",
+          "exemples_themes": ["Le vocabulaire technique de l'électricien", "La communication avec le client : explication d'une intervention", "Le compte rendu d'intervention (oral et écrit)", "Le travail en binôme sur un chantier"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le CAP Électricien forme aux bases du métier d'électricien en habitat résidentiel : lecture de schémas, câblage des circuits d'éclairage et de prises, pose d'appareillage, mise en service et vérification. La sécurité électrique (habilitation, EPI, consignation) est centrale. La formation est très pratique, axée sur les gestes professionnels et la conformité à la norme NF C 15-100."
+}

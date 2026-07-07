@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "discipline": "Anglais",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme de langues vivantes du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Écouter et comprendre des documents authentiques simples (niveau A2-B1)",
+    "S'exprimer oralement en continu et en interaction (niveau A2-B1)",
+    "Lire et comprendre des textes de natures variées (niveau A2-B1)",
+    "Écrire et réagir à l'écrit (niveau A2-B1)",
+    "Découvrir les aspects culturels du monde anglophone"
+  ],
+  "domaines": [
+    {
+      "nom": "Écouter et comprendre (compréhension orale)",
+      "description": "Comprendre des documents audio et vidéo authentiques adaptés.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'essentiel d'un message oral de longueur moyenne",
+          "exemples_themes": ["Un extrait de film (Harry Potter, The Lion King — scène clé)", "Un reportage BBC News simplifié (thème d'actualité)", "Une chanson de Ed Sheeran ou Adele (compréhension du message)", "Un podcast pour ados (6 Minute English, BBC Learning)", "Un extrait de TED Talk adapté (thème scientifique ou social)", "Une interview d'un sportif anglophone (Mbappe en anglais, LeBron James)"]
+        },
+        {
+          "intitule": "Repérer des informations précises dans un document oral",
+          "exemples_themes": ["La météo de CNN ou BBC (repérer villes et températures)", "Une annonce dans un aéroport ou une gare (gate, platform, delay)", "Un message sur répondeur téléphonique (heure, lieu, consigne)", "Un extrait de dialogue de série TV (Friends, Stranger Things — scène courte)"]
+        }
+      ]
+    },
+    {
+      "nom": "S'exprimer oralement en continu et en interaction",
+      "description": "Produire des énoncés structurés et participer à des conversations.",
+      "competences": [
+        {
+          "intitule": "Raconter, décrire, expliquer, argumenter à l'oral",
+          "exemples_themes": ["Présenter un livre lu en anglais (book report oral)", "Raconter un voyage ou un séjour (my trip to London)", "Décrire un tableau ou une photographie (analyse d'image)", "Présenter un personnage historique anglophone (Rosa Parks, Shakespeare)", "Mon projet d'avenir (my dream job) — 3e"]
+        },
+        {
+          "intitule": "Interagir dans des situations de la vie quotidienne et dans des échanges scolaires",
+          "exemples_themes": ["Jeu de rôle : at the hotel (booking a room)", "Jeu de rôle : at the doctor's (symptoms and advice)", "Débat en classe : should school uniforms be mandatory?", "Interview d'un correspondant étranger (visio ou audio)", "Négocier en groupe : planning a class trip to London"]
+        }
+      ]
+    },
+    {
+      "nom": "Lire et comprendre l'écrit",
+      "description": "Lire des textes de genres variés et en dégager le sens.",
+      "competences": [
+        {
+          "intitule": "Lire et comprendre des textes littéraires et documentaires adaptés",
+          "exemples_themes": ["Un extrait de The Diary of a Young Girl (Anne Frank, lien HG)", "Une nouvelle courte de Roald Dahl (Lamb to the Slaughter)", "Un article de Newsela ou News for Kids (actualité simplifiée)", "Un extrait de Wonder de R.J. Palacio (lien EMC : différence)", "Les paroles d'une chanson engagée (Imagine, Blowin' in the Wind)", "Un poème de Maya Angelou ou Langston Hughes"]
+        },
+        {
+          "intitule": "Lire des documents de la vie quotidienne et en extraire l'information",
+          "exemples_themes": ["Un menu de restaurant anglais (fish & chips, full English breakfast)", "Une publicité ou un flyer touristique (visite de New York)", "Un mail de correspondant (comprendre et répondre)", "Une page web de réservation (hôtel, spectacle)", "Un extrait de guide de voyage (Lonely Planet simplifié)"]
+        }
+      ]
+    },
+    {
+      "nom": "Écrire et réagir à l'écrit",
+      "description": "Produire des textes de genres variés en mobilisant ses connaissances.",
+      "competences": [
+        {
+          "intitule": "Écrire des textes de natures variées (récit, lettre, argumentation)",
+          "exemples_themes": ["Écrire un mail à un correspondant (raconter sa journée, poser des questions)", "Rédiger un article pour le journal du collège en anglais", "Écrire une courte nouvelle (creative writing — fantasy, detective story)", "Rédiger un avis argumenté (film review, book review)", "Écrire une lettre de motivation fictive (my dream job, 3e)", "Rédiger un article de blog sur un voyage imaginaire"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture et civilisation du monde anglophone",
+      "description": "Explorer les cultures, l'histoire et les sociétés anglophones à travers les 4 thèmes culturels du cycle 4.",
+      "competences": [
+        {
+          "intitule": "Voyages et migrations — rencontres avec d'autres cultures",
+          "exemples_themes": ["Ellis Island et l'immigration aux États-Unis (lien HG)", "L'Australie : les Aborigènes et le Dreamtime", "Le road trip américain (Route 66, paysages et culture)", "Les migrations contemporaines (témoignages adaptés)", "L'Inde anglophone (Gandhi, Bollywood, cuisine)"]
+        },
+        {
+          "intitule": "École et société — la vie quotidienne dans les pays anglophones",
+          "exemples_themes": ["L'école britannique vs l'école américaine (uniforme, prom, yearbook)", "Le sport à l'école aux USA (high school football, cheerleading)", "Le système de santé (NHS au Royaume-Uni vs USA)", "Les traditions culinaires (Thanksgiving dinner, Sunday roast)", "Les fêtes et célébrations (4th of July, Guy Fawkes Night, St Patrick's Day)"]
+        },
+        {
+          "intitule": "Langages et création artistique — l'art et la littérature anglophones",
+          "exemples_themes": ["Shakespeare : extraits de Romeo and Juliet ou A Midsummer Night's Dream", "Le street art à New York et Londres (Banksy, Keith Haring)", "La musique anglophone : du blues au hip-hop (frise chronologique)", "Le cinéma hollywoodien et britannique (analyser une affiche, une bande-annonce)", "La BD et le roman graphique anglophone (Maus, Persepolis en anglais)"]
+        },
+        {
+          "intitule": "Engagement et pouvoir — citoyenneté dans le monde anglophone",
+          "exemples_themes": ["Le discours de Martin Luther King (I have a dream, extraits)", "Rosa Parks et le mouvement des droits civiques", "Malala Yousafzai et le droit à l'éducation", "Greta Thunberg et l'engagement climatique (discours à l'ONU)", "Le système politique britannique (la monarchie, le Parliament)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de langues vivantes du cycle 4 vise le niveau A2 à B1 du CECRL. L'enseignement s'appuie sur des documents authentiques (extraits de films, articles, chansons, podcasts, littérature de jeunesse) et sur l'approche actionnelle (tâches complexes en contexte). Les quatre thèmes culturels structurent la progression : voyages et migrations, école et société, langages et création artistique, engagement et pouvoir. Les cinq activités langagières sont travaillées de manière intégrée. L'oral est prioritaire mais l'écrit gagne en complexité, jusqu'à la production argumentée en 3e."
+}

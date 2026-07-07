@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "discipline": "Éducation physique et sportive",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'EPS du cycle 3",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Produire une performance optimale, mesurable, à une échéance donnée (CA1)",
+    "Adapter ses déplacements à des environnements variés (CA2)",
+    "S'exprimer devant les autres par une prestation artistique et/ou acrobatique (CA3)",
+    "Conduire et maîtriser un affrontement collectif ou interindividuel (CA4)"
+  ],
+  "domaines": [
+    {
+      "nom": "CA1 — Produire une performance optimale, mesurable, à une échéance donnée",
+      "description": "Athlétisme, natation : réaliser une performance mesurée, se préparer, se concentrer.",
+      "competences": [
+        {
+          "intitule": "Réaliser des efforts et enchaîner plusieurs actions motrices pour aller plus vite, plus longtemps, plus haut, plus loin",
+          "exemples_themes": ["Le 40m chronométré sur la piste de la cour", "La course de durée 8 minutes au parc", "Le saut en longueur dans le bac à sable", "Le lancer de vortex sur le terrain de sport", "Le relais 4×50m avec témoins", "Le triathlon athlétique (courir, sauter, lancer)"]
+        },
+        {
+          "intitule": "Combiner des actions simples : courir-lancer, courir-sauter",
+          "exemples_themes": ["Le pentathlon (5 épreuves enchaînées)", "La course de haies basses (6 haies)", "Le triple saut simplifié (cloche-pied, foulée, saut)", "Le lancer en course d'élan (balle lestée)", "Le biathlon course-lancer (courir puis lancer dans une cible)"]
+        },
+        {
+          "intitule": "Se déplacer en milieu aquatique de façon autonome (natation)",
+          "exemples_themes": ["Le parcours aquatique : entrer, s'immerger, se déplacer, sortir", "Nager 50m en autonomie (Attestation Scolaire du Savoir Nager)", "Le plongeon canard (aller chercher un objet au fond)", "Les 4 nages : crawl, dos, brasse, papillon (initiation)", "Le relais natation par équipes"]
+        }
+      ]
+    },
+    {
+      "nom": "CA2 — Adapter ses déplacements à des environnements variés",
+      "description": "Orientation, escalade, vélo, activités de pleine nature.",
+      "competences": [
+        {
+          "intitule": "Se déplacer en s'adaptant à des environnements variés et incertains",
+          "exemples_themes": ["La course d'orientation dans le parc (carte et balises)", "L'escalade sur le mur du gymnase (voies verte et bleue)", "Le parcours VTT dans la forêt (Savoir Rouler à Vélo)", "La randonnée avec carte IGN et boussole", "Le kayak sur le canal (pagayer, diriger, s'arrêter)"]
+        },
+        {
+          "intitule": "Gérer son effort, aider l'autre, respecter les règles de sécurité",
+          "exemples_themes": ["L'assurance en escalade (rôle de l'assureur)", "Le parcours d'orientation en binôme (coopérer)", "La randonnée en autonomie (gérer son sac, son eau, son effort)", "La sécurité à vélo sur la route (APER)", "Le parcours accrobranche (gestion du risque et de la peur)"]
+        }
+      ]
+    },
+    {
+      "nom": "CA3 — S'exprimer devant les autres par une prestation artistique et/ou acrobatique",
+      "description": "Danse, gymnastique, cirque, acrosport : créer, mémoriser, présenter.",
+      "competences": [
+        {
+          "intitule": "Réaliser en petits groupes une séquence à visée artistique destinée à être présentée",
+          "exemples_themes": ["La chorégraphie collective sur une musique africaine (djembé)", "Le spectacle de cirque : jonglage, équilibre, clown (3 numéros)", "La danse contemporaine sur un extrait de musique classique", "Le mime d'une scène de film muet (Chaplin)", "La flashmob de fin d'année dans la cour"]
+        },
+        {
+          "intitule": "Réaliser un enchaînement gymnique ou acrobatique maîtrisé",
+          "exemples_themes": ["L'enchaînement au sol : roulade avant, ATR, pont, planche (6 éléments)", "Les figures d'acrosport à 2 et à 3 (pyramides)", "Le mini-trampoline : sauts groupé, carpé, extension", "La poutre basse : enchaînement marche, pivot, saut", "Le spectacle gym : enchaîner et présenter devant un jury d'élèves"]
+        }
+      ]
+    },
+    {
+      "nom": "CA4 — Conduire et maîtriser un affrontement collectif ou interindividuel",
+      "description": "Jeux collectifs, sports de raquette, lutte : respecter les règles, élaborer des stratégies.",
+      "competences": [
+        {
+          "intitule": "S'organiser tactiquement pour gagner un match en respectant les règles (jeux collectifs)",
+          "exemples_themes": ["Le handball sur terrain réduit (5 contre 5)", "Le basketball (3 contre 3 sur demi-terrain)", "L'ultimate frisbee (sans contact, mixte)", "Le football (matchs à thème : 3 passes avant de tirer)", "Le rugby flag (toucher au foulard, pas de plaquage)", "Le tchoukball (rebond sur le cadre)"]
+        },
+        {
+          "intitule": "Rechercher le gain du duel (sports de raquette, opposition duelle)",
+          "exemples_themes": ["Le badminton (simple et double)", "Le tennis de table (matchs en 11 points)", "Le jeu de raquettes en bois (initiation)", "La pétanque (stratégie de placement)", "La lutte au sol (saisir, déséquilibrer, immobiliser)"]
+        },
+        {
+          "intitule": "Assumer les rôles sociaux liés au sport (arbitre, observateur, coach)",
+          "exemples_themes": ["Arbitrer un match de handball (apprendre les gestes)", "Observer un camarade avec une grille (compter les passes réussies)", "Coacher son équipe pendant le temps mort", "Remplir la feuille de match (scores, fautes)", "Le débat d'après-match : qu'est-ce qui a fonctionné ?"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EPS du cycle 3 s'organise en quatre champs d'apprentissage (CA) : produire une performance mesurable (athlétisme, natation), s'adapter à des environnements variés (orientation, escalade, vélo), s'exprimer par une prestation artistique ou acrobatique (danse, gymnastique, cirque), conduire un affrontement collectif ou individuel (sports collectifs, raquettes, lutte). Chaque champ développe des compétences motrices, méthodologiques et sociales. L'EPS contribue à la santé, à la citoyenneté et à l'inclusion : chaque élève doit pouvoir progresser à son niveau. Le cycle 3 vise l'acquisition de l'ASSN (natation) et du Savoir Rouler à Vélo."
+}

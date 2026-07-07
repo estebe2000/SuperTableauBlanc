@@ -1,0 +1,121 @@
+<!-- Connection Screen -->
+<div id="studentJoinContainer" class="student-auth-container">
+    <div class="student-auth-card">
+        <div class="logo-circle">🎓</div>
+        <h2>Rejoindre la classe en direct</h2>
+        <p>Entrez le code de session fourni par votre enseignant pour suivre le cours.</p>
+        
+        <div class="form-group" style="margin-top: 1.5rem;">
+            <label for="studentSessionCode">Code de session à 6 chiffres</label>
+            <input type="text" id="studentSessionCode" placeholder="Ex: 123456" maxlength="7" style="text-align: center; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px;">
+        </div>
+
+        <button class="btn btn-primary" id="studentJoinBtn" style="width: 100%; margin-top: 1.5rem; font-size: 1.1rem;">
+            Se connecter au cours 🖥️
+        </button>
+    </div>
+</div>
+
+<!-- Active Class Screen -->
+<div id="studentActiveContainer" class="student-workspace-container" style="display: none;">
+    <!-- Accessibility Code & Status Bar -->
+    <div class="student-status-bar">
+        <div class="status-left">
+            <span class="pulse-dot"></span>
+            <span id="sessionStatusText">Connecté à la session...</span>
+        </div>
+        <div class="status-right">
+            <span class="cua-code-status" id="cuaAppliedCodeText">Aucun profil CUA actif</span>
+            <button class="btn btn-secondary btn-sm" id="openCuaSettingsBtn">⚙️ Adapter l'écran</button>
+        </div>
+    </div>
+
+    <!-- Student Workspace Viewport -->
+    <div class="student-viewport-wrapper">
+        <div class="student-desktop" id="studentDesktop">
+            <!-- Widgets from teacher will be dynamically rendered here -->
+            <div class="desktop-empty-message" id="studentDesktopPlaceholder">
+                <div class="empty-icon">⏳</div>
+                <p>En attente de diffusion de documents ou d'outils par l'enseignant...</p>
+            </div>
+            
+            <!-- Direct drawing overlay from teacher -->
+            <canvas id="studentCanvasOverlay" class="canvas-drawing-overlay"></canvas>
+        </div>
+    </div>
+
+    <!-- AI Generated Documents Panel -->
+    <section class="panel student-docs-panel" id="studentDocsPanel" style="display: none;">
+        <div class="panel-header">
+            <h3>📂 Documents partagés & générés</h3>
+            <button class="btn btn-secondary btn-sm" id="studentAdaptDocBtn">🔄 Adapter à mon profil (CUA)</button>
+        </div>
+        <div class="student-docs-list" id="studentDocsList">
+            <!-- Generated documents will be populated here -->
+        </div>
+        <div class="student-doc-viewer" id="studentDocViewer" style="display: none;">
+            <div class="viewer-header">
+                <h4 id="studentViewerTitle">Titre du document</h4>
+                <button class="btn btn-icon btn-sm" id="closeStudentViewerBtn">×</button>
+            </div>
+            <div class="viewer-content markdown-content" id="studentViewerContent">
+                <!-- HTML / Markdown content -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Subtitles / Transcription Banner -->
+    <div class="student-subtitles-banner" id="studentSubtitlesBanner">
+        <div class="subtitle-controls">
+            <span class="control-label">🎙️ Transcription Enseignant :</span>
+            <div class="control-actions">
+                <button class="btn btn-secondary btn-sm" id="speakSubtitlesBtn" title="Lire à haute voix">🔊 Écouter</button>
+                
+                <select id="subtitleLangSelect" class="btn-sm select-dark">
+                    <option value="fr">Version originale (FR)</option>
+                    <option value="en">Traduit en Anglais</option>
+                    <option value="es">Traduit en Espagnol</option>
+                    <option value="ar">Traduit en Arabe</option>
+                    <option value="simplifie">Version simplifiée (IA)</option>
+                </select>
+                
+                <button class="btn btn-icon btn-sm" id="decreaseSubSize" title="Réduire le texte">A-</button>
+                <button class="btn btn-icon btn-sm" id="increaseSubSize" title="Agrandir le texte">A+</button>
+            </div>
+        </div>
+        <div class="subtitle-text-container">
+            <p id="subtitleTextContent" class="subtitle-text">En attente de parole de l'enseignant...</p>
+            <div class="subtitle-loader" id="subtitleTextLoader" style="display: none;">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal customization CUA code input -->
+<div id="cuaSettingsModal" class="mermaid-modal student-cua-modal">
+    <div class="modal-close-area" id="cuaModalCloseArea"></div>
+    <div class="modal-content student-cua-modal-content">
+        <button class="close-modal" id="closeCuaModalBtn">×</button>
+        <h3>⚙️ Paramètres d'Accessibilité Personnels</h3>
+        <p class="modal-desc">Saisissez votre code d'adaptation CUA unique ou lancez le questionnaire pour configurer l'affichage.</p>
+        
+        <div class="form-group" style="margin-top: 1.5rem;">
+            <label for="cuaCodeInput">Votre Code d'Adaptation Unique</label>
+            <div class="input-row">
+                <input type="text" id="cuaCodeInput" placeholder="Ex: CUA-A-B-B-C-A-D-C-A-B-C" style="text-align: center; text-transform: uppercase;">
+                <button class="btn btn-primary" id="applyCuaCodeBtn">Appliquer</button>
+            </div>
+        </div>
+
+        <div class="cua-modal-divider">OU</div>
+
+        <div class="profiling-cta-box">
+            <h4>Vous n'avez pas encore de code ?</h4>
+            <p>Faites le questionnaire interactif (10 situations) pour déterminer vos besoins et générer votre code d'adaptation.</p>
+            <button class="btn btn-success" id="launchProfilingFromModalBtn" style="width: 100%; margin-top: 1rem;">
+                🎯 Faire le Questionnaire CUA
+            </button>
+        </div>
+    </div>
+</div>

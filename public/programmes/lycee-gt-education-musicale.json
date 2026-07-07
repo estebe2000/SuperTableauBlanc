@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "discipline": "Éducation Musicale",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'éducation musicale option lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Développer une écoute critique et analytique",
+    "Pratiquer la musique vocalement et instrumentalement",
+    "Situer les œuvres dans leur contexte historique et culturel",
+    "Créer et arranger de la musique",
+    "Argumenter un point de vue sur une production musicale"
+  ],
+  "domaines": [
+    {
+      "nom": "Écoute et culture musicale",
+      "description": "Développer une écoute analytique et une culture des genres et styles.",
+      "competences": [
+        {
+          "intitule": "Analyser une œuvre musicale : forme, structure, timbre, écriture",
+          "exemples_themes": ["Une symphonie de Beethoven (analyse de la forme sonate)", "Un standard de jazz (Miles Davis, Kind of Blue)", "Une œuvre de musique électronique (Kraftwerk, Aphex Twin)", "Un extrait d'opéra (Carmen de Bizet, La Traviata de Verdi)"]
+        },
+        {
+          "intitule": "Situer les œuvres dans l'histoire de la musique et les courants esthétiques",
+          "exemples_themes": ["Du baroque au classique : Bach, Vivaldi, Mozart", "Le romantisme musical : Chopin, Schumann, Liszt", "La musique du XXe siècle : Debussy, Stravinsky, Messiaen", "Les musiques populaires : rock, hip-hop, musiques du monde"]
+        }
+      ]
+    },
+    {
+      "nom": "Pratique musicale",
+      "description": "Chanter, jouer, improviser, créer.",
+      "competences": [
+        {
+          "intitule": "Pratiquer la musique : interprétation vocale, instrumentale, création",
+          "exemples_themes": ["Arrangement vocal d'une chanson populaire (chœur)", "Improvisation sur une grille d'accords (blues, jazz)", "Création d'une pièce musicale avec outils numériques (GarageBand, Audacity)", "Interprétation d'un morceau d'ensemble (orchestre, chorale)"]
+        }
+      ]
+    },
+    {
+      "nom": "Musique et numérique",
+      "description": "La création musicale à l'ère numérique.",
+      "competences": [
+        {
+          "intitule": "Utiliser les outils numériques pour créer, enregistrer et analyser la musique",
+          "exemples_themes": ["MAO (Musique Assistée par Ordinateur) : séquenceur, synthétiseur", "Enregistrement et mixage d'une production de classe", "Analyse spectrale d'un son (fréquence, harmoniques)", "La musique et l'image : création d'une bande-son"]
+        }
+      ]
+    },
+    {
+      "nom": "Musique et société",
+      "description": "Les fonctions sociales et les enjeux de la musique.",
+      "competences": [
+        {
+          "intitule": "Réfléchir aux fonctions sociales, politiques et économiques de la musique",
+          "exemples_themes": ["La musique de film : fonctions narratives et émotionnelles", "Le streaming et l'économie de la musique (Spotify, droits d'auteur)", "La censure musicale et la liberté d'expression", "Les musiques rituelles et cérémonielles dans le monde"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'éducation musicale au lycée GT (option) développe l'écoute analytique, la pratique vocale et instrumentale, la création musicale (y compris numérique) et la réflexion sur les fonctions sociales de la musique. Les élèves explorent un large répertoire allant de la musique savante aux musiques populaires et du monde."
+}

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "discipline": "Éducation physique et sportive",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'EPS du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Produire une performance optimale, mesurable à une échéance donnée (CA1)",
+    "Adapter ses déplacements à des environnements variés (CA2)",
+    "S'exprimer devant les autres par une prestation artistique et/ou acrobatique (CA3)",
+    "Conduire et maîtriser un affrontement collectif ou interindividuel (CA4)",
+    "Réaliser une activité physique pour développer ses ressources et s'entretenir (CA5)"
+  ],
+  "domaines": [
+    {
+      "nom": "CA1 — Produire une performance optimale, mesurable à une échéance donnée",
+      "description": "Gérer son effort, construire un projet de performance, mesurer ses progrès.",
+      "competences": [
+        {
+          "intitule": "Gérer son effort, faire des choix pour réaliser la meilleure performance dans au moins deux familles athlétiques",
+          "exemples_themes": ["Course de demi-fond : courir 12 minutes en gérant son allure (projet de course)", "Relais vitesse 4×60m : optimiser la transmission du témoin en zone"]
+        },
+        {
+          "intitule": "S'engager dans un programme de préparation pour progresser",
+          "exemples_themes": ["Natation de vitesse : 50m chronométré avec analyse technique (amplitude, fréquence)", "Saut en longueur : 4 essais avec mesure, analyse de la course d'élan et de l'impulsion"]
+        }
+      ]
+    },
+    {
+      "nom": "CA2 — Adapter ses déplacements à des environnements variés",
+      "description": "Se déplacer en sécurité dans des environnements variés, gérer ses émotions.",
+      "competences": [
+        {
+          "intitule": "Réussir un déplacement planifié dans un milieu naturel ou artificiel, en gérant ses ressources et en appréciant les risques",
+          "exemples_themes": ["Course d'orientation : parcours au score en binôme (carte IGN, 8 balises en 30 min)", "Escalade : grimper une voie cotée en moulinette en plaçant les dégaines"]
+        },
+        {
+          "intitule": "Assurer sa sécurité et celle d'autrui dans des situations variées",
+          "exemples_themes": ["Natation sauvetage : parcours de 100m avec obstacles et remorquage", "VTT : parcours technique en milieu naturel (descente, virage, freinage)"]
+        }
+      ]
+    },
+    {
+      "nom": "CA3 — S'exprimer devant les autres par une prestation artistique et/ou acrobatique",
+      "description": "Composer et interpréter une prestation devant un public.",
+      "competences": [
+        {
+          "intitule": "Composer et interpréter une chorégraphie collective en mobilisant des procédés de composition",
+          "exemples_themes": ["Danse contemporaine : composition de 2 minutes en groupe de 4 avec espace, temps, énergie", "Danse hip-hop : chorégraphie de groupe avec unisson, cascade et formation"]
+        },
+        {
+          "intitule": "Réaliser un enchaînement acrobatique devant un public en intégrant des éléments techniques",
+          "exemples_themes": ["Acrosport : enchaînement collectif de 6 figures avec liaisons gymniques devant jury", "Gymnastique au sol : enchaînement de 6 éléments avec note de difficulté et d'exécution"]
+        }
+      ]
+    },
+    {
+      "nom": "CA4 — Conduire et maîtriser un affrontement collectif ou interindividuel",
+      "description": "S'organiser tactiquement, faire des choix stratégiques, respecter l'adversaire.",
+      "competences": [
+        {
+          "intitule": "Réaliser des actions décisives en situation favorable afin de faire basculer le rapport de force en sa faveur",
+          "exemples_themes": ["Handball : match 6 contre 6 avec analyse tactique (montée de balle, décalage, tir)", "Badminton : match en 1 contre 1, construire le point en variant les trajectoires (long/court, gauche/droite)"]
+        },
+        {
+          "intitule": "Adapter son engagement moteur en fonction de son état physique et du rapport de force",
+          "exemples_themes": ["Basketball : match 5 contre 5 avec coaching par les pairs entre les quarts-temps", "Judo : randori debout de 3 minutes avec recherche d'opportunité de projection"]
+        },
+        {
+          "intitule": "Assumer les rôles sociaux propres à chaque APSA (arbitre, coach, observateur)",
+          "exemples_themes": ["Volleyball : tournoi avec arbitrage par les élèves (règlement officiel adapté)", "Ultimate : match en auto-arbitrage avec application de l'esprit du jeu"]
+        }
+      ]
+    },
+    {
+      "nom": "CA5 — Réaliser une activité physique pour développer ses ressources et s'entretenir",
+      "description": "S'engager dans une démarche de développement personnel par l'activité physique.",
+      "competences": [
+        {
+          "intitule": "Mobiliser des connaissances sur l'entraînement pour s'engager dans une activité physique d'entretien",
+          "exemples_themes": ["Course en durée : concevoir et réaliser un programme d'entraînement personnalisé sur 6 semaines", "Musculation / renforcement musculaire : concevoir un circuit-training adapté à ses objectifs"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EPS du cycle 4 s'organise autour de 5 champs d'apprentissage (CA1 à CA5, le CA5 étant spécifique au cycle 4). L'élève doit pratiquer au moins une APSA de chaque CA au cours du cycle. L'enseignement vise le développement de compétences motrices, méthodologiques et sociales : construire un projet de performance, gérer ses émotions et son effort, coopérer et assumer des rôles (joueur, arbitre, coach, observateur, chorégraphe). L'évaluation porte sur la performance, la maîtrise technique, les rôles sociaux et la capacité à s'engager dans un projet. Le programme prépare à l'épreuve d'EPS du DNB."
+}

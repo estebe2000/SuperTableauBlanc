@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "discipline": "Philosophie",
+    "cycle": "Lycée GT",
+    "classes": ["Terminale"],
+    "source": "B.O. spécial n°8 du 25 juillet 2019 — Programme de philosophie terminale GT",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Identifier et formuler un problème philosophique",
+    "Analyser et interpréter des textes philosophiques",
+    "Construire une réflexion argumentée (dissertation)",
+    "Mobiliser des références philosophiques pertinentes",
+    "Exercer un jugement critique autonome"
+  ],
+  "domaines": [
+    {
+      "nom": "La morale et la politique",
+      "description": "Réflexion sur les fondements de l'action juste et de la vie en société.",
+      "competences": [
+        {
+          "intitule": "La justice : le droit, l'équité, la loi",
+          "exemples_themes": ["Un extrait de La République de Platon (l'anneau de Gygès)", "Un passage du Contrat social de Rousseau", "Un texte de Rawls sur le voile d'ignorance", "La Déclaration des droits de l'homme de 1789"]
+        },
+        {
+          "intitule": "L'État : la souveraineté, la légitimité du pouvoir politique",
+          "exemples_themes": ["Un chapitre du Léviathan de Hobbes", "Un extrait de L'Esprit des lois de Montesquieu", "Un passage de Tocqueville sur la démocratie", "Un texte d'Hannah Arendt sur la banalité du mal"]
+        },
+        {
+          "intitule": "Le devoir : la morale, la liberté, la responsabilité",
+          "exemples_themes": ["Un extrait des Fondements de la métaphysique des mœurs de Kant", "Un passage de l'Éthique à Nicomaque d'Aristote", "Un texte de Sartre sur la liberté et l'engagement", "Un dilemme moral contemporain (éthique appliquée)"]
+        },
+        {
+          "intitule": "La liberté : déterminisme, libre arbitre, autonomie",
+          "exemples_themes": ["Un extrait de l'Éthique de Spinoza (les causes de nos actions)", "Un passage de L'existentialisme est un humanisme de Sartre", "Un texte d'Épictète (Manuel) sur ce qui dépend de nous", "Un texte de Bergson sur la durée et la liberté"]
+        }
+      ]
+    },
+    {
+      "nom": "La connaissance et la raison",
+      "description": "Les fondements et les limites de la connaissance humaine.",
+      "competences": [
+        {
+          "intitule": "La vérité : opinion, certitude, démonstration",
+          "exemples_themes": ["Un extrait des Méditations métaphysiques de Descartes", "L'allégorie de la caverne de Platon", "Un texte de Bachelard sur l'obstacle épistémologique", "Un passage de Popper sur la falsifiabilité"]
+        },
+        {
+          "intitule": "La science : théorie et expérience, raison et réel",
+          "exemples_themes": ["Un texte de Claude Bernard sur la méthode expérimentale", "Un extrait de Kuhn sur les paradigmes scientifiques", "Un passage du Discours de la méthode de Descartes", "Un texte de Canguilhem sur le normal et le pathologique"]
+        },
+        {
+          "intitule": "La raison et le langage : communication, interprétation, rhétorique",
+          "exemples_themes": ["Un extrait du Cratyle de Platon", "Un texte de Saussure sur le signe linguistique", "Un passage de Merleau-Ponty sur le langage et la pensée", "Un texte d'Austin sur les actes de parole"]
+        }
+      ]
+    },
+    {
+      "nom": "L'existence humaine et la culture",
+      "description": "La condition humaine, la conscience, le rapport au temps et à autrui.",
+      "competences": [
+        {
+          "intitule": "La conscience et l'inconscient",
+          "exemples_themes": ["Un extrait des Méditations de Descartes (le cogito)", "Un passage de Freud (Introduction à la psychanalyse)", "Un texte de Leibniz sur les petites perceptions", "Un extrait de Sartre sur la mauvaise foi"]
+        },
+        {
+          "intitule": "Le temps et l'existence : mémoire, histoire, mort",
+          "exemples_themes": ["Un extrait des Confessions de saint Augustin (le temps)", "Un passage d'Heidegger sur l'être-pour-la-mort", "Un texte d'Épicure (Lettre à Ménécée)", "Un texte de Pascal sur le divertissement"]
+        },
+        {
+          "intitule": "Autrui : le rapport à l'autre, la reconnaissance, l'altérité",
+          "exemples_themes": ["Un extrait de la Phénoménologie de l'esprit de Hegel (maître et esclave)", "Un passage de Lévinas sur le visage d'autrui", "Un texte de Sartre sur le regard (L'Être et le Néant)", "Un extrait de Montaigne sur l'amitié"]
+        },
+        {
+          "intitule": "Le bonheur : désir, plaisir, sagesse",
+          "exemples_themes": ["Un extrait de la Lettre à Ménécée d'Épicure", "Un passage de Schopenhauer sur la souffrance", "Un texte de Mill sur l'utilitarisme", "Un extrait du Banquet de Platon sur le désir"]
+        }
+      ]
+    },
+    {
+      "nom": "L'art et la technique",
+      "description": "La création artistique, le beau, le rapport entre l'homme et la technique.",
+      "competences": [
+        {
+          "intitule": "L'art : le beau, le goût, la création",
+          "exemples_themes": ["Un extrait de la Critique de la faculté de juger de Kant", "Un passage de Hegel sur la fin de l'art", "Un texte de Nietzsche sur l'art et la vie", "Un texte de Benjamin sur l'œuvre d'art à l'ère de la reproductibilité technique"]
+        },
+        {
+          "intitule": "La technique : nature, culture, progrès",
+          "exemples_themes": ["Un extrait du Protagoras de Platon (mythe de Prométhée)", "Un texte de Heidegger sur la question de la technique", "Un passage de Hans Jonas sur le principe responsabilité", "Un texte d'Arendt sur le travail, l'œuvre et l'action"]
+        },
+        {
+          "intitule": "Le travail : aliénation, émancipation, valeur",
+          "exemples_themes": ["Un extrait des Manuscrits de 1844 de Marx", "Un passage de Hegel sur le travail et la reconnaissance", "Un texte de Simone Weil sur la condition ouvrière", "Un texte de Méda sur la fin de la valeur travail"]
+        }
+      ]
+    },
+    {
+      "nom": "La religion",
+      "description": "Le rapport entre foi et raison, le sacré et le profane.",
+      "competences": [
+        {
+          "intitule": "La religion : foi et raison, le sacré, la croyance",
+          "exemples_themes": ["Un extrait des Pensées de Pascal (le pari)", "Un texte de Feuerbach sur la projection divine", "Un passage de Durkheim sur les formes élémentaires de la vie religieuse", "Un texte de Kierkegaard sur le saut de la foi"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de philosophie en terminale GT s'organise autour de dix-sept notions regroupées en cinq perspectives : la morale et la politique, la connaissance, l'existence humaine et la culture, l'art et la technique, la religion. Les élèves apprennent à problématiser, argumenter et mobiliser des références philosophiques à travers la dissertation et l'explication de texte. L'objectif est le développement d'un jugement critique autonome."
+}

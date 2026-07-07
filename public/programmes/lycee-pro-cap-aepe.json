@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "discipline": "CAP AEPE",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année"],
+    "source": "Référentiel CAP AEPE — Accompagnement Éducatif Petite Enfance (arrêté du 22 février 2017)",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Accompagner le développement du jeune enfant (0-6 ans)",
+    "Exercer son activité en accueil collectif ou individuel",
+    "Assurer les soins du quotidien et l'entretien des espaces de vie",
+    "Communiquer avec les enfants, les familles et l'équipe",
+    "Respecter le cadre réglementaire et les protocoles d'hygiène"
+  ],
+  "domaines": [
+    {
+      "nom": "Accompagner le développement du jeune enfant",
+      "description": "Le développement de l'enfant et les activités d'éveil.",
+      "competences": [
+        {
+          "intitule": "Recueillir les informations, s'informer sur les éléments du contexte de l'enfant",
+          "exemples_themes": ["Le carnet de santé et les fiches d'accueil", "L'observation de l'enfant : grille d'observation du comportement", "Les étapes du développement psychomoteur (0-6 ans)", "Les rythmes de l'enfant : sommeil, alimentation, jeu"]
+        },
+        {
+          "intitule": "Mettre en œuvre des activités d'éveil adaptées au développement de l'enfant",
+          "exemples_themes": ["Activité de motricité libre (parcours, jeux d'équilibre)", "Activité sensorielle (peinture au doigt, pâte à modeler, bac sensoriel)", "Activité langagière (comptine, lecture d'album, marionnettes)", "Activité de jeu symbolique (dînette, déguisement, poupées)"]
+        }
+      ]
+    },
+    {
+      "nom": "Soins du quotidien",
+      "description": "Les soins d'hygiène, l'alimentation et le confort de l'enfant.",
+      "competences": [
+        {
+          "intitule": "Réaliser les soins du quotidien et accompagner l'enfant dans ses apprentissages",
+          "exemples_themes": ["Le change du nourrisson : protocole et matériel", "La préparation d'un biberon (dosage, stérilisation, température)", "L'accompagnement au repas : diversification alimentaire, autonomie", "L'accompagnement au sommeil : rituel d'endormissement, surveillance"]
+        },
+        {
+          "intitule": "Appliquer les protocoles d'hygiène et de sécurité",
+          "exemples_themes": ["Le lavage des mains adapté aux enfants (comptine)", "Le protocole de nettoyage des jouets et du matériel", "Les PAI (Projets d'Accueil Individualisé) pour allergies ou maladies", "La conduite à tenir en cas de fièvre, chute ou accident"]
+        }
+      ]
+    },
+    {
+      "nom": "Entretien des espaces de vie",
+      "description": "L'entretien et l'aménagement des espaces d'accueil.",
+      "competences": [
+        {
+          "intitule": "Entretenir les espaces de vie et le matériel de la structure",
+          "exemples_themes": ["Le bionettoyage des surfaces et des sols (protocole)", "L'entretien du linge de la structure (bavoirs, draps, serviettes)", "L'aménagement d'un espace de jeu sécurisé", "Le tri des déchets et le rangement du matériel"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication et vie professionnelle",
+      "description": "La communication avec les enfants, les familles et l'équipe.",
+      "competences": [
+        {
+          "intitule": "Communiquer avec les enfants, les parents et l'équipe professionnelle",
+          "exemples_themes": ["Les transmissions aux familles (oral et cahier de liaison)", "La communication bienveillante avec le jeune enfant", "La posture professionnelle : distance, bientraitance, secret professionnel", "Le projet éducatif et le projet pédagogique de la structure"]
+        },
+        {
+          "intitule": "Connaître le cadre réglementaire et les structures d'accueil",
+          "exemples_themes": ["Les structures d'accueil collectif (crèche, halte-garderie, MAM)", "L'accueil individuel : assistant maternel, garde à domicile", "Le rôle de la PMI et les normes d'encadrement", "Les droits de l'enfant (Convention internationale)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le CAP AEPE forme aux métiers de la petite enfance (0-6 ans). Il couvre l'accompagnement du développement de l'enfant, les activités d'éveil, les soins du quotidien (change, repas, sommeil), l'entretien des espaces et la communication avec les familles. La formation prépare à exercer en crèche, halte-garderie, MAM, école maternelle (ATSEM) ou à domicile."
+}

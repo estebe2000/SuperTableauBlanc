@@ -1,0 +1,60 @@
+            <div class="workspace-header">
+                <h2>Outil : Magic ToDo</h2>
+                <p>Divisez n'importe quelle tâche intimidante en micro-étapes gérables.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>Découper une tâche complexe</h2>
+                    </div>
+
+                    <div class="todo-form">
+                        <div class="input-wrapper">
+                            <textarea id="todoInput" rows="3" placeholder="Saisissez la tâche que vous souhaitez découper... (ex: 'Ranger la bibliothèque de la classe', 'Préparer mon exposé de géographie')"></textarea>
+                        </div>
+
+                        <div class="spiciness-section">
+                            <div class="spiciness-header">
+                                <span>Niveau de détail (Piquant) :</span>
+                                <span id="spicinessVal" class="spiciness-label">3🌶️</span>
+                            </div>
+                            <input type="range" id="todoSpiciness" min="1" max="5" value="3" class="spiciness-slider">
+                            <div class="spiciness-ticks">
+                                <span>Peu détaillé</span>
+                                <span>Très détaillé</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary" id="todoSubmitBtn">
+                            <span class="btn-text">Découper la tâche</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>Plan d'action</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="todoCopyBtn" title="Copier la liste" disabled>📋</button>
+                            <button class="btn btn-icon" id="todoClearBtn" title="Effacer" disabled>🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="todoPlaceholder">
+                            <p>Entrez une tâche pour générer des étapes claires et surmontables.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="todoSkeleton" style="display: none;">
+                            <div class="skeleton-line" style="width: 80%;"></div>
+                            <div class="skeleton-line" style="width: 75%;"></div>
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                        </div>
+
+                        <div class="todo-list-container" id="todoListContainer" style="display: none;">
+                            <!-- La checklist dynamique sera injectée ici -->
+                        </div>
+                    </div>
+                </section>
+            </div>

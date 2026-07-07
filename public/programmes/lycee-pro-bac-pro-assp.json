@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "discipline": "Bac Pro ASSP",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro ASSP — Accompagnement, Soins et Services à la Personne",
+    "mise_a_jour": "2022-09-01",
+    "note": "Options A (à domicile) et B (en structure)"
+  },
+  "attendus_fin_cycle": [
+    "Accompagner la personne dans les actes de la vie quotidienne",
+    "Réaliser des soins d'hygiène et de confort",
+    "Travailler en équipe pluriprofessionnelle",
+    "Communiquer avec la personne accompagnée et son entourage",
+    "Participer à la gestion et à l'organisation du service"
+  ],
+  "domaines": [
+    {
+      "nom": "Accompagnement de la personne dans sa vie quotidienne",
+      "description": "Les gestes et postures professionnels pour accompagner au quotidien.",
+      "competences": [
+        {
+          "intitule": "Accompagner la personne dans les actes essentiels (toilette, habillage, repas, déplacements)",
+          "exemples_themes": ["Aide à la toilette : protocole et respect de l'intimité", "L'aide au repas d'une personne âgée dépendante (textures modifiées)", "Les transferts et les mobilisations (lit-fauteuil, lève-personne)", "L'accompagnement à l'habillage d'une personne en situation de handicap"]
+        },
+        {
+          "intitule": "Accompagner la personne dans les activités de la vie sociale et relationnelle",
+          "exemples_themes": ["Animation d'un atelier mémoire avec des personnes âgées", "Accompagnement à une sortie (courses, promenade, activité culturelle)", "Stimulation cognitive par le jeu (loto, puzzle, quizz)", "Le maintien du lien social pour une personne isolée à domicile"]
+        }
+      ]
+    },
+    {
+      "nom": "Soins d'hygiène et de confort",
+      "description": "Les techniques de soins et les protocoles d'hygiène.",
+      "competences": [
+        {
+          "intitule": "Réaliser des soins d'hygiène corporelle et de confort",
+          "exemples_themes": ["La toilette complète au lit : protocole et matériel", "Le change d'une protection pour personne incontinente", "Les soins de bouche et les soins des pieds", "La réfection d'un lit occupé ou inoccupé"]
+        },
+        {
+          "intitule": "Appliquer les règles d'hygiène et de prévention des infections",
+          "exemples_themes": ["Le lavage des mains et la friction hydroalcoolique (protocole OMS)", "Les précautions standard et les précautions complémentaires", "Le bionettoyage d'une chambre en structure", "Le circuit du linge et le circuit des déchets (DASRI)"]
+        },
+        {
+          "intitule": "Surveiller l'état de santé de la personne et transmettre les informations",
+          "exemples_themes": ["La prise des constantes (température, pouls, tension — TP)", "Les signes d'alerte : déshydratation, chute, confusion", "Les transmissions ciblées (DAR : Données, Actions, Résultats)", "L'utilisation du dossier de soins informatisé"]
+        }
+      ]
+    },
+    {
+      "nom": "Services à l'usager — Nutrition et alimentation",
+      "description": "L'alimentation au service de la santé et du bien-être.",
+      "competences": [
+        {
+          "intitule": "Préparer des repas adaptés et équilibrés",
+          "exemples_themes": ["L'équilibre alimentaire : les groupes d'aliments et les besoins", "Préparation d'un repas en texture modifiée (mixé, haché)", "Les régimes spécifiques : sans sel, diabétique, sans résidu", "L'hygiène alimentaire : méthode HACCP simplifiée"]
+        }
+      ]
+    },
+    {
+      "nom": "Services à l'usager — Entretien du cadre de vie",
+      "description": "L'entretien des locaux et du linge.",
+      "competences": [
+        {
+          "intitule": "Entretenir le cadre de vie de la personne (domicile ou structure)",
+          "exemples_themes": ["Le bionettoyage : produits, dosages, protocole", "L'entretien du linge : tri, lavage, repassage, rangement", "L'aménagement de l'espace pour la sécurité (prévention des chutes)", "Les produits d'entretien : pictogrammes et précautions"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication professionnelle et travail en équipe",
+      "description": "La relation avec la personne, sa famille et l'équipe.",
+      "competences": [
+        {
+          "intitule": "Communiquer avec la personne accompagnée, sa famille et l'équipe",
+          "exemples_themes": ["L'écoute active et la communication non verbale", "L'accueil d'un résident ou d'un usager en structure", "La relation d'aide : empathie, distance professionnelle, bientraitance", "La réunion d'équipe : participation et transmission d'informations"]
+        },
+        {
+          "intitule": "Connaître le cadre institutionnel et réglementaire du secteur",
+          "exemples_themes": ["Les structures du secteur sanitaire et social (EHPAD, SSIAD, crèche)", "Le projet individualisé / projet de vie de la personne", "La charte des droits et libertés de la personne accueillie", "La maltraitance : repérage, signalement, cadre légal"]
+        }
+      ]
+    },
+    {
+      "nom": "Accompagnement spécifique — Enfance (option A)",
+      "description": "L'accompagnement du jeune enfant.",
+      "competences": [
+        {
+          "intitule": "Accompagner le développement du jeune enfant",
+          "exemples_themes": ["Les étapes du développement psychomoteur de 0 à 6 ans", "Le change et la toilette du nourrisson", "L'animation d'une activité d'éveil (motricité, sensoriel, créatif)", "La préparation d'un biberon et la diversification alimentaire"]
+        }
+      ]
+    },
+    {
+      "nom": "Accompagnement spécifique — Personne âgée et handicap (option B)",
+      "description": "L'accompagnement de la personne en perte d'autonomie.",
+      "competences": [
+        {
+          "intitule": "Accompagner la personne âgée ou en situation de handicap dans le maintien de l'autonomie",
+          "exemples_themes": ["Les pathologies du vieillissement (Alzheimer, Parkinson — signes et accompagnement)", "Les aides techniques (déambulateur, fauteuil roulant, barres d'appui)", "L'accompagnement en fin de vie (soins palliatifs, écoute)", "Le projet d'accompagnement personnalisé en EHPAD"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro ASSP forme aux métiers de l'accompagnement, des soins et des services à la personne. Il couvre les soins d'hygiène et de confort, l'accompagnement dans la vie quotidienne, la nutrition, l'entretien du cadre de vie et la communication professionnelle. Deux options : à domicile (enfance et personnes âgées) et en structure (EHPAD, hôpital, crèche). La bientraitance et le respect de la personne sont au cœur de la formation."
+}

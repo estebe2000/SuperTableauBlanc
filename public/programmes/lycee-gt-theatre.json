@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "discipline": "Théâtre",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de théâtre option et spécialité lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer le jeu théâtral : corps, voix, espace, improvisation",
+    "Analyser des textes dramatiques et des spectacles",
+    "Concevoir et réaliser un projet théâtral collectif",
+    "Situer les œuvres dans l'histoire du théâtre",
+    "Développer un regard de spectateur averti"
+  ],
+  "domaines": [
+    {
+      "nom": "Pratique du jeu théâtral",
+      "description": "Le travail du corps, de la voix et de l'interprétation.",
+      "competences": [
+        {
+          "intitule": "Travailler le corps, la voix et la présence scénique",
+          "exemples_themes": ["Exercices d'échauffement corporel et vocal", "Improvisations à partir de contraintes (lieu, personnage, situation)", "Le travail du chœur et de la choralité", "La diction et la projection vocale (un monologue au programme)"]
+        },
+        {
+          "intitule": "Interpréter un texte dramatique : de la lecture au jeu",
+          "exemples_themes": ["Mise en voix et mise en espace d'une scène de Molière", "Travail de la scène à deux : le dialogue et l'écoute", "L'adresse au public dans le théâtre brechtien", "Le monologue intérieur dans le théâtre contemporain"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture théâtrale",
+      "description": "L'histoire du théâtre et ses esthétiques.",
+      "competences": [
+        {
+          "intitule": "Connaître les grandes étapes de l'histoire du théâtre et les esthétiques scéniques",
+          "exemples_themes": ["Le théâtre antique : tragédie et comédie (Sophocle, Aristophane)", "Le théâtre classique français (Corneille, Racine, Molière)", "Le renouveau du XXe siècle : Artaud, Brecht, Beckett", "Le théâtre contemporain : Pommerat, Mouawad, Milo Rau"]
+        }
+      ]
+    },
+    {
+      "nom": "Analyse de spectacles",
+      "description": "Le regard critique sur les représentations théâtrales.",
+      "competences": [
+        {
+          "intitule": "Analyser un spectacle : mise en scène, scénographie, jeu des acteurs",
+          "exemples_themes": ["Compte rendu critique d'un spectacle vu en salle", "Analyse comparée de deux mises en scène d'une même pièce", "La scénographie : décor, lumière, costumes, son", "L'entretien avec un artiste (metteur en scène, comédien, scénographe)"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet de création collective",
+      "description": "Conception et réalisation d'un spectacle.",
+      "competences": [
+        {
+          "intitule": "Concevoir et présenter un projet théâtral collectif",
+          "exemples_themes": ["Choix d'un texte et dramaturgie collective", "La mise en scène : régie, espace, accessoires", "Répétitions et travail de plateau", "Représentation publique et retour d'expérience"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de théâtre au lycée GT (option et spécialité) articule pratique du jeu, culture théâtrale, analyse de spectacles et projet de création collective. Les élèves travaillent le corps, la voix et l'interprétation, étudient l'histoire du théâtre de l'Antiquité au contemporain, fréquentent les salles de spectacle et conçoivent une création collective. Le partenariat avec des artistes professionnels est au cœur de la formation."
+}

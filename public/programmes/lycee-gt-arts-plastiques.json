@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "discipline": "Arts Plastiques",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'arts plastiques option et spécialité lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Expérimenter, produire, créer des œuvres plastiques",
+    "Analyser et interpréter des œuvres d'art",
+    "S'exprimer et argumenter sur sa démarche artistique",
+    "Situer les œuvres dans leur contexte historique et culturel",
+    "Développer une culture artistique personnelle"
+  ],
+  "domaines": [
+    {
+      "nom": "Pratique plastique — Dessin, peinture, volume",
+      "description": "Expérimentation des techniques et des matériaux traditionnels.",
+      "competences": [
+        {
+          "intitule": "Expérimenter les techniques du dessin, de la peinture et du volume",
+          "exemples_themes": ["Le dessin d'observation (nature morte, modèle vivant)", "La peinture : couleur, matière, geste (acrylique, encre)", "La sculpture et l'installation : plâtre, carton, objets trouvés", "Le collage et les techniques mixtes"]
+        }
+      ]
+    },
+    {
+      "nom": "Pratique plastique — Photographie, vidéo, numérique",
+      "description": "Les pratiques artistiques contemporaines et numériques.",
+      "competences": [
+        {
+          "intitule": "Créer avec les outils numériques et les nouveaux médias",
+          "exemples_themes": ["La photographie plasticienne (cadrage, lumière, mise en scène)", "La vidéo d'art : narration visuelle et montage", "L'art numérique et génératif (Processing, TouchDesigner)", "L'image animée : stop motion, GIF artistique"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture artistique — L'art et la technique",
+      "description": "Les rapports entre art, matériaux et procédés.",
+      "competences": [
+        {
+          "intitule": "Analyser les rapports entre art et technique dans l'histoire de l'art",
+          "exemples_themes": ["L'invention de la perspective à la Renaissance (Brunelleschi)", "L'impact de la photographie sur la peinture (impressionnisme)", "Le ready-made de Duchamp et la question de l'objet", "L'art et l'intelligence artificielle (œuvres génératives)"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture artistique — L'œuvre et l'exposition",
+      "description": "L'œuvre d'art dans son rapport au lieu, au spectateur, à l'institution.",
+      "competences": [
+        {
+          "intitule": "Comprendre les enjeux de la présentation et de la réception des œuvres",
+          "exemples_themes": ["Le musée et le white cube (critique de l'espace d'exposition)", "Le land art et l'art in situ (Christo, Andy Goldsworthy)", "L'art urbain et le street art (Banksy, JR, Invader)", "La performance et l'art éphémère (Marina Abramović)"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture artistique — Le corps comme sujet et comme matériau",
+      "description": "La représentation et l'utilisation du corps dans l'art.",
+      "competences": [
+        {
+          "intitule": "Étudier la place du corps dans les pratiques artistiques",
+          "exemples_themes": ["Le corps dans la sculpture antique et classique", "Le body art et la performance (Yves Klein, Orlan)", "L'autoportrait : de Rembrandt à Cindy Sherman", "Le corps politique : Frida Kahlo, Kiki Smith"]
+        }
+      ]
+    },
+    {
+      "nom": "Argumentation et verbalisation",
+      "description": "S'exprimer sur sa pratique et sur les œuvres.",
+      "competences": [
+        {
+          "intitule": "Argumenter sur sa démarche artistique et analyser des œuvres",
+          "exemples_themes": ["Présentation orale de son projet plastique", "Rédaction d'une note d'intention artistique", "Analyse comparative de deux œuvres sur un même thème", "Visite commentée d'une exposition (carnet de visite)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts plastiques au lycée GT (option et spécialité) articule pratique plastique et culture artistique. Les élèves expérimentent des techniques variées (dessin, peinture, volume, photographie, vidéo, numérique) et étudient les grandes questions de l'art : le rapport à la technique, l'exposition, le corps. La verbalisation de la démarche artistique est un enjeu central."
+}

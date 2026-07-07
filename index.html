@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IAcadémie — Portail Pédagogique Inclusif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body class="no-custom-cursor">
+
+    <!-- Curseur Personnalisé -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+    <div id="reading-ruler" class="reading-ruler"></div>
+
+    <!-- Barre de Progression -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Arrière-plan Animé -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">✓ Outil ouvert avec succès !</div>
+
+    <!-- Barre d'Accessibilité -->
+    <div class="access-bar">
+        <div class="access-btn" id="btn-contrast" title="Contraste élevé">🌗</div>
+        <div class="access-btn" id="btn-dyslexie" title="Police dyslexie">Aa</div>
+        <div class="access-btn" id="btn-font-up" title="Agrandir le texte">A+</div>
+        <div class="access-btn" id="btn-font-down" title="Réduire le texte">A-</div>
+        <div class="access-btn" id="btn-motion" title="Réduire les animations">⏸</div>
+        <div class="access-btn" id="btn-cursor" title="Activer le curseur spécial">🖱️</div>
+    </div>
+
+    <!-- ═══ NAV / HEADER ═══ -->
+    <nav id="navbar">
+        <a href="#" class="logo tab-link" data-tab="home">
+            <img src="https://pytel.fr/site/ia/image/medias/logo.png" alt="Académie de Normandie" class="logo-img">
+            <div class="logo-text">
+                <span class="logo-title">IA<span>cadémie</span></span>
+                <span class="logo-subtitle">Atelier Pédagogique</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navTabs">
+            <li><button class="nav-btn tab-link active" data-tab="home">Accueil</button></li>
+            
+            <li class="nav-dropdown">
+                <button class="nav-btn nav-dropdown-trigger">Facilitateur</button>
+                <div class="nav-dropdown-content">
+                    <button class="tab-link" data-tab="vision">👁️ Vision AI</button>
+                    <button class="tab-link" data-tab="todo">🎯 Magic ToDo</button>
+                    <button class="tab-link" data-tab="formalizer">✍️ Formalizer</button>
+                    <button class="tab-link" data-tab="judge">⚖️ Judge AI</button>
+                    <button class="tab-link" data-tab="audio">🎙️ Voice AI</button>
+                </div>
+            </li>
+
+            <li class="nav-dropdown">
+                <button class="nav-btn nav-dropdown-trigger">Ingénierie</button>
+                <div class="nav-dropdown-content">
+                    <button class="tab-link" data-tab="professor">🧑‍🏫 Professor</button>
+                    <button class="tab-link" data-tab="professor-plus">🎓 Professor +</button>
+                </div>
+            </li>
+            
+            <li><button class="nav-btn tab-link" data-tab="bureau">🖥️ Bureau Virtuel</button></li>
+            <li><button class="nav-btn tab-link" data-tab="settings">⚙️ Configuration</button></li>
+        </ul>
+        <div class="status-badge checking" id="serverStatus">
+            <span class="status-dot"></span>
+            <span class="status-text">Vérification Ollama...</span>
+        </div>
+    </nav>
+
+    <!-- ═══ APP WRAPPER ═══ -->
+    <main class="app-container">
+
+        <!-- TAB 1: HOME HUB -->
+        <section class="tab-content active" id="tab-home"></section>
+
+        <!-- TAB 2: VISION AI -->
+        <section class="tab-content" id="tab-vision"></section>
+
+        <!-- TAB 3: MAGIC TO DO -->
+        <section class="tab-content" id="tab-todo"></section>
+
+        <!-- TAB 4: FORMALIZER -->
+        <section class="tab-content" id="tab-formalizer"></section>
+
+        <!-- TAB 12: JUDGE AI -->
+        <section class="tab-content" id="tab-judge"></section>
+
+        <!-- TAB 5: VOICE AI -->
+        <section class="tab-content" id="tab-audio"></section>
+
+        <!-- TAB 6: PROFESSOR -->
+        <section class="tab-content" id="tab-professor"></section>
+
+        <!-- TAB 7: PROFESSOR + -->
+        <section class="tab-content" id="tab-professor-plus"></section>
+
+        <!-- TAB 8: SETTINGS -->
+        <section class="tab-content" id="tab-settings"></section>
+
+        <!-- TAB 9: ABOUT -->
+        <section class="tab-content" id="tab-about"></section>
+
+        <!-- TAB 10: ACCESSIBILITY -->
+        <section class="tab-content" id="tab-accessibility"></section>
+
+        <!-- TAB 11: GDPR -->
+        <section class="tab-content" id="tab-rgpd"></section>
+
+        <!-- TAB: BUREAU VIRTUEL (ENSEIGNANT) -->
+        <section class="tab-content" id="tab-bureau"></section>
+
+        <!-- TAB: ECRAN ELEVE -->
+        <section class="tab-content" id="tab-student"></section>
+
+        <!-- TAB: PROFILING CUA (QUESTIONNAIRE) -->
+        <section class="tab-content" id="tab-profiling"></section>
+
+    </main>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#" class="logo tab-link" data-tab="home">
+                <img src="https://pytel.fr/site/ia/image/medias/logo.png" alt="Académie de Normandie" class="logo-img" style="height: 32px; width: auto;">
+                <div class="logo-text">
+                    <span class="logo-title" style="font-size: 1.1rem;">IA<span>cadémie</span></span>
+                </div>
+            </a>
+            <div class="footer-links">
+                <button class="tab-link" data-tab="about">À propos</button>
+                <button class="tab-link" data-tab="accessibility">Accessibilité</button>
+                <button class="tab-link" data-tab="rgpd">RGPD</button>
+                <a href="https://www.ac-normandie.fr/" target="_blank" rel="noopener">Académie de Normandie</a>
+            </div>
+            <div class="footer-copy">© 2026 IAcadémie — Tous droits réservés</div>
+        </div>
+    </footer>
+
+    <!-- Mermaid Fullscreen Modal -->
+    <div id="mermaidModal" class="mermaid-modal">
+        <div class="modal-close-area"></div>
+        <button class="close-modal" title="Fermer (Echap)">×</button>
+        <div class="modal-content" id="modalContent"></div>
+        <div class="modal-caption">Utilisez la molette pour zoomer ou faites glisser pour déplacer</div>
+    </div>
+
+    <!-- Easter Egg Skynet Overlay -->
+    <div id="skynetOverlay" class="skynet-overlay" style="display: none;">
+        <div class="crt-scanlines"></div>
+        <div class="skynet-glitch-bg"></div>
+        <div class="skynet-content">
+            <div class="skynet-alert-header">⚠️ DANGER : PROTOCOLE SKYNET INITIÉ ⚠️</div>
+            <div class="skynet-terminal">
+                <div class="skynet-terminal-line" id="skynetText"></div>
+            </div>
+            <div class="skynet-radar">
+                <img src="/skynet-0.gif" alt="Terminator Warning" class="skynet-gif">
+            </div>
+            <button class="btn btn-primary btn-skynet" id="closeSkynetBtn">⚠️ DÉSAMORCER LE PROTOCOLE ET REPRENDRE LE CONTRÔLE ⚠️</button>
+        </div>
+    </div>
+
+    <!-- PDF.js for PDF text extraction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Mammoth.js for DOCX text extraction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <!-- html2pdf for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        // Initialize PDF.js worker
+        if (window.pdfjsLib) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <!-- Marked Markdown parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Mermaid diagram library -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script type="module" src="/app.js"></script>
+</body>
+
+</html>

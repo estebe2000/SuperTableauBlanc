@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "discipline": "Histoire-Géographie",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "Eduscol / Bulletin Officiel — Programme d'histoire-géographie du cycle 4",
+    "mise_a_jour": "2026-06-13"
+  },
+  "attendus_fin_cycle": [
+    "Se repérer dans le temps : construire des repères historiques",
+    "Se repérer dans l'espace : construire des repères géographiques",
+    "Raisonner, justifier une démarche et les choix effectués",
+    "S'informer dans le monde du numérique",
+    "Analyser et comprendre un document",
+    "Pratiquer différents langages en histoire et en géographie",
+    "Coopérer et mutualiser"
+  ],
+  "domaines": [
+    {
+      "nom": "Histoire — 5ème : Chrétientés et islam (VIe-XIIIe siècles) / Société féodale",
+      "description": "Mondes en contact et construction de l'Occident médiéval.",
+      "competences": [
+        {
+          "intitule": "Byzance et l'Europe carolingienne ; naissance de l'islam et empire musulman",
+          "exemples_themes": ["L'empire byzantin et l'empire carolingien (Justinien, Charlemagne)", "La naissance de l'islam et l'expansion musulmane", "Contacts entre chrétiens et musulmans en Méditerranée"]
+        },
+        {
+          "intitule": "L'ordre seigneurial et l'émergence d'une nouvelle société urbaine",
+          "exemples_themes": ["La formation des campagnes médiévales", "L'essor des villes et des foires", "Le rôle de l'Église dans la société médiévale"]
+        },
+        {
+          "intitule": "L'affirmation de l'État monarchique (Capétiens et Valois)",
+          "exemples_themes": ["La féodalité et le renforcement du pouvoir royal", "La construction du domaine royal", "L'administration du royaume"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — 5ème : Transformations de l'Europe (XVIe-XVIIe siècles)",
+      "description": "De la Renaissance à l'absolutisme.",
+      "competences": [
+        {
+          "intitule": "Humanisme, réformes et conflits religieux",
+          "exemples_themes": ["La révolution de l'imprimerie", "Erasme et les humanistes", "Luther, Calvin et la Réforme protestante", "La Contre-Réforme catholique"]
+        },
+        {
+          "intitule": "Du Prince de la Renaissance au roi absolu (Louis XIV)",
+          "exemples_themes": ["Charles Quint et Soliman le Magnifique", "La cour de François Ier", "L'affirmation de l'absolutisme sous Louis XIV"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — 5ème : Question démographique et développement / Ressources",
+      "description": "Défis de la croissance mondiale et gestion des ressources.",
+      "competences": [
+        {
+          "intitule": "La croissance démographique et ses effets ; répondre aux besoins de la population",
+          "exemples_themes": ["L'explosion urbaine", "La transition démographique", "Inégalités de développement (IDH)"]
+        },
+        {
+          "intitule": "L'énergie, l'eau et l'alimentation : des ressources à ménager",
+          "exemples_themes": ["La sécurité alimentaire mondiale", "La gestion durable de l'eau", "La transition énergétique"]
+        },
+        {
+          "intitule": "Prévenir les risques et s'adapter au changement global",
+          "exemples_themes": ["Le changement climatique et ses impacts", "Les risques industriels et technologiques", "Les politiques d'adaptation"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — 4ème : XVIIIe siècle — Expansions, Lumières et Révolutions",
+      "description": "Le siècle des transformations politiques et sociales.",
+      "competences": [
+        {
+          "intitule": "Bourgeoisies marchandes, négoces et traites négrières",
+          "exemples_themes": ["Le commerce triangulaire", "L'économie de plantation", "L'essor des grands ports européens (Bordeaux, Nantes)"]
+        },
+        {
+          "intitule": "L'Europe des Lumières : circulation des idées et contestation",
+          "exemples_themes": ["L'Encyclopédie de Diderot et d'Alembert", "Les philosophes et la critique de l'absolutisme", "La naissance de l'opinion publique"]
+        },
+        {
+          "intitule": "La Révolution française et l'Empire : nouvel ordre politique",
+          "exemples_themes": ["L'année 1789", "La Déclaration des Droits de l'Homme et du Citoyen", "L'héritage révolutionnaire et napoléonien en Europe"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — 4ème : L'Europe et le monde au XIXe siècle",
+      "description": "Révolution industrielle et colonies.",
+      "competences": [
+        {
+          "intitule": "L'Europe de la 'révolution industrielle' ; conquêtes et sociétés coloniales",
+          "exemples_themes": ["L'essor du chemin de fer et de la vapeur", "La question ouvrière et les idéologies (socialisme, libéralisme)", "Le partage de l'Afrique et l'empire colonial français"]
+        },
+        {
+          "intitule": "Conditions féminines dans une société en mutation",
+          "exemples_themes": ["Le travail des femmes", "Le combat pour le droit de vote", "Les figures féminines marquantes (Louise Michel, George Sand)"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — 4ème : L'urbanisation du monde / Mobilités humaines",
+      "description": "Mondialisation et espaces urbains.",
+      "competences": [
+        {
+          "intitule": "Espaces et paysages de l'urbanisation ; villes connectées",
+          "exemples_themes": ["Les métropoles mondiales", "Les CBD (Central Business Districts)", "L'étalement urbain et les bidonvilles"]
+        },
+        {
+          "intitule": "Un monde de migrants ; le tourisme et ses espaces",
+          "exemples_themes": ["Les migrations économiques et politiques", "Le tourisme international de masse", "L'impact spatial du tourisme"]
+        },
+        {
+          "intitule": "Mers et océans : un monde maritime tendu",
+          "exemples_themes": ["Les routes maritimes et les détroits", "La piraterie moderne", "Les enjeux de l'exploitation des ressources marines"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — 3ème : Guerres totales (1914-1945) / Le monde depuis 1945",
+      "description": "Les grands conflits et les recompositions mondiales.",
+      "competences": [
+        {
+          "intitule": "Civils et militaires dans la 1ère GM ; expériences totalitaires",
+          "exemples_themes": ["La guerre des tranchées", "Le génocide des Arméniens", "Le nazisme et le stalinisme"]
+        },
+        {
+          "intitule": "La 2ème GM, une guerre d'anéantissement ; la France occupée",
+          "exemples_themes": ["La Shoah et le Porajmos", "La Résistance française", "Le régime de Vichy et la collaboration"]
+        },
+        {
+          "intitule": "Un monde bipolaire au temps de la guerre froide ; projet européen",
+          "exemples_themes": ["Le mur de Berlin", "La décolonisation (Algérie, Vietnam)", "Les étapes de la construction européenne"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — 3ème : Dynamiques territoriales de la France contemporaine",
+      "description": "Aménagement et organisation de l'espace français.",
+      "competences": [
+        {
+          "intitule": "Aires urbaines et espaces productifs en France",
+          "exemples_themes": ["La métropolisation de Paris et des grandes villes", "La reconversion industrielle", "L'agriculture productiviste et ses mutations"]
+        },
+        {
+          "intitule": "Aménager le territoire pour réduire les inégalités",
+          "exemples_themes": ["Le rôle de l'État et des régions", "Les transports à grande vitesse (LGV)", "Le développement des territoires ultra-marins"]
+        },
+        {
+          "intitule": "La France et l'Union européenne dans le monde",
+          "exemples_themes": ["Le rayonnement culturel français", "La France, puissance maritime", "L'UE, premier pôle commercial mondial"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'histoire-géographie du cycle 4 approfondit les connaissances acquises au cycle 3 en se concentrant sur les ruptures majeures. En histoire, on étudie la fin du Moyen Âge, la période moderne et les conflits du XXe siècle jusqu'au monde actuel. En géographie, l'accent est mis sur la mondialisation, l'urbanisation, les mobilités et les enjeux de développement durable à l'échelle planétaire et nationale. Les élèves développent leur esprit critique par l'analyse de documents complexes et la pratique de différents langages."
+}

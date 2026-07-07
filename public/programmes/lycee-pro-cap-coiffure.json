@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "discipline": "CAP Coiffure",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année"],
+    "source": "Référentiel CAP Métiers de la Coiffure (arrêté du 3 juillet 2019)",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des techniques de coiffure de base (shampoing, coupe, coiffage)",
+    "Réaliser des colorations et des techniques de changement de forme",
+    "Accueillir et conseiller la clientèle",
+    "Appliquer les règles d'hygiène, de sécurité et d'ergonomie",
+    "Connaître les produits capillaires et le cadre professionnel"
+  ],
+  "domaines": [
+    {
+      "nom": "Techniques de soins capillaires",
+      "description": "Le diagnostic, le shampoing et les soins du cheveu.",
+      "competences": [
+        {
+          "intitule": "Réaliser un diagnostic capillaire et des soins adaptés",
+          "exemples_themes": ["Le diagnostic du cuir chevelu et du cheveu (observation, toucher)", "Les différents types de cheveux (fins, épais, bouclés, crépus)", "Le shampoing professionnel : techniques et produits adaptés", "Les soins capillaires : masque, bain d'huile, soin restructurant"]
+        }
+      ]
+    },
+    {
+      "nom": "Techniques de coupe",
+      "description": "Les coupes de base féminines et masculines.",
+      "competences": [
+        {
+          "intitule": "Réaliser des coupes de base sur cheveux féminins et masculins",
+          "exemples_themes": ["Le carré : plein, dégradé, plongeant (sur tête malléable)", "La coupe dégradée : effilage, piquetage, désépaissir", "La coupe masculine : dégradé, fondu, contours (tondeuse, ciseaux)", "Le vocabulaire technique : mèche, séparation, angle de coupe, ligne"]
+        }
+      ]
+    },
+    {
+      "nom": "Techniques de coloration",
+      "description": "Les colorations, les mèches et les techniques de décoloration.",
+      "competences": [
+        {
+          "intitule": "Réaliser des colorations et des techniques de modification de couleur",
+          "exemples_themes": ["La coloration ton sur ton et la coloration d'oxydation", "Les mèches et le balayage (papier aluminium, bonnet)", "La décoloration : produits, temps de pause, surveillance", "La touche d'essai et le respect des précautions d'emploi"]
+        }
+      ]
+    },
+    {
+      "nom": "Mise en forme et coiffage",
+      "description": "Le brushing, les boucles et les coiffages de finition.",
+      "competences": [
+        {
+          "intitule": "Réaliser des mises en forme temporaires et des coiffages",
+          "exemples_themes": ["Le brushing : lisse, volume, pointes en mouvement (brosse ronde, sèche-cheveux)", "La mise en plis : rouleaux, bigoudis, pinces", "Le bouclage au fer à boucler ou au lisseur", "Le coiffage de finition : produits coiffants (laque, cire, mousse)"]
+        },
+        {
+          "intitule": "Réaliser des techniques de changement de forme durable",
+          "exemples_themes": ["La permanente : enroulage, produits, temps de pause", "Le défrisage : produits et précautions", "Le lissage brésilien : principe et cadre réglementaire", "Les contre-indications et les tests préalables"]
+        }
+      ]
+    },
+    {
+      "nom": "Relation client et communication",
+      "description": "L'accueil, le conseil et la vente en salon.",
+      "competences": [
+        {
+          "intitule": "Accueillir, conseiller et prendre en charge le client",
+          "exemples_themes": ["L'accueil au salon : prise de rendez-vous, installation au bac", "Le conseil personnalisé : forme du visage, style, entretien à domicile", "La vente de produits capillaires (argumentaire, conseil)", "La gestion du planning de rendez-vous"]
+        }
+      ]
+    },
+    {
+      "nom": "Hygiène, sécurité et environnement professionnel",
+      "description": "Les règles d'hygiène et le cadre professionnel du salon.",
+      "competences": [
+        {
+          "intitule": "Appliquer les règles d'hygiène, de sécurité et d'ergonomie au salon",
+          "exemples_themes": ["La stérilisation et la désinfection du matériel (ciseaux, peignes, bacs)", "L'ergonomie au poste de travail (posture, hauteur de travail, TMS)", "Les allergies et irritations : produits chimiques, gants, ventilation", "La réglementation du salon de coiffure (affichage, normes)"]
+        },
+        {
+          "intitule": "Connaître le cadre professionnel et l'environnement du métier",
+          "exemples_themes": ["Les différentes structures : salon, coiffure à domicile, studio", "La convention collective de la coiffure", "Le statut d'apprenti et les droits du salarié en salon", "Les tendances et la veille professionnelle (réseaux sociaux, magazines)"]
+        }
+      ]
+    },
+    {
+      "nom": "Biologie et technologie des produits",
+      "description": "La connaissance scientifique du cheveu et des produits.",
+      "competences": [
+        {
+          "intitule": "Connaître la biologie du cheveu et la composition des produits capillaires",
+          "exemples_themes": ["La structure du cheveu (cuticule, cortex, moelle) — schéma", "Le cycle de vie du cheveu (anagène, catagène, télogène)", "La composition d'un shampoing ou d'une coloration (lecture d'étiquette)", "Le pH et son rôle dans les soins capillaires"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le CAP Métiers de la Coiffure forme aux techniques fondamentales du métier : diagnostic capillaire, coupes féminines et masculines, colorations, mise en forme (brushing, permanente) et coiffage. L'accueil et le conseil client, l'hygiène au salon, la biologie du cheveu et la connaissance des produits complètent la formation. Le diplôme prépare à exercer en salon, à domicile ou en établissement de soins."
+}

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "discipline": "Éducation Morale et Civique (EMC)",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. n°36 du 30 septembre 2024 — Programme d'EMC lycée professionnel",
+    "mise_a_jour": "2024-09-30"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre les principes et valeurs de la République",
+    "Exercer son jugement critique",
+    "Participer à un débat argumenté",
+    "Connaître ses droits et devoirs de citoyen et de salarié",
+    "S'engager dans la vie collective"
+  ],
+  "domaines": [
+    {
+      "nom": "Liberté et droits",
+      "description": "Les libertés fondamentales et le cadre juridique.",
+      "competences": [
+        {
+          "intitule": "Comprendre les libertés fondamentales et leurs limites",
+          "exemples_themes": ["La liberté d'expression sur les réseaux sociaux (cas concret)", "Le droit du travail : libertés et obligations du salarié", "Un cas de discrimination à l'embauche (testing)", "La DDHC et son application aujourd'hui"]
+        }
+      ]
+    },
+    {
+      "nom": "Égalité et discriminations",
+      "description": "Le principe d'égalité dans la vie professionnelle et citoyenne.",
+      "competences": [
+        {
+          "intitule": "Identifier les formes de discrimination et connaître les recours",
+          "exemples_themes": ["L'égalité femmes-hommes au travail (données salariales)", "Le harcèlement scolaire et professionnel (prévention)", "Le Défenseur des droits : rôle et saisine", "Un témoignage ou un reportage sur les discriminations"]
+        },
+        {
+          "intitule": "Comprendre le principe de laïcité dans le milieu professionnel",
+          "exemples_themes": ["La Charte de la laïcité (analyse commentée)", "La neutralité en milieu professionnel (cas concrets)", "La loi de 1905 : principes essentiels", "Le respect des convictions dans l'entreprise"]
+        }
+      ]
+    },
+    {
+      "nom": "Citoyenneté et engagement",
+      "description": "La participation citoyenne et l'engagement collectif.",
+      "competences": [
+        {
+          "intitule": "S'engager en tant que citoyen et futur professionnel",
+          "exemples_themes": ["Les élections et le vote : inscription, participation (données)", "Les instances de représentation au lycée (CVL, MDL)", "Le bénévolat et l'engagement associatif local", "Les droits syndicaux et la représentation des salariés"]
+        }
+      ]
+    },
+    {
+      "nom": "Droits et devoirs du salarié",
+      "description": "Le cadre juridique du monde du travail.",
+      "competences": [
+        {
+          "intitule": "Connaître les droits et devoirs fondamentaux du salarié",
+          "exemples_themes": ["Le contrat de travail : CDI, CDD, intérim (comparaison)", "Le bulletin de paie (lecture et compréhension)", "La santé et la sécurité au travail (DUERP, EPI)", "Le droit de grève et le dialogue social"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EMC en lycée professionnel aborde les valeurs républicaines (liberté, égalité, laïcité), la lutte contre les discriminations, l'engagement citoyen et les droits du salarié. L'approche est concrète, en lien avec le monde professionnel : contrat de travail, harcèlement, discrimination, représentation syndicale. Le débat argumenté et l'étude de cas concrets sont au cœur de la démarche."
+}

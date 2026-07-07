@@ -1,0 +1,161 @@
+<div class="workspace-header teacher-header">
+    <div class="header-title-section">
+        <h2>🖥️ Bureau Virtuel de l'Enseignant</h2>
+        <p>Présentez, diffusez des documents, dessinez et transcrivez votre cours en direct pour vos élèves.</p>
+    </div>
+    
+    <!-- Real-time session control panel -->
+    <div class="session-control-panel">
+        <button class="btn btn-primary" id="startSessionBtn">🚀 Démarrer la diffusion</button>
+        <button class="btn btn-danger" id="stopSessionBtn" style="display: none;">⏹ Arrêter la diffusion</button>
+        
+        <div class="session-sharing-details" id="sessionSharingDetails" style="display: none;">
+            <div class="share-code-box">
+                Code Élève : <strong id="teacherSessionCode">--- ---</strong>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="copyShareLinkBtn">📋 Copier le lien</button>
+            <button class="btn btn-secondary btn-sm" id="showSessionQrBtn">📱 QR Code</button>
+        </div>
+    </div>
+</div>
+
+<div class="bureau-layout single-column-layout">
+    <!-- RIGHT SECTION: Virtual Desktop Board (Takes full width) -->
+    <main class="bureau-board-wrapper">
+        <div class="bureau-desktop" id="bureauDesktop">
+            
+            <!-- Grid instructions / placeholder -->
+            <div class="bureau-placeholder-info" id="bureauPlaceholderInfo">
+                <div class="info-icon">🖥️</div>
+                <p>Ceci est votre tableau de projection. Utilisez la barre de widgets (Dock) en bas pour poser des outils.</p>
+            </div>
+
+            <!-- Drawing canvas widget (always exists, visibility toggled) -->
+            <div id="w-drawing" class="desktop-widget widget-drawing" style="display: none;">
+                <div class="widget-drag-handle">
+                    <span class="widget-title">✏️ Dessin sur tableau</span>
+                    <div class="drawing-tools">
+                        <input type="color" id="drawColorPicker" value="#ff0000" title="Couleur de trait">
+                        <input type="range" id="drawSizeSlider" min="2" max="15" value="4" title="Taille de trait">
+                        <button class="btn btn-secondary btn-sm" id="clearCanvasBtn">Tout effacer</button>
+                    </div>
+                </div>
+                <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+            </div>
+
+            <!-- Floating Transcribe Bar at the top of desktop -->
+            <div class="floating-transcribe-bar" id="floatingTranscribeBar" style="display: none;">
+                <span class="pulse-red-dot"></span>
+                <span class="live-status-lbl">Enregistrement vocal :</span>
+                <span id="floatingRecordTimer" style="font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 15px;">00:00</span>
+                <textarea id="liveTranscriptTextarea" class="floating-transcript-input" placeholder="Parlez pour voir la transcription..."></textarea>
+                <button class="btn btn-secondary btn-circle btn-sm" id="clearTranscriptBtn" title="Effacer">🗑️</button>
+            </div>
+
+            <!-- Floating Background Popover -->
+            <div class="dock-popover" id="bgPopover" style="display: none;">
+                <div class="bg-options-grid mini-grid">
+                    <button class="bg-opt-btn active" data-bg="default">Standard</button>
+                    <button class="bg-opt-btn" data-bg="grid">Carreaux</button>
+                    <button class="bg-opt-btn" data-bg="seyes">Lignes</button>
+                    <button class="bg-opt-btn" data-bg="blackboard">Tableau</button>
+                    <button class="bg-opt-btn" data-bg="white">Blanc</button>
+                </div>
+            </div>
+
+            <!-- Floating Documents Panel -->
+            <div class="dock-floating-panel" id="filesFloatingPanel" style="display: none;">
+                <div class="panel-header">
+                    <h4>📁 Dépôt de Documents</h4>
+                    <button class="btn-close-panel" id="closeFilesPanelBtn">×</button>
+                </div>
+                <div class="panel-body">
+                    <div class="bureau-drop-zone" id="bureauDropZone">
+                        <input type="file" id="bureauFileInput" accept=".pdf,.docx" style="display: none;">
+                        <div class="bureau-drop-zone-content">
+                            <span class="drop-icon">📁</span>
+                            <span class="drop-text" style="font-size:0.8rem; pointer-events: none;">Cliquez ou déposez vos fichiers PDF/DOCX</span>
+                        </div>
+                    </div>
+                    <div class="bureau-files-list" id="bureauFilesList" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Floating AI Generator Panel -->
+            <div class="dock-floating-panel" id="aiFloatingPanel" style="display: none;">
+                <div class="panel-header">
+                    <h4>🔮 Assistant CUA (Albert)</h4>
+                    <button class="btn-close-panel" id="closeAiPanelBtn">×</button>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="cuaDocFormatSelect">Format de cours cible :</label>
+                        <select id="cuaDocFormatSelect" class="btn-sm select-dark" style="width:100%;">
+                            <option value="fiche">Fiche de cours complète CUA</option>
+                            <option value="eleve">Support élève simplifié (FALC)</option>
+                            <option value="mindmap">Carte Mentale (Mermaid)</option>
+                            <option value="todo">Checklist d'étapes (TDAH)</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" id="generateCuaDocBtn" style="width: 100%; margin-top: 10px;">
+                        Générer le document
+                    </button>
+                </div>
+            </div>
+
+            <!-- Document Output Panel (inside the board, floating as overlay) -->
+            <div class="dock-floating-panel doc-output-panel" id="teacherDocOutputPanel" style="display: none;">
+                <div class="panel-header">
+                    <h4 id="generatedDocTitle">Support de cours généré</h4>
+                    <div class="panel-actions">
+                        <button class="btn btn-success btn-sm" id="broadcastDocBtn">📢 Diffuser</button>
+                        <button class="btn-close-panel" id="closeDocOutputBtn">×</button>
+                    </div>
+                </div>
+                <div class="panel-body" style="max-height: 350px; overflow-y: auto;">
+                    <div class="skeleton-loader" id="aiDocSkeleton" style="display: none;">
+                        <div class="skeleton-line" style="width: 75%;"></div>
+                        <div class="skeleton-line" style="width: 90%;"></div>
+                        <div class="skeleton-line" style="width: 60%;"></div>
+                    </div>
+                    <div class="output-text markdown-content" id="aiDocOutput"></div>
+                </div>
+            </div>
+
+            <!-- THE macOS DOCK -->
+            <div class="macos-dock" id="macosDock">
+                <div class="dock-item" data-widget="drawing" title="Tableau de Dessin">✏️<span class="dock-tooltip">Dessin</span></div>
+                <div class="dock-item" data-widget="postit" title="Poser une Note">📌<span class="dock-tooltip">Post-it</span></div>
+                <div class="dock-item" data-widget="timer" title="Poser un Minuteur">⏱️<span class="dock-tooltip">Minuteur</span></div>
+                <div class="dock-item" data-widget="video" title="Lecteur Vidéo">🎥<span class="dock-tooltip">Vidéo</span></div>
+                <div class="dock-item" data-widget="qrcode" title="Générer QR Code">📱<span class="dock-tooltip">QR Code</span></div>
+                <div class="dock-item" data-widget="iframe" title="Intégrer Iframe">🌐<span class="dock-tooltip">Iframe</span></div>
+                <div class="dock-divider"></div>
+                <div class="dock-item" id="dockMicrophone" title="Activer / Désactiver le micro">🎙️<span class="dock-tooltip">Micro</span></div>
+                <div class="dock-item" id="dockBackground" title="Changer le fond d'écran">🎨<span class="dock-tooltip">Arrière-plan</span></div>
+                <div class="dock-item" id="dockFiles" title="Déposer des documents supports">📁<span class="dock-tooltip">Documents</span></div>
+                <div class="dock-item" id="dockAi" title="Générer des documents avec l'IA">🔮<span class="dock-tooltip">Assistant IA</span></div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- Modal for Session QR Code -->
+<div id="sessionQrModal" class="mermaid-modal">
+    <div class="modal-close-area" id="sessionQrModalCloseArea"></div>
+    <div class="modal-content qr-modal-content">
+        <button class="close-modal" id="closeSessionQrModalBtn">×</button>
+        <h3>📱 Partager le cours en direct</h3>
+        <p>Projetez ou montrez ce QR code aux élèves pour qu'ils puissent rejoindre la session instantanément avec leur smartphone ou tablette.</p>
+        
+        <div class="qr-code-display-box">
+            <img id="sessionQrCodeImg" src="" alt="QR Code Session">
+            <div class="qr-session-label">Session : <span id="sessionQrCodeLabel">------</span></div>
+        </div>
+        
+        <div class="qr-link-box">
+            <span class="qr-link-url" id="sessionQrLinkUrl">http://...</span>
+        </div>
+    </div>
+</div>

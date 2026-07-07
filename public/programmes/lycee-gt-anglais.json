@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "discipline": "Anglais",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de langues vivantes 2nde, 1ère, Terminale GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B2 du CECRL en LVA (compréhension et expression)",
+    "Comprendre des documents authentiques écrits et oraux variés",
+    "S'exprimer à l'oral en continu et en interaction",
+    "Rédiger des textes structurés et argumentés",
+    "Acquérir une culture des pays anglophones"
+  ],
+  "domaines": [
+    {
+      "nom": "Compréhension orale et écrite",
+      "description": "Comprendre des documents authentiques variés en langue anglaise.",
+      "competences": [
+        {
+          "intitule": "Comprendre un document audio ou vidéo authentique (interview, reportage, extrait de film)",
+          "exemples_themes": ["Un extrait de discours de Martin Luther King (I Have a Dream)", "Un reportage BBC sur le changement climatique", "Une interview d'un entrepreneur de la Silicon Valley", "Un extrait de TED Talk sur un sujet scientifique ou social"]
+        },
+        {
+          "intitule": "Comprendre un texte écrit long et complexe (article de presse, extrait littéraire)",
+          "exemples_themes": ["Un article du Guardian ou du New York Times", "Un extrait de 1984 de George Orwell", "Un extrait de To Kill a Mockingbird de Harper Lee", "Un éditorial sur un sujet de société (immigration, technologie)"]
+        }
+      ]
+    },
+    {
+      "nom": "Expression orale",
+      "description": "S'exprimer en continu et interagir en anglais.",
+      "competences": [
+        {
+          "intitule": "Prendre la parole en continu : présenter, raconter, argumenter",
+          "exemples_themes": ["Présentation d'une œuvre littéraire ou artistique", "Exposé sur un personnage historique anglophone", "Compte rendu oral d'un document étudié en classe", "Pitch d'un projet (entrepreneuriat, voyage)"]
+        },
+        {
+          "intitule": "Participer à un échange, un débat, une conversation",
+          "exemples_themes": ["Débat pour ou contre les réseaux sociaux", "Jeu de rôle : entretien d'embauche en anglais", "Discussion sur un dilemme éthique", "Négociation autour d'un projet collectif"]
+        }
+      ]
+    },
+    {
+      "nom": "Expression écrite",
+      "description": "Rédiger des textes structurés en anglais.",
+      "competences": [
+        {
+          "intitule": "Rédiger un essai argumenté ou un commentaire structuré",
+          "exemples_themes": ["Essai : Should social media be regulated?", "Commentaire d'un extrait littéraire anglophone", "Lettre formelle ou informelle en anglais", "Rédaction créative inspirée d'un texte étudié"]
+        },
+        {
+          "intitule": "Produire un écrit de synthèse ou un compte rendu",
+          "exemples_themes": ["Synthèse de deux documents sur un thème commun", "Compte rendu en français d'un article en anglais", "Résumé argumenté d'un débat en classe", "Rédaction d'un article de blog en anglais"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe 1 — Identités et échanges",
+      "description": "Les identités culturelles, les échanges entre les peuples.",
+      "competences": [
+        {
+          "intitule": "Explorer les identités individuelles et collectives dans le monde anglophone",
+          "exemples_themes": ["L'identité multiculturelle aux États-Unis (melting pot vs salad bowl)", "Le Commonwealth et ses héritages", "Un extrait de The Great Gatsby de Fitzgerald", "Un documentaire sur l'immigration aux États-Unis ou au Royaume-Uni"]
+        },
+        {
+          "intitule": "Analyser les échanges et les mobilités dans le monde anglophone",
+          "exemples_themes": ["Le gap year au Royaume-Uni et en Australie", "Les échanges universitaires (Erasmus, programmes anglophones)", "Un extrait de Into the Wild de Jon Krakauer", "Les diasporas anglophones dans le monde"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe 2 — Espace privé et espace public",
+      "description": "Les frontières entre vie privée et vie publique.",
+      "competences": [
+        {
+          "intitule": "Réfléchir aux enjeux de la vie privée à l'ère numérique",
+          "exemples_themes": ["Un article sur la surveillance numérique (Edward Snowden, NSA)", "Un extrait de 1984 de George Orwell (Big Brother)", "Un débat sur les données personnelles et les réseaux sociaux", "La série Black Mirror : un épisode comme support d'analyse"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe 3 — Art et pouvoir",
+      "description": "Les relations entre création artistique et pouvoir politique.",
+      "competences": [
+        {
+          "intitule": "Étudier le rôle de l'art comme vecteur de contestation ou de propagande",
+          "exemples_themes": ["Le street art de Banksy (analyse d'œuvres)", "La musique protest (Bob Dylan, Billie Holiday — Strange Fruit)", "Le cinéma engagé (12 Years a Slave, The Help)", "La littérature de résistance (Animal Farm de George Orwell)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe 4 — Citoyenneté et mondes virtuels",
+      "description": "Les nouvelles formes de citoyenneté et l'impact du numérique.",
+      "competences": [
+        {
+          "intitule": "Analyser les enjeux citoyens du monde numérique",
+          "exemples_themes": ["Les fake news et la désinformation en ligne", "Le rôle des réseaux sociaux dans les mouvements sociaux (Black Lives Matter)", "Un extrait de The Circle de Dave Eggers", "L'intelligence artificielle et ses enjeux éthiques"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe 5 — Fictions et réalités",
+      "description": "Les rapports entre fiction et réalité dans la culture anglophone.",
+      "competences": [
+        {
+          "intitule": "Explorer la frontière entre fiction et réalité dans la littérature et les médias anglophones",
+          "exemples_themes": ["Un extrait de Brave New World d'Aldous Huxley", "Le genre de la dystopie (The Hunger Games, The Handmaid's Tale)", "Le docu-fiction et la reconstitution historique", "Les biopics hollywoodiens : entre histoire et fiction"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'anglais au lycée GT vise le niveau B2 du CECRL. Il s'organise autour d'axes culturels (Identités et échanges, Espace privé/public, Art et pouvoir, Citoyenneté et mondes virtuels, Fictions et réalités) et développe les cinq activités langagières : compréhension orale et écrite, expression orale en continu et en interaction, expression écrite. L'étude de documents authentiques variés (littéraires, journalistiques, audiovisuels) nourrit la réflexion culturelle."
+}

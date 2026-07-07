@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Communication commerciale",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC"
+  },
+  "competences": [
+    {
+      "intitule": "Communiquer l'offre commerciale",
+      "details": [
+        "Concevoir un plan de communication",
+        "Créer des supports visuels (PAO, Canva)",
+        "Gérer la présence sur les réseaux sociaux",
+        "Mesurer l'impact des campagnes (ROI)"
+      ]
+    }
+  ]
+}

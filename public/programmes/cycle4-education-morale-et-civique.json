@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "discipline": "Enseignement moral et civique",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°24 du 13 juin 2024 — Programme d'EMC du cycle 4",
+    "mise_a_jour": "2024-06-13"
+  },
+  "attendus_fin_cycle": [
+    "Développer les aptitudes au discernement et à la réflexion critique",
+    "Confronter ses jugements à ceux d'autrui dans une discussion ou un débat argumenté",
+    "Comprendre le bien-fondé des normes et des règles",
+    "Exercer une citoyenneté responsable dans l'établissement et au-delà"
+  ],
+  "domaines": [
+    {
+      "nom": "Respecter autrui et acquérir les principes de la vie en société",
+      "description": "Empathie, respect, lutte contre les discriminations.",
+      "competences": [
+        {
+          "intitule": "Comprendre que la laïcité garantit la liberté de conscience et protège la liberté de croire ou de ne pas croire",
+          "exemples_themes": ["La charte de la laïcité à l'école (les 15 articles commentés)", "La loi de 1905 (extraits et contexte historique)", "Reportage : la laïcité au quotidien dans un collège", "La Journée de la laïcité (9 décembre) : débat et affiches", "Comparaison : laïcité en France et liberté religieuse dans d'autres pays"]
+        },
+        {
+          "intitule": "Combattre les préjugés, le racisme, l'antisémitisme et toutes les formes de discrimination",
+          "exemples_themes": ["Le film Les Héritiers (Mme Guéguen et le concours de la Résistance)", "Extraits du discours de Martin Luther King (I have a dream)", "Le témoignage d'un rescapé de la Shoah ou d'un génocide", "L'affaire Dreyfus et la lettre J'accuse de Zola (lien HG)", "Les discriminations au quotidien : jeu de rôle et saynètes"]
+        },
+        {
+          "intitule": "Comprendre les enjeux de la lutte contre le harcèlement et le cyberharcèlement",
+          "exemples_themes": ["Le film courts-métrages du concours Non au harcèlement", "La vidéo Les claques (campagne gouvernementale)", "Étude de cas : analyse d'une situation de cyberharcèlement", "Le numéro 3020 et le protocole de signalement", "Rédiger une charte du bon usage des réseaux sociaux"]
+        }
+      ]
+    },
+    {
+      "nom": "Acquérir et partager les valeurs de la République",
+      "description": "Droits de l'homme, démocratie, justice.",
+      "competences": [
+        {
+          "intitule": "Comprendre les principes de la démocratie représentative",
+          "exemples_themes": ["La Constitution de la Ve République (schéma simplifié des institutions)", "L'élection présidentielle (simuler les deux tours)", "Le Parlement : Assemblée nationale et Sénat (visite virtuelle)", "Le parcours d'une loi (du projet au vote)", "La séparation des pouvoirs (Montesquieu, lien HG 4e)"]
+        },
+        {
+          "intitule": "Connaître les droits fondamentaux et les textes qui les garantissent",
+          "exemples_themes": ["La Déclaration des droits de l'homme et du citoyen de 1789 (articles clés)", "La Déclaration universelle des droits de l'homme de 1948", "La Convention internationale des droits de l'enfant", "Le droit de vote : conquête et extension (lien HG 3e)", "Les libertés fondamentales (liberté d'expression, de presse, de réunion)"]
+        },
+        {
+          "intitule": "Comprendre le fonctionnement de la justice en France",
+          "exemples_themes": ["Le tribunal correctionnel : simulation d'audience", "La justice des mineurs (le juge des enfants)", "Les symboles de la justice (balance, glaive, bandeau)", "Un fait divers : analyser les étapes de la procédure judiciaire", "La présomption d'innocence et les droits de la défense"]
+        }
+      ]
+    },
+    {
+      "nom": "Construire une culture de l'engagement",
+      "description": "S'engager dans la vie collective, exercer sa citoyenneté.",
+      "competences": [
+        {
+          "intitule": "S'engager et prendre des responsabilités dans le collège et dans la société",
+          "exemples_themes": ["L'élection des délégués et le CVC/CVL (conseil de vie collégienne)", "Le projet solidaire de la classe (collecte, parrainage, Restos du Cœur)", "Le Service National Universel — SNU (présentation, 3e)", "Les éco-délégués : bilan carbone du collège", "La Journée internationale des droits des femmes (8 mars)"]
+        },
+        {
+          "intitule": "Développer une conscience citoyenne, sociale et écologique",
+          "exemples_themes": ["Les Objectifs de Développement Durable (ODD) de l'ONU", "Le changement climatique : des constats à l'action (rapport du GIEC simplifié)", "Le commerce équitable (étude d'un produit du quotidien)", "L'engagement associatif (témoignage d'un bénévole)", "Le budget participatif du collège (proposer et voter)"]
+        },
+        {
+          "intitule": "Exercer son esprit critique face aux médias et à l'information",
+          "exemples_themes": ["Décrypter une fake news (comparaison de sources)", "Le fact-checking : vérifier une info avec les outils en ligne", "La une d'un journal (comparer plusieurs traitements de la même info)", "Les bulles de filtre et les algorithmes des réseaux sociaux", "La liberté de la presse et ses limites (Charlie Hebdo, RSF)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EMC du cycle 4 développe la réflexion critique, la culture juridique et l'engagement citoyen. Les élèves approfondissent les principes de la République (laïcité, démocratie, droits fondamentaux), combattent les discriminations, comprennent le fonctionnement de la justice et des institutions. L'éducation aux médias et à l'information (EMI) est intégrée. Le programme s'appuie sur des débats argumentés, des dilemmes moraux, des études de cas et des projets d'engagement concrets."
+}

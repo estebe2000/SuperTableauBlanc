@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IncluSphere — Portail Académique Inclusif</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e1a;
+            --surface: #111827;
+            --surface2: #1a2235;
+            --border: rgba(99, 179, 237, 0.12);
+            --accent1: #63b3ed;
+            --accent2: #f6ad55;
+            --accent3: #68d391;
+            --accent4: #fc8181;
+            --accent5: #b794f4;
+            --text: #e8f0fe;
+            --text-muted: #7a8fa6;
+            --glow1: rgba(99, 179, 237, 0.15);
+            --glow2: rgba(246, 173, 85, 0.12);
+            --glow3: rgba(104, 211, 145, 0.12);
+            --radius: 18px;
+            --transition: cubic-bezier(.23, 1, .32, 1);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Sora', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        /* ───── CUSTOM CURSOR ───── */
+        #cursor {
+            position: fixed;
+            z-index: 9999;
+            width: 12px;
+            height: 12px;
+            background: var(--accent1);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width .2s, height .2s, background .2s;
+            mix-blend-mode: screen;
+        }
+
+        #cursor-ring {
+            position: fixed;
+            z-index: 9998;
+            width: 36px;
+            height: 36px;
+            border: 1.5px solid rgba(99, 179, 237, .5);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width .35s var(--transition), height .35s var(--transition), transform .12s var(--transition);
+        }
+
+        body:has(a:hover) #cursor,
+        body:has(button:hover) #cursor {
+            width: 20px;
+            height: 20px;
+            background: var(--accent2);
+        }
+
+        body:has(a:hover) #cursor-ring,
+        body:has(button:hover) #cursor-ring {
+            width: 56px;
+            height: 56px;
+            border-color: rgba(246, 173, 85, .4);
+        }
+
+        /* ───── NOISE OVERLAY ───── */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+        }
+
+        /* ───── ANIMATED BG BLOBS ───── */
+        .blob-container {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.18;
+            animation: blobMove 20s ease-in-out infinite alternate;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: #2563eb;
+            top: -200px;
+            left: -100px;
+            animation-duration: 22s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: #7c3aed;
+            top: 30%;
+            right: -150px;
+            animation-duration: 18s;
+            animation-delay: -6s;
+        }
+
+        .blob-3 {
+            width: 400px;
+            height: 400px;
+            background: #059669;
+            bottom: -100px;
+            left: 30%;
+            animation-duration: 25s;
+            animation-delay: -12s;
+        }
+
+        .blob-4 {
+            width: 350px;
+            height: 350px;
+            background: #d97706;
+            bottom: 20%;
+            left: 60%;
+            animation-duration: 20s;
+            animation-delay: -4s;
+        }
+
+        @keyframes blobMove {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(40px, -30px) scale(1.05);
+            }
+
+            66% {
+                transform: translate(-20px, 50px) scale(0.97);
+            }
+
+            100% {
+                transform: translate(30px, 20px) scale(1.03);
+            }
+        }
+
+        /* ───── NAVBAR ───── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 48px;
+            background: rgba(10, 14, 26, 0.7);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+            transition: all .4s var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 14px 48px;
+            background: rgba(10, 14, 26, 0.92);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.5rem;
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent5));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 0 20px rgba(99, 179, 237, 0.3);
+        }
+
+        .logo span {
+            color: var(--accent1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 36px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: .85rem;
+            font-weight: 500;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color .3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--accent1);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .3s var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, var(--accent1), var(--accent5));
+            border: none;
+            border-radius: 30px;
+            color: #fff;
+            font-family: 'Sora', sans-serif;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: none;
+            letter-spacing: .03em;
+            box-shadow: 0 0 20px rgba(99, 179, 237, 0.2);
+            transition: all .3s var(--transition);
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 179, 237, 0.35);
+        }
+
+        /* ───── HERO ───── */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 24px 80px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: rgba(99, 179, 237, 0.08);
+            border: 1px solid rgba(99, 179, 237, 0.25);
+            border-radius: 30px;
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            margin-bottom: 32px;
+            animation: fadeSlideUp .8s var(--transition) both;
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent3);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: .5;
+                transform: scale(1.5)
+            }
+        }
+
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 28px;
+            animation: fadeSlideUp .9s var(--transition) .1s both;
+        }
+
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent2);
+        }
+
+        .hero h1 .highlight {
+            position: relative;
+            display: inline-block;
+            color: var(--accent1);
+        }
+
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent5));
+            border-radius: 2px;
+            animation: expandWidth 1s var(--transition) .8s both;
+        }
+
+        @keyframes expandWidth {
+            from {
+                transform: scaleX(0);
+                transform-origin: left
+            }
+
+            to {
+                transform: scaleX(1)
+            }
+        }
+
+        .hero p {
+            max-width: 580px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            animation: fadeSlideUp 1s var(--transition) .2s both;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeSlideUp 1s var(--transition) .3s both;
+        }
+
+        .btn-primary {
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--accent1) 0%, var(--accent5) 100%);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-family: 'Sora', sans-serif;
+            font-size: .95rem;
+            font-weight: 600;
+            cursor: none;
+            box-shadow: 0 0 0 0 rgba(99, 179, 237, 0);
+            transition: all .4s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-100%) skewX(-15deg);
+            transition: transform .5s var(--transition);
+        }
+
+        .btn-primary:hover::before {
+            transform: translateX(100%) skewX(-15deg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(99, 179, 237, 0.35);
+        }
+
+        .btn-secondary {
+            padding: 16px 36px;
+            background: transparent;
+            border: 1.5px solid var(--border);
+            border-radius: 50px;
+            color: var(--text-muted);
+            font-family: 'Sora', sans-serif;
+            font-size: .95rem;
+            font-weight: 500;
+            cursor: none;
+            transition: all .3s var(--transition);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent1);
+            color: var(--accent1);
+            transform: translateY(-2px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            margin-top: 80px;
+            animation: fadeSlideUp 1s var(--transition) .5s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2.4rem;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: .78rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            letter-spacing: .04em;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ───── FLOATING CARDS ───── */
+        .floating-cards {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .float-card {
+            position: absolute;
+            background: rgba(17, 24, 39, 0.8);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            backdrop-filter: blur(12px);
+            font-size: .8rem;
+            animation: float 6s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+        }
+
+        .float-card .fc-icon {
+            font-size: 1.2rem;
+        }
+
+        .float-card:nth-child(1) {
+            top: 22%;
+            left: 6%;
+            animation-delay: 0s;
+        }
+
+        .float-card:nth-child(2) {
+            top: 30%;
+            right: 7%;
+            animation-delay: -2s;
+        }
+
+        .float-card:nth-child(3) {
+            bottom: 25%;
+            left: 8%;
+            animation-delay: -4s;
+        }
+
+        .float-card:nth-child(4) {
+            bottom: 30%;
+            right: 6%;
+            animation-delay: -1s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-1deg)
+            }
+
+            50% {
+                transform: translateY(-16px) rotate(1deg)
+            }
+        }
+
+        /* ───── SECTION SHARED ───── */
+        section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 6px 18px;
+            background: rgba(99, 179, 237, 0.07);
+            border: 1px solid rgba(99, 179, 237, 0.2);
+            border-radius: 20px;
+            font-size: .75rem;
+            font-weight: 600;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--accent1);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--accent2);
+        }
+
+        .section-desc {
+            max-width: 520px;
+            margin: 16px auto 0;
+            color: var(--text-muted);
+            font-size: .95rem;
+            line-height: 1.8;
+        }
+
+        /* ───── OUTILS SECTION ───── */
+        .tools-section {
+            padding: 100px 48px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+            cursor: none;
+            transition: all .4s var(--transition);
+            group: true;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(99, 179, 237, 0.05), transparent 60%);
+            opacity: 0;
+            transition: opacity .4s;
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-card:hover {
+            border-color: rgba(99, 179, 237, 0.3);
+            transform: translateY(-6px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(99, 179, 237, 0.15);
+        }
+
+        .tool-card-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--card-accent, linear-gradient(90deg, var(--accent1), var(--accent5)));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s var(--transition);
+        }
+
+        .tool-card:hover .tool-card-accent {
+            transform: scaleX(1);
+        }
+
+        .tool-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .tool-icon::after {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 15px;
+            background: var(--icon-glow, var(--glow1));
+            z-index: -1;
+            transition: all .3s;
+        }
+
+        .tool-card:hover .tool-icon::after {
+            transform: scale(1.2);
+            opacity: 1.5;
+        }
+
+        .tool-tag {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: .7rem;
+            font-weight: 600;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .tool-card h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -.01em;
+        }
+
+        .tool-card p {
+            color: var(--text-muted);
+            font-size: .875rem;
+            line-height: 1.7;
+        }
+
+        .tool-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .tool-users {
+            font-size: .75rem;
+            color: var(--text-muted);
+        }
+
+        .tool-btn {
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            font-size: .78rem;
+            font-weight: 600;
+            cursor: none;
+            letter-spacing: .03em;
+            transition: all .3s var(--transition);
+        }
+
+        .tool-card:hover .tool-btn {
+            border-color: var(--accent1);
+            color: var(--accent1);
+            background: rgba(99, 179, 237, 0.07);
+        }
+
+        /* ───── PROFILS SECTION ───── */
+        .profiles-section {
+            padding: 100px 48px;
+            background: linear-gradient(180deg, transparent, rgba(17, 24, 39, 0.5) 50%, transparent);
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            text-align: center;
+            cursor: none;
+            transition: all .4s var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: var(--prof-color, var(--accent1));
+            opacity: .07;
+            transition: height .4s var(--transition);
+            border-radius: 0 0 var(--radius) var(--radius);
+        }
+
+        .profile-card:hover::after {
+            height: 100%;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--prof-border, rgba(99, 179, 237, 0.3));
+        }
+
+        .profile-emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 16px;
+            transition: transform .3s var(--transition);
+        }
+
+        .profile-card:hover .profile-emoji {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .profile-card h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .profile-card p {
+            font-size: .8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ───── FEATURES SECTION ───── */
+        .features-section {
+            padding: 100px 48px;
+        }
+
+        .features-layout {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .features-visual {
+            position: relative;
+        }
+
+        .features-screen {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-screen::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(99, 179, 237, 0.15), transparent 70%);
+        }
+
+        .screen-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .screen-bar span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .screen-bar span:nth-child(1) {
+            background: #ff6b6b;
+        }
+
+        .screen-bar span:nth-child(2) {
+            background: #ffd93d;
+        }
+
+        .screen-bar span:nth-child(3) {
+            background: #6bcb77;
+        }
+
+        .screen-line {
+            height: 10px;
+            border-radius: 5px;
+            background: var(--surface2);
+            margin-bottom: 10px;
+            animation: shimmer 2s ease-in-out infinite;
+        }
+
+        .screen-line.long {
+            width: 80%;
+        }
+
+        .screen-line.medium {
+            width: 60%;
+        }
+
+        .screen-line.short {
+            width: 40%;
+        }
+
+        .screen-line.accent {
+            background: linear-gradient(90deg, rgba(99, 179, 237, 0.4), rgba(183, 148, 244, 0.4));
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                opacity: .6
+            }
+
+            50% {
+                opacity: 1
+            }
+        }
+
+        .screen-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .screen-mini-card {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 14px 12px;
+            border: 1px solid var(--border);
+        }
+
+        .smc-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .smc-line {
+            height: 7px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .smc-line.w60 {
+            width: 60%;
+            margin-top: 6px;
+        }
+
+        .features-badge {
+            position: absolute;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: .8rem;
+            backdrop-filter: blur(10px);
+            animation: float 5s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-badge.b1 {
+            bottom: -20px;
+            left: -30px;
+            animation-delay: 0s;
+        }
+
+        .features-badge.b2 {
+            top: -20px;
+            right: -30px;
+            animation-delay: -2.5s;
+        }
+
+        .features-badge .badge-icon {
+            font-size: 1.1rem;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            padding: 20px;
+            border-radius: 14px;
+            border: 1px solid transparent;
+            cursor: none;
+            transition: all .3s var(--transition);
+        }
+
+        .feature-item:hover {
+            background: var(--surface);
+            border-color: var(--border);
+            transform: translateX(6px);
+        }
+
+        .fi-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .fi-content h4 {
+            font-size: .95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .fi-content p {
+            font-size: .83rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        /* ───── TÉMOIGNAGES ───── */
+        .testimonials-section {
+            padding: 100px 48px;
+        }
+
+        .testimonials-track {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .testimonials-inner {
+            display: flex;
+            gap: 24px;
+            animation: scrollTrack 40s linear infinite;
+            width: max-content;
+        }
+
+        .testimonials-inner:hover {
+            animation-play-state: paused;
+        }
+
+        @keyframes scrollTrack {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        .testi-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            width: 320px;
+            flex-shrink: 0;
+            transition: all .3s var(--transition);
+        }
+
+        .testi-card:hover {
+            border-color: rgba(99, 179, 237, 0.25);
+            transform: translateY(-4px);
+        }
+
+        .testi-stars {
+            color: var(--accent2);
+            font-size: .85rem;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .testi-text {
+            font-size: .875rem;
+            line-height: 1.75;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testi-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .testi-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .testi-name {
+            font-size: .85rem;
+            font-weight: 600;
+        }
+
+        .testi-role {
+            font-size: .75rem;
+            color: var(--text-muted);
+        }
+
+        /* ───── STATS SECTION ───── */
+        .stats-section {
+            padding: 80px 48px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .big-stat {
+            position: relative;
+        }
+
+        .big-stat-num {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3.5rem;
+            line-height: 1;
+            background: linear-gradient(135deg, var(--accent1), var(--accent5));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .big-stat-label {
+            font-size: .85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ───── CTA FINAL ───── */
+        .cta-section {
+            padding: 120px 48px;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 64px 48px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 179, 237, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-box h2 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-box p {
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            line-height: 1.7;
+        }
+
+        .cta-input-row {
+            display: flex;
+            gap: 12px;
+            max-width: 420px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: var(--text);
+            font-family: 'Sora', sans-serif;
+            font-size: .9rem;
+            outline: none;
+            transition: border-color .3s;
+        }
+
+        .cta-input:focus {
+            border-color: var(--accent1);
+        }
+
+        .cta-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ───── FOOTER ───── */
+        footer {
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--border);
+            padding: 48px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 28px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: .83rem;
+            transition: color .3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-copy {
+            font-size: .8rem;
+            color: var(--text-muted);
+        }
+
+        /* ───── SEARCH BAR ───── */
+        .search-section {
+            padding: 40px 48px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .search-wrap {
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 24px 16px 52px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text);
+            font-family: 'Sora', sans-serif;
+            font-size: .95rem;
+            outline: none;
+            transition: all .3s var(--transition);
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-input:focus {
+            border-color: rgba(99, 179, 237, 0.5);
+            box-shadow: 0 0 0 4px rgba(99, 179, 237, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .search-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .stag {
+            padding: 6px 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: .78rem;
+            color: var(--text-muted);
+            cursor: none;
+            transition: all .25s;
+        }
+
+        .stag:hover {
+            border-color: var(--accent1);
+            color: var(--accent1);
+            background: rgba(99, 179, 237, 0.05);
+        }
+
+        /* ───── ACCESSIBILITY BAR ───── */
+        .access-bar {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .access-btn {
+            width: 44px;
+            height: 44px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: none;
+            transition: all .3s var(--transition);
+            color: var(--text-muted);
+            backdrop-filter: blur(10px);
+        }
+
+        .access-btn:hover {
+            border-color: var(--accent1);
+            color: var(--accent1);
+            transform: scale(1.1);
+        }
+
+        .access-btn.active {
+            background: rgba(99, 179, 237, 0.12);
+            border-color: var(--accent1);
+            color: var(--accent1);
+        }
+
+        /* ───── TOAST ───── */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--surface);
+            border: 1px solid rgba(104, 211, 145, 0.4);
+            border-radius: 12px;
+            padding: 12px 24px;
+            font-size: .85rem;
+            color: var(--accent3);
+            z-index: 300;
+            opacity: 0;
+            transition: all .4s var(--transition);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ───── PROGRESS BAR ───── */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 200;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent1), var(--accent5));
+            width: 0%;
+            transition: width .1s linear;
+        }
+
+        /* ───── REVEAL ANIMATIONS ───── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity .7s var(--transition), transform .7s var(--transition);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: .1s;
+        }
+
+        .reveal-delay-2 {
+            transition-delay: .2s;
+        }
+
+        .reveal-delay-3 {
+            transition-delay: .3s;
+        }
+
+        .reveal-delay-4 {
+            transition-delay: .4s;
+        }
+
+        /* ───── TABS ───── */
+        .tabs-section {
+            padding: 80px 48px;
+        }
+
+        .tabs-wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 6px;
+            margin-bottom: 32px;
+        }
+
+        .tab-btn {
+            padding: 10px 22px;
+            border-radius: 10px;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Sora', sans-serif;
+            font-size: .85rem;
+            font-weight: 600;
+            cursor: none;
+            transition: all .3s var(--transition);
+            flex: 1;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(99, 179, 237, 0.15), rgba(183, 148, 244, 0.15));
+            color: var(--accent1);
+            border: 1px solid rgba(99, 179, 237, 0.25);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            animation: fadeIn .4s var(--transition);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .mini-tool {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 22px;
+            cursor: none;
+            transition: all .3s var(--transition);
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .mini-tool:hover {
+            transform: translateY(-3px);
+            border-color: rgba(99, 179, 237, 0.25);
+        }
+
+        .mt-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .mt-name {
+            font-size: .9rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .mt-desc {
+            font-size: .78rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ───── RESPONSIVE ───── */
+        @media (max-width: 768px) {
+            nav {
+                padding: 16px 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-stats {
+                gap: 28px;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
+            }
+
+            .tools-section,
+            .features-section,
+            .tabs-section,
+            .profiles-section {
+                padding: 60px 24px;
+            }
+
+            .features-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cta-input-row {
+                flex-direction: column;
+            }
+
+            .float-card {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Cursor -->
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+
+    <!-- Progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Background -->
+    <div class="blob-container">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="blob blob-4"></div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">✓ Outil ajouté à vos favoris !</div>
+
+    <!-- Accessibility bar -->
+    <div class="access-bar">
+        <div class="access-btn" id="btn-contrast" title="Contraste élevé">🌗</div>
+        <div class="access-btn" id="btn-dyslexie" title="Police dyslexie">Aa</div>
+        <div class="access-btn" id="btn-font-up" title="Agrandir le texte">A+</div>
+        <div class="access-btn" id="btn-font-down" title="Réduire le texte">A-</div>
+        <div class="access-btn" id="btn-motion" title="Réduire les animations">⏸</div>
+    </div>
+
+    <!-- ═══ NAV ═══ -->
+    <nav id="navbar">
+        <a href="#" class="logo">
+            <div class="logo-icon">✦</div>
+            Inclu<span>Sphere</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#outils">Outils</a></li>
+            <li><a href="#profils">Profils</a></li>
+            <li><a href="#fonctions">Fonctions</a></li>
+            <li><a href="#temoignages">Témoignages</a></li>
+            <li><a href="#ressources">Ressources</a></li>
+        </ul>
+        <button class="nav-cta">Accès libre →</button>
+    </nav>
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero" id="hero">
+        <div class="floating-cards">
+            <div class="float-card"><span class="fc-icon">📖</span> Lecture adaptée</div>
+            <div class="float-card"><span class="fc-icon">🧠</span> TDAH · TSA · DYS</div>
+            <div class="float-card"><span class="fc-icon">🎯</span> Objectifs personnalisés</div>
+            <div class="float-card"><span class="fc-icon">📊</span> Suivi de progression</div>
+        </div>
+
+        <div class="hero-badge">Portail académique inclusif</div>
+
+        <h1>
+            Apprendre sans<br>
+            <span class="highlight">limites</span>, avec<br>
+            <em>bienveillance</em>
+        </h1>
+
+        <p>
+            Un espace numérique conçu pour accompagner chaque élève à besoins particuliers — dyslexie, TDAH, TSA,
+            déficit visuel ou moteur — vers son plein potentiel académique.
+        </p>
+
+        <div class="hero-actions">
+            <button class="btn-primary" onclick="showToast('Bienvenue ! Choisissez votre profil.')">Démarrer
+                gratuitement</button>
+            <button class="btn-secondary">Voir la démo →</button>
+        </div>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number" data-count="12000">0</div>
+                <div class="stat-label">Élèves accompagnés</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" data-count="48">0</div>
+                <div class="stat-label">Outils disponibles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number" data-count="94">0</div>
+                <div class="stat-label">% de satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SEARCH ═══ -->
+    <div class="search-section" id="outils">
+        <div class="search-wrap reveal">
+            <span class="search-icon">🔍</span>
+            <input type="text" class="search-input" placeholder="Chercher un outil, un profil, une ressource…"
+                id="searchInput">
+            <div class="search-tags">
+                <span class="stag" onclick="filterTools('dyslexie')">Dyslexie</span>
+                <span class="stag" onclick="filterTools('tdah')">TDAH</span>
+                <span class="stag" onclick="filterTools('tsa')">TSA</span>
+                <span class="stag" onclick="filterTools('vision')">Vision</span>
+                <span class="stag" onclick="filterTools('moteur')">Moteur</span>
+                <span class="stag" onclick="filterTools('mémoire')">Mémoire</span>
+                <span class="stag" onclick="filterTools('tout')">Tout afficher</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ OUTILS PRINCIPAUX ═══ -->
+    <section class="tools-section">
+        <div class="section-header reveal">
+            <div class="section-tag">🛠 Outils</div>
+            <h2 class="section-title">Des outils pensés pour <em>chaque profil</em></h2>
+            <p class="section-desc">Chaque outil est conçu avec des spécialistes de l'éducation inclusive et adapté aux
+                recommandations pédagogiques actuelles.</p>
+        </div>
+
+        <div class="tools-grid" id="toolsGrid">
+
+            <div class="tool-card reveal" data-tags="dyslexie lecture"
+                style="--card-accent: linear-gradient(90deg,#63b3ed,#b794f4)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(99,179,237,0.12);--icon-glow:rgba(99,179,237,0.15)">📖
+                </div>
+                <div class="tool-tag" style="background:rgba(99,179,237,0.1);color:var(--accent1)">Lecture</div>
+                <h3>LectureFlex</h3>
+                <p>Adaptation typographique dynamique : police dyslexique, espacement, couleur de fond personnalisables.
+                    Synthèse vocale intégrée avec vitesse réglable.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 3 240 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('LectureFlex ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+            <div class="tool-card reveal reveal-delay-1" data-tags="tdah concentration"
+                style="--card-accent: linear-gradient(90deg,#f6ad55,#fc8181)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(246,173,85,0.12);--icon-glow:rgba(246,173,85,0.15)">⏱
+                </div>
+                <div class="tool-tag" style="background:rgba(246,173,85,0.1);color:var(--accent2)">Concentration</div>
+                <h3>FocusTimer Pro</h3>
+                <p>Minuteur Pomodoro visuel adapté au TDAH, avec rappels sonores doux, pauses guidées et tableau de bord
+                    de productivité journalière.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 2 890 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('FocusTimer ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+            <div class="tool-card reveal reveal-delay-2" data-tags="tsa communication"
+                style="--card-accent: linear-gradient(90deg,#68d391,#63b3ed)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(104,211,145,0.12);--icon-glow:rgba(104,211,145,0.15)">💬
+                </div>
+                <div class="tool-tag" style="background:rgba(104,211,145,0.1);color:var(--accent3)">Communication</div>
+                <h3>PictoTalk</h3>
+                <p>Tableau de communication augmentée avec pictogrammes ARASAAC, synthèse vocale et personnalisation des
+                    symboles pour élèves TSA et non-verbaux.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 1 750 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('PictoTalk ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+            <div class="tool-card reveal reveal-delay-3" data-tags="mémoire organisation"
+                style="--card-accent: linear-gradient(90deg,#b794f4,#fc8181)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(183,148,244,0.12);--icon-glow:rgba(183,148,244,0.15)">🗺
+                </div>
+                <div class="tool-tag" style="background:rgba(183,148,244,0.1);color:var(--accent5)">Organisation</div>
+                <h3>MindMapper</h3>
+                <p>Cartes mentales visuelles avec codes couleur, icônes et export PDF. Aide à la structuration des cours
+                    pour les profils dyspraxiques ou à mémoire de travail limitée.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 4 100 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('MindMapper ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+            <div class="tool-card reveal" data-tags="vision accessibilité"
+                style="--card-accent: linear-gradient(90deg,#fc8181,#f6ad55)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(252,129,129,0.12);--icon-glow:rgba(252,129,129,0.15)">👁
+                </div>
+                <div class="tool-tag" style="background:rgba(252,129,129,0.1);color:var(--accent4)">Vision</div>
+                <h3>VisionAssist</h3>
+                <p>Loupe numérique, contraste adaptatif, mode sombre, inversion des couleurs et lecture linéaire guidée
+                    pour malvoyants et photosensibles.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 980 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('VisionAssist ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+            <div class="tool-card reveal reveal-delay-1" data-tags="écriture dyslexie"
+                style="--card-accent: linear-gradient(90deg,#63b3ed,#68d391)">
+                <div class="tool-card-accent"></div>
+                <div class="tool-icon" style="background:rgba(99,179,237,0.12)">✍️</div>
+                <div class="tool-tag" style="background:rgba(99,179,237,0.1);color:var(--accent1)">Écriture</div>
+                <h3>ScriptoAide</h3>
+                <p>Correcteur orthographique bienveillant, prédiction de mots contextuelle, dictée vocale et retour
+                    haptique pour les difficultés graphomotrices.</p>
+                <div class="tool-footer">
+                    <span class="tool-users">👥 3 560 utilisateurs</span>
+                    <button class="tool-btn" onclick="showToast('ScriptoAide ouvert !')">Utiliser →</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══ TABS RESSOURCES ═══ -->
+    <section class="tabs-section" id="ressources">
+        <div class="tabs-wrap">
+            <div class="section-header reveal">
+                <div class="section-tag">📚 Ressources</div>
+                <h2 class="section-title">Explorés par <em>catégorie</em></h2>
+            </div>
+            <div class="tab-nav reveal">
+                <button class="tab-btn active" onclick="switchTab(this,'math')">📐 Mathématiques</button>
+                <button class="tab-btn" onclick="switchTab(this,'lang')">📝 Langues</button>
+                <button class="tab-btn" onclick="switchTab(this,'sci')">🔬 Sciences</button>
+                <button class="tab-btn" onclick="switchTab(this,'social')">🤝 Compétences sociales</button>
+                <button class="tab-btn" onclick="switchTab(this,'auto')">⚙️ Autonomie</button>
+            </div>
+            <div class="tab-content active" id="tab-math">
+                <div class="mini-tool"><span class="mt-icon">🔢</span>
+                    <div>
+                        <div class="mt-name">NombreVisuel</div>
+                        <div class="mt-desc">Représentation concrète des nombres avec manipulatifs virtuels.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">📏</span>
+                    <div>
+                        <div class="mt-name">GéoStep</div>
+                        <div class="mt-desc">Géométrie interactive pas-à-pas avec explications vocales.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">🎲</span>
+                    <div>
+                        <div class="mt-name">MathPlay</div>
+                        <div class="mt-desc">Calcul mental sous forme de mini-jeux adaptés au niveau.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">📉</span>
+                    <div>
+                        <div class="mt-name">GraphiClair</div>
+                        <div class="mt-desc">Création de graphiques simplifiés avec guide intégré.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-lang">
+                <div class="mini-tool"><span class="mt-icon">🔤</span>
+                    <div>
+                        <div class="mt-name">SyllabeKid</div>
+                        <div class="mt-desc">Découpage syllabique coloré et animé pour la lecture phonémique.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">🎙</span>
+                    <div>
+                        <div class="mt-name">VoixClaire</div>
+                        <div class="mt-desc">Entraînement à l'expression orale avec feedback instantané.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">📚</span>
+                    <div>
+                        <div class="mt-name">BiblioFlex</div>
+                        <div class="mt-desc">Bibliothèque de textes en police adaptée, niveau réglable.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-sci">
+                <div class="mini-tool"><span class="mt-icon">🧪</span>
+                    <div>
+                        <div class="mt-name">LabVirtuel</div>
+                        <div class="mt-desc">Simulations de TP accessibles et guidées visuellement.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">🌍</span>
+                    <div>
+                        <div class="mt-name">TerreAnime</div>
+                        <div class="mt-desc">Sciences de la vie avec vidéos sous-titrées et quiz adaptatifs.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-social">
+                <div class="mini-tool"><span class="mt-icon">😊</span>
+                    <div>
+                        <div class="mt-name">ÉmojiSens</div>
+                        <div class="mt-desc">Reconnaissance et expression des émotions en contexte scolaire.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">🎭</span>
+                    <div>
+                        <div class="mt-name">ScénarioSocial</div>
+                        <div class="mt-desc">Jeux de rôle interactifs pour entraîner les habiletés sociales.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="tab-auto">
+                <div class="mini-tool"><span class="mt-icon">📅</span>
+                    <div>
+                        <div class="mt-name">AgendaVisuel</div>
+                        <div class="mt-desc">Planning illustré avec alertes et routines personnalisables.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">✅</span>
+                    <div>
+                        <div class="mt-name">ChecklistPro</div>
+                        <div class="mt-desc">Listes de tâches visuelles avec récompenses et suivi parent.</div>
+                    </div>
+                </div>
+                <div class="mini-tool"><span class="mt-icon">🗓</span>
+                    <div>
+                        <div class="mt-name">TransitionAide</div>
+                        <div class="mt-desc">Préparation aux changements de routine avec supports visuels.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PROFILS ═══ -->
+    <section class="profiles-section" id="profils">
+        <div class="section-header reveal">
+            <div class="section-tag">👤 Profils</div>
+            <h2 class="section-title">Adapté à <em>votre situation</em></h2>
+            <p class="section-desc">Sélectionnez votre profil pour accéder à une interface entièrement personnalisée.
+            </p>
+        </div>
+        <div class="profiles-grid">
+            <div class="profile-card reveal" style="--prof-color:var(--accent1);--prof-border:rgba(99,179,237,0.35)"
+                onclick="showToast('Profil Dyslexie sélectionné ✓')">
+                <span class="profile-emoji">📖</span>
+                <h4>Dyslexie / Dysorthographie</h4>
+                <p>Police adaptée, espacement élargi, couleurs de fond douces, support vocal</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-1"
+                style="--prof-color:var(--accent2);--prof-border:rgba(246,173,85,0.35)"
+                onclick="showToast('Profil TDAH sélectionné ✓')">
+                <span class="profile-emoji">⚡</span>
+                <h4>TDAH / TDA</h4>
+                <p>Timers visuels, tâches fragmentées, récompenses, mode sans distraction</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-2"
+                style="--prof-color:var(--accent3);--prof-border:rgba(104,211,145,0.35)"
+                onclick="showToast('Profil TSA sélectionné ✓')">
+                <span class="profile-emoji">🌈</span>
+                <h4>TSA (Autisme)</h4>
+                <p>Pictogrammes, routines visuelles, communication augmentée, prévisibilité</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-3"
+                style="--prof-color:var(--accent5);--prof-border:rgba(183,148,244,0.35)"
+                onclick="showToast('Profil Dyspraxie sélectionné ✓')">
+                <span class="profile-emoji">🖐</span>
+                <h4>Dyspraxie / TAC</h4>
+                <p>Interface tactile simplifiée, grands boutons, dictée vocale, aide motrice</p>
+            </div>
+            <div class="profile-card reveal" style="--prof-color:var(--accent4);--prof-border:rgba(252,129,129,0.35)"
+                onclick="showToast('Profil Malvoyance sélectionné ✓')">
+                <span class="profile-emoji">👁</span>
+                <h4>Déficit visuel</h4>
+                <p>Loupe, contraste élevé, screen reader, audiodescription des contenus</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-1"
+                style="--prof-color:var(--accent1);--prof-border:rgba(99,179,237,0.35)"
+                onclick="showToast('Profil Déficit auditif sélectionné ✓')">
+                <span class="profile-emoji">👂</span>
+                <h4>Déficit auditif</h4>
+                <p>Sous-titres, LSF, transcription en temps réel, alertes visuelles</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-2"
+                style="--prof-color:var(--accent2);--prof-border:rgba(246,173,85,0.35)"
+                onclick="showToast('Profil Enseignant sélectionné ✓')">
+                <span class="profile-emoji">🧑‍🏫</span>
+                <h4>Enseignant / AVS</h4>
+                <p>Tableau de bord élèves, exports, adaptation des supports pédagogiques</p>
+            </div>
+            <div class="profile-card reveal reveal-delay-3"
+                style="--prof-color:var(--accent3);--prof-border:rgba(104,211,145,0.35)"
+                onclick="showToast('Profil Parent sélectionné ✓')">
+                <span class="profile-emoji">👨‍👩‍👧</span>
+                <h4>Parent / Tuteur</h4>
+                <p>Suivi des progrès, rapports hebdomadaires, conseils personnalisés à domicile</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FEATURES ═══ -->
+    <section class="features-section" id="fonctions">
+        <div class="section-header reveal">
+            <div class="section-tag">⚙️ Fonctionnalités</div>
+            <h2 class="section-title">Une technologie au service de <em>l'humain</em></h2>
+        </div>
+        <div class="features-layout">
+            <div class="features-visual reveal">
+                <div class="features-screen">
+                    <div class="screen-bar"><span></span><span></span><span></span></div>
+                    <div class="screen-line long accent"></div>
+                    <div class="screen-line medium" style="animation-delay:.2s"></div>
+                    <div class="screen-line short" style="animation-delay:.4s"></div>
+                    <div class="screen-cards">
+                        <div class="screen-mini-card">
+                            <div class="smc-dot" style="background:rgba(99,179,237,0.4)"></div>
+                            <div class="smc-line"></div>
+                            <div class="smc-line w60"></div>
+                        </div>
+                        <div class="screen-mini-card">
+                            <div class="smc-dot" style="background:rgba(246,173,85,0.4)"></div>
+                            <div class="smc-line"></div>
+                            <div class="smc-line w60"></div>
+                        </div>
+                        <div class="screen-mini-card">
+                            <div class="smc-dot" style="background:rgba(104,211,145,0.4)"></div>
+                            <div class="smc-line"></div>
+                            <div class="smc-line w60"></div>
+                        </div>
+                        <div class="screen-mini-card">
+                            <div class="smc-dot" style="background:rgba(183,148,244,0.4)"></div>
+                            <div class="smc-line"></div>
+                            <div class="smc-line w60"></div>
+                        </div>
+                    </div>
+                    <div class="screen-line medium" style="margin-top:16px;animation-delay:.6s"></div>
+                </div>
+                <div class="features-badge b1"><span class="badge-icon">🏆</span> Progrès +34% ce mois</div>
+                <div class="features-badge b2"><span class="badge-icon">🤖</span> IA adaptative active</div>
+            </div>
+
+            <div class="features-list reveal reveal-delay-2">
+                <div class="feature-item">
+                    <div class="fi-icon" style="background:rgba(99,179,237,0.12)">🤖</div>
+                    <div class="fi-content">
+                        <h4>Adaptation IA en temps réel</h4>
+                        <p>Le portail analyse les patterns d'apprentissage et ajuste dynamiquement la difficulté, le
+                            format et les aides proposées.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon" style="background:rgba(104,211,145,0.12)">📊</div>
+                    <div class="fi-content">
+                        <h4>Tableau de bord de progression</h4>
+                        <p>Visualisations claires des objectifs atteints, du temps de concentration et des zones à
+                            renforcer — partageable avec l'équipe pédagogique.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon" style="background:rgba(246,173,85,0.12)">🔐</div>
+                    <div class="fi-content">
+                        <h4>Confidentialité & RGPD</h4>
+                        <p>Données hébergées en France, conformité RGPD totale, aucune publicité, accès enfant sécurisé
+                            avec validation parentale.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="fi-icon" style="background:rgba(183,148,244,0.12)">🔗</div>
+                    <div class="fi-content">
+                        <h4>Interopérabilité ENT</h4>
+                        <p>Connexion directe avec les ENT (Pronote, ÉcoleDirecte, Skolengo), import des devoirs et
+                            export vers les enseignants.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ STATS ═══ -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="big-stat reveal">
+                <div class="big-stat-num" data-count="48">0</div>
+                <div class="big-stat-label">Outils<br>disponibles</div>
+            </div>
+            <div class="big-stat reveal reveal-delay-1">
+                <div class="big-stat-num" data-count="12000">0</div>
+                <div class="big-stat-label">Élèves<br>accompagnés</div>
+            </div>
+            <div class="big-stat reveal reveal-delay-2">
+                <div class="big-stat-num" data-count="350">0</div>
+                <div class="big-stat-label">Établissements<br>partenaires</div>
+            </div>
+            <div class="big-stat reveal reveal-delay-3">
+                <div class="big-stat-num" data-count="94">0</div>
+                <div class="big-stat-label">% de taux<br>de satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ TÉMOIGNAGES ═══ -->
+    <section class="testimonials-section" id="temoignages">
+        <div class="section-header reveal">
+            <div class="section-tag">💬 Témoignages</div>
+            <h2 class="section-title">Ce qu'ils <em>vivent</em></h2>
+        </div>
+        <div class="testimonials-track">
+            <div class="testimonials-inner" id="testiInner">
+                <!-- Original -->
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« Mon fils dyslexique a enfin pu lire seul un texte entier grâce à
+                        LectureFlex. Je l'ai vu sourire pour la première fois en faisant ses devoirs. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(99,179,237,0.2);color:var(--accent1)">M</div>
+                        <div>
+                            <div class="testi-name">Marie D.</div>
+                            <div class="testi-role">Parent d'élève, Lyon</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« PictoTalk a complètement changé la dynamique de ma classe. Mes élèves
+                        non-verbaux participent maintenant activement. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(104,211,145,0.2);color:var(--accent3)">S</div>
+                        <div>
+                            <div class="testi-name">Sophie L.</div>
+                            <div class="testi-role">Enseignante spécialisée, Paris</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« FocusTimer m'aide à ne pas me perdre pendant les cours. Je finissais jamais
+                        rien avant, maintenant j'ai des bonnes notes. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(246,173,85,0.2);color:var(--accent2)">T</div>
+                        <div>
+                            <div class="testi-name">Thomas, 14 ans</div>
+                            <div class="testi-role">Élève TDAH, Bordeaux</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« En tant qu'orthophoniste, je recommande IncluSphere à tous mes patients
+                        scolarisés. Les outils sont scientifiquement fondés. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(183,148,244,0.2);color:var(--accent5)">A</div>
+                        <div>
+                            <div class="testi-name">Dr. Amira K.</div>
+                            <div class="testi-role">Orthophoniste, Marseille</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« L'interface est si intuitive que même ma fille, qui a une peur bleue des
+                        écrans, l'utilise chaque soir sans difficulté. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(252,129,129,0.2);color:var(--accent4)">P</div>
+                        <div>
+                            <div class="testi-name">Pierre M.</div>
+                            <div class="testi-role">Parent d'élève TSA, Nantes</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Duplicate pour loop infini -->
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« Mon fils dyslexique a enfin pu lire seul un texte entier grâce à
+                        LectureFlex. Je l'ai vu sourire pour la première fois en faisant ses devoirs. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(99,179,237,0.2);color:var(--accent1)">M</div>
+                        <div>
+                            <div class="testi-name">Marie D.</div>
+                            <div class="testi-role">Parent d'élève, Lyon</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« PictoTalk a complètement changé la dynamique de ma classe. Mes élèves
+                        non-verbaux participent maintenant activement. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(104,211,145,0.2);color:var(--accent3)">S</div>
+                        <div>
+                            <div class="testi-name">Sophie L.</div>
+                            <div class="testi-role">Enseignante spécialisée, Paris</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« FocusTimer m'aide à ne pas me perdre pendant les cours. Je finissais jamais
+                        rien avant, maintenant j'ai des bonnes notes. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(246,173,85,0.2);color:var(--accent2)">T</div>
+                        <div>
+                            <div class="testi-name">Thomas, 14 ans</div>
+                            <div class="testi-role">Élève TDAH, Bordeaux</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« En tant qu'orthophoniste, je recommande IncluSphere à tous mes patients
+                        scolarisés. Les outils sont scientifiquement fondés. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(183,148,244,0.2);color:var(--accent5)">A</div>
+                        <div>
+                            <div class="testi-name">Dr. Amira K.</div>
+                            <div class="testi-role">Orthophoniste, Marseille</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testi-card">
+                    <div class="testi-stars">★★★★★</div>
+                    <p class="testi-text">« L'interface est si intuitive que même ma fille, qui a une peur bleue des
+                        écrans, l'utilise chaque soir sans difficulté. »</p>
+                    <div class="testi-author">
+                        <div class="testi-avatar" style="background:rgba(252,129,129,0.2);color:var(--accent4)">P</div>
+                        <div>
+                            <div class="testi-name">Pierre M.</div>
+                            <div class="testi-role">Parent d'élève TSA, Nantes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ CTA FINAL ═══ -->
+    <section class="cta-section">
+        <div class="cta-box reveal">
+            <div class="section-tag">🚀 Commencer</div>
+            <h2>Rejoignez une communauté qui croit en chaque <em>élève</em></h2>
+            <p>Accès 100 % gratuit pour les élèves et les familles. Partenariats officiels avec l'Éducation Nationale.
+            </p>
+            <div class="cta-input-row">
+                <input type="email" class="cta-input" placeholder="votre@email.fr">
+                <button class="btn-primary" onclick="showToast('Inscription envoyée ! ✓')">Rejoindre →</button>
+            </div>
+            <p style="font-size:.75rem;color:var(--text-muted)">✓ Sans engagement &nbsp;·&nbsp; ✓ RGPD conforme
+                &nbsp;·&nbsp; ✓ Aucune publicité</p>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <div class="footer-inner">
+            <a href="#" class="logo">
+                <div class="logo-icon">✦</div>
+                Inclu<span>Sphere</span>
+            </a>
+            <div class="footer-links">
+                <a href="#">À propos</a>
+                <a href="#">Accessibilité</a>
+                <a href="#">RGPD</a>
+                <a href="#">Partenaires</a>
+                <a href="#">Contact</a>
+                <a href="#">Plan du site</a>
+            </div>
+            <div class="footer-copy">© 2025 IncluSphere — Tous droits réservés</div>
+        </div>
+    </footer>
+
+    <script>
+        // ─── CURSOR ───
+        const cursor = document.getElementById('cursor');
+        const ring = document.getElementById('cursor-ring');
+        let mx = 0, my = 0, rx = 0, ry = 0;
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+        });
+        function animRing() {
+            rx += (mx - rx) * 0.12;
+            ry += (my - ry) * 0.12;
+            ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+            requestAnimationFrame(animRing);
+        }
+        animRing();
+
+        // ─── NAVBAR SCROLL ───
+        const navbar = document.getElementById('navbar');
+        const progressBar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 60);
+            const p = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+            progressBar.style.width = p + '%';
+        });
+
+        // ─── REVEAL ON SCROLL ───
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.12 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // ─── COUNT UP ───
+        function countUp(el, target) {
+            let current = 0;
+            const step = Math.ceil(target / 80);
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = current >= 1000 ? (current / 1000).toFixed(0) + ' k+' : current + (el.dataset.suffix || '');
+                if (current >= target) clearInterval(timer);
+            }, 20);
+        }
+        const statObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const el = e.target;
+                    const target = parseInt(el.dataset.count);
+                    countUp(el, target);
+                    statObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el));
+
+        // ─── MOUSE CARD EFFECT ───
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                card.style.setProperty('--mouse-x', (e.clientX - rect.left) + 'px');
+                card.style.setProperty('--mouse-y', (e.clientY - rect.top) + 'px');
+            });
+        });
+
+        // ─── TABS ───
+        function switchTab(btn, id) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + id).classList.add('active');
+        }
+
+        // ─── SEARCH FILTER ───
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const q = this.value.toLowerCase();
+            document.querySelectorAll('.tool-card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.opacity = text.includes(q) || !q ? '1' : '0.25';
+                card.style.transform = text.includes(q) || !q ? '' : 'scale(0.97)';
+            });
+        });
+
+        function filterTools(tag) {
+            document.getElementById('searchInput').value = tag === 'tout' ? '' : tag;
+            document.getElementById('searchInput').dispatchEvent(new Event('input'));
+        }
+
+        // ─── TOAST ───
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2800);
+        }
+
+        // ─── ACCESSIBILITY BUTTONS ───
+        let fontScale = 1;
+        let motionOff = false;
+        let contrastOn = false;
+        let dyslexieOn = false;
+
+        document.getElementById('btn-font-up').addEventListener('click', () => {
+            fontScale = Math.min(fontScale + 0.1, 1.5);
+            document.documentElement.style.fontSize = (16 * fontScale) + 'px';
+            showToast('Texte agrandi');
+        });
+        document.getElementById('btn-font-down').addEventListener('click', () => {
+            fontScale = Math.max(fontScale - 0.1, 0.75);
+            document.documentElement.style.fontSize = (16 * fontScale) + 'px';
+            showToast('Texte réduit');
+        });
+        document.getElementById('btn-contrast').addEventListener('click', function () {
+            contrastOn = !contrastOn;
+            this.classList.toggle('active', contrastOn);
+            document.documentElement.style.setProperty('--bg', contrastOn ? '#000' : '#0a0e1a');
+            document.documentElement.style.setProperty('--surface', contrastOn ? '#111' : '#111827');
+            document.documentElement.style.setProperty('--text', contrastOn ? '#fff' : '#e8f0fe');
+            document.documentElement.style.setProperty('--text-muted', contrastOn ? '#ccc' : '#7a8fa6');
+            showToast(contrastOn ? 'Contraste élevé activé' : 'Contraste normal');
+        });
+        document.getElementById('btn-dyslexie').addEventListener('click', function () {
+            dyslexieOn = !dyslexieOn;
+            this.classList.toggle('active', dyslexieOn);
+            document.body.style.fontFamily = dyslexieOn ? "'OpenDyslexic', 'Comic Sans MS', cursive" : "'Sora', sans-serif";
+            document.body.style.letterSpacing = dyslexieOn ? '.05em' : '';
+            document.body.style.lineHeight = dyslexieOn ? '2' : '';
+            showToast(dyslexieOn ? 'Police dyslexie activée' : 'Police normale');
+        });
+        document.getElementById('btn-motion').addEventListener('click', function () {
+            motionOff = !motionOff;
+            this.classList.toggle('active', motionOff);
+            const style = document.createElement('style');
+            style.id = 'no-motion';
+            if (motionOff) {
+                document.getElementById('no-motion')?.remove();
+                style.textContent = '*, *::before, *::after { animation: none !important; transition: none !important; }';
+                document.head.appendChild(style);
+                showToast('Animations réduites ⏸');
+            } else {
+                document.getElementById('no-motion')?.remove();
+                showToast('Animations activées ▶');
+            }
+        });
+
+        // ─── SMOOTH REVEAL HERO ───
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.hero .hero-badge, .hero h1, .hero p, .hero-actions, .hero-stats').forEach(el => {
+                el.style.opacity = '0';
+            });
+            setTimeout(() => {
+                document.querySelectorAll('[style*="opacity: 0"]').forEach(el => el.removeAttribute('style'));
+            }, 100);
+        });
+    </script>
+</body>
+
+</html>

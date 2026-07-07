@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "discipline": "Physique-Chimie",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019, B.O. spécial n°8 du 25 juillet 2019 — Programme de physique-chimie 2nde + spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer une démarche scientifique expérimentale",
+    "Modéliser des phénomènes physiques et chimiques",
+    "Maîtriser le vocabulaire scientifique et les outils mathématiques associés",
+    "Utiliser des outils numériques pour simuler et traiter des données",
+    "Développer un regard critique sur les enjeux scientifiques contemporains"
+  ],
+  "domaines": [
+    {
+      "nom": "Constitution et transformations de la matière",
+      "description": "Structure de l'atome, réactions chimiques, chimie organique.",
+      "competences": [
+        {
+          "intitule": "Décrire la constitution de la matière à l'échelle macroscopique et microscopique (2nde)",
+          "exemples_themes": ["Le tableau périodique et la classification des éléments", "Les solutions aqueuses : concentration, dilution (TP)", "Le modèle de l'atome : noyau, électrons, couches", "Corps purs et mélanges : identification par des tests"]
+        },
+        {
+          "intitule": "Modéliser les transformations chimiques : réactions acido-basiques, d'oxydoréduction (1ère)",
+          "exemples_themes": ["Titrage acido-basique d'un vinaigre (TP)", "La pile électrochimique : principe et réalisation", "Avancement d'une réaction et tableau d'avancement", "pH d'une solution et indicateurs colorés"]
+        },
+        {
+          "intitule": "Chimie organique : structure, réactivité, synthèse (Terminale)",
+          "exemples_themes": ["Les groupes caractéristiques (alcool, acide carboxylique, amine, ester)", "Mécanisme réactionnel d'une estérification", "Synthèse d'un médicament (aspirine, paracétamol — TP)", "Spectroscopie IR et RMN pour identifier une molécule"]
+        },
+        {
+          "intitule": "Évolution temporelle d'une réaction chimique : cinétique (Terminale)",
+          "exemples_themes": ["Suivi cinétique par spectrophotométrie (TP)", "Facteurs cinétiques : température, concentration, catalyseur", "Temps de demi-réaction", "Mécanisme réactionnel et intermédiaire réactionnel"]
+        }
+      ]
+    },
+    {
+      "nom": "Mouvement et interactions",
+      "description": "Mécanique newtonienne, forces, énergie.",
+      "competences": [
+        {
+          "intitule": "Décrire un mouvement : cinématique et référentiel (2nde-1ère)",
+          "exemples_themes": ["Enregistrement vidéo d'une chute libre (pointage)", "Vecteur vitesse et vecteur accélération", "Mouvement rectiligne uniforme vs uniformément accéléré", "La relativité du mouvement (référentiel terrestre, géocentrique)"]
+        },
+        {
+          "intitule": "Appliquer les lois de Newton (1ère-Terminale)",
+          "exemples_themes": ["Chute libre avec et sans frottements", "Le mouvement d'un projectile (tir parabolique)", "Le mouvement circulaire uniforme (satellite)", "Problème de mécanique céleste (lois de Kepler)"]
+        },
+        {
+          "intitule": "L'énergie : conservation, conversion, transferts",
+          "exemples_themes": ["Le théorème de l'énergie cinétique (TP chute libre)", "Conservation de l'énergie mécanique", "Transferts thermiques : conduction, convection, rayonnement", "Bilan énergétique d'un système (centrale électrique)"]
+        }
+      ]
+    },
+    {
+      "nom": "Ondes et signaux",
+      "description": "Ondes mécaniques et lumineuses, signaux électriques.",
+      "competences": [
+        {
+          "intitule": "Caractériser les ondes mécaniques et lumineuses (1ère-Terminale)",
+          "exemples_themes": ["Ondes sonores : fréquence, amplitude, vitesse du son (TP)", "Diffraction et interférences de la lumière (fentes d'Young)", "Le spectre lumineux : émission et absorption", "L'effet Doppler et ses applications (radar, échographie)"]
+        },
+        {
+          "intitule": "Analyser des signaux électriques et des circuits (2nde-1ère)",
+          "exemples_themes": ["Loi d'Ohm et circuits série/parallèle (TP)", "Le condensateur : charge et décharge (oscilloscope)", "Capteurs et Arduino : mesure d'une grandeur physique", "Conversion analogique-numérique d'un signal"]
+        },
+        {
+          "intitule": "Physique nucléaire : radioactivité et énergie nucléaire (Terminale)",
+          "exemples_themes": ["Les types de rayonnement (α, β, γ)", "La décroissance radioactive et le temps de demi-vie", "La fission nucléaire (principe d'une centrale)", "La fusion nucléaire (projet ITER)"]
+        }
+      ]
+    },
+    {
+      "nom": "Pratique expérimentale et démarche scientifique",
+      "description": "Compétences transversales de la démarche scientifique.",
+      "competences": [
+        {
+          "intitule": "Concevoir et réaliser un protocole expérimental",
+          "exemples_themes": ["Rédaction d'un protocole de titrage", "Choix du matériel et des conditions expérimentales", "Gestion des incertitudes de mesure", "Présentation des résultats sous forme de tableau et graphique"]
+        },
+        {
+          "intitule": "Utiliser des outils numériques pour traiter des données expérimentales",
+          "exemples_themes": ["Tableur pour tracer une courbe et modéliser (régression)", "Python pour simuler un mouvement ou une réaction", "Utilisation d'un logiciel de traitement d'images (pointage)", "Calcul d'incertitudes avec Python"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de physique-chimie au lycée GT couvre la 2nde (tronc commun) puis la spécialité en 1ère et Terminale. Il s'organise autour de trois grands thèmes : constitution et transformations de la matière (chimie), mouvement et interactions (mécanique, énergie), ondes et signaux (optique, acoustique, électricité). La démarche expérimentale et l'utilisation d'outils numériques (Python, tableur) sont centrales."
+}

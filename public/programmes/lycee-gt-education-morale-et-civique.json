@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "discipline": "Éducation Morale et Civique (EMC)",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. n°36 du 30 septembre 2024 — Programme d'EMC lycée GT",
+    "mise_a_jour": "2024-09-30"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre les principes et valeurs de la République française",
+    "Exercer son jugement critique et son discernement",
+    "Participer à un débat argumenté et respectueux",
+    "Connaître les institutions et le fonctionnement démocratique",
+    "S'engager et agir en citoyen responsable"
+  ],
+  "domaines": [
+    {
+      "nom": "La liberté, les libertés",
+      "description": "Les fondements et les limites de la liberté dans une démocratie.",
+      "competences": [
+        {
+          "intitule": "Distinguer les différentes formes de liberté (individuelle, collective, d'expression, de conscience)",
+          "exemples_themes": ["La Déclaration des droits de l'homme et du citoyen (article 4)", "Un arrêt du Conseil constitutionnel sur la liberté d'expression", "Le débat sur les limites de la liberté d'expression (caricatures, réseaux sociaux)", "Un cas concret de restriction de liberté (état d'urgence, confinement)"]
+        },
+        {
+          "intitule": "Comprendre le cadre juridique des libertés fondamentales",
+          "exemples_themes": ["Les textes fondateurs (DDHC, préambule de la Constitution de 1946)", "La Convention européenne des droits de l'homme (CEDH)", "Un arrêt de la Cour européenne des droits de l'homme", "La loi et les libertés numériques (RGPD, droit à l'oubli)"]
+        }
+      ]
+    },
+    {
+      "nom": "L'égalité et les discriminations",
+      "description": "Le principe d'égalité et la lutte contre les discriminations.",
+      "competences": [
+        {
+          "intitule": "Analyser les formes de discrimination et les dispositifs de lutte",
+          "exemples_themes": ["Le testing à l'embauche (résultats d'études)", "La loi sur l'égalité femmes-hommes (données salariales)", "Le Défenseur des droits : un cas traité", "Un témoignage ou un reportage sur les discriminations au quotidien"]
+        },
+        {
+          "intitule": "Comprendre le principe de laïcité et ses applications",
+          "exemples_themes": ["La loi de 1905 sur la séparation des Églises et de l'État (extraits)", "La Charte de la laïcité à l'école (analyse)", "Un cas jurisprudentiel sur le port de signes religieux", "Un débat sur la neutralité de l'espace public"]
+        }
+      ]
+    },
+    {
+      "nom": "La démocratie et les institutions",
+      "description": "Le fonctionnement des institutions démocratiques françaises et européennes.",
+      "competences": [
+        {
+          "intitule": "Connaître les institutions de la Ve République et leur fonctionnement",
+          "exemples_themes": ["L'organigramme des pouvoirs (exécutif, législatif, judiciaire)", "Le parcours d'une loi (infographie ou simulation)", "Un extrait de la Constitution de 1958 (article 49-3, article 11)", "La comparaison France/États-Unis (régime présidentiel vs semi-présidentiel)"]
+        },
+        {
+          "intitule": "Comprendre les enjeux de la participation citoyenne",
+          "exemples_themes": ["L'abstention électorale en France (graphiques et analyses)", "Le référendum et la démocratie directe", "Les formes d'engagement citoyen (associations, pétitions, manifestations)", "La Convention citoyenne pour le climat (2019-2020)"]
+        }
+      ]
+    },
+    {
+      "nom": "La solidarité et la fraternité",
+      "description": "Les enjeux de la solidarité nationale et internationale.",
+      "competences": [
+        {
+          "intitule": "Comprendre les mécanismes de la solidarité nationale (protection sociale, impôt)",
+          "exemples_themes": ["Le système de Sécurité sociale en France (schéma)", "L'impôt progressif : principe et débat", "Les inégalités sociales en France (données INSEE)", "Un reportage sur une action de solidarité locale"]
+        },
+        {
+          "intitule": "Analyser les enjeux de la solidarité internationale et du développement",
+          "exemples_themes": ["Le rôle des ONG (Médecins Sans Frontières, Amnesty International)", "Les Objectifs de Développement Durable de l'ONU", "Un projet de coopération internationale (étude de cas)", "Le commerce équitable : principes et limites"]
+        }
+      ]
+    },
+    {
+      "nom": "La défense et la sécurité",
+      "description": "La défense nationale, la sécurité et la paix.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'organisation de la défense nationale et les menaces contemporaines",
+          "exemples_themes": ["La journée Défense et Citoyenneté (JDC) : présentation", "Les missions de l'armée française (opérations extérieures, protection du territoire)", "La cybersécurité et les nouvelles menaces", "La dissuasion nucléaire : arguments pour et contre"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EMC au lycée GT aborde les principes républicains (liberté, égalité, fraternité, laïcité), le fonctionnement des institutions démocratiques, la lutte contre les discriminations, la solidarité et la défense. Les élèves développent leur jugement critique à travers l'étude de documents juridiques, de cas concrets et la pratique du débat argumenté."
+}

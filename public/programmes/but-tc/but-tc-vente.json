@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "discipline": "Vente",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC"
+  },
+  "competences": [
+    {
+      "intitule": "Vendre une offre commerciale",
+      "details": [
+        "Préparer un entretien de vente",
+        "Maîtriser les étapes de la négociation (SBAM, SONCAS)",
+        "Traiter les objections et conclure la vente",
+        "Assurer le suivi de la relation client"
+      ]
+    },
+    {
+      "intitule": "Prospection commerciale",
+      "details": [
+        "Établir un plan de prospection",
+        "Utiliser les outils de Social Selling",
+        "Qualifier un fichier de prospects"
+      ]
+    }
+  ]
+}

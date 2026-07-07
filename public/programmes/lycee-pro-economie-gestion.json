@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "discipline": "Économie-Gestion",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'économie-gestion Bac Pro (secteurs de la production)",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre le fonctionnement de l'entreprise et son environnement économique",
+    "Maîtriser les notions de base en gestion, droit et économie",
+    "Analyser des situations professionnelles du point de vue économique et juridique",
+    "Préparer son insertion professionnelle et son parcours",
+    "Développer l'esprit d'entreprendre"
+  ],
+  "domaines": [
+    {
+      "nom": "Le contexte professionnel",
+      "description": "L'environnement économique et juridique de l'entreprise.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'environnement économique de l'entreprise",
+          "exemples_themes": ["Les différentes formes d'entreprises (SA, SARL, auto-entrepreneur)", "Le marché : offre, demande, concurrence (exemple local)", "Le rôle de l'État dans l'économie (aides aux entreprises, impôts)", "La création d'entreprise : les étapes (étude de cas)"]
+        },
+        {
+          "intitule": "Connaître le cadre juridique de l'activité professionnelle",
+          "exemples_themes": ["Le contrat de travail : droits et obligations", "La convention collective de son secteur professionnel", "Le règlement intérieur de l'entreprise", "Les prud'hommes : rôle et fonctionnement"]
+        }
+      ]
+    },
+    {
+      "nom": "L'insertion dans le monde professionnel",
+      "description": "Préparer son insertion professionnelle et son parcours.",
+      "competences": [
+        {
+          "intitule": "Préparer son insertion professionnelle",
+          "exemples_themes": ["Le CV et la lettre de motivation adaptés au secteur", "La recherche d'emploi : sites, réseaux, candidature spontanée", "L'entretien d'embauche : simulation et préparation", "Le bilan de compétences et le projet professionnel"]
+        },
+        {
+          "intitule": "Comprendre la gestion de carrière et la formation continue",
+          "exemples_themes": ["La VAE (Validation des Acquis de l'Expérience)", "Le CPF (Compte Personnel de Formation)", "L'évolution de carrière : promotion, mobilité, reconversion", "Les dispositifs d'aide à l'emploi (Pôle emploi, missions locales)"]
+        }
+      ]
+    },
+    {
+      "nom": "La gestion de l'entreprise",
+      "description": "Les outils de gestion au service de la décision.",
+      "competences": [
+        {
+          "intitule": "Comprendre les bases de la gestion d'une entreprise",
+          "exemples_themes": ["Le calcul du coût de revient d'un produit ou d'une prestation", "Le seuil de rentabilité (point mort) : calcul simplifié", "La lecture d'un compte de résultat simplifié", "La gestion des stocks (inventaire, réapprovisionnement)"]
+        }
+      ]
+    },
+    {
+      "nom": "L'esprit d'entreprendre",
+      "description": "Développer la culture entrepreneuriale.",
+      "competences": [
+        {
+          "intitule": "Développer l'esprit d'initiative et d'entreprise",
+          "exemples_themes": ["Le mini-entreprise (EPA, Junior entreprise)", "L'étude de marché simplifiée pour un projet de création", "Le business plan : structure et rédaction", "Un témoignage d'entrepreneur local"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'économie-gestion en lycée professionnel (secteurs de la production) aborde le fonctionnement de l'entreprise, le cadre juridique du travail, la gestion de base, l'insertion professionnelle et l'esprit d'entreprendre. L'approche est concrète, liée au secteur professionnel des élèves, avec des études de cas, des simulations et des projets entrepreneuriaux."
+}

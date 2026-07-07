@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "discipline": "SNT – Sciences Numériques et Technologie",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de SNT Seconde GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre les grands principes du fonctionnement d'Internet et du Web",
+    "Appréhender les enjeux sociétaux du numérique",
+    "Acquérir des notions de programmation",
+    "Développer un regard critique sur les usages numériques",
+    "Comprendre le traitement des données et des images"
+  ],
+  "domaines": [
+    {
+      "nom": "Internet",
+      "description": "Les principes techniques du réseau mondial.",
+      "competences": [
+        {
+          "intitule": "Comprendre les principes de fonctionnement d'Internet : protocoles, routage, adressage",
+          "exemples_themes": ["Simulation d'un réseau avec Filius ou Packet Tracer", "Le protocole TCP/IP expliqué avec une analogie postale", "Traceroute : suivre le chemin d'un paquet de données", "L'adresse IP et le DNS : de l'adresse au nom de domaine"]
+        }
+      ]
+    },
+    {
+      "nom": "Le Web",
+      "description": "Les technologies et les enjeux du World Wide Web.",
+      "competences": [
+        {
+          "intitule": "Créer une page web simple en HTML/CSS et comprendre le fonctionnement du Web",
+          "exemples_themes": ["Création d'une page HTML avec titres, paragraphes, liens et images", "Les moteurs de recherche : algorithme de PageRank (principe simplifié)", "Cookies, pistage et publicité ciblée", "L'évolution du Web : du Web 1.0 au Web social"]
+        }
+      ]
+    },
+    {
+      "nom": "Les réseaux sociaux",
+      "description": "Comprendre le fonctionnement et les enjeux des réseaux sociaux numériques.",
+      "competences": [
+        {
+          "intitule": "Analyser un réseau social : graphes, influence, modèle économique",
+          "exemples_themes": ["Modélisation d'un réseau social par un graphe (nœuds, arêtes)", "La notion de petit monde (six degrés de séparation)", "Le modèle économique des plateformes (données personnelles)", "Bulles de filtre et chambres d'écho : manipulation de l'information"]
+        }
+      ]
+    },
+    {
+      "nom": "Les données structurées et leur traitement",
+      "description": "Collecte, stockage et exploitation des données.",
+      "competences": [
+        {
+          "intitule": "Collecter, organiser et visualiser des données",
+          "exemples_themes": ["Un fichier CSV de données ouvertes (data.gouv.fr)", "Tri et filtrage de données avec un tableur ou Python", "Création d'un graphique à partir de données réelles", "Le RGPD et la protection des données personnelles"]
+        }
+      ]
+    },
+    {
+      "nom": "La photographie numérique",
+      "description": "Les principes de l'image numérique.",
+      "competences": [
+        {
+          "intitule": "Comprendre la représentation numérique d'une image : pixels, résolution, codage des couleurs",
+          "exemples_themes": ["Manipulation d'une image pixel par pixel avec Python (Pillow)", "Le codage RGB et la profondeur de couleur", "Compression d'image : JPEG vs PNG", "Les métadonnées EXIF d'une photo (géolocalisation, date)"]
+        }
+      ]
+    },
+    {
+      "nom": "Localisation, cartographie et mobilité",
+      "description": "Les systèmes de géolocalisation et leurs usages.",
+      "competences": [
+        {
+          "intitule": "Comprendre les principes de la géolocalisation et de la cartographie numérique",
+          "exemples_themes": ["Le fonctionnement du GPS (trilatération simplifiée)", "Création d'une carte interactive avec uMap ou Leaflet", "Les données de mobilité et la vie privée", "Les applications de navigation et leurs algorithmes (plus court chemin)"]
+        }
+      ]
+    },
+    {
+      "nom": "Informatique embarquée et objets connectés",
+      "description": "Les systèmes embarqués et l'Internet des objets (IoT).",
+      "competences": [
+        {
+          "intitule": "Programmer un objet connecté et comprendre les systèmes embarqués",
+          "exemples_themes": ["Programmation d'un micro:bit ou d'un Arduino (LED, capteur)", "Un objet connecté du quotidien (montre, thermostat) : analyse", "Les enjeux de sécurité des objets connectés", "Le protocole Bluetooth et la communication sans fil"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de SNT en Seconde GT est un enseignement de tronc commun qui aborde sept thèmes : Internet, le Web, les réseaux sociaux, les données structurées, la photographie numérique, la géolocalisation et l'informatique embarquée. Il vise à donner à tous les élèves une culture numérique de base et un regard critique sur les enjeux du numérique, avec une initiation à la programmation (Python, HTML/CSS)."
+}

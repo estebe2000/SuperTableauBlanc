@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "discipline": "Latin",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de LLCA Latin 2nde, 1ère, Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Lire, comprendre et traduire des textes latins",
+    "Maîtriser les structures fondamentales de la langue latine",
+    "Acquérir une culture littéraire et historique de l'Antiquité romaine",
+    "Établir des liens entre l'Antiquité et le monde contemporain",
+    "Développer des compétences d'analyse et d'interprétation"
+  ],
+  "domaines": [
+    {
+      "nom": "L'homme romain — Vie privée et vie publique",
+      "description": "La société romaine, ses institutions et son fonctionnement.",
+      "competences": [
+        {
+          "intitule": "Étudier la vie quotidienne et les institutions romaines à travers les textes",
+          "exemples_themes": ["Un extrait des Lettres de Pline le Jeune (la vie domestique)", "L'organisation politique romaine (Sénat, magistratures — texte de Cicéron)", "Un passage de Suétone sur un empereur (Vie des douze Césars)", "L'esclavage à Rome (texte de Sénèque, Lettre 47)"]
+        }
+      ]
+    },
+    {
+      "nom": "L'éloquence et la rhétorique latine",
+      "description": "L'art de persuader : discours, plaidoyers, traités.",
+      "competences": [
+        {
+          "intitule": "Analyser l'art oratoire romain et ses stratégies argumentatives",
+          "exemples_themes": ["Un extrait des Catilinaires de Cicéron", "Un passage du De Oratore de Cicéron", "La rhétorique : ethos, pathos, logos (Quintilien)", "Comparaison avec un discours contemporain"]
+        }
+      ]
+    },
+    {
+      "nom": "La poésie épique et lyrique",
+      "description": "Les grands genres poétiques latins.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser la poésie latine (épopée, élégie, ode)",
+          "exemples_themes": ["Un extrait de l'Énéide de Virgile (chant II ou IV)", "Un poème de Catulle (poésie amoureuse)", "Un extrait des Métamorphoses d'Ovide", "Une ode d'Horace (Carpe diem)"]
+        }
+      ]
+    },
+    {
+      "nom": "La philosophie romaine",
+      "description": "Les grands courants philosophiques à Rome.",
+      "competences": [
+        {
+          "intitule": "Découvrir la pensée philosophique romaine à travers les textes",
+          "exemples_themes": ["Un extrait du De Rerum Natura de Lucrèce (épicurisme)", "Un passage des Lettres à Lucilius de Sénèque (stoïcisme)", "Un extrait des Tusculanes de Cicéron", "Marc Aurèle et les Pensées pour moi-même"]
+        }
+      ]
+    },
+    {
+      "nom": "Rome et le pouvoir — Histoire et empire",
+      "description": "La construction de l'Empire romain et ses enjeux.",
+      "competences": [
+        {
+          "intitule": "Étudier les récits historiques et les représentations du pouvoir à Rome",
+          "exemples_themes": ["Un extrait d'Ab Urbe condita de Tite-Live (fondation de Rome)", "Un passage de La Guerre des Gaules de César", "Un texte de Tacite sur la tyrannie (Annales)", "Les inscriptions et l'épigraphie latine (Res Gestae d'Auguste)"]
+        }
+      ]
+    },
+    {
+      "nom": "Langue latine",
+      "description": "Maîtrise progressive de la morphologie et de la syntaxe latines.",
+      "competences": [
+        {
+          "intitule": "Maîtriser la grammaire et le vocabulaire latins pour traduire",
+          "exemples_themes": ["Les déclinaisons et les cas (exercices sur texte)", "La conjugaison : indicatif, subjonctif, infinitif", "La proposition infinitive et le discours indirect", "L'étymologie : du latin au français (familles de mots)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de latin au lycée GT (option et spécialité LLCA) couvre la vie romaine, l'éloquence, la poésie, la philosophie et l'histoire de Rome. Les élèves lisent des textes en version originale, progressent en grammaire latine et explorent les héritages de l'Antiquité romaine dans la culture contemporaine. La traduction et le commentaire de texte sont au cœur de la formation."
+}
