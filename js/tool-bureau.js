@@ -227,9 +227,17 @@ export function initBureau() {
         hideAllFloatingElements();
         if (show) {
             mediaPlaylistPanel.style.display = 'block';
-            mediaPlaylistPanel.style.left = '50%';
-            mediaPlaylistPanel.style.top = '45%';
-            mediaPlaylistPanel.style.transform = 'translate(-50%, -50%)';
+            mediaPlaylistPanel.style.transform = 'none'; // Avoid drag calculations bugs
+            
+            // Center the panel dynamically
+            const deskW = bureauDesktop.clientWidth;
+            const deskH = bureauDesktop.clientHeight;
+            const panelW = mediaPlaylistPanel.offsetWidth || 420;
+            const panelH = mediaPlaylistPanel.offsetHeight || 380;
+            
+            mediaPlaylistPanel.style.left = `${Math.max(0, (deskW - panelW) / 2)}px`;
+            mediaPlaylistPanel.style.top = `${Math.max(0, (deskH - panelH) / 2)}px`;
+            
             updatePlaylistDOM();
         }
     });
@@ -237,6 +245,24 @@ export function initBureau() {
     closePlaylistPanelBtn?.addEventListener('click', () => {
         mediaPlaylistPanel.style.display = 'none';
     });
+
+    // Make floating panels and default widgets draggable
+    const playlistHeader = mediaPlaylistPanel?.querySelector('.panel-header');
+    if (mediaPlaylistPanel && playlistHeader) {
+        makeDraggable(mediaPlaylistPanel, playlistHeader);
+    }
+
+    const docHeader = teacherDocOutputPanel?.querySelector('.panel-header');
+    if (teacherDocOutputPanel && docHeader) {
+        makeDraggable(teacherDocOutputPanel, docHeader);
+    }
+
+    if (wDrawing) {
+        const drawingHandle = wDrawing.querySelector('.widget-drag-handle');
+        if (drawingHandle) {
+            makeDraggable(wDrawing, drawingHandle);
+        }
+    }
 
     // Render list of play items
     function updatePlaylistDOM() {
@@ -751,15 +777,19 @@ export function initBureau() {
             el.style.top = `${newY}px`;
 
             // Convert to percentages for responsiveness
-            widgetData.x = (newX / bureauDesktop.clientWidth) * 100;
-            widgetData.y = (newY / bureauDesktop.clientHeight) * 100;
+            if (widgetData) {
+                widgetData.x = (newX / bureauDesktop.clientWidth) * 100;
+                widgetData.y = (newY / bureauDesktop.clientHeight) * 100;
+            }
         }
 
         function closeDragElement() {
             document.onmouseup = null;
             document.onmousemove = null;
-            // Broadcast state on release
-            syncDesktopState();
+            // Broadcast state on release if it is a syncable widget
+            if (widgetData && widgetData.id) {
+                syncDesktopState();
+            }
         }
     }
 
@@ -1252,9 +1282,19 @@ export function initBureau() {
         generateCuaDocBtn.textContent = "Génération IA... ⏳";
         
         teacherDocOutputPanel.style.display = 'block';
+        teacherDocOutputPanel.style.transform = 'none';
+        
+        // Center the panel dynamically
+        const deskW = bureauDesktop.clientWidth;
+        const deskH = bureauDesktop.clientHeight;
+        const panelW = teacherDocOutputPanel.offsetWidth || 600;
+        const panelH = teacherDocOutputPanel.offsetHeight || 420;
+        
+        teacherDocOutputPanel.style.left = `${Math.max(0, (deskW - panelW) / 2)}px`;
+        teacherDocOutputPanel.style.top = `${Math.max(0, (deskH - panelH) / 2)}px`;
+
         aiDocSkeleton.style.display = 'block';
         aiDocOutput.innerHTML = '';
-        teacherDocOutputPanel.scrollIntoView({ behavior: 'smooth' });
 
         const selectedFormat = cuaDocFormatSelect.value;
         

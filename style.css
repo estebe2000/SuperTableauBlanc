@@ -3948,6 +3948,7 @@ body.accessibility-dyslexia .reading-ruler {
     align-items: center;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     padding-bottom: 8px;
+    cursor: move;
 }
 
 .dock-floating-panel .panel-header h4 {
