@@ -4891,7 +4891,7 @@ body.bureau-active:has(#tab-student.active) .student-desktop {
     bottom: 20px;
     left: 10%;
     width: 80%;
-    max-width: 900px;
+    max-width: 96%;
     z-index: 150;
     background: rgba(15, 23, 42, 0.45) !important;
     color: #f8fafc;
