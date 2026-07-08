@@ -76,6 +76,7 @@ export function initBureau() {
         actionHistory.push({ time, description });
         console.log(`[Action Logged] ${time} - ${description}`);
     }
+    let playlistPanelPos = { left: '20px', top: '20px' };
     let sessionCode = "";
     let activeWidgets = [];
     let backgroundStyle = "default";
@@ -235,14 +236,9 @@ export function initBureau() {
             mediaPlaylistPanel.style.display = 'block';
             mediaPlaylistPanel.style.transform = 'none'; // Avoid drag calculations bugs
             
-            // Center the panel dynamically
-            const deskW = bureauDesktop.clientWidth;
-            const deskH = bureauDesktop.clientHeight;
-            const panelW = mediaPlaylistPanel.offsetWidth || 420;
-            const panelH = mediaPlaylistPanel.offsetHeight || 380;
-            
-            mediaPlaylistPanel.style.left = `${Math.max(0, (deskW - panelW) / 2)}px`;
-            mediaPlaylistPanel.style.top = `${Math.max(0, (deskH - panelH) / 2)}px`;
+            // Restore saved position
+            mediaPlaylistPanel.style.left = playlistPanelPos.left;
+            mediaPlaylistPanel.style.top = playlistPanelPos.top;
             
             updatePlaylistDOM();
         }
@@ -846,6 +842,12 @@ export function initBureau() {
             handle.style.cursor = 'grab';
             document.body.style.cursor = 'default';
             
+            // Retain position for mediaPlaylistPanel
+            if (el.id === 'mediaPlaylistPanel') {
+                playlistPanelPos.left = el.style.left;
+                playlistPanelPos.top = el.style.top;
+            }
+
             // Broadcast state on release if it is a syncable widget
             if (widgetData && widgetData.id) {
                 syncDesktopState();

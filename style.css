@@ -4300,6 +4300,8 @@ body.accessibility-dyslexia .reading-ruler {
 /* Playlist Panel Styles */
 .playlist-panel {
     width: 420px !important;
+    left: 20px;
+    top: 20px;
 }
 
 .tab-selectors {
