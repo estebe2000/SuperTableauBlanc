@@ -146,7 +146,7 @@ export function initStudent() {
             return;
         }
 
-        sessionCode = rawCode.replace('-', '');
+        sessionCode = rawCode.replace(/[\s-]/g, '');
         sessionStatusText.textContent = "Connexion en cours...";
         studentJoinBtn.disabled = true;
         studentJoinBtn.textContent = "Connexion... ⏳";
@@ -193,6 +193,12 @@ export function initStudent() {
             socket.onclose = () => {
                 console.log("[Student] Socket disconnected");
                 sessionStatusText.textContent = "⚠️ Déconnecté de la session. Tentative de reconnexion...";
+                
+                if (studentActiveContainer.style.display !== 'flex') {
+                    studentJoinBtn.disabled = false;
+                    studentJoinBtn.textContent = "Se connecter au cours 🖥️";
+                }
+
                 // Try auto-reconnect after 3 seconds
                 setTimeout(() => {
                     if (studentActiveContainer.style.display === 'flex') connectWebSocket();
