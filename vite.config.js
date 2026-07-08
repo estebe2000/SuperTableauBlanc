@@ -68,7 +68,8 @@ export default defineConfig({
                 data.type === 'sync-desktop' || 
                 data.type === 'sync-background' || 
                 data.type === 'sync-transcript' || 
-                data.type === 'sync-document'
+                data.type === 'sync-document' ||
+                data.type === 'sync-playlist'
               ) {
                 if (currentSession && rooms.has(currentSession)) {
                   rooms.get(currentSession).forEach((client) => {
