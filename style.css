@@ -4877,6 +4877,14 @@ body.bureau-active:has(#tab-student.active) .student-desktop {
     pointer-events: none; /* Block student interaction by default on desktop sync */
 }
 
+/* Allow interaction on local student widgets and interactive elements inside widgets */
+.student-desktop .widget-instance.widget-local-media,
+.student-desktop .widget-instance video,
+.student-desktop .widget-instance audio,
+.student-desktop .widget-instance iframe {
+    pointer-events: auto !important;
+}
+
 /* Subtitles overlay banner */
 .student-subtitles-banner {
     background: rgba(15, 23, 42, 0.95);

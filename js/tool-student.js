@@ -63,18 +63,22 @@ export function initStudent() {
     function makeDraggable(el, handle) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         handle.style.cursor = 'grab';
-        handle.onmousedown = dragMouseDown;
+        handle.addEventListener('mousedown', dragMouseDown);
 
         function dragMouseDown(e) {
             e = e || window.event;
+            // Ignore if clicked on a button or interactive child
+            if (e.target.closest('button') || e.target.closest('select') || e.target.closest('input')) return;
             if (e.button !== 0) return;
             e.preventDefault();
+            
             handle.style.cursor = 'grabbing';
             document.body.style.cursor = 'grabbing';
             pos3 = e.clientX;
             pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
+            
+            document.addEventListener('mouseup', closeDragElement);
+            document.addEventListener('mousemove', elementDrag);
         }
 
         function elementDrag(e) {
@@ -98,8 +102,8 @@ export function initStudent() {
         }
 
         function closeDragElement() {
-            document.onmouseup = null;
-            document.onmousemove = null;
+            document.removeEventListener('mouseup', closeDragElement);
+            document.removeEventListener('mousemove', elementDrag);
             handle.style.cursor = 'grab';
             document.body.style.cursor = 'default';
         }
@@ -251,7 +255,7 @@ export function initStudent() {
             wEl.appendChild(body);
             studentDesktop.appendChild(wEl);
             
-            makeDraggable(wEl, header.querySelector('.drag-handle-grip'));
+            makeDraggable(wEl, header);
             makeResizable(wEl);
             
             header.querySelector('.btn-close-widget').addEventListener('click', () => {
