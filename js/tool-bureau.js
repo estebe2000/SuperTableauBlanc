@@ -270,6 +270,8 @@ export function initBureau() {
     function updatePlaylistDOM() {
         if (!playlistItemsList) return;
         
+        syncPlaylistData();
+        
         if (playlist.length === 0) {
             playlistItemsList.innerHTML = `
                 <div class="playlist-empty-info" style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
@@ -441,6 +443,7 @@ export function initBureau() {
                 }));
                 
                 syncBackground(backgroundStyle);
+                syncPlaylistData();
                 window.showToast("Diffusion en direct activée ! ✓");
             };
 
@@ -449,6 +452,7 @@ export function initBureau() {
                 if (data.type === 'request-sync') {
                     syncDesktopState();
                     syncBackground(backgroundStyle);
+                    syncPlaylistData();
                 }
             };
 
@@ -483,6 +487,15 @@ export function initBureau() {
             socket.send(JSON.stringify({
                 type: 'sync-background',
                 background: bg
+            }));
+        }
+    }
+
+    function syncPlaylistData() {
+        if (socket && socket.readyState === 1) {
+            socket.send(JSON.stringify({
+                type: 'sync-playlist',
+                playlist: playlist
             }));
         }
     }
