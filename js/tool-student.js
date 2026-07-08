@@ -124,8 +124,8 @@ export function initStudent() {
         function startResize(e) {
             let newWidth = e.clientX - el.getBoundingClientRect().left;
             let newHeight = e.clientY - el.getBoundingClientRect().top;
-            newWidth = Math.max(150, Math.min(newWidth, 800));
-            newHeight = Math.max(100, Math.min(newHeight, 600));
+            newWidth = Math.max(150, Math.min(newWidth, 1600));
+            newHeight = Math.max(60, Math.min(newHeight, 800));
             el.style.width = `${newWidth}px`;
             el.style.height = `${newHeight}px`;
         }
@@ -382,6 +382,7 @@ export function initStudent() {
         if (subHeader) {
             makeDraggable(studentSubtitlesBanner, subHeader);
         }
+        makeResizable(studentSubtitlesBanner);
     }
 
     // Subtitle font controls

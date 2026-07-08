@@ -96,21 +96,30 @@ export function initBureau() {
     let uploadedFiles = [];
     let latestGeneratedDoc = null;
 
-    // Sync double-click coordinate ping to students
-    bureauDesktop?.addEventListener('dblclick', (e) => {
-        e.preventDefault();
+    // Sync double-click coordinate ping to students (document capture phase to bypass child stopPropagation)
+    document.addEventListener('dblclick', (e) => {
+        if (!bureauDesktop) return;
         const rect = bureauDesktop.getBoundingClientRect();
-        const xPercent = (e.clientX - rect.left) / rect.width;
-        const yPercent = (e.clientY - rect.top) / rect.height;
+        
+        // Verify if double-click occurred within the physical boundaries of the bureau
+        if (
+            e.clientX >= rect.left &&
+            e.clientX <= rect.right &&
+            e.clientY >= rect.top &&
+            e.clientY <= rect.bottom
+        ) {
+            const xPercent = (e.clientX - rect.left) / rect.width;
+            const yPercent = (e.clientY - rect.top) / rect.height;
 
-        if (socket && socket.readyState === 1) {
-            socket.send(JSON.stringify({
-                type: 'sync-doubleclick',
-                xPercent: xPercent,
-                yPercent: yPercent
-            }));
+            if (socket && socket.readyState === 1) {
+                socket.send(JSON.stringify({
+                    type: 'sync-doubleclick',
+                    xPercent: xPercent,
+                    yPercent: yPercent
+                }));
+            }
         }
-    });
+    }, true);
 
     // ─── SESSION CONTROL ───
     startSessionBtn.addEventListener('click', () => {
