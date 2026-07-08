@@ -294,6 +294,7 @@ export function initBureau() {
                 </div>
                 <div style="display:flex; gap:6px;">
                     <button class="btn btn-secondary btn-sm play-media-btn" title="Afficher et remplacer">👁️</button>
+                    <button class="btn btn-primary btn-sm add-apart-btn" title="Ouvrir à part">➕</button>
                     <button class="btn btn-danger btn-sm delete-media-btn" title="Supprimer de la liste">🗑️</button>
                 </div>
             `;
@@ -303,11 +304,18 @@ export function initBureau() {
                 displayMediaOnDesktop(item, false);
             });
             
+            el.querySelector('.add-apart-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                displayMediaOnDesktop(item, true);
+            });
+            
             el.querySelector('.delete-media-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
-                playlist = playlist.filter(x => x.id !== item.id);
-                updatePlaylistDOM();
-                window.showToast("Média supprimé de la liste ✓");
+                if (confirm(`Voulez-vous vraiment supprimer "${item.title}" de la liste de lecture ?`)) {
+                    playlist = playlist.filter(x => x.id !== item.id);
+                    updatePlaylistDOM();
+                    window.showToast("Média supprimé ✓");
+                }
             });
             
             playlistItemsList.appendChild(el);
