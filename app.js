@@ -87,6 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-student')?.classList.add('active');
+    document.body.classList.add('bureau-active');
   } else if (params.get('tab') === 'profiling') {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.getElementById('tab-profiling')?.classList.add('active');
