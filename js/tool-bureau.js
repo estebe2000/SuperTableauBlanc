@@ -70,6 +70,12 @@ export function initBureau() {
     }
 
     let socket = null;
+    let actionHistory = [];
+    function logAction(description) {
+        const time = new Date().toLocaleTimeString('fr-FR');
+        actionHistory.push({ time, description });
+        console.log(`[Action Logged] ${time} - ${description}`);
+    }
     let sessionCode = "";
     let activeWidgets = [];
     let backgroundStyle = "default";
@@ -323,6 +329,7 @@ export function initBureau() {
     }
 
     function displayMediaOnDesktop(item, openNewWindow = false) {
+        logAction(`Affichage du média: ${item.title} (Type: ${item.type}, Fenêtre séparée: ${openNewWindow})`);
         bureauPlaceholderInfo.style.display = 'none';
         
         let targetWidget = null;
@@ -505,6 +512,7 @@ export function initBureau() {
 
     // ─── WIDGET FACTORY & DRAG-RESIZE LOGIC ───
     function createWidget(type, title, defaultContent) {
+        logAction(`Création du widget: ${title} (${type})`);
         bureauPlaceholderInfo.style.display = 'none';
 
         const id = `${type}-${Math.random().toString(36).substring(2, 9)}`;
@@ -557,24 +565,56 @@ export function initBureau() {
         // Custom widget drag handle and close button
         let dragBar = document.createElement('div');
         dragBar.className = 'widget-drag-handle';
-        dragBar.innerHTML = `<span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span><span class="widget-title">${w.title}</span> <button class="btn-close-widget">×</button>`;
+        
+        let actionsHtml = `<button class="btn-close-widget">×</button>`;
+        if (w.type === 'media') {
+            actionsHtml = `<button class="btn-fullscreen-widget" title="Plein écran" style="background:transparent; border:none; color:rgba(0,0,0,0.5); font-size:0.8rem; cursor:pointer; margin-right:4px; transition:color 0.2s;">⛶</button>${actionsHtml}`;
+        }
+        
+        dragBar.innerHTML = `<span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span><span class="widget-title">${w.title}</span> <div class="widget-actions" style="display:flex; gap:4px; align-items:center;">${actionsHtml}</div>`;
         el.appendChild(dragBar);
 
         // Close button click
         dragBar.querySelector('.btn-close-widget').addEventListener('click', (e) => {
             e.stopPropagation();
+            logAction(`Fermeture du widget: ${w.title}`);
             el.remove();
             activeWidgets = activeWidgets.filter(x => x.id !== w.id);
             
-            // Turn off checkbox if that was the last widget of that type
-            const hasMoreOfThisType = activeWidgets.some(x => x.type === w.type);
-            if (!hasMoreOfThisType) {
-                const toggle = document.getElementById(`toggle-w-${w.type}`);
-                if (toggle) toggle.checked = false;
-            }
             checkDesktopEmpty();
             syncDesktopState();
         });
+
+        // Fullscreen button click for media widgets
+        if (w.type === 'media') {
+            const fsBtn = dragBar.querySelector('.btn-fullscreen-widget');
+            fsBtn?.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isFullscreen = el.classList.toggle('widget-fullscreen');
+                fsBtn.textContent = isFullscreen ? '🗗' : '⛶';
+                
+                if (isFullscreen) {
+                    logAction(`Widget média mis en plein écran: ${w.title}`);
+                    // Save original coordinates to restore them later
+                    el.dataset.origLeft = el.style.left;
+                    el.dataset.origTop = el.style.top;
+                    el.dataset.origWidth = el.style.width;
+                    el.dataset.origHeight = el.style.height;
+                    
+                    el.style.left = '0';
+                    el.style.top = '0';
+                    el.style.width = '100%';
+                    el.style.height = '100%';
+                } else {
+                    logAction(`Widget média sorti du plein écran: ${w.title}`);
+                    el.style.left = el.dataset.origLeft || `${w.x}%`;
+                    el.style.top = el.dataset.origTop || `${w.y}%`;
+                    el.style.width = el.dataset.origWidth || `${w.width}px`;
+                    el.style.height = el.dataset.origHeight || `${w.height}px`;
+                }
+                syncDesktopState();
+            });
+        }
 
         // Widget content block
         let contentEl = document.createElement('div');
@@ -1006,6 +1046,7 @@ export function initBureau() {
     });
 
     function applyBackgroundLocal(bg) {
+        logAction(`Changement d'arrière-plan du tableau en: ${bg}`);
         bureauDesktop.style.backgroundImage = 'none';
         bureauDesktop.style.backgroundSize = 'initial';
         bureauDesktop.style.backgroundPosition = 'initial';
@@ -1412,10 +1453,13 @@ export function initBureau() {
     }
 
     function constructCuaPrompt(transcript, documents, format) {
+        const actionsSummary = actionHistory.map(a => `- [${a.time}] ${a.description}`).join('\n');
+        
         let base = `Tu es un expert en ingénierie pédagogique inclusive et en Conception Universelle des Apprentissages (CUA/UDL).
 Ta mission est de concevoir un document de cours à partir des éléments de contexte fournis ci-dessous.
 
 CONTEXTE CONJOINT :
+${actionsSummary ? `HISTORIQUE CHRONOLOGIQUE DES ACTIONS SUR LE TABLEAU DE CLASSE :\n${actionsSummary}\n\n` : ''}
 ${transcript ? `TRANSCRIPTION DU COURS ORAL :\n"""\n${transcript}\n"""\n` : ''}
 ${documents ? `DOCUMENTS ÉCRITS FOURNIS :\n"""\n${documents}\n"""\n` : ''}
 
@@ -1464,7 +1508,27 @@ CONSIGNES STRICTES POUR MERMAID :
     });
 
     closeDocOutputBtn?.addEventListener('click', () => {
+        teacherDocOutputPanel.classList.remove('panel-fullscreen');
+        const fsBtn = document.getElementById('fullscreenDocBtn');
+        if (fsBtn) fsBtn.textContent = '⛶';
         teacherDocOutputPanel.style.display = 'none';
         latestGeneratedDoc = null;
+    });
+
+    const fullscreenDocBtn = document.getElementById('fullscreenDocBtn');
+    fullscreenDocBtn?.addEventListener('click', () => {
+        const isFullscreen = teacherDocOutputPanel.classList.toggle('panel-fullscreen');
+        fullscreenDocBtn.textContent = isFullscreen ? '🗗' : '⛶';
+        if (isFullscreen) {
+            logAction("Panneau de document généré mis en plein écran");
+            teacherDocOutputPanel.style.left = '0px';
+            teacherDocOutputPanel.style.top = '0px';
+        } else {
+            logAction("Panneau de document généré sorti du plein écran");
+            const deskW = bureauDesktop.clientWidth;
+            const deskH = bureauDesktop.clientHeight;
+            teacherDocOutputPanel.style.left = `${Math.max(0, (deskW - 600) / 2)}px`;
+            teacherDocOutputPanel.style.top = `${Math.max(0, (deskH - 420) / 2)}px`;
+        }
     });
 }
