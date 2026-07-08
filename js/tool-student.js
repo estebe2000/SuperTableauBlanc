@@ -57,6 +57,230 @@ export function initStudent() {
     let subFontSizePx = 18;
     let sharedDocs = [];
     let currentViewingDoc = null;
+    let studentPlaylist = [];
+
+    // Helper functions for student local windows
+    function makeDraggable(el, handle) {
+        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        handle.style.cursor = 'grab';
+        handle.onmousedown = dragMouseDown;
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            if (e.button !== 0) return;
+            e.preventDefault();
+            handle.style.cursor = 'grabbing';
+            document.body.style.cursor = 'grabbing';
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            document.onmousemove = elementDrag;
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+
+            let newX = el.offsetLeft - pos1;
+            let newY = el.offsetTop - pos2;
+
+            const maxLeft = studentDesktop.clientWidth - el.clientWidth;
+            const maxTop = studentDesktop.clientHeight - el.clientHeight;
+            newX = Math.max(0, Math.min(newX, maxLeft));
+            newY = Math.max(0, Math.min(newY, maxTop));
+
+            el.style.left = `${newX}px`;
+            el.style.top = `${newY}px`;
+        }
+
+        function closeDragElement() {
+            document.onmouseup = null;
+            document.onmousemove = null;
+            handle.style.cursor = 'grab';
+            document.body.style.cursor = 'default';
+        }
+    }
+
+    function makeResizable(el) {
+        const resizeHandle = document.createElement('div');
+        resizeHandle.className = 'widget-resize-handle';
+        el.appendChild(resizeHandle);
+        resizeHandle.onmousedown = initResize;
+
+        function initResize(e) {
+            e.preventDefault();
+            window.addEventListener('mousemove', startResize, false);
+            window.addEventListener('mouseup', stopResize, false);
+        }
+
+        function startResize(e) {
+            let newWidth = e.clientX - el.getBoundingClientRect().left;
+            let newHeight = e.clientY - el.getBoundingClientRect().top;
+            newWidth = Math.max(150, Math.min(newWidth, 800));
+            newHeight = Math.max(100, Math.min(newHeight, 600));
+            el.style.width = `${newWidth}px`;
+            el.style.height = `${newHeight}px`;
+        }
+
+        function stopResize() {
+            window.removeEventListener('mousemove', startResize, false);
+            window.removeEventListener('mouseup', stopResize, false);
+        }
+    }
+
+    function updateStudentPlaylist(playlistData) {
+        if (!playlistData) return;
+        studentPlaylist = playlistData;
+        updateStudentPlaylistDOM();
+    }
+
+    function updateStudentPlaylistDOM() {
+        if (!studentPlaylistItemsList) return;
+        
+        if (studentPlaylist.length === 0) {
+            studentPlaylistItemsList.innerHTML = `
+                <div style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
+                    Aucun média disponible pour le moment.
+                </div>
+            `;
+            return;
+        }
+
+        studentPlaylistItemsList.innerHTML = '';
+        studentPlaylist.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'playlist-item';
+            el.style = 'display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 12px; margin-bottom:8px; font-size:0.8rem; color:white;';
+            
+            const icon = item.type === 'image' ? '🖼️' :
+                         item.type === 'video' ? '🎥' :
+                         item.type === 'audio' ? '🎵' : '📄';
+                         
+            el.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:8px;">
+                    <span style="font-size:1.1rem;">${icon}</span>
+                    <span title="${item.title}" style="overflow:hidden; text-overflow:ellipsis;">${item.title}</span>
+                </div>
+                <div style="display:flex; gap:6px;">
+                    <button class="btn btn-secondary btn-sm play-media-btn" title="Afficher et remplacer" style="padding: 2px 6px;">👁️</button>
+                    <button class="btn btn-primary btn-sm add-apart-btn" title="Ouvrir à part" style="padding: 2px 6px;">➕</button>
+                </div>
+            `;
+            
+            el.querySelector('.play-media-btn').addEventListener('click', () => {
+                displayMediaOnStudentDesktop(item, false);
+            });
+
+            el.querySelector('.add-apart-btn').addEventListener('click', () => {
+                displayMediaOnStudentDesktop(item, true);
+            });
+            
+            studentPlaylistItemsList.appendChild(el);
+        });
+    }
+
+    function displayMediaOnStudentDesktop(item, openNewWindow = false) {
+        studentDesktopPlaceholder.style.display = 'none';
+        
+        let targetWidget = null;
+        if (!openNewWindow) {
+            targetWidget = studentDesktop.querySelector('.widget-local-media');
+        }
+        
+        if (targetWidget) {
+            const titleSpan = targetWidget.querySelector('.widget-title');
+            if (titleSpan) titleSpan.textContent = `👁️ visionneuse élève : ${item.title}`;
+            const body = targetWidget.querySelector('.widget-content-body');
+            if (body) {
+                const widgetObj = {
+                    type: 'media',
+                    mediaType: item.type,
+                    content: item.url
+                };
+                renderWidgetContent(body, widgetObj);
+            }
+            window.showToast(`Média remplacé : ${item.title} ✓`);
+        } else {
+            const id = `stud-local-${Math.random().toString(36).substring(2, 9)}`;
+            const wEl = document.createElement('div');
+            wEl.id = id;
+            wEl.className = 'widget-instance widget-media widget-local-media';
+            
+            wEl.style.position = 'absolute';
+            wEl.style.left = '40px';
+            wEl.style.top = '80px';
+            wEl.style.width = '440px';
+            wEl.style.height = '330px';
+            wEl.style.backgroundColor = 'var(--surface)';
+            wEl.style.zIndex = '140';
+            wEl.style.border = '1px solid var(--border)';
+            wEl.style.borderRadius = '6px';
+            wEl.style.display = 'flex';
+            wEl.style.flexDirection = 'column';
+            wEl.style.overflow = 'hidden';
+            
+            const header = document.createElement('div');
+            header.className = 'widget-header';
+            header.style = 'display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border-bottom:1px solid var(--border); padding:6px 10px; font-size:0.8rem; font-weight:600; color:var(--text);';
+            header.innerHTML = `
+                <div style="display:flex; align-items:center; gap:6px;">
+                    <span class="drag-handle-grip" title="Glisser pour déplacer" style="cursor: grab; color: var(--text-muted); font-weight: normal; margin-right: 4px;">⋮⋮</span>
+                    <span class="widget-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:280px;">👁️ visionneuse élève : ${item.title}</span>
+                </div>
+                <div class="widget-actions" style="display:flex; align-items:center;">
+                    <button class="btn-fullscreen-widget" title="Plein écran" style="margin-right: 6px; padding: 2px 6px; font-size: 0.8rem; background: transparent; border: none; color: var(--text-muted); cursor: pointer;">⛶</button>
+                    <button class="btn-close-widget" title="Fermer" style="font-size: 1.2rem; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height:1;">×</button>
+                </div>
+            `;
+            
+            const body = document.createElement('div');
+            body.className = 'widget-content-body';
+            body.style = 'flex:1; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center;';
+            const widgetObj = {
+                type: 'media',
+                mediaType: item.type,
+                content: item.url
+            };
+            renderWidgetContent(body, widgetObj);
+            
+            wEl.appendChild(header);
+            wEl.appendChild(body);
+            studentDesktop.appendChild(wEl);
+            
+            makeDraggable(wEl, header.querySelector('.drag-handle-grip'));
+            makeResizable(wEl);
+            
+            header.querySelector('.btn-close-widget').addEventListener('click', () => {
+                wEl.remove();
+                const total = studentDesktop.querySelectorAll('.widget-instance').length;
+                if (total === 0) {
+                    studentDesktopPlaceholder.style.display = 'flex';
+                }
+            });
+            
+            header.querySelector('.btn-fullscreen-widget').addEventListener('click', (e) => {
+                const isFS = wEl.classList.toggle('widget-fullscreen');
+                e.currentTarget.textContent = isFS ? '🗗' : '⛶';
+                if (isFS) {
+                    wEl.style.left = '0px';
+                    wEl.style.top = '0px';
+                    wEl.style.width = '100%';
+                    wEl.style.height = '100%';
+                } else {
+                    wEl.style.left = '40px';
+                    wEl.style.top = '80px';
+                    wEl.style.width = '440px';
+                    wEl.style.height = '330px';
+                }
+            });
+            
+            window.showToast(`Média local ouvert : ${item.title} ✓`);
+        }
+    }
 
     // Check URL parameters for direct link (e.g. ?session=123456 or ?tab=student&session=123456)
     const urlParams = new URLSearchParams(window.location.search);
@@ -109,7 +333,6 @@ export function initStudent() {
     });
 
     // Student Playlist trigger
-    let studentPlaylist = [];
     openStudentPlaylistBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
         const show = studentPlaylistPanel.style.display === 'none';
@@ -754,229 +977,6 @@ CONSIGNE STRICTE : Rends uniquement le document adapté au format Markdown, sans
         if (prefs.reading === 'C' || prefs.reading === 'D') {
             // Suggest simplified text by default
             if (subtitleLangSelect) subtitleLangSelect.value = 'simplifie';
-        }
-    }
-
-    // ─── STUDENT LOCAL PLAYLIST & WIDGET GENERATION ───
-    function updateStudentPlaylist(playlistData) {
-        if (!playlistData) return;
-        studentPlaylist = playlistData;
-        updateStudentPlaylistDOM();
-    }
-
-    function updateStudentPlaylistDOM() {
-        if (!studentPlaylistItemsList) return;
-        
-        if (studentPlaylist.length === 0) {
-            studentPlaylistItemsList.innerHTML = `
-                <div style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
-                    Aucun média disponible pour le moment.
-                </div>
-            `;
-            return;
-        }
-
-        studentPlaylistItemsList.innerHTML = '';
-        studentPlaylist.forEach(item => {
-            const el = document.createElement('div');
-            el.className = 'playlist-item';
-            el.style = 'display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 12px; margin-bottom:8px; font-size:0.8rem; color:white;';
-            
-            const icon = item.type === 'image' ? '🖼️' :
-                         item.type === 'video' ? '🎥' :
-                         item.type === 'audio' ? '🎵' : '📄';
-                         
-            el.innerHTML = `
-                <div style="display:flex; align-items:center; gap:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:8px;">
-                    <span style="font-size:1.1rem;">${icon}</span>
-                    <span title="${item.title}" style="overflow:hidden; text-overflow:ellipsis;">${item.title}</span>
-                </div>
-                <div style="display:flex; gap:6px;">
-                    <button class="btn btn-secondary btn-sm play-media-btn" title="Afficher et remplacer" style="padding: 2px 6px;">👁️</button>
-                    <button class="btn btn-primary btn-sm add-apart-btn" title="Ouvrir à part" style="padding: 2px 6px;">➕</button>
-                </div>
-            `;
-            
-            el.querySelector('.play-media-btn').addEventListener('click', () => {
-                displayMediaOnStudentDesktop(item, false);
-            });
-
-            el.querySelector('.add-apart-btn').addEventListener('click', () => {
-                displayMediaOnStudentDesktop(item, true);
-            });
-            
-            studentPlaylistItemsList.appendChild(el);
-        });
-    }
-
-    function displayMediaOnStudentDesktop(item, openNewWindow = false) {
-        studentDesktopPlaceholder.style.display = 'none';
-        
-        let targetWidget = null;
-        if (!openNewWindow) {
-            targetWidget = studentDesktop.querySelector('.widget-local-media');
-        }
-        
-        if (targetWidget) {
-            const titleSpan = targetWidget.querySelector('.widget-title');
-            if (titleSpan) titleSpan.textContent = `👁️ visionneuse élève : ${item.title}`;
-            const body = targetWidget.querySelector('.widget-content-body');
-            if (body) {
-                const widgetObj = {
-                    type: 'media',
-                    mediaType: item.type,
-                    content: item.url
-                };
-                renderWidgetContent(body, widgetObj);
-            }
-            window.showToast(`Média remplacé : ${item.title} ✓`);
-        } else {
-            const id = `stud-local-${Math.random().toString(36).substring(2, 9)}`;
-            const wEl = document.createElement('div');
-            wEl.id = id;
-            wEl.className = 'widget-instance widget-media widget-local-media';
-            
-            wEl.style.position = 'absolute';
-            wEl.style.left = '40px';
-            wEl.style.top = '80px';
-            wEl.style.width = '440px';
-            wEl.style.height = '330px';
-            wEl.style.backgroundColor = 'var(--surface)';
-            wEl.style.zIndex = '140';
-            wEl.style.border = '1px solid var(--border)';
-            wEl.style.borderRadius = '6px';
-            wEl.style.display = 'flex';
-            wEl.style.flexDirection = 'column';
-            wEl.style.overflow = 'hidden';
-            
-            const header = document.createElement('div');
-            header.className = 'widget-header';
-            header.style = 'display:flex; justify-content:space-between; align-items:center; background:var(--surface2); border-bottom:1px solid var(--border); padding:6px 10px; font-size:0.8rem; font-weight:600; color:var(--text);';
-            header.innerHTML = `
-                <div style="display:flex; align-items:center; gap:6px;">
-                    <span class="drag-handle-grip" title="Glisser pour déplacer" style="cursor: grab; color: var(--text-muted); font-weight: normal; margin-right: 4px;">⋮⋮</span>
-                    <span class="widget-title" style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:280px;">👁️ visionneuse élève : ${item.title}</span>
-                </div>
-                <div class="widget-actions" style="display:flex; align-items:center;">
-                    <button class="btn-fullscreen-widget" title="Plein écran" style="margin-right: 6px; padding: 2px 6px; font-size: 0.8rem; background: transparent; border: none; color: var(--text-muted); cursor: pointer;">⛶</button>
-                    <button class="btn-close-widget" title="Fermer" style="font-size: 1.2rem; background: transparent; border: none; color: var(--text-muted); cursor: pointer; line-height:1;">×</button>
-                </div>
-            `;
-            
-            const body = document.createElement('div');
-            body.className = 'widget-content-body';
-            body.style = 'flex:1; position:relative; overflow:hidden; background:#000; display:flex; align-items:center; justify-content:center;';
-            const widgetObj = {
-                type: 'media',
-                mediaType: item.type,
-                content: item.url
-            };
-            renderWidgetContent(body, widgetObj);
-            
-            wEl.appendChild(header);
-            wEl.appendChild(body);
-            studentDesktop.appendChild(wEl);
-            
-            makeDraggable(wEl, header.querySelector('.drag-handle-grip'));
-            makeResizable(wEl);
-            
-            header.querySelector('.btn-close-widget').addEventListener('click', () => {
-                wEl.remove();
-                const total = studentDesktop.querySelectorAll('.widget-instance').length;
-                if (total === 0) {
-                    studentDesktopPlaceholder.style.display = 'flex';
-                }
-            });
-            
-            header.querySelector('.btn-fullscreen-widget').addEventListener('click', (e) => {
-                const isFS = wEl.classList.toggle('widget-fullscreen');
-                e.currentTarget.textContent = isFS ? '🗗' : '⛶';
-                if (isFS) {
-                    wEl.style.left = '0px';
-                    wEl.style.top = '0px';
-                    wEl.style.width = '100%';
-                    wEl.style.height = '100%';
-                } else {
-                    wEl.style.left = '40px';
-                    wEl.style.top = '80px';
-                    wEl.style.width = '440px';
-                    wEl.style.height = '330px';
-                }
-            });
-            
-            window.showToast(`Média local ouvert : ${item.title} ✓`);
-        }
-    }
-
-    function makeDraggable(el, handle) {
-        let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-        handle.style.cursor = 'grab';
-        handle.onmousedown = dragMouseDown;
-
-        function dragMouseDown(e) {
-            e = e || window.event;
-            if (e.button !== 0) return;
-            e.preventDefault();
-            handle.style.cursor = 'grabbing';
-            document.body.style.cursor = 'grabbing';
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
-            document.onmousemove = elementDrag;
-        }
-
-        function elementDrag(e) {
-            e = e || window.event;
-            e.preventDefault();
-            pos1 = pos3 - e.clientX;
-            pos2 = pos4 - e.clientY;
-            pos3 = e.clientX;
-            pos4 = e.clientY;
-
-            let newX = el.offsetLeft - pos1;
-            let newY = el.offsetTop - pos2;
-
-            const maxLeft = studentDesktop.clientWidth - el.clientWidth;
-            const maxTop = studentDesktop.clientHeight - el.clientHeight;
-            newX = Math.max(0, Math.min(newX, maxLeft));
-            newY = Math.max(0, Math.min(newY, maxTop));
-
-            el.style.left = `${newX}px`;
-            el.style.top = `${newY}px`;
-        }
-
-        function closeDragElement() {
-            document.onmouseup = null;
-            document.onmousemove = null;
-            handle.style.cursor = 'grab';
-            document.body.style.cursor = 'default';
-        }
-    }
-
-    function makeResizable(el) {
-        const resizeHandle = document.createElement('div');
-        resizeHandle.className = 'widget-resize-handle';
-        el.appendChild(resizeHandle);
-        resizeHandle.onmousedown = initResize;
-
-        function initResize(e) {
-            e.preventDefault();
-            window.addEventListener('mousemove', startResize, false);
-            window.addEventListener('mouseup', stopResize, false);
-        }
-
-        function startResize(e) {
-            let newWidth = e.clientX - el.getBoundingClientRect().left;
-            let newHeight = e.clientY - el.getBoundingClientRect().top;
-            newWidth = Math.max(150, Math.min(newWidth, 800));
-            newHeight = Math.max(100, Math.min(newHeight, 600));
-            el.style.width = `${newWidth}px`;
-            el.style.height = `${newHeight}px`;
-        }
-
-        function stopResize() {
-            window.removeEventListener('mousemove', startResize, false);
-            window.removeEventListener('mouseup', stopResize, false);
         }
     }
 }
