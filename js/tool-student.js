@@ -297,16 +297,50 @@ export function initStudent() {
                     </div>
                 </div>
             `;
+        } else if (w.type === 'media') {
+            const url = w.content || "";
+            if (w.mediaType === 'image') {
+                el.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:contain; border-radius:0 0 6px 6px;">`;
+            } else if (w.mediaType === 'video') {
+                if (url.includes('youtube.com/embed') || url.includes('player.vimeo.com') || url.includes('youtube.com/watch') || url.includes('youtu.be')) {
+                    let embedUrl = url;
+                    if (url.includes('youtube.com/watch')) {
+                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                        const match = url.match(regExp);
+                        if (match && match[2].length === 11) {
+                            embedUrl = `https://www.youtube.com/embed/${match[2]}`;
+                        }
+                    } else if (url.includes('youtu.be/')) {
+                        const parts = url.split('youtu.be/');
+                        if (parts.length > 1) {
+                            embedUrl = `https://www.youtube.com/embed/${parts[1].split('?')[0]}`;
+                        }
+                    }
+                    el.innerHTML = `<iframe src="${embedUrl}" frameborder="0" allowfullscreen style="width:100%; height:100%; border:none; border-radius:0 0 6px 6px;"></iframe>`;
+                } else {
+                    el.innerHTML = `<video src="${url}" controls style="width:100%; height:100%; object-fit:contain; border-radius:0 0 6px 6px;"></video>`;
+                }
+            } else if (w.mediaType === 'audio') {
+                el.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; background:rgba(255,255,255,0.03); border-radius:0 0 6px 6px; padding:10px;"><span style="font-size:2rem; margin-bottom:8px;">🎵</span><audio src="${url}" controls style="width:90%;"></audio></div>`;
+            } else {
+                el.innerHTML = `<iframe src="${url}" frameborder="0" style="width:100%; height:100%; border:none; border-radius:0 0 6px 6px; background:white;"></iframe>`;
+            }
         }
     }
 
     function applyDesktopBackground(bg) {
         if (!studentDesktop) return;
         studentDesktop.style.backgroundImage = 'none';
+        studentDesktop.style.backgroundSize = 'initial';
+        studentDesktop.style.backgroundPosition = 'initial';
         studentDesktop.style.backgroundColor = 'var(--surface)';
 
-        if (bg === 'blackboard') {
-            studentDesktop.style.backgroundColor = '#162e20'; // chalkboard green
+        if (bg.startsWith('http://') || bg.startsWith('https://') || bg.startsWith('data:image/')) {
+            studentDesktop.style.backgroundImage = `url(${bg})`;
+            studentDesktop.style.backgroundSize = 'cover';
+            studentDesktop.style.backgroundPosition = 'center';
+        } else if (bg === 'blackboard') {
+            studentDesktop.style.backgroundColor = '#162e20';
             studentDesktop.style.backgroundImage = 'radial-gradient(ellipse at center, rgba(25,60,35,0.8) 0%, rgba(10,30,15,1) 100%)';
         } else if (bg === 'grid') {
             studentDesktop.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px)';
@@ -317,8 +351,8 @@ export function initStudent() {
         } else if (bg === 'white') {
             studentDesktop.style.backgroundColor = '#ffffff';
         } else {
-            // Default background
-            studentDesktop.style.backgroundColor = 'var(--bg)';
+            // Default background: warm off-white (blanc cassé)
+            studentDesktop.style.backgroundColor = '#faf9f5';
         }
     }
 

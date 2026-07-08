@@ -1,33 +1,29 @@
-<div class="workspace-header teacher-header">
-    <div class="header-title-section">
-        <h2>🖥️ Bureau Virtuel de l'Enseignant</h2>
-        <p>Présentez, diffusez des documents, dessinez et transcrivez votre cours en direct pour vos élèves.</p>
+<!-- Floating Session Control Bar inside Desktop -->
+<div class="floating-session-bar" id="floatingSessionBar">
+    <div class="session-brand">
+        <span class="pulse-green-dot"></span>
+        <strong>Diffusion en direct</strong>
     </div>
     
-    <!-- Real-time session control panel -->
-    <div class="session-control-panel">
-        <button class="btn btn-primary" id="startSessionBtn">🚀 Démarrer la diffusion</button>
-        <button class="btn btn-danger" id="stopSessionBtn" style="display: none;">⏹ Arrêter la diffusion</button>
-        
-        <div class="session-sharing-details" id="sessionSharingDetails" style="display: none;">
-            <div class="share-code-box">
-                Code Élève : <strong id="teacherSessionCode">--- ---</strong>
-            </div>
-            <button class="btn btn-secondary btn-sm" id="copyShareLinkBtn">📋 Copier le lien</button>
-            <button class="btn btn-secondary btn-sm" id="showSessionQrBtn">📱 QR Code</button>
-        </div>
+    <button class="btn btn-primary btn-sm" id="startSessionBtn">🚀 Partager l'écran</button>
+    <button class="btn btn-danger btn-sm" id="stopSessionBtn" style="display: none;">⏹ Arrêter</button>
+    
+    <div class="session-sharing-details" id="sessionSharingDetails" style="display: none;">
+        <span class="code-badge">Code : <strong id="teacherSessionCode">------</strong></span>
+        <button class="btn btn-secondary btn-circle btn-sm" id="copyShareLinkBtn" title="Copier le lien élève">📋</button>
+        <button class="btn btn-secondary btn-circle btn-sm" id="showSessionQrBtn" title="Afficher le QR Code">📱</button>
     </div>
 </div>
 
 <div class="bureau-layout single-column-layout">
-    <!-- RIGHT SECTION: Virtual Desktop Board (Takes full width) -->
+    <!-- RIGHT SECTION: Virtual Desktop Board (Takes full screen width) -->
     <main class="bureau-board-wrapper">
         <div class="bureau-desktop" id="bureauDesktop">
             
             <!-- Grid instructions / placeholder -->
             <div class="bureau-placeholder-info" id="bureauPlaceholderInfo">
                 <div class="info-icon">🖥️</div>
-                <p>Ceci est votre tableau de projection. Utilisez la barre de widgets (Dock) en bas pour poser des outils.</p>
+                <p>Ceci est votre tableau de projection. Utilisez la barre de widgets (Dock) en bas pour poser des outils ou diffuser des médias.</p>
             </div>
 
             <!-- Drawing canvas widget (always exists, visibility toggled) -->
@@ -46,60 +42,87 @@
             <!-- Floating Transcribe Bar at the top of desktop -->
             <div class="floating-transcribe-bar" id="floatingTranscribeBar" style="display: none;">
                 <span class="pulse-red-dot"></span>
-                <span class="live-status-lbl">Enregistrement vocal :</span>
-                <span id="floatingRecordTimer" style="font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 15px;">00:00</span>
-                <textarea id="liveTranscriptTextarea" class="floating-transcript-input" placeholder="Parlez pour voir la transcription..."></textarea>
-                <button class="btn btn-secondary btn-circle btn-sm" id="clearTranscriptBtn" title="Effacer">🗑️</button>
+                <span class="live-status-lbl">Micro en direct :</span>
+                <span id="floatingRecordTimer" style="font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 10px;">00:00</span>
+                <textarea id="liveTranscriptTextarea" class="floating-transcript-input" placeholder="Parlez maintenant pour transcrire..."></textarea>
+                <button class="btn btn-secondary btn-circle btn-sm" id="clearTranscriptBtn" title="Effacer la transcription">🗑️</button>
             </div>
 
             <!-- Floating Background Popover -->
             <div class="dock-popover" id="bgPopover" style="display: none;">
                 <div class="bg-options-grid mini-grid">
-                    <button class="bg-opt-btn active" data-bg="default">Standard</button>
+                    <button class="bg-opt-btn active" data-bg="default">Blanc Cassé</button>
                     <button class="bg-opt-btn" data-bg="grid">Carreaux</button>
                     <button class="bg-opt-btn" data-bg="seyes">Lignes</button>
                     <button class="bg-opt-btn" data-bg="blackboard">Tableau</button>
                     <button class="bg-opt-btn" data-bg="white">Blanc</button>
                 </div>
+                <!-- Custom Background Image URL -->
+                <div class="custom-bg-image-input" style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+                    <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">Image de fond (URL) :</label>
+                    <div style="display:flex; gap:4px;">
+                        <input type="text" id="bgImgUrlInput" placeholder="https://..." class="btn-sm" style="flex:1; font-size:0.7rem; background:rgba(0,0,0,0.2); border:1px solid var(--border); color:white; border-radius:4px; padding:2px 4px;">
+                        <button id="applyBgImgBtn" class="btn btn-primary btn-sm" style="padding:2px 6px; font-size:0.7rem;">OK</button>
+                    </div>
+                </div>
             </div>
 
-            <!-- Floating Documents Panel -->
-            <div class="dock-floating-panel" id="filesFloatingPanel" style="display: none;">
+            <!-- UNIFIED MEDIA & AI PLAYLIST PANEL -->
+            <div class="dock-floating-panel playlist-panel" id="mediaPlaylistPanel" style="display: none;">
                 <div class="panel-header">
-                    <h4>📁 Dépôt de Documents</h4>
-                    <button class="btn-close-panel" id="closeFilesPanelBtn">×</button>
+                    <div class="tab-selectors">
+                        <button class="playlist-tab-btn active" data-tab="playlist-list">📋 Liste de lecture</button>
+                        <button class="playlist-tab-btn" data-tab="playlist-add">➕ Ajouter</button>
+                        <button class="playlist-tab-btn" data-tab="playlist-ai">🔮 Assistant IA</button>
+                    </div>
+                    <button class="btn-close-panel" id="closePlaylistPanelBtn">×</button>
                 </div>
                 <div class="panel-body">
-                    <div class="bureau-drop-zone" id="bureauDropZone">
-                        <input type="file" id="bureauFileInput" accept=".pdf,.docx" style="display: none;">
-                        <div class="bureau-drop-zone-content">
-                            <span class="drop-icon">📁</span>
-                            <span class="drop-text" style="font-size:0.8rem; pointer-events: none;">Cliquez ou déposez vos fichiers PDF/DOCX</span>
+                    <!-- Tab 1: List of media -->
+                    <div class="playlist-tab-content" id="tab-playlist-list">
+                        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Sélectionnez un média à diffuser sur le tableau :</p>
+                        <div class="playlist-items-list" id="playlistItemsList">
+                            <div class="playlist-empty-info" style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
+                                Aucun média dans la liste. Allez dans l'onglet "Ajouter".
+                            </div>
                         </div>
                     </div>
-                    <div class="bureau-files-list" id="bureauFilesList" style="display: none;"></div>
-                </div>
-            </div>
-
-            <!-- Floating AI Generator Panel -->
-            <div class="dock-floating-panel" id="aiFloatingPanel" style="display: none;">
-                <div class="panel-header">
-                    <h4>🔮 Assistant CUA (Albert)</h4>
-                    <button class="btn-close-panel" id="closeAiPanelBtn">×</button>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="cuaDocFormatSelect">Format de cours cible :</label>
-                        <select id="cuaDocFormatSelect" class="btn-sm select-dark" style="width:100%;">
-                            <option value="fiche">Fiche de cours complète CUA</option>
-                            <option value="eleve">Support élève simplifié (FALC)</option>
-                            <option value="mindmap">Carte Mentale (Mermaid)</option>
-                            <option value="todo">Checklist d'étapes (TDAH)</option>
-                        </select>
+                    
+                    <!-- Tab 2: Add media -->
+                    <div class="playlist-tab-content" id="tab-playlist-add" style="display: none;">
+                        <div class="bureau-drop-zone" id="bureauDropZone">
+                            <input type="file" id="bureauFileInput" accept=".pdf,.docx,image/*,audio/*,video/*" style="display: none;">
+                            <div class="bureau-drop-zone-content">
+                                <span class="drop-icon">📁</span>
+                                <span class="drop-text" style="font-size:0.75rem; pointer-events: none;">Déposer un fichier (PDF, image, audio, vidéo)</span>
+                            </div>
+                        </div>
+                        <div class="bureau-files-list" id="bureauFilesList" style="display: none; margin-top: 10px;"></div>
+                        
+                        <div class="add-url-section" style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                            <label style="font-size:0.72rem; color:rgba(255,255,255,0.6); display:block; margin-bottom:4px;">Ajouter par URL (YouTube, Image, Web) :</label>
+                            <input type="text" id="mediaUrlInput" placeholder="https://..." class="btn-sm" style="width:100%; font-size:0.75rem; background:rgba(0,0,0,0.25); border:1px solid var(--border); color:white; border-radius:4px; margin-bottom:6px; padding:4px;">
+                            <input type="text" id="mediaTitleInput" placeholder="Nom du média (ex: Graphique)" class="btn-sm" style="width:100%; font-size:0.75rem; background:rgba(0,0,0,0.25); border:1px solid var(--border); color:white; border-radius:4px; margin-bottom:6px; padding:4px;">
+                            <button id="addMediaUrlBtn" class="btn btn-primary btn-sm" style="width:100%;">Ajouter à la liste</button>
+                        </div>
                     </div>
-                    <button class="btn btn-primary" id="generateCuaDocBtn" style="width: 100%; margin-top: 10px;">
-                        Générer le document
-                    </button>
+                    
+                    <!-- Tab 3: AI Assistant -->
+                    <div class="playlist-tab-content" id="tab-playlist-ai" style="display: none;">
+                        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Générez des fiches et supports adaptés CUA à partir de la transcription et des documents :</p>
+                        <div class="form-group">
+                            <label for="cuaDocFormatSelect">Format cible :</label>
+                            <select id="cuaDocFormatSelect" class="btn-sm select-dark" style="width:100%;">
+                                <option value="fiche">Fiche de cours complète CUA</option>
+                                <option value="eleve">Support élève simplifié (FALC)</option>
+                                <option value="mindmap">Carte Mentale (Mermaid)</option>
+                                <option value="todo">Checklist d'étapes (TDAH)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="generateCuaDocBtn" style="width: 100%; margin-top: 10px;">
+                            🔮 Demander à l'IA Albert
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -127,14 +150,10 @@
                 <div class="dock-item" data-widget="drawing" title="Tableau de Dessin">✏️<span class="dock-tooltip">Dessin</span></div>
                 <div class="dock-item" data-widget="postit" title="Poser une Note">📌<span class="dock-tooltip">Post-it</span></div>
                 <div class="dock-item" data-widget="timer" title="Poser un Minuteur">⏱️<span class="dock-tooltip">Minuteur</span></div>
-                <div class="dock-item" data-widget="video" title="Lecteur Vidéo">🎥<span class="dock-tooltip">Vidéo</span></div>
-                <div class="dock-item" data-widget="qrcode" title="Générer QR Code">📱<span class="dock-tooltip">QR Code</span></div>
-                <div class="dock-item" data-widget="iframe" title="Intégrer Iframe">🌐<span class="dock-tooltip">Iframe</span></div>
                 <div class="dock-divider"></div>
-                <div class="dock-item" id="dockMicrophone" title="Activer / Désactiver le micro">🎙️<span class="dock-tooltip">Micro</span></div>
-                <div class="dock-item" id="dockBackground" title="Changer le fond d'écran">🎨<span class="dock-tooltip">Arrière-plan</span></div>
-                <div class="dock-item" id="dockFiles" title="Déposer des documents supports">📁<span class="dock-tooltip">Documents</span></div>
-                <div class="dock-item" id="dockAi" title="Générer des documents avec l'IA">🔮<span class="dock-tooltip">Assistant IA</span></div>
+                <div class="dock-item" id="dockMicrophone" title="Transcription voix (Micro)">🎙️<span class="dock-tooltip">Micro</span></div>
+                <div class="dock-item" id="dockBackground" title="Changer l'Arrière-plan">🎨<span class="dock-tooltip">Arrière-plan</span></div>
+                <div class="dock-item" id="dockPlaylist" title="Liste de lecture & Documents">📁<span class="dock-tooltip">Playlist & Médias</span></div>
             </div>
 
         </div>

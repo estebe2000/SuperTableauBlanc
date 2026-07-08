@@ -4,6 +4,8 @@ export function initNavigation() {
   const toolCards = document.querySelectorAll('.tool-card');
 
   function switchTab(tabId) {
+    document.body.classList.toggle('bureau-active', tabId === 'bureau' || tabId === 'student');
+    
     tabLinks.forEach(link => {
       if (link.getAttribute('data-tab') === tabId) {
         link.classList.add('active');
@@ -49,4 +51,11 @@ export function initNavigation() {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
+
+  // Initial check on load
+  const activeTab = document.querySelector('.tab-content.active');
+  if (activeTab) {
+    const tabId = activeTab.id.replace('tab-', '');
+    document.body.classList.toggle('bureau-active', tabId === 'bureau' || tabId === 'student');
+  }
 }

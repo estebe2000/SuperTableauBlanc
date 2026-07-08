@@ -17,8 +17,10 @@ export function initBureau() {
     const drawSizeSlider = document.getElementById('drawSizeSlider');
     const clearCanvasBtn = document.getElementById('clearCanvasBtn');
 
-    // Backgrounds
+    // Backgrounds & Custom BG Image
     const bgOptBtns = document.querySelectorAll('.bg-opt-btn');
+    const bgImgUrlInput = document.getElementById('bgImgUrlInput');
+    const applyBgImgBtn = document.getElementById('applyBgImgBtn');
 
     // Microphone & Transcription (Floating)
     const floatingTranscribeBar = document.getElementById('floatingTranscribeBar');
@@ -26,20 +28,20 @@ export function initBureau() {
     const liveTranscriptTextarea = document.getElementById('liveTranscriptTextarea');
     const clearTranscriptBtn = document.getElementById('clearTranscriptBtn');
 
-    // Floating panels & Popover
-    const bgPopover = document.getElementById('bgPopover');
-    const filesFloatingPanel = document.getElementById('filesFloatingPanel');
-    const closeFilesPanelBtn = document.getElementById('closeFilesPanelBtn');
-    const aiFloatingPanel = document.getElementById('aiFloatingPanel');
-    const closeAiPanelBtn = document.getElementById('closeAiPanelBtn');
+    // UNIFIED MEDIA & AI PLAYLIST PANEL
+    const mediaPlaylistPanel = document.getElementById('mediaPlaylistPanel');
+    const closePlaylistPanelBtn = document.getElementById('closePlaylistPanelBtn');
+    const playlistItemsList = document.getElementById('playlistItemsList');
+    const mediaUrlInput = document.getElementById('mediaUrlInput');
+    const mediaTitleInput = document.getElementById('mediaTitleInput');
+    const addMediaUrlBtn = document.getElementById('addMediaUrlBtn');
 
     // macOS Dock
     const macosDock = document.getElementById('macosDock');
     const dockItems = document.querySelectorAll('.dock-item[data-widget]');
     const dockMicrophone = document.getElementById('dockMicrophone');
     const dockBackground = document.getElementById('dockBackground');
-    const dockFiles = document.getElementById('dockFiles');
-    const dockAi = document.getElementById('dockAi');
+    const dockPlaylist = document.getElementById('dockPlaylist');
 
     // Document drop & AI
     const bureauDropZone = document.getElementById('bureauDropZone');
@@ -126,7 +128,42 @@ export function initBureau() {
         window.showToast("Diffusion arrêtée.");
     });
 
-    // ─── macOS DOCK ACTIONS & FLOTTERS ───
+    // ─── macOS DOCK ACTIONS, PLAYLIST & POPUPS ───
+    let playlist = [
+        {
+            id: 'sample-1',
+            title: 'Exemple de cours (PDF)',
+            type: 'pdf',
+            url: '/cua.pdf'
+        }
+    ];
+
+    // Initialize playlist panel tabs
+    const playlistTabBtns = document.querySelectorAll('.playlist-tab-btn');
+    playlistTabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            playlistTabBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const targetTab = btn.getAttribute('data-tab');
+            document.querySelectorAll('.playlist-tab-content').forEach(content => {
+                content.style.display = content.id === `tab-${targetTab}` ? 'block' : 'none';
+            });
+        });
+    });
+
+    // Custom background image apply
+    applyBgImgBtn?.addEventListener('click', () => {
+        const url = bgImgUrlInput?.value.trim();
+        if (url) {
+            backgroundStyle = url;
+            applyBackgroundLocal(url);
+            syncBackground(url);
+            window.showToast("Image de fond personnalisée appliquée ✓");
+        }
+    });
+
+    // Dock items actions
     dockItems.forEach(item => {
         item.addEventListener('click', () => {
             const widgetType = item.getAttribute('data-widget');
@@ -146,15 +183,6 @@ export function initBureau() {
                 createWidget('postit', 'Note adhésive', 'Double-cliquez pour éditer la note.');
             } else if (widgetType === 'timer') {
                 createWidget('timer', 'Minuteur', 'Minuteur');
-            } else if (widgetType === 'video') {
-                const url = prompt("Saisissez l'URL d'une vidéo YouTube (ex: https://www.youtube.com/embed/...) ou MP4 :", "https://www.youtube.com/embed/dQw4w9WgXcQ");
-                if (url) createWidget('video', 'Lecteur Vidéo', url);
-            } else if (widgetType === 'qrcode') {
-                const url = prompt("Saisissez l'URL à partager en QR Code :", window.location.origin);
-                if (url) createWidget('qrcode', 'QR Code Partagé', url);
-            } else if (widgetType === 'iframe') {
-                const url = prompt("Saisissez l'URL du site à intégrer (HTTPS obligatoire) :", "https://fr.wikipedia.org");
-                if (url) createWidget('iframe', 'Site web intégré', url);
             }
         });
     });
@@ -180,7 +208,6 @@ export function initBureau() {
         hideAllFloatingElements();
         if (show) {
             bgPopover.style.display = 'block';
-            // Position popover above icon
             const rect = dockBackground.getBoundingClientRect();
             const desktopRect = bureauDesktop.getBoundingClientRect();
             bgPopover.style.left = `${rect.left - desktopRect.left - 40}px`;
@@ -193,44 +220,159 @@ export function initBureau() {
         if (bgPopover) bgPopover.style.display = 'none';
     });
 
-    // Files floating panel
-    dockFiles?.addEventListener('click', (e) => {
+    // Unified Playlist & Media panel trigger
+    dockPlaylist?.addEventListener('click', (e) => {
         e.stopPropagation();
-        const show = filesFloatingPanel.style.display === 'none';
+        const show = mediaPlaylistPanel.style.display === 'none';
         hideAllFloatingElements();
         if (show) {
-            filesFloatingPanel.style.display = 'block';
-            filesFloatingPanel.style.left = '50%';
-            filesFloatingPanel.style.top = '40%';
-            filesFloatingPanel.style.transform = 'translate(-50%, -50%)';
+            mediaPlaylistPanel.style.display = 'block';
+            mediaPlaylistPanel.style.left = '50%';
+            mediaPlaylistPanel.style.top = '45%';
+            mediaPlaylistPanel.style.transform = 'translate(-50%, -50%)';
+            updatePlaylistDOM();
         }
     });
 
-    closeFilesPanelBtn?.addEventListener('click', () => {
-        filesFloatingPanel.style.display = 'none';
+    closePlaylistPanelBtn?.addEventListener('click', () => {
+        mediaPlaylistPanel.style.display = 'none';
     });
 
-    // AI floating panel
-    dockAi?.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const show = aiFloatingPanel.style.display === 'none';
-        hideAllFloatingElements();
-        if (show) {
-            aiFloatingPanel.style.display = 'block';
-            aiFloatingPanel.style.left = '50%';
-            aiFloatingPanel.style.top = '40%';
-            aiFloatingPanel.style.transform = 'translate(-50%, -50%)';
+    // Render list of play items
+    function updatePlaylistDOM() {
+        if (!playlistItemsList) return;
+        
+        if (playlist.length === 0) {
+            playlistItemsList.innerHTML = `
+                <div class="playlist-empty-info" style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
+                    Aucun média dans la liste. Allez dans l'onglet "Ajouter".
+                </div>
+            `;
+            return;
         }
-    });
 
-    closeAiPanelBtn?.addEventListener('click', () => {
-        aiFloatingPanel.style.display = 'none';
+        playlistItemsList.innerHTML = '';
+        playlist.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'playlist-item';
+            el.style = 'display:flex; justify-content:space-between; align-items:center; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:8px; padding:8px 12px; margin-bottom:8px; font-size:0.8rem; color:white;';
+            
+            const icon = item.type === 'image' ? '🖼️' :
+                         item.type === 'video' ? '🎥' :
+                         item.type === 'audio' ? '🎵' : '📄';
+                         
+            el.innerHTML = `
+                <div style="display:flex; align-items:center; gap:8px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; flex:1; margin-right:8px;">
+                    <span style="font-size:1.1rem;">${icon}</span>
+                    <span title="${item.title}" style="overflow:hidden; text-overflow:ellipsis;">${item.title}</span>
+                </div>
+                <div style="display:flex; gap:6px;">
+                    <button class="btn btn-secondary btn-sm play-media-btn" title="Afficher et remplacer">👁️</button>
+                    <button class="btn btn-primary btn-sm add-apart-btn" title="Ouvrir à part">➕</button>
+                </div>
+            `;
+            
+            el.querySelector('.play-media-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                displayMediaOnDesktop(item, false);
+            });
+            
+            el.querySelector('.add-apart-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                displayMediaOnDesktop(item, true);
+            });
+            
+            playlistItemsList.appendChild(el);
+        });
+    }
+
+    function displayMediaOnDesktop(item, openNewWindow = false) {
+        bureauPlaceholderInfo.style.display = 'none';
+        
+        let targetWidget = null;
+        if (!openNewWindow) {
+            targetWidget = activeWidgets.find(w => w.type === 'media');
+        }
+        
+        if (targetWidget) {
+            targetWidget.title = `👁️ visionneuse : ${item.title}`;
+            targetWidget.mediaType = item.type;
+            targetWidget.content = item.url;
+            
+            const el = document.getElementById(targetWidget.id);
+            if (el) {
+                const titleSpan = el.querySelector('.widget-title');
+                if (titleSpan) titleSpan.textContent = `👁️ visionneuse : ${item.title}`;
+                const body = el.querySelector('.widget-content-body');
+                if (body) setupWidgetInnerUI(targetWidget, body);
+            }
+            syncDesktopState();
+            window.showToast(`Média remplacé : ${item.title} ✓`);
+        } else {
+            const id = `media-${Math.random().toString(36).substring(2, 9)}`;
+            const w = {
+                id: id,
+                type: 'media',
+                title: `👁️ visionneuse : ${item.title}`,
+                mediaType: item.type,
+                content: item.url,
+                x: 25 + (activeWidgets.length * 6) % 35,
+                y: 15 + (activeWidgets.length * 6) % 35,
+                width: 440,
+                height: 330,
+                bgColor: 'var(--surface)',
+                color: 'var(--accent1)'
+            };
+            
+            activeWidgets.push(w);
+            renderWidgetOnTeacherDesktop(w);
+            syncDesktopState();
+            window.showToast(`Média ouvert : ${item.title} ✓`);
+        }
+    }
+
+    // Add media from URL
+    addMediaUrlBtn?.addEventListener('click', () => {
+        const url = mediaUrlInput.value.trim();
+        let title = mediaTitleInput.value.trim();
+        
+        if (!url) {
+            alert("Veuillez saisir une URL.");
+            return;
+        }
+        
+        if (!title) {
+            title = url.substring(url.lastIndexOf('/') + 1) || "Lien externe";
+        }
+        
+        let type = 'web';
+        if (url.includes('youtube.com') || url.includes('youtu.be') || url.includes('vimeo.com') || url.endsWith('.mp4') || url.endsWith('.webm')) {
+            type = 'video';
+        } else if (url.endsWith('.png') || url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.webp') || url.endsWith('.gif')) {
+            type = 'image';
+        } else if (url.endsWith('.mp3') || url.endsWith('.wav') || url.endsWith('.ogg')) {
+            type = 'audio';
+        } else if (url.endsWith('.pdf')) {
+            type = 'pdf';
+        }
+        
+        const item = {
+            id: `media-${Math.random().toString(36).substring(2, 9)}`,
+            title: title,
+            type: type,
+            url: url
+        };
+        
+        playlist.push(item);
+        mediaUrlInput.value = '';
+        mediaTitleInput.value = '';
+        updatePlaylistDOM();
+        window.showToast("Média ajouté à la liste ✓");
     });
 
     function hideAllFloatingElements() {
         if (bgPopover) bgPopover.style.display = 'none';
-        if (filesFloatingPanel) filesFloatingPanel.style.display = 'none';
-        if (aiFloatingPanel) aiFloatingPanel.style.display = 'none';
+        if (mediaPlaylistPanel) mediaPlaylistPanel.style.display = 'none';
     }
 
     // Check if board has no widgets
@@ -520,6 +662,34 @@ export function initBureau() {
             };
 
             renderClock();
+        } else if (w.type === 'media') {
+            const url = w.content;
+            if (w.mediaType === 'image') {
+                container.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:contain; border-radius:0 0 6px 6px;">`;
+            } else if (w.mediaType === 'video') {
+                if (url.includes('youtube.com/embed') || url.includes('player.vimeo.com') || url.includes('youtube.com/watch') || url.includes('youtu.be')) {
+                    let embedUrl = url;
+                    if (url.includes('youtube.com/watch')) {
+                        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                        const match = url.match(regExp);
+                        if (match && match[2].length === 11) {
+                            embedUrl = `https://www.youtube.com/embed/${match[2]}`;
+                        }
+                    } else if (url.includes('youtu.be/')) {
+                        const parts = url.split('youtu.be/');
+                        if (parts.length > 1) {
+                            embedUrl = `https://www.youtube.com/embed/${parts[1].split('?')[0]}`;
+                        }
+                    }
+                    container.innerHTML = `<iframe src="${embedUrl}" frameborder="0" allowfullscreen style="width:100%; height:100%; border:none; border-radius:0 0 6px 6px;"></iframe>`;
+                } else {
+                    container.innerHTML = `<video src="${url}" controls style="width:100%; height:100%; object-fit:contain; border-radius:0 0 6px 6px;"></video>`;
+                }
+            } else if (w.mediaType === 'audio') {
+                container.innerHTML = `<div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; background:rgba(255,255,255,0.03); border-radius:0 0 6px 6px; padding:10px;"><span style="font-size:2rem; margin-bottom:8px;">🎵</span><audio src="${url}" controls style="width:90%;"></audio></div>`;
+            } else {
+                container.innerHTML = `<iframe src="${url}" frameborder="0" style="width:100%; height:100%; border:none; border-radius:0 0 6px 6px; background:white;"></iframe>`;
+            }
         }
     }
 
@@ -787,9 +957,15 @@ export function initBureau() {
 
     function applyBackgroundLocal(bg) {
         bureauDesktop.style.backgroundImage = 'none';
+        bureauDesktop.style.backgroundSize = 'initial';
+        bureauDesktop.style.backgroundPosition = 'initial';
         bureauDesktop.style.backgroundColor = 'var(--surface)';
 
-        if (bg === 'blackboard') {
+        if (bg.startsWith('http://') || bg.startsWith('https://') || bg.startsWith('data:image/')) {
+            bureauDesktop.style.backgroundImage = `url(${bg})`;
+            bureauDesktop.style.backgroundSize = 'cover';
+            bureauDesktop.style.backgroundPosition = 'center';
+        } else if (bg === 'blackboard') {
             bureauDesktop.style.backgroundColor = '#162e20';
             bureauDesktop.style.backgroundImage = 'radial-gradient(ellipse at center, rgba(25,60,35,0.8) 0%, rgba(10,30,15,1) 100%)';
         } else if (bg === 'grid') {
@@ -801,7 +977,8 @@ export function initBureau() {
         } else if (bg === 'white') {
             bureauDesktop.style.backgroundColor = '#ffffff';
         } else {
-            bureauDesktop.style.backgroundColor = 'var(--bg)';
+            // Default background: warm off-white (blanc cassé)
+            bureauDesktop.style.backgroundColor = '#faf9f5';
         }
     }
 
@@ -966,40 +1143,54 @@ export function initBureau() {
 
     async function handleBureauFiles(files) {
         bureauFilesList.style.display = 'block';
-        bureauDropZoneContent.style.display = 'none';
 
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             
             // Render file card
-            const item = document.createElement('div');
-            item.className = 'bureau-file-item';
-            item.innerHTML = `📄 <span class="file-name">${file.name}</span> <span class="file-status">Lecture...</span>`;
-            bureauFilesList.appendChild(item);
+            const itemEl = document.createElement('div');
+            itemEl.className = 'bureau-file-item';
+            itemEl.innerHTML = `📄 <span class="file-name">${file.name}</span> <span class="file-status">Lecture...</span>`;
+            bureauFilesList.appendChild(itemEl);
 
             try {
-                let fileText = "";
-                if (file.type === 'application/pdf') {
-                    fileText = await extractPdfText(file);
-                } else if (file.name.endsWith('.docx')) {
-                    fileText = await extractDocxText(file);
-                } else {
-                    throw new Error("Format non géré.");
-                }
+                const url = URL.createObjectURL(file);
+                let mediaType = 'pdf';
+                if (file.type.startsWith('image/')) mediaType = 'image';
+                else if (file.type.startsWith('video/')) mediaType = 'video';
+                else if (file.type.startsWith('audio/')) mediaType = 'audio';
 
-                item.querySelector('.file-status').textContent = `✓ (${fileText.length} car.)`;
-                item.querySelector('.file-status').className = 'file-status status-success';
-                
-                // Save text
-                uploadedFiles.push({ name: file.name, text: fileText });
-                
-                // Add widget representing the file to students
-                createWidget('file', 'Document partagé', file.name);
+                // Add to playlist
+                const playItem = {
+                    id: `media-${Math.random().toString(36).substring(2, 9)}`,
+                    title: file.name,
+                    type: mediaType,
+                    url: url
+                };
+                playlist.push(playItem);
+                updatePlaylistDOM();
+
+                // If text extractable for Albert AI
+                if (file.type === 'application/pdf' || file.name.endsWith('.docx')) {
+                    itemEl.querySelector('.file-status').textContent = "Lecture du texte...";
+                    let fileText = "";
+                    if (file.type === 'application/pdf') {
+                        fileText = await extractPdfText(file);
+                    } else if (file.name.endsWith('.docx')) {
+                        fileText = await extractDocxText(file);
+                    }
+                    uploadedFiles.push({ name: file.name, text: fileText });
+                    itemEl.querySelector('.file-status').textContent = `✓ (${fileText.length} car.)`;
+                    itemEl.querySelector('.file-status').className = 'file-status status-success';
+                } else {
+                    itemEl.querySelector('.file-status').textContent = "✓ Prêt (Média)";
+                    itemEl.querySelector('.file-status').className = 'file-status status-success';
+                }
 
             } catch (err) {
                 console.error(err);
-                item.querySelector('.file-status').textContent = "Erreur";
-                item.querySelector('.file-status').className = 'file-status status-error';
+                itemEl.querySelector('.file-status').textContent = "Erreur";
+                itemEl.querySelector('.file-status').className = 'file-status status-error';
             }
         }
 
