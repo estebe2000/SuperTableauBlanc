@@ -96,6 +96,22 @@ export function initBureau() {
     let uploadedFiles = [];
     let latestGeneratedDoc = null;
 
+    // Sync double-click coordinate ping to students
+    bureauDesktop?.addEventListener('dblclick', (e) => {
+        e.preventDefault();
+        const rect = bureauDesktop.getBoundingClientRect();
+        const xPercent = (e.clientX - rect.left) / rect.width;
+        const yPercent = (e.clientY - rect.top) / rect.height;
+
+        if (socket && socket.readyState === 1) {
+            socket.send(JSON.stringify({
+                type: 'sync-doubleclick',
+                xPercent: xPercent,
+                yPercent: yPercent
+            }));
+        }
+    });
+
     // ─── SESSION CONTROL ───
     startSessionBtn.addEventListener('click', () => {
         sessionCode = Math.floor(100000 + Math.random() * 900000).toString();

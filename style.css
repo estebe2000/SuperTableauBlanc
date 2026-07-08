@@ -4887,23 +4887,43 @@ body.bureau-active:has(#tab-student.active) .student-desktop {
 
 /* Subtitles overlay banner */
 .student-subtitles-banner {
-    background: rgba(15, 23, 42, 0.95);
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    width: 80%;
+    max-width: 900px;
+    z-index: 150;
+    background: rgba(15, 23, 42, 0.45) !important;
     color: #f8fafc;
-    border-radius: var(--radius);
-    padding: 18px 24px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    padding: 12px 18px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    box-shadow: 0 -4px 30px rgba(0, 0, 0, 0.15);
-    backdrop-filter: blur(10px);
+    gap: 8px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(16px) saturate(180%);
+    pointer-events: auto !important;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.student-subtitles-banner:hover {
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-color: rgba(255, 255, 255, 0.25) !important;
 }
 
 .subtitle-controls {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding-bottom: 6px;
+    cursor: grab;
+    user-select: none;
+}
+
+.subtitle-controls:active {
+    cursor: grabbing;
 }
 
 .control-label {
@@ -5194,6 +5214,58 @@ body.bureau-active footer {
 
 body.bureau-active .bureau-desktop {
     height: calc(100vh - 105px) !important;
+}
+
+/* Double-click spotlight visual indicator animation */
+@keyframes ping-pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2.2);
+        opacity: 0;
+    }
+}
+
+@keyframes ping-inner-pulse {
+    0% {
+        transform: translate(-50%, -50%) scale(0.1);
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1.4);
+        opacity: 0;
+    }
+}
+
+.student-ping-indicator {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 3px solid #ff4757; /* Vibrant coral red */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    animation: ping-pulse 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+    background: radial-gradient(circle, rgba(255, 71, 87, 0.4) 0%, rgba(255, 71, 87, 0) 70%);
+}
+
+.student-ping-core {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 30px;
+    height: 30px;
+    border: 2px dashed #ffa502; /* Inner gold orange ring */
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: ping-inner-pulse 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
 

@@ -136,6 +136,25 @@ export function initStudent() {
         }
     }
 
+    function showVisualPing(xPercent, yPercent) {
+        if (!studentDesktop) return;
+
+        const ping = document.createElement('div');
+        ping.className = 'student-ping-indicator';
+        ping.style.left = `${xPercent * 100}%`;
+        ping.style.top = `${yPercent * 100}%`;
+
+        const core = document.createElement('div');
+        core.className = 'student-ping-core';
+        ping.appendChild(core);
+
+        studentDesktop.appendChild(ping);
+
+        setTimeout(() => {
+            ping.remove();
+        }, 1200);
+    }
+
     function updateStudentPlaylist(playlistData) {
         if (!playlistData) return;
         studentPlaylist = playlistData;
@@ -358,6 +377,13 @@ export function initStudent() {
         makeDraggable(studentPlaylistPanel, studentPlaylistHeader);
     }
 
+    if (studentSubtitlesBanner) {
+        const subHeader = studentSubtitlesBanner.querySelector('.subtitle-controls');
+        if (subHeader) {
+            makeDraggable(studentSubtitlesBanner, subHeader);
+        }
+    }
+
     // Subtitle font controls
     increaseSubSize?.addEventListener('click', () => {
         subFontSizePx = Math.min(subFontSizePx + 2, 32);
@@ -445,6 +471,8 @@ export function initStudent() {
                     addSharedDocument(data.document);
                 } else if (data.type === 'sync-playlist') {
                     updateStudentPlaylist(data.playlist);
+                } else if (data.type === 'sync-doubleclick') {
+                    showVisualPing(data.xPercent, data.yPercent);
                 }
             };
 

@@ -42,6 +42,36 @@
             
             <!-- Direct drawing overlay from teacher -->
             <canvas id="studentCanvasOverlay" class="canvas-drawing-overlay"></canvas>
+
+            <!-- Subtitles / Transcription Banner (Integrated floating over the board) -->
+            <div class="student-subtitles-banner" id="studentSubtitlesBanner">
+                <div class="subtitle-controls">
+                    <span class="control-label" style="display:flex; align-items:center; gap:6px;">
+                        <span class="drag-handle-grip" title="Glisser pour déplacer" style="cursor: grab; color: rgba(255,255,255,0.4); font-weight: normal;">⋮⋮</span>
+                        🎙️ Transcription Enseignant :
+                    </span>
+                    <div class="control-actions">
+                        <button class="btn btn-secondary btn-sm" id="speakSubtitlesBtn" title="Lire à haute voix" style="padding: 2px 8px; font-size: 0.75rem;">🔊 Écouter</button>
+                        
+                        <select id="subtitleLangSelect" class="btn-sm select-dark" style="padding: 2px 6px; font-size: 0.75rem;">
+                            <option value="fr">Version originale (FR)</option>
+                            <option value="en">Traduit en Anglais</option>
+                            <option value="es">Traduit en Espagnol</option>
+                            <option value="ar">Traduit en Arabe</option>
+                            <option value="simplifie">Version simplifiée (IA)</option>
+                        </select>
+                        
+                        <button class="btn btn-icon btn-sm" id="decreaseSubSize" title="Réduire le texte" style="padding: 2px 6px; font-size: 0.75rem;">A-</button>
+                        <button class="btn btn-icon btn-sm" id="increaseSubSize" title="Agrandir le texte" style="padding: 2px 6px; font-size: 0.75rem;">A+</button>
+                    </div>
+                </div>
+                <div class="subtitle-text-container">
+                    <p id="subtitleTextContent" class="subtitle-text">En attente de parole de l'enseignant...</p>
+                    <div class="subtitle-loader" id="subtitleTextLoader" style="display: none;">
+                        <span></span><span></span><span></span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -64,34 +94,7 @@
             </div>
         </div>
     </section>
-
-    <!-- Subtitles / Transcription Banner -->
-    <div class="student-subtitles-banner" id="studentSubtitlesBanner">
-        <div class="subtitle-controls">
-            <span class="control-label">🎙️ Transcription Enseignant :</span>
-            <div class="control-actions">
-                <button class="btn btn-secondary btn-sm" id="speakSubtitlesBtn" title="Lire à haute voix">🔊 Écouter</button>
-                
-                <select id="subtitleLangSelect" class="btn-sm select-dark">
-                    <option value="fr">Version originale (FR)</option>
-                    <option value="en">Traduit en Anglais</option>
-                    <option value="es">Traduit en Espagnol</option>
-                    <option value="ar">Traduit en Arabe</option>
-                    <option value="simplifie">Version simplifiée (IA)</option>
-                </select>
-                
-                <button class="btn btn-icon btn-sm" id="decreaseSubSize" title="Réduire le texte">A-</button>
-                <button class="btn btn-icon btn-sm" id="increaseSubSize" title="Agrandir le texte">A+</button>
-            </div>
-        </div>
-        <div class="subtitle-text-container">
-            <p id="subtitleTextContent" class="subtitle-text">En attente de parole de l'enseignant...</p>
-            <div class="subtitle-loader" id="subtitleTextLoader" style="display: none;">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-    </div>
-</div>
+    <!-- AI Generated Documents Panel -->
 
 <!-- Modal customization CUA code input -->
 <div id="cuaSettingsModal" class="mermaid-modal student-cua-modal">
