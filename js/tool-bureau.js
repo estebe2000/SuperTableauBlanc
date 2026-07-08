@@ -294,7 +294,7 @@ export function initBureau() {
                 </div>
                 <div style="display:flex; gap:6px;">
                     <button class="btn btn-secondary btn-sm play-media-btn" title="Afficher et remplacer">👁️</button>
-                    <button class="btn btn-primary btn-sm add-apart-btn" title="Ouvrir à part">➕</button>
+                    <button class="btn btn-danger btn-sm delete-media-btn" title="Supprimer de la liste">🗑️</button>
                 </div>
             `;
             
@@ -303,9 +303,11 @@ export function initBureau() {
                 displayMediaOnDesktop(item, false);
             });
             
-            el.querySelector('.add-apart-btn').addEventListener('click', (e) => {
+            el.querySelector('.delete-media-btn').addEventListener('click', (e) => {
                 e.stopPropagation();
-                displayMediaOnDesktop(item, true);
+                playlist = playlist.filter(x => x.id !== item.id);
+                updatePlaylistDOM();
+                window.showToast("Média supprimé de la liste ✓");
             });
             
             playlistItemsList.appendChild(el);
@@ -547,7 +549,7 @@ export function initBureau() {
         // Custom widget drag handle and close button
         let dragBar = document.createElement('div');
         dragBar.className = 'widget-drag-handle';
-        dragBar.innerHTML = `<span class="widget-title">${w.title}</span> <button class="btn-close-widget">×</button>`;
+        dragBar.innerHTML = `<span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span><span class="widget-title">${w.title}</span> <button class="btn-close-widget">×</button>`;
         el.appendChild(dragBar);
 
         // Close button click
@@ -742,6 +744,8 @@ export function initBureau() {
     function makeDraggable(el, handle, widgetData) {
         let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         
+        handle.style.cursor = 'grab';
+        
         handle.onmousedown = dragMouseDown;
 
         function dragMouseDown(e) {
@@ -749,6 +753,10 @@ export function initBureau() {
             // Only drag on left click
             if (e.button !== 0) return;
             e.preventDefault();
+            
+            handle.style.cursor = 'grabbing';
+            document.body.style.cursor = 'grabbing';
+            
             pos3 = e.clientX;
             pos4 = e.clientY;
             document.onmouseup = closeDragElement;
@@ -786,6 +794,10 @@ export function initBureau() {
         function closeDragElement() {
             document.onmouseup = null;
             document.onmousemove = null;
+            
+            handle.style.cursor = 'grab';
+            document.body.style.cursor = 'default';
+            
             // Broadcast state on release if it is a syncable widget
             if (widgetData && widgetData.id) {
                 syncDesktopState();

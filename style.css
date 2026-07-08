@@ -4412,22 +4412,59 @@ body.accessibility-dyslexia .reading-ruler {
     min-height: 60px;
 }
 
+.widget-title {
+    font-size: 0.76rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.drag-handle-grip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-right: 8px;
+    cursor: grab;
+    user-select: none;
+    letter-spacing: -1.5px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 4px;
+    padding: 0 5px;
+    height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s;
+    line-height: 18px;
+}
+
+.widget-drag-handle .drag-handle-grip {
+    color: rgba(0, 0, 0, 0.35);
+    background: rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.06);
+}
+
+.drag-handle-grip:hover {
+    color: white !important;
+    background: var(--accent1) !important;
+    border-color: var(--accent1) !important;
+    box-shadow: 0 0 8px var(--accent1);
+}
+
 .widget-drag-handle {
     background: rgba(124, 58, 237, 0.05);
     border-bottom: 1px solid var(--border);
     padding: 6px 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    cursor: move;
+    cursor: grab;
     user-select: none;
     flex-shrink: 0;
 }
 
-.widget-title {
-    font-size: 0.76rem;
-    font-weight: 700;
-    color: var(--text);
+.widget-drag-handle .widget-title {
+    flex-grow: 1;
 }
 
 .btn-close-widget {
