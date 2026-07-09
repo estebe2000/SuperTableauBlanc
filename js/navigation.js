@@ -9,7 +9,7 @@ export function initNavigation() {
     
     const nav = document.getElementById('navbar');
     const footer = document.querySelector('footer');
-    if (nav) nav.style.display = isFullPage ? 'none' : 'flex';
+    if (nav) nav.style.display = tabId === 'student' ? 'none' : 'flex';
     if (footer) footer.style.display = isFullPage ? 'none' : 'block';
     
     tabLinks.forEach(link => {
