@@ -5062,7 +5062,42 @@ body.bureau-active:has(#tab-student.active) .student-desktop {
 
 /* Modal details CUA input */
 .student-cua-modal-content {
-    max-width: 500px !important;
+    background: var(--surface) !important;
+    color: var(--text) !important;
+    padding: 35px 30px !important;
+    border-radius: 12px !important;
+    width: 95% !important;
+    max-width: 480px !important;
+    height: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4) !important;
+    position: relative !important;
+    cursor: default !important;
+    border: 1px solid var(--border) !important;
+}
+
+.student-cua-modal-content .close-modal {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    cursor: pointer !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 24px !important;
+    top: 15px !important;
+    right: 15px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background 0.2s, color 0.2s !important;
+}
+
+.student-cua-modal-content .close-modal:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--text) !important;
 }
 
 .input-row {
