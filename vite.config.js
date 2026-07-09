@@ -70,7 +70,9 @@ export default defineConfig({
                 data.type === 'sync-transcript' || 
                 data.type === 'sync-document' ||
                 data.type === 'sync-playlist' ||
-                data.type === 'sync-doubleclick'
+                data.type === 'sync-doubleclick' ||
+                data.type === 'request-document-adaptation' ||
+                data.type === 'send-document-adaptation'
               ) {
                 if (currentSession && rooms.has(currentSession)) {
                   rooms.get(currentSession).forEach((client) => {

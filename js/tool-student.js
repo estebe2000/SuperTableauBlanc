@@ -164,6 +164,21 @@ export function initStudent() {
     function updateStudentPlaylistDOM() {
         if (!studentPlaylistItemsList) return;
         
+        // Auto-sync files from playlist into sharedDocs list
+        studentPlaylist.forEach(item => {
+            if (item.type === 'pdf' || item.title.endsWith('.pdf') || item.title.endsWith('.docx')) {
+                if (!sharedDocs.some(d => d.title === item.title)) {
+                    sharedDocs.push({
+                        id: item.id,
+                        title: item.title,
+                        type: item.type,
+                        content: "",
+                        url: item.url
+                    });
+                }
+            }
+        });
+        
         if (studentPlaylist.length === 0) {
             studentPlaylistItemsList.innerHTML = `
                 <div style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
@@ -355,6 +370,19 @@ export function initStudent() {
         window.showToast("Profil d'accessibilité mis à jour ! ✓");
     });
 
+    // Student Documents Panel trigger
+    const openStudentDocsBtn = document.getElementById('openStudentDocsBtn');
+    openStudentDocsBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const show = studentDocsPanel.style.display === 'none';
+        if (show) {
+            studentDocsPanel.style.display = 'block';
+            renderSharedDocsList();
+        } else {
+            studentDocsPanel.style.display = 'none';
+        }
+    });
+
     // Student Playlist trigger
     openStudentPlaylistBtn?.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -474,6 +502,8 @@ export function initStudent() {
                     updateStudentPlaylist(data.playlist);
                 } else if (data.type === 'sync-doubleclick') {
                     showVisualPing(data.xPercent, data.yPercent);
+                } else if (data.type === 'send-document-adaptation') {
+                    handleDocumentAdaptationResponse(data);
                 }
             };
 
@@ -853,118 +883,181 @@ RÉPONSES CONSEILS : Rends uniquement la traduction exacte, sans aucune introduc
         });
     }
 
+    const viewOriginalDocTabBtn = document.getElementById('viewOriginalDocTabBtn');
+    const viewAdaptedDocTabBtn = document.getElementById('viewAdaptedDocTabBtn');
+    const downloadAdaptedDocBtn = document.getElementById('downloadAdaptedDocBtn');
+
     function viewDocument(doc) {
         currentViewingDoc = doc;
         studentViewerTitle.textContent = doc.title;
         
-        // Parse markdown or normal text
-        if (window.marked) {
-            studentViewerContent.innerHTML = window.marked.parse(doc.content);
+        // Reset tabs to original version
+        viewOriginalDocTabBtn?.classList.add('active');
+        viewAdaptedDocTabBtn?.classList.remove('active');
+        if (downloadAdaptedDocBtn) downloadAdaptedDocBtn.style.display = 'none';
+
+        // Load original content
+        showOriginalContent(doc);
+
+        studentDocViewer.style.display = 'flex';
+        studentDocViewer.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function showOriginalContent(doc) {
+        if (doc.url) {
+            // For files (PDF/docx), display them in an iframe!
+            let targetUrl = doc.url;
+            if (targetUrl.startsWith('data:')) {
+                try {
+                    const blob = dataURLtoBlob(targetUrl);
+                    targetUrl = URL.createObjectURL(blob);
+                } catch(e) {
+                    console.error("Failed to parse data URL in viewer", e);
+                }
+            }
+            studentViewerContent.innerHTML = `<iframe src="${targetUrl}" frameborder="0" style="width:100%; height:450px; border:none; background:white; border-radius:8px;"></iframe>`;
         } else {
-            studentViewerContent.textContent = doc.content;
+            // Standard markdown/text content
+            if (window.marked) {
+                studentViewerContent.innerHTML = window.marked.parse(doc.content || "");
+            } else {
+                studentViewerContent.textContent = doc.content || "";
+            }
+        }
+    }
+
+    viewOriginalDocTabBtn?.addEventListener('click', () => {
+        if (!currentViewingDoc) return;
+        viewOriginalDocTabBtn.classList.add('active');
+        viewAdaptedDocTabBtn?.classList.remove('active');
+        if (downloadAdaptedDocBtn) downloadAdaptedDocBtn.style.display = 'none';
+        showOriginalContent(currentViewingDoc);
+    });
+
+    viewAdaptedDocTabBtn?.addEventListener('click', () => {
+        if (!currentViewingDoc) return;
+        
+        viewOriginalDocTabBtn?.classList.remove('active');
+        viewAdaptedDocTabBtn.classList.add('active');
+
+        // Check if already adapted
+        if (currentViewingDoc.adaptedContent) {
+            displayAdaptedContent(currentViewingDoc.adaptedContent);
+            return;
         }
 
-        // Render mermaid if present
-        if (doc.content.includes('```mermaid') && window.mermaid) {
+        // Check CUA code
+        if (!activeCuaCode || activeCuaCode === "Aucun") {
+            alert("Veuillez d'abord configurer ou saisir un code d'adaptation CUA.");
+            if (cuaSettingsModal) cuaSettingsModal.classList.add('show');
+            // Back to original tab
+            viewOriginalDocTabBtn?.classList.add('active');
+            viewAdaptedDocTabBtn.classList.remove('active');
+            return;
+        }
+
+        // Request adaptation from teacher/server via WebSockets
+        studentViewerContent.innerHTML = `
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px; text-align:center; color:rgba(255,255,255,0.6);">
+                <div style="font-size:2.5rem; margin-bottom:12px; animation: spin 2s linear infinite;">⏳</div>
+                <div style="font-weight:700; margin-bottom:6px;">Adaptation personnalisée en cours...</div>
+                <div style="font-size:0.78rem; max-width:280px; color:rgba(255,255,255,0.4);">
+                    Albert AI (enseignant) analyse le document en fonction de votre profil CUA (${activeCuaCode}).
+                </div>
+            </div>
+        `;
+
+        if (socket && socket.readyState === 1) {
+            socket.send(JSON.stringify({
+                type: 'request-document-adaptation',
+                docId: currentViewingDoc.id,
+                docTitle: currentViewingDoc.title,
+                docContent: currentViewingDoc.content || "",
+                cuaCode: activeCuaCode,
+                cuaPrefs: activeCuaPrefs
+            }));
+        } else {
+            studentViewerContent.innerHTML = `
+                <div style="color:var(--accent1); padding:20px; text-align:center;">
+                    ⚠️ Erreur : non connecté à la classe. Impossible de contacter le serveur d'adaptation.
+                </div>
+            `;
+        }
+    });
+
+    function displayAdaptedContent(content) {
+        if (window.marked) {
+            studentViewerContent.innerHTML = window.marked.parse(content);
+        } else {
+            studentViewerContent.textContent = content;
+        }
+        
+        // Show download button
+        if (downloadAdaptedDocBtn) downloadAdaptedDocBtn.style.display = 'inline-flex';
+        
+        // Render mermaid diagrams
+        if (content.includes('```mermaid') && window.mermaid) {
             setTimeout(() => {
                 window.mermaid.init(undefined, studentViewerContent.querySelectorAll('.language-mermaid'));
             }, 100);
         }
+    }
 
-        studentDocViewer.style.display = 'block';
-        studentDocViewer.scrollIntoView({ behavior: 'smooth' });
+    downloadAdaptedDocBtn?.addEventListener('click', () => {
+        if (!currentViewingDoc || !currentViewingDoc.adaptedContent) return;
+        
+        const opt = {
+            margin:       15,
+            filename:     `${currentViewingDoc.title}_CUA_adapte.pdf`,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        };
+        
+        // Temporarily prepare styled container for PDF print
+        const printContainer = document.createElement('div');
+        printContainer.className = 'markdown-content';
+        printContainer.style = `
+            font-family: ${activeCuaCode.includes('-D-') || activeCuaCode.endsWith('-D') ? 'OpenDyslexic, Arial, sans-serif' : 'Inter, Arial, sans-serif'};
+            color: #000000;
+            background: #ffffff;
+            padding: 20px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        `;
+        printContainer.innerHTML = window.marked ? window.marked.parse(currentViewingDoc.adaptedContent) : currentViewingDoc.adaptedContent;
+        
+        // Render
+        if (window.html2pdf) {
+            window.html2pdf().set(opt).from(printContainer).save();
+        } else {
+            alert("Erreur: Librairie de conversion PDF non chargée.");
+        }
+    });
+
+    function handleDocumentAdaptationResponse(data) {
+        const { docId, docTitle, adaptedContent } = data;
+        
+        // Find the doc in sharedDocs
+        const doc = sharedDocs.find(d => d.id === docId || d.title === docTitle);
+        if (doc) {
+            doc.adaptedContent = adaptedContent;
+            
+            // If the student is currently viewing this document
+            if (currentViewingDoc && (currentViewingDoc.id === docId || currentViewingDoc.title === docTitle)) {
+                currentViewingDoc.adaptedContent = adaptedContent;
+                // Display it!
+                if (viewAdaptedDocTabBtn?.classList.contains('active')) {
+                    displayAdaptedContent(adaptedContent);
+                }
+            }
+            window.showToast("Document adapté reçu ! ✨");
+        }
     }
 
     closeStudentViewerBtn?.addEventListener('click', () => {
         studentDocViewer.style.display = 'none';
         currentViewingDoc = null;
-    });
-
-    // Adapt Shared Document to Student CUA Code
-    studentAdaptDocBtn?.addEventListener('click', async () => {
-        if (!currentViewingDoc) {
-            alert("Veuillez d'abord ouvrir un document à adapter.");
-            return;
-        }
-
-        if (!activeCuaCode || activeCuaCode === "Aucun") {
-            alert("Veuillez d'abord configurer ou saisir un code d'adaptation CUA.");
-            if (cuaSettingsModal) cuaSettingsModal.classList.add('show');
-            return;
-        }
-
-        studentAdaptDocBtn.disabled = true;
-        studentAdaptDocBtn.textContent = "Adaptation en cours... ⏳";
-        
-        const originalTitle = currentViewingDoc.title;
-        const originalContent = currentViewingDoc.content;
-        
-        // Describe adaptation preferences in the prompt based on answers
-        let cuaInstructions = "Adapte ce document selon les consignes CUA :\n";
-        
-        if (activeCuaPrefs.fontSize === 'C' || activeCuaPrefs.fontSize === 'D') {
-            cuaInstructions += "- Agrandis les titres et sépare nettement les idées par de grands espaces.\n";
-        }
-        if (activeCuaPrefs.layout === 'C') {
-            cuaInstructions += "- Découpe chaque phase ou consigne en blocs numérotés très clairs (un bloc à la fois).\n";
-        }
-        if (activeCuaPrefs.layout === 'D') {
-            cuaInstructions += "- Réduis le texte au strict nécessaire en français simplifié (FALC) avec des mots importants en gras.\n";
-        }
-        if (activeCuaCode.includes('-D-') || activeCuaCode.endsWith('-D')) {
-            cuaInstructions += "- Simplifie le vocabulaire de façon extrême et ajoute des explications courtes entre parenthèses pour les mots techniques.\n";
-        }
-
-        const prompt = `Tu es un ingénieur pédagogique expert CUA.
-Tâche : Adapte le document suivant en appliquant les consignes d'accessibilité ci-dessous.
-CONSIGNES CUA :
-${cuaInstructions}
-
-DOCUMENT ORIGINAL :
-"""
-${originalContent}
-"""
-
-CONSIGNE STRICTE : Rends uniquement le document adapté au format Markdown, sans introduction ni conclusion de ta part. Conserve les schémas Mermaid s'il y en a, mais assure-toi qu'ils soient lisibles.`;
-
-        let adaptedText = "";
-        try {
-            await makeStreamingRequest(prompt, {
-                tool: 'professor',
-                provider: 'albert',
-                model: 'mistralai/Mistral-Small-3.2-24B-Instruct-2506'
-            }, (chunk) => {
-                adaptedText += chunk;
-                if (studentViewerContent) {
-                    if (window.marked) {
-                        studentViewerContent.innerHTML = window.marked.parse(adaptedText);
-                    } else {
-                        studentViewerContent.textContent = adaptedText;
-                    }
-                }
-            }, (complete) => {
-                studentAdaptDocBtn.disabled = false;
-                studentAdaptDocBtn.textContent = "🔄 Adapter à mon profil (CUA)";
-                window.showToast("Document adapté appliqué ! ✓");
-                
-                // Add adapted tag to title
-                studentViewerTitle.textContent = `${originalTitle} [Adapté CUA]`;
-                
-                // Render mermaid diagrams
-                if (complete.includes('```mermaid') && window.mermaid) {
-                    window.mermaid.init(undefined, studentViewerContent.querySelectorAll('.language-mermaid'));
-                }
-            }, (err) => {
-                console.error("Adapt doc error:", err);
-                alert("Erreur lors de l'adaptation du document.");
-                studentAdaptDocBtn.disabled = false;
-                studentAdaptDocBtn.textContent = "🔄 Adapter à mon profil (CUA)";
-            });
-        } catch (e) {
-            console.error("Adapt doc call failure:", e);
-            studentAdaptDocBtn.disabled = false;
-            studentAdaptDocBtn.textContent = "🔄 Adapter à mon profil (CUA)";
-        }
     });
 
     // Apply accessibility settings based on CUA code

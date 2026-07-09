@@ -477,12 +477,14 @@ export function initBureau() {
                 window.showToast("Diffusion en direct activée ! ✓");
             };
 
-            socket.onmessage = (event) => {
+            socket.onmessage = async (event) => {
                 const data = JSON.parse(event.data);
                 if (data.type === 'request-sync') {
                     syncDesktopState();
                     syncBackground(backgroundStyle);
                     syncPlaylistData();
+                } else if (data.type === 'request-document-adaptation') {
+                    handleStudentAdaptationRequest(data);
                 }
             };
 
@@ -1602,4 +1604,94 @@ CONSIGNES STRICTES POUR MERMAID :
             teacherDocOutputPanel.style.top = `${Math.max(0, (deskH - 420) / 2)}px`;
         }
     });
+
+    async function handleStudentAdaptationRequest(data) {
+        const { docId, docTitle, cuaCode, cuaPrefs } = data;
+        let originalContent = data.docContent || "";
+        
+        // Find extracted text if it was a file uploaded by teacher
+        const matchedFile = uploadedFiles.find(f => f.name === docTitle);
+        if (matchedFile) {
+            originalContent = matchedFile.text;
+        }
+
+        if (!originalContent) {
+            socket.send(JSON.stringify({
+                type: 'send-document-adaptation',
+                docId: docId,
+                docTitle: docTitle,
+                cuaCode: cuaCode,
+                adaptedContent: "Désolé, aucun texte extractible n'a été trouvé pour adapter ce document."
+            }));
+            return;
+        }
+
+        // Build CUA prompt
+        let cuaInstructions = "Adapte ce document selon les consignes CUA :\n";
+        if (cuaPrefs) {
+            if (cuaPrefs.fontSize === 'C' || cuaPrefs.fontSize === 'D') {
+                cuaInstructions += "- Agrandis les titres et sépare nettement les idées par de grands espaces.\n";
+            }
+            if (cuaPrefs.layout === 'C') {
+                cuaInstructions += "- Découpe chaque phase ou consigne en blocs numérotés très clairs (un bloc à la fois).\n";
+            }
+            if (cuaPrefs.layout === 'D') {
+                cuaInstructions += "- Réduis le texte au strict nécessaire en français simplifié (FALC) avec des mots importants en gras.\n";
+            }
+        }
+        if (cuaCode && (cuaCode.includes('-D-') || cuaCode.endsWith('-D'))) {
+            cuaInstructions += "- Simplifie le vocabulaire de façon extrême et ajoute des explications courtes entre parenthèses pour les mots techniques.\n";
+        }
+
+        const prompt = `Tu es un ingénieur pédagogique expert CUA.
+Tâche : Adapte le document suivant en appliquant les consignes d'accessibilité ci-dessous.
+CONSIGNES CUA :
+${cuaInstructions}
+
+DOCUMENT ORIGINAL :
+"""
+${originalContent}
+"""
+
+CONSIGNE STRICTE : Rends uniquement le document adapté au format Markdown, sans introduction ni conclusion de ta part. Conserve les schémas Mermaid s'il y en a, mais assure-toi qu'ils soient lisibles.`;
+
+        let adaptedText = "";
+        try {
+            await makeStreamingRequest(prompt, {
+                tool: 'professor',
+                provider: 'albert',
+                model: 'mistralai/Mistral-Small-3.2-24B-Instruct-2506'
+            }, (chunk) => {
+                adaptedText += chunk;
+            }, (complete) => {
+                if (socket && socket.readyState === 1) {
+                    socket.send(JSON.stringify({
+                        type: 'send-document-adaptation',
+                        docId: docId,
+                        docTitle: docTitle,
+                        cuaCode: cuaCode,
+                        adaptedContent: complete
+                    }));
+                }
+            }, (err) => {
+                console.error("Adaptation failed for student:", err);
+                socket.send(JSON.stringify({
+                    type: 'send-document-adaptation',
+                    docId: docId,
+                    docTitle: docTitle,
+                    cuaCode: cuaCode,
+                    adaptedContent: `Erreur lors de la génération avec Albert AI : ${err.message}`
+                }));
+            });
+        } catch (e) {
+            console.error("Adaptation request error:", e);
+            socket.send(JSON.stringify({
+                type: 'send-document-adaptation',
+                docId: docId,
+                docTitle: docTitle,
+                cuaCode: cuaCode,
+                adaptedContent: `Erreur interne lors du traitement de l'adaptation.`
+            }));
+        }
+    }
 }

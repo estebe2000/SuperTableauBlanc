@@ -26,7 +26,8 @@
         </div>
         <div class="status-right">
             <span class="cua-code-status" id="cuaAppliedCodeText">Aucun profil CUA actif</span>
-            <button class="btn btn-secondary btn-sm" id="openStudentPlaylistBtn" style="margin-right: 6px;">📂 Playlist Médias</button>
+            <button class="btn btn-secondary btn-sm" id="openStudentDocsBtn" style="margin-right: 6px;">📂 Documents partagés</button>
+            <button class="btn btn-secondary btn-sm" id="openStudentPlaylistBtn" style="margin-right: 6px;">🎥 Playlist Médias</button>
             <button class="btn btn-secondary btn-sm" id="openCuaSettingsBtn">⚙️ Adapter l'écran</button>
         </div>
     </div>
@@ -84,12 +85,20 @@
         <div class="student-docs-list" id="studentDocsList">
             <!-- Generated documents will be populated here -->
         </div>
-        <div class="student-doc-viewer" id="studentDocViewer" style="display: none;">
-            <div class="viewer-header">
-                <h4 id="studentViewerTitle">Titre du document</h4>
+        <div class="student-doc-viewer" id="studentDocViewer" style="display: none; display: flex; flex-direction: column;">
+            <div class="viewer-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <h4 id="studentViewerTitle" style="margin: 0;">Titre du document</h4>
                 <button class="btn btn-icon btn-sm" id="closeStudentViewerBtn">×</button>
             </div>
-            <div class="viewer-content markdown-content" id="studentViewerContent">
+            
+            <!-- Document View Options Tabs -->
+            <div class="doc-viewer-tabs" id="docViewerTabs" style="display: flex; gap: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; align-items: center;">
+                <button class="btn btn-secondary btn-sm active" id="viewOriginalDocTabBtn" style="padding: 4px 10px; font-size: 0.75rem;">📄 Version Originale</button>
+                <button class="btn btn-secondary btn-sm" id="viewAdaptedDocTabBtn" style="padding: 4px 10px; font-size: 0.75rem; background: linear-gradient(90deg, #7c3aed, #4f46e5); border: none; color: white;">✨ Adapter à mon Profil (CUA)</button>
+                <button class="btn btn-success btn-sm" id="downloadAdaptedDocBtn" style="padding: 4px 10px; font-size: 0.75rem; margin-left: auto; display: none; background: #10b981; border: none; color: white;">📥 Télécharger (PDF)</button>
+            </div>
+            
+            <div class="viewer-content markdown-content" id="studentViewerContent" style="flex: 1; overflow-y: auto;">
                 <!-- HTML / Markdown content -->
             </div>
         </div>
