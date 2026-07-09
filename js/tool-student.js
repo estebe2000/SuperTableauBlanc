@@ -579,7 +579,16 @@ export function initStudent() {
                 el.innerHTML = `<video src="${url}" controls style="max-width:100%; max-height:100%;"></video>`;
             }
         } else if (w.type === 'iframe') {
-            el.innerHTML = `<iframe src="${w.content}" frameborder="0" style="width:100%; height:100%;"></iframe>`;
+            let url = w.content || "";
+            if (url.startsWith('data:')) {
+                try {
+                    const blob = dataURLtoBlob(url);
+                    url = URL.createObjectURL(blob);
+                } catch(e) {
+                    console.error("Failed to convert Data URL to Blob", e);
+                }
+            }
+            el.innerHTML = `<iframe src="${url}" frameborder="0" style="width:100%; height:100%;"></iframe>`;
         } else if (w.type === 'file') {
             el.innerHTML = `
                 <div class="file-widget-inner">
@@ -591,7 +600,15 @@ export function initStudent() {
                 </div>
             `;
         } else if (w.type === 'media') {
-            const url = w.content || "";
+            let url = w.content || "";
+            if (url.startsWith('data:')) {
+                try {
+                    const blob = dataURLtoBlob(url);
+                    url = URL.createObjectURL(blob);
+                } catch(e) {
+                    console.error("Failed to convert Data URL to Blob", e);
+                }
+            }
             if (w.mediaType === 'image') {
                 el.innerHTML = `<img src="${url}" style="width:100%; height:100%; object-fit:contain; border-radius:0 0 6px 6px;">`;
             } else if (w.mediaType === 'video') {
@@ -619,6 +636,15 @@ export function initStudent() {
                 el.innerHTML = `<iframe src="${url}" frameborder="0" style="width:100%; height:100%; border:none; border-radius:0 0 6px 6px; background:white;"></iframe>`;
             }
         }
+    }
+
+    function dataURLtoBlob(dataurl) {
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){
+            u8arr[n] = bstr.charCodeAt(n);
+        }
+        return new Blob([u8arr], {type:mime});
     }
 
     function applyDesktopBackground(bg) {

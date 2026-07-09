@@ -1293,6 +1293,15 @@ export function initBureau() {
         });
     }
 
+    function readFileAsDataURL(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.onerror = (e) => reject(e);
+            reader.readAsDataURL(file);
+        });
+    }
+
     async function handleBureauFiles(files) {
         bureauFilesList.style.display = 'block';
 
@@ -1306,7 +1315,7 @@ export function initBureau() {
             bureauFilesList.appendChild(itemEl);
 
             try {
-                const url = URL.createObjectURL(file);
+                const fileDataUrl = await readFileAsDataURL(file);
                 let mediaType = 'pdf';
                 if (file.type.startsWith('image/')) mediaType = 'image';
                 else if (file.type.startsWith('video/')) mediaType = 'video';
@@ -1317,10 +1326,11 @@ export function initBureau() {
                     id: `media-${Math.random().toString(36).substring(2, 9)}`,
                     title: file.name,
                     type: mediaType,
-                    url: url
+                    url: fileDataUrl
                 };
                 playlist.push(playItem);
                 updatePlaylistDOM();
+                syncPlaylistData();
 
                 // If text extractable for Albert AI
                 if (file.type === 'application/pdf' || file.name.endsWith('.docx')) {
