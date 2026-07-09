@@ -521,6 +521,30 @@ nav.scrolled {
     transform: translateY(-2px);
 }
 
+.btn-student-access {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    background: linear-gradient(90deg, #10b981, #059669); /* Elegant emerald green gradient */
+    border: none;
+    border-radius: 50px;
+    color: #fff;
+    font-family: 'Sora', sans-serif;
+    font-size: .9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: none;
+    box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
+    transition: all .3s var(--transition);
+}
+
+.btn-student-access:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(90deg, #059669, #047857);
+    box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+}
+
 .hero-stats {
     display: flex;
     gap: 40px;
@@ -5301,6 +5325,126 @@ body.bureau-active .bureau-desktop {
     pointer-events: none;
     transform: translate(-50%, -50%);
     animation: ping-inner-pulse 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* QR & Sharing Modal Premium Styles */
+.qr-modal-content {
+    background: rgba(15, 23, 42, 0.9) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 16px !important;
+    max-width: 620px !important;
+    width: 95% !important;
+    height: auto !important;
+    padding: 40px !important;
+    text-align: center !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    backdrop-filter: blur(16px) saturate(180%) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    color: #f8fafc !important;
+    position: relative !important;
+    cursor: default !important;
+}
+
+.qr-modal-content h3 {
+    font-size: 1.6rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 8px !important;
+    color: #fff !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    justify-content: center !important;
+}
+
+.qr-modal-content p {
+    font-size: 0.88rem !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    margin-bottom: 24px !important;
+    max-width: 480px !important;
+    line-height: 1.4 !important;
+}
+
+/* Big Session Code display */
+.qr-session-code-giant {
+    font-size: 4rem !important;
+    font-weight: 900 !important;
+    color: var(--accent1) !important;
+    letter-spacing: 8px !important;
+    margin: 12px 0 !important;
+    font-family: 'Outfit', 'Inter', sans-serif !important;
+    text-shadow: 0 0 20px rgba(255, 71, 87, 0.2) !important;
+    user-select: all !important;
+}
+
+.qr-code-display-box {
+    background: #ffffff !important;
+    padding: 18px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+    display: inline-block !important;
+    margin-bottom: 20px !important;
+    border: 3px solid var(--accent1) !important;
+    transition: transform 0.3s ease !important;
+}
+
+.qr-code-display-box:hover {
+    transform: scale(1.02) !important;
+}
+
+#sessionQrCodeImg {
+    width: 200px !important;
+    height: 200px !important;
+    display: block !important;
+}
+
+.qr-link-box {
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+.qr-link-url-field {
+    display: flex !important;
+    align-items: center !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    font-family: monospace !important;
+    font-size: 1.1rem !important;
+    color: #e2e8f0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    justify-content: space-between !important;
+}
+
+.qr-link-url-field:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+}
+
+.qr-modal-content .close-modal {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.5) !important;
+    cursor: pointer !important;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 24px !important;
+    top: 15px !important;
+    right: 15px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background 0.2s, color 0.2s !important;
+}
+
+.qr-modal-content .close-modal:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: #fff !important;
 }
 
 

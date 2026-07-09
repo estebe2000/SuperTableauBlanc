@@ -168,16 +168,22 @@
     <div class="modal-close-area" id="sessionQrModalCloseArea"></div>
     <div class="modal-content qr-modal-content">
         <button class="close-modal" id="closeSessionQrModalBtn">×</button>
-        <h3>📱 Partager le cours en direct</h3>
-        <p>Projetez ou montrez ce QR code aux élèves pour qu'ils puissent rejoindre la session instantanément avec leur smartphone ou tablette.</p>
+        <h3>🚀 Diffusion en Direct Activée</h3>
+        <p>Les élèves peuvent scanner ce QR code ou se connecter sur le lien ci-dessous avec le code de session.</p>
+        
+        <div class="qr-session-code-header" style="font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px;">Code de Session</div>
+        <div class="qr-session-code-giant" id="sessionCodeGiant">------</div>
         
         <div class="qr-code-display-box">
             <img id="sessionQrCodeImg" src="" alt="QR Code Session">
-            <div class="qr-session-label">Session : <span id="sessionQrCodeLabel">------</span></div>
         </div>
         
         <div class="qr-link-box">
-            <span class="qr-link-url" id="sessionQrLinkUrl">http://...</span>
+            <div class="qr-link-header" style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: left; margin-bottom: 6px; font-weight: 600;">Lien direct élève (cliquez pour copier) :</div>
+            <div class="qr-link-url-field" id="sessionQrLinkCopyContainer">
+                <span id="sessionQrLinkUrl" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 440px;">http://...</span>
+                <span style="font-size: 0.9rem; color: var(--accent1); font-weight: 700; display: flex; align-items: center; gap: 4px;">📋 Copier</span>
+            </div>
         </div>
     </div>
 </div>

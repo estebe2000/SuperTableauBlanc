@@ -131,6 +131,11 @@ export function initBureau() {
         teacherSessionCode.textContent = `${sessionCode.substring(0, 3)} ${sessionCode.substring(3)}`;
         
         connectWebSocket();
+
+        // Automatically open the large sharing modal in the center of the screen
+        setTimeout(() => {
+            if (showSessionQrBtn) showSessionQrBtn.click();
+        }, 300);
     });
 
     stopSessionBtn.addEventListener('click', () => {
@@ -535,9 +540,25 @@ export function initBureau() {
     showSessionQrBtn?.addEventListener('click', () => {
         const shareUrl = `${window.location.origin}/?session=${sessionCode}`;
         sessionQrCodeImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(shareUrl)}`;
-        sessionQrCodeLabel.textContent = `${sessionCode.substring(0, 3)} ${sessionCode.substring(3)}`;
+        
+        const codeGiant = document.getElementById('sessionCodeGiant');
+        if (codeGiant) {
+            codeGiant.textContent = `${sessionCode.substring(0, 3)} ${sessionCode.substring(3)}`;
+        }
+        if (sessionQrCodeLabel) {
+            sessionQrCodeLabel.textContent = `${sessionCode.substring(0, 3)} ${sessionCode.substring(3)}`;
+        }
+        
         sessionQrLinkUrl.textContent = shareUrl;
         sessionQrModal.classList.add('show');
+    });
+
+    const sessionQrLinkCopyContainer = document.getElementById('sessionQrLinkCopyContainer');
+    sessionQrLinkCopyContainer?.addEventListener('click', () => {
+        const shareUrl = `${window.location.origin}/?session=${sessionCode}`;
+        navigator.clipboard.writeText(shareUrl)
+            .then(() => window.showToast("Lien élève copié ! ✓"))
+            .catch(() => alert("Impossible de copier le lien."));
     });
 
     const closeQrModal = () => sessionQrModal?.classList.remove('show');

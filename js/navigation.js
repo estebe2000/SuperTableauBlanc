@@ -4,7 +4,13 @@ export function initNavigation() {
   const toolCards = document.querySelectorAll('.tool-card');
 
   function switchTab(tabId) {
-    document.body.classList.toggle('bureau-active', tabId === 'bureau' || tabId === 'student');
+    const isFullPage = tabId === 'bureau' || tabId === 'student';
+    document.body.classList.toggle('bureau-active', isFullPage);
+    
+    const nav = document.getElementById('navbar');
+    const footer = document.querySelector('footer');
+    if (nav) nav.style.display = isFullPage ? 'none' : 'flex';
+    if (footer) footer.style.display = isFullPage ? 'none' : 'block';
     
     tabLinks.forEach(link => {
       if (link.getAttribute('data-tab') === tabId) {
