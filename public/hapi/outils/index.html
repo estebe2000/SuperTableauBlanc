@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>- HAPI - Outils</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+
+</head>
+<body class="page-outils">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span>Outils</span>
+        </div>
+
+        <main id="contenu">
+        <div class="content">
+            <h1><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Outils complémentaires</h1>
+            <p>Découvrez des outils spécialisés pour fusionner et convertir vos contenus H5P interactifs, organiser le suivi d'ateliers pédagogiques en classe, visualiser le reporting des activités SCORM.</p>
+        </div>
+
+        <div class="platforms-grid">
+            <div class="platform-card generator">
+                <div class="card-icon"><a href="./ateliers.html" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg> </a></div>
+                <h2>Ateliers SCORM</h2>
+                <p>Organiser le suivi pédagogique des ateliers de classe et rendre les élèves acteurs et autonomes dans cette tâche.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Autonomie</li>
+                    <li class="feature-tag">Plan de travail</li>
+                    <li class="feature-tag">Compatible Éléa</li>
+                    <li class="feature-tag">Différenciation</li>
+                </ul>
+                <a href="./ateliers.html" class="card-button">Accéder à l'outil de suivi</a>
+            </div>
+
+            <div class="platform-card generator">
+                <div class="card-icon"><a href="plugins/firefox/Reporting-SCORM-ELEA-DRANE-Normandie-1.2.xpi" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 0 1-.837.276c-.47-.07-.802-.48-.968-.925a2.501 2.501 0 1 0-3.214 3.214c.446.166.855.497.925.968a.979.979 0 0 1-.276.837l-1.61 1.61a2.404 2.404 0 0 1-1.705.707 2.402 2.402 0 0 1-1.704-.706l-1.568-1.568a1.026 1.026 0 0 0-.877-.29c-.493.074-.84.504-1.02.968a2.5 2.5 0 1 1-3.237-3.237c.464-.18.894-.527.967-1.02a1.026 1.026 0 0 0-.289-.877l-1.568-1.568A2.402 2.402 0 0 1 1.998 12c0-.617.236-1.234.706-1.704L4.23 8.77c.24-.24.581-.353.917-.303.515.077.877.528 1.073 1.01a2.5 2.5 0 1 0 3.259-3.259c-.482-.196-.933-.558-1.01-1.073-.05-.336.062-.676.303-.917l1.525-1.525A2.402 2.402 0 0 1 12 1.998c.617 0 1.234.236 1.704.706l1.568 1.568c.23.23.556.338.877.29.493-.074.84-.504 1.02-.968a2.5 2.5 0 1 1 3.237 3.237c-.464.18-.894.527-.967 1.02Z"/></svg> </a></div>
+                <h2>Reporting Firefox</h2>
+                <p>Faciliter l'analyse du reporting des résultats des élèves. Analyse globale, analyse détaillée et statistiques temporelles.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Suivi</li>
+                    <li class="feature-tag">Résultats</li>
+                    <li class="feature-tag">Compatible Éléa</li>
+                    <li class="feature-tag">Différenciation</li>
+                </ul>
+                <a href="plugins/firefox/Reporting-SCORM-ELEA-DRANE-Normandie-1.2.xpi" class="card-button">Installer le plugin</a>
+            </div>
+
+            <div class="platform-card generator">
+                <div class="card-icon"><a href="./plugin-chrome.html" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg> </a></div>
+                <h2>Reporting Chrome</h2>
+                <p>Faciliter l'analyse du reporting des résultats des élèves. Analyse globale, analyse détaillée et statistiques temporelles.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Suivi</li>
+                    <li class="feature-tag">Résultats</li>
+                    <li class="feature-tag">Compatible Éléa</li>
+                    <li class="feature-tag">Différenciation</li>
+                </ul>
+                <a href="./plugin-chrome.html" class="card-button">Accéder au plugin</a>
+            </div>
+
+            <div class="platform-card converter">
+                <div class="card-icon"><a href="./exporteur.html" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> </a></div>
+                <h2>Exporteur H5P</h2>
+                <p>Déposez un ou plusieurs fichiers H5P produits sur HAPI pour obtenir une version XML, GIFT, ODT ou PDF selon les activités.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Upload multiple</li>
+                    <li class="feature-tag">Fiches</li>
+                    <li class="feature-tag">Correction</li>
+                    <li class="feature-tag">Zip d'ensemble</li>
+                </ul>
+                <a href="./exporteur.html" class="card-button">Accéder à l'exporteur</a>
+            </div>
+
+			<div class="platform-card merger">
+                <div class="card-icon"><a href="./fusionneur.html" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></svg> </a></div>
+                <h2>Fusionneur H5P</h2>
+                <p>Combinez plusieurs contenus H5P en un seul package. Créez des objets pédagogiques complets en assemblant vos activités existantes.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Fusion multiple</li>
+                    <li class="feature-tag">Données</li>
+                    <li class="feature-tag">Structure organisée</li>
+                    <li class="feature-tag">Validation automatique</li>
+                </ul>
+                <a href="./fusionneur.html" class="card-button">Accéder au fusionneur</a>
+            </div>
+
+            <div class="platform-card converter">
+                <div class="card-icon"><a href="./convertisseur.html" aria-hidden="true" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> </a></div>
+                <h2>Convertisseur H5P</h2>
+                <p>Transformez vos contenus H5P produits sur des logiciels tiers pour une adéquation totale aux plateformes Éléa.</p>
+                <ul class="card-features">
+                    <li class="feature-tag">Multi-formats</li>
+                    <li class="feature-tag">Mises à jour</li>
+                    <li class="feature-tag">Préservation des données</li>
+                    <li class="feature-tag">Compatibilité Éléa</li>
+                </ul>
+                <a href="./convertisseur.html" class="card-button">Accéder au convertisseur</a>
+            </div>
+        </div>
+    </main>
+    </div>
+    <footer class="footer">
+        <a href="../index.html">HAPI</a> est développé sur la Forge par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="La Forge des communs numériques éducatifs" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+	<script src="../js/tracking-static.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAPI — Fonctionnement du RAG (programmes officiels)</title>
+<link rel="icon" type="image/png" href="../images/favicon.ico">
+<script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Alias mappés sur les tokens de thème HAPI (styles.css) → suivent le switcher
+     (couleur + mode clair/sombre via [data-theme] / [data-mode]). */
+  :root{
+    --bg:var(--page-bg); --card:var(--surface); --ink:var(--text); --muted:var(--text-muted);
+    --accent:var(--hapi-green-dark); --accent2:var(--hapi-green); --accent3:var(--hapi-green-light);
+    --line:var(--border); --ok:var(--hapi-accent-text); --warn:#b8860b; --code:var(--hapi-green-mist);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Marianne","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.55; padding:0 0 40px;
+  }
+  .wrap{max-width:1080px; margin:24px auto 0; padding:0 18px}
+  header.hero{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff; border-radius:18px; padding:30px 34px; margin-bottom:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+  header.hero h1{margin:0 0 6px; font-size:1.7rem}
+  header.hero p{margin:0; color:#fff; opacity:.95}
+  .badges{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px}
+  .badge{background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+    padding:5px 11px; border-radius:999px; font-size:.82rem; font-weight:600}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin:22px 0 30px}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .stat .n{font-size:1.5rem; font-weight:800; color:var(--accent)}
+  .stat .l{font-size:.82rem; color:var(--muted)}
+  section{background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px 26px; margin-bottom:24px; box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  section h2{margin:0 0 4px; font-size:1.25rem; display:flex; align-items:center; gap:9px}
+  section h2 .dot{width:11px; height:11px; border-radius:50%; background:var(--accent)}
+  section .sub{color:var(--muted); margin:0 0 18px; font-size:.92rem}
+  .mermaid{background:transparent; text-align:center; overflow-x:auto}
+  table{width:100%; border-collapse:collapse; margin-top:8px; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{color:var(--muted); font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.03em}
+  td.num{text-align:right; font-variant-numeric:tabular-nums; font-weight:700}
+  code{background:var(--code); padding:2px 6px; border-radius:6px; font-size:.86em;
+    font-family:"SFMono-Regular",Consolas,monospace}
+  pre{background:var(--code); border:1px solid var(--line); border-radius:10px;
+    padding:14px 16px; overflow-x:auto; font-size:.82rem; line-height:1.5;
+    font-family:"SFMono-Regular",Consolas,monospace; color:var(--ink)}
+  .ok{color:var(--ok); font-weight:700}
+  .warn{color:var(--warn); font-weight:700}
+  .pill{display:inline-block; background:var(--code); border:1px solid var(--line);
+    border-radius:8px; padding:2px 8px; font-size:.8rem; margin:2px 3px 2px 0; font-weight:600}
+  .callout{border-left:4px solid var(--warn); background:rgba(184,134,11,.08);
+    border-radius:8px; padding:12px 16px; margin:16px 0 0; font-size:.9rem}
+  .callout b{color:var(--warn)}
+  ol.steps{margin:0; padding-left:0; list-style:none; counter-reset:step}
+  ol.steps li{counter-increment:step; position:relative; padding:10px 0 10px 42px; border-bottom:1px solid var(--line)}
+  ol.steps li:last-child{border-bottom:0}
+  ol.steps li::before{content:counter(step); position:absolute; left:0; top:9px;
+    width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:.85rem}
+  ol.steps b{display:block}
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:18px}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:.82rem; color:var(--muted); margin-top:10px}
+  .legend span{display:flex; align-items:center; gap:6px}
+  .sw{width:13px; height:13px; border-radius:4px; display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>RAG des programmes officiels — HAPI</h1>
+    <p>Comment HAPI relie un corpus enseignant aux programmes du Bulletin officiel pour aligner les activités générées sur le bon niveau et la bonne discipline.</p>
+    <div class="badges">
+      <span class="badge">Index : SQLite + sqlite-vec</span>
+      <span class="badge">14 056 chunks · 284 PDF</span>
+      <span class="badge">Embeddings : BGE-M3 (Albert)</span>
+      <span class="badge">Souverain : Albert · Scaleway</span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="stat"><div class="n">14 056</div><div class="l">chunks indexés</div></div>
+    <div class="stat"><div class="n">284</div><div class="l">PDF de programmes BO</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">extraits injectés (top_k)</div></div>
+    <div class="stat"><div class="n">BGE-M3</div><div class="l">modèle d'embeddings</div></div>
+  </div>
+
+  <!-- 1. VUE D'ENSEMBLE -->
+  <section>
+    <h2><span class="dot"></span>1. Vue d'ensemble du flux</h2>
+    <p class="sub">Deux phases : l'<b>indexation hors-ligne</b> (une fois) et la <b>recherche au runtime</b> (à chaque corpus).</p>
+    <div class="mermaid">
+flowchart TD
+  subgraph BUILD["🛠️ Indexation BO — hors-ligne (ponctuelle)"]
+    direction TB
+    P["PDF des programmes officiels<br/>bo-corpus/pdfs · 284 fichiers"]
+    EX["Extraction structurée<br/>extract_structured.py + pdf_cleaner.py"]
+    CH["Chunking + métadonnées<br/>chunker.py · cycle, discipline, section_type"]
+    EM["Vectorisation des chunks<br/>embedder.py · BGE-M3"]
+    DB[("hapi_bo_index.db<br/>SQLite + sqlite-vec<br/>14 056 chunks")]
+    P --> EX --> CH --> EM --> DB
+  end
+
+  subgraph FRONT["🖥️ Front HAPI — navigateur"]
+    direction TB
+    U["Enseignant : corpus + choix du niveau"]
+    TAXO["Cascade Scolarité &gt; Niveau &gt; Discipline<br/>via /api/bo-taxonomy"]
+    FBC["fetchBOContext()<br/>query = corpus · cycle · discipline? · top_k=3"]
+    BLK["buildBOPromptBlock()<br/>bloc « ÉLÉMENTS DU PROGRAMME OFFICIEL »"]
+    GEN["Génération de l'activité H5P<br/>prompt Albert + bloc programme"]
+    U --> TAXO --> FBC
+    BLK --> GEN
+  end
+
+  subgraph PROXY["☁️ Proxy Scaleway — /api/bo-search"]
+    direction TB
+    RW["1 · Réécriture de requête (LLM)<br/>corpus → thème + 2-3 sous-thèmes"]
+    MS["2 · Multi-recherche cosinus<br/>chaque sous-thème → embedding → KNN sqlite-vec<br/>filtre cycle + discipline · section_type NON filtré"]
+    FUS["3 · Fusion + déduplication (chunk_id)"]
+    RR["4 · Rerank DÉSACTIVÉ (w=0)<br/>tri = similarité cosinus pure"]
+    TOP["5 · Dédup texte → top_k = 3 extraits"]
+    RW --> MS --> FUS --> RR --> TOP
+  end
+
+  subgraph ALBERT["🇫🇷 Albert API — via n8n"]
+    AEMB["Embeddings · BGE-M3"]
+    ALLM["LLM · réécriture + détection discipline"]
+    ARR["Rerank · BGE-reranker-v2-m3"]
+  end
+
+  FBC ==>|"POST /api/bo-search"| RW
+  TOP ==>|"top_k extraits + métadonnées"| BLK
+  MS -. "interroge l'index" .-> DB
+  MS -. "vectorise" .-> AEMB
+  RW -. "appelle" .-> ALLM
+  FBC -. "auto-détection discipline" .-> ALLM
+  RR -. "inactif par défaut" .-> ARR
+
+  classDef build fill:#eaf4ef,stroke:#2f7d5b,color:#1b1f3b;
+  classDef front fill:#eef1fb,stroke:#3858a4,color:#1b1f3b;
+  classDef proxy fill:#f0ecfb,stroke:#6a4fb0,color:#1b1f3b;
+  classDef srv fill:#fff3d6,stroke:#b8860b,color:#1b1f3b;
+  class P,EX,CH,EM build;
+  class DB srv;
+  class U,TAXO,FBC,BLK,GEN front;
+  class RW,MS,FUS,RR,TOP proxy;
+  class AEMB,ALLM,ARR srv;
+    </div>
+    <div class="legend">
+      <span><span class="sw" style="background:#2f7d5b"></span>Indexation hors-ligne</span>
+      <span><span class="sw" style="background:#3858a4"></span>Front HAPI</span>
+      <span><span class="sw" style="background:#6a4fb0"></span>Proxy / recherche</span>
+      <span><span class="sw" style="background:#b8860b"></span>Albert · index</span>
+    </div>
+  </section>
+
+  <!-- 2. CLASSEMENT -->
+  <section>
+    <h2><span class="dot"></span>2. Le classement des extraits</h2>
+    <p class="sub">Comment le proxy choisit les 3 extraits renvoyés à partir du corpus de l'enseignant.</p>
+    <ol class="steps">
+      <li><b>Réécriture de la requête</b> Le corpus brut (2000 premiers caractères) est passé à un LLM qui en extrait un <i>thème principal</i> + 2 à 3 <i>sous-thèmes</i> (mots-clés débruités) — pour éviter que le bruit (auteur, n° de page, intros) ne pollue la recherche.</li>
+      <li><b>Recherche multi-requêtes (cosinus)</b> Chaque (sous-)thème est vectorisé avec <code>BGE-M3</code> puis comparé par <b>similarité cosinus</b> (KNN <code>sqlite-vec</code>), en filtrant sur <code>cycle</code> + <code>discipline</code>. <span class="warn">Aucun filtre <code>section_type</code>.</span></li>
+      <li><b>Fusion + déduplication</b> Les candidats des différentes requêtes sont fusionnés et dédupliqués par <code>chunk_id</code> (on garde le meilleur score cosinus).</li>
+      <li><b>Rerank — désactivé</b> Score final = <code>(1−w)·cosinus + w·rerank</code> avec <code>w = 0</code> : le reranker (BGE-reranker-v2-m3) est neutralisé car il dégradait le classement sur le corpus BO. <b>Le tri est donc 100&nbsp;% cosinus.</b></li>
+      <li><b>Top-K</b> Déduplication par texte, puis on garde les <b>3 extraits</b> les plus proches (<code>top_k = 3</code>).</li>
+    </ol>
+    <div class="callout">
+      En clair : la référence retenue est <b>le passage le plus proche sémantiquement</b> du corpus, dans le bon cycle/discipline. Pour un document sur la Seconde Guerre mondiale en cycle 3, c'est naturellement le <i>Thème 3 — La France, des guerres mondiales à l'Union européenne</i> qui ressort.
+    </div>
+  </section>
+
+  <!-- 3. METADONNEES -->
+  <section>
+    <h2><span class="dot"></span>3. Métadonnées &amp; types de sections</h2>
+    <p class="sub">Chaque chunk porte des métadonnées (cycle, discipline, <code>section_type</code>). Mais la recherche ne filtre PAS sur le type — d'où une nuance importante.</p>
+    <table>
+      <thead><tr><th>section_type</th><th class="num">chunks</th><th>nature</th></tr></thead>
+      <tbody>
+        <tr><td><code>(non typé)</code></td><td class="num">12 466</td><td>contenu non classé (l'essentiel de la base)</td></tr>
+        <tr><td><code>preambule</code></td><td class="num">520</td><td>introductions de programme</td></tr>
+        <tr><td><code>evaluation</code></td><td class="num">313</td><td>modalités d'évaluation</td></tr>
+        <tr><td><code>capacites_attendues</code></td><td class="num">159</td><td>capacités / compétences</td></tr>
+        <tr><td><code>competences_travaillees</code></td><td class="num">122</td><td>compétences travaillées</td></tr>
+        <tr><td><code>theme_specifique</code></td><td class="num">96</td><td>thèmes / démarches</td></tr>
+        <tr><td><code>exemples_situations</code></td><td class="num">65</td><td>exemples de situations</td></tr>
+        <tr><td><code>attendus_fin_cycle</code></td><td class="num"><span class="warn">15</span></td><td>attendus de fin de cycle (formels)</td></tr>
+      </tbody>
+    </table>
+    <div class="callout">
+      <b>Nuance clé :</b> les véritables « <b>attendus de fin de cycle</b> » sont <b>ultra-minoritaires</b> (15 chunks). Comme la recherche ne filtre pas par <code>section_type</code>, HAPI injecte le passage le plus pertinent <i>thématiquement</i> (souvent un thème ou une démarche), et non la section formelle « attendus ». C'est pourquoi le bloc s'intitule désormais « <b>Éléments du programme officiel</b> » et non « Attendus ».
+    </div>
+  </section>
+
+  <!-- 4. BLOC INJECTE -->
+  <section>
+    <h2><span class="dot"></span>4. Ce qui est injecté dans le prompt IA</h2>
+    <p class="sub">Les 3 extraits sont formatés par <code>buildBOPromptBlock()</code> puis ajoutés au prompt de génération de l'activité.</p>
+    <pre>=== ÉLÉMENTS DU PROGRAMME OFFICIEL ===
+
+Les éléments suivants proviennent du programme officiel de l'Éducation
+nationale (cycle_3, histoire_geographie). Les activités générées DOIVENT
+s'aligner sur ce programme. Privilégie les questions et exercices qui
+mobilisent les notions et compétences du programme plutôt que la pure
+restitution factuelle.
+
+[Extrait 1 — cycle_3 &gt; histoire_geographie &gt; Thème 3 - La France,
+des guerres mondiales à l'Union européenne]
+Source : Arrêté du 17-7-2020 et J.O. du 28-7-2020
+- Deux guerres mondiales au vingtième siècle. - La construction
+européenne. À partir des traces de la Grande Guerre et de la Seconde
+Guerre mondiale dans l'environnement des élèves […]
+
+=== FIN DES ÉLÉMENTS DU PROGRAMME OFFICIEL ===</pre>
+    <p style="margin-top:14px; font-size:.9rem; color:var(--muted)">
+      <span class="ok">Dégradation gracieuse</span> : si le RAG est indisponible (index non chargé, réseau…), HAPI continue la génération <b>sans</b> ce bloc — la cascade de sélecteurs et la génération restent fonctionnelles.
+    </p>
+  </section>
+
+  <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:6px">Documentation générée le 18/06/2026</p>
+
+</div>
+<!-- bandeau + sommaire + pied de page injectés par docs-chrome.js -->
+
+<script src="../vendor/mermaid/mermaid.min.js"></script>
+<script>
+  const dark = document.documentElement.getAttribute('data-mode') === 'dark'
+    || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'base',
+    themeVariables: {
+      primaryColor: dark ? '#1b1e2b' : '#eaf4ef',
+      primaryBorderColor: '#2f7d5b',
+      primaryTextColor: dark ? '#eef0f7' : '#1b1f3b',
+      lineColor: dark ? '#7d9be8' : '#3858a4',
+      fontFamily: 'Marianne, Segoe UI, system-ui, sans-serif'
+    },
+    flowchart: { curve: 'basis', htmlLabels: true },
+    securityLevel: 'loose'
+  });
+</script>
+<script src="../js/tracking-static.js"></script>
+<script src="docs-chrome.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

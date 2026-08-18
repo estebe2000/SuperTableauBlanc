@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions légales - HAPI</title>
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="css/styles.css">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+	<style>
+		/* Le bloc opt-out Matomo a un fond clair fixe et reçoit un contenu injecté
+		   par script externe : on force un texte sombre lisible (contraste RGAA)
+		   indépendamment du thème, et un rouge d'alerte accessible. */
+		#matomo-opt-out, #matomo-opt-out * { color: #1a1a1a !important; }
+		#matomo-opt-out a { color: #0b66c3 !important; }
+		#matomo-opt-out [style*="red"] { color: #b30000 !important; }
+		/* RGAA 10.6 : les liens au fil du texte doivent être distinguables
+		   autrement que par la seule couleur → soulignement. */
+		.content p a, .content li a { text-decoration: underline; }
+	</style>
+</head>
+<body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="./" title="Retour à l'accueil">
+                    <img src="images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="./" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="./hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="./images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="./images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+    
+    <div class="container">
+
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="./" title="Retour à l'accueil">Accueil</a>
+            <span>À propos du site</span>
+        </div>
+
+        <div class="content" id="contenu" role="main">
+            <h1>Mentions légales</h1>
+            <h2>1. Éditeur du site</h2>
+            <p>
+                Le site <strong>HAPI (Hub d'Assistance Pédagogique Interactif)</strong> est édité par la
+                <strong>DRANE de l'académie de Normandie</strong> (Délégation Régionale Académique au Numérique Éducatif).<br>
+                Adresse : Rectorat de l'académie de Normandie, 168 rue Caponière, B.P. 46184, 14061 Caen Cedex.
+            </p>
+            <h2>2. Directeur de la publication</h2>
+            <p>
+                Le directeur de la publication est la DRANE de la région académique Normandie.
+            </p>
+			<h2>3. Conception</h2>
+            <p>
+				Guillaume HERVÉ, chargé de mission DRANE. (guillaume.herve1 at ac-normandie.fr)
+			</p>
+            <h2>4. Hébergement</h2>
+            <p>
+				Forge des Communs Numériques Éducatifs 
+			</p>
+            <h2>5. Raison sociale</h2>
+			<p>
+				Ministère de l’Éducation nationale et de la Jeunesse<br>
+				110 rue de Grenelle, 75007 Paris<br>
+				01 55 55 10 10<br>
+			</p>
+            <h2>4. Propriété intellectuelle</h2>
+            <p>
+                <a href="./">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre GNU GPL v3.0 ou ultérieure</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>.
+            </p>
+            <p>
+                Sauf mention contraire, les contenus de ce site sont mis à disposition sous licence 
+                <strong>Creative Commons Attribution - Pas d’Utilisation Commerciale - Partage dans les Mêmes Conditions 4.0 International (CC BY-NC-SA 4.0)</strong>.
+            </p>
+            <p>
+                Le logo "GIA" présent en bas de page indique que le code source de cette plateforme a été généré avec l'Intelligence Artificielle, sous la supervision technique et pédagogique des équipes de la DRANE. Plus d'informations sur les travaux de Martine Peters, chercheuse et professeure en sciences de l'Éducation <a href="https://mpeters.uqo.ca/utilisation-transparente-de-lintelligence-artificielle/">Acronymes et icône pour une utilisation transparente de l’IA</a>
+            </p>
+            <h2>5. Protection des données (RGPD)</h2>
+            <p>
+                Ce site n'utilise pas de cookies de traçage ou de session. Les données personnelles éventuellement collectées via les modules pédagogiques (H5P/SCORM) sont strictement réservées à l'usage éducatif et ne sont transmises à aucun tiers commercial. Le module H5P utilisant la voix requiert l'autorisation de la personne concernée. S'il s'agit d'un élève, il faudra recueillir l'autorisation des représentants légaux.
+            </p>
+			<h2>6. Statistiques de visites et d'utilisations</h2>
+
+			<p>
+			    Afin d'adapter et d'améliorer cet outil en continu (compréhension des fonctionnalités les plus utilisées, choix des IA, etc.), HAPI utilise <strong>Matomo</strong>, un outil de mesure d'audience libre et respectueux de la vie privée.
+			</p>
+			<p>
+			    Conformément aux recommandations de la CNIL, cet outil est configuré pour être exempté du recueil de consentement préalable : <strong>il ne dépose aucun cookie de suivi</strong> sur votre navigateur et <strong>anonymise votre adresse IP</strong>. Les données récoltées sont strictement anonymes et sont hébergées de manière sécurisée sur les serveurs de l'académie de Normandie.
+			</p>
+			<p>
+			    Vous conservez toutefois le droit absolu de vous opposer à ce suivi statistique. Pour ce faire, vous pouvez décocher la case ci-dessous :
+			</p>
+
+			<div id="matomo-opt-out" style="margin-top: 15px; margin-bottom: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px; border-left: 4px solid #5b9dd9;"></div>
+			<script src="https://matomo.ac-normandie.fr/piwik/index.php?module=CoreAdminHome&action=optOutJS&divId=matomo-opt-out&language=auto&showIntro=0"></script>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="./">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="cgu.html">CGU</a>
+			<span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+<script src="js/tracking-static.js"></script>
+<script src="js/theme-switcher.js"></script>
+</body>
+</html>

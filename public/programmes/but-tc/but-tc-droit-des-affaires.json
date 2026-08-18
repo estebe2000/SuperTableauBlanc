@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Droit des affaires",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC"
+  },
+  "competences": [
+    {
+      "intitule": "Maîtriser le cadre juridique des affaires",
+      "details": [
+        "Comprendre le droit des contrats",
+        "Maîtriser la responsabilité civile et pénale du vendeur",
+        "Connaître les formes juridiques des entreprises",
+        "Appliquer le droit de la consommation"
+      ]
+    }
+  ]
+}

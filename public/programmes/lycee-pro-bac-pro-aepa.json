@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "discipline": "Bac Pro AEPA",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro AEPA — Animation Enfance et Personnes Âgées (arrêté du 22 juillet 2019)",
+    "mise_a_jour": "2019-07-22"
+  },
+  "attendus_fin_cycle": [
+    "Concevoir et conduire des projets d'animation",
+    "Animer des activités destinées à des publics variés (enfants, personnes âgées)",
+    "Communiquer et travailler en équipe pluriprofessionnelle",
+    "Contribuer au fonctionnement de la structure d'accueil",
+    "Prendre en compte les caractéristiques des publics dans l'animation"
+  ],
+  "domaines": [
+    {
+      "nom": "Conception et conduite de projets d'animation",
+      "description": "La méthodologie de projet au service de l'animation.",
+      "competences": [
+        {
+          "intitule": "Concevoir un projet d'animation adapté au public et à la structure",
+          "exemples_themes": ["La méthodologie de projet (diagnostic, objectifs, planification, évaluation)", "Conception d'un projet d'animation pour un centre de loisirs", "Conception d'un projet d'animation en EHPAD ou en résidence autonomie", "Le budget prévisionnel d'un projet d'animation"]
+        },
+        {
+          "intitule": "Évaluer un projet d'animation et proposer des ajustements",
+          "exemples_themes": ["Les critères et indicateurs d'évaluation d'une animation", "Le bilan d'activité : rédaction et présentation", "Le recueil de la satisfaction des participants (questionnaire)", "L'auto-évaluation de sa pratique professionnelle"]
+        }
+      ]
+    },
+    {
+      "nom": "Animation auprès des enfants et adolescents",
+      "description": "Les techniques d'animation pour le public jeune.",
+      "competences": [
+        {
+          "intitule": "Animer des activités éducatives, culturelles et de loisirs pour les enfants",
+          "exemples_themes": ["Animation d'un grand jeu (jeu de piste, chasse au trésor)", "Atelier créatif : arts plastiques, musique, expression corporelle", "Animation d'un temps de lecture ou de conte", "Organisation d'un spectacle ou d'une fête (kermesse, carnaval)"]
+        },
+        {
+          "intitule": "Connaître le développement de l'enfant et adapter son animation",
+          "exemples_themes": ["Les étapes du développement de l'enfant (3-12 ans)", "L'adaptation des activités selon l'âge (motricité fine, langage, socialisation)", "La gestion d'un groupe d'enfants (règles de vie, conflits)", "L'enfant en situation de handicap : inclusion et adaptation"]
+        }
+      ]
+    },
+    {
+      "nom": "Animation auprès des personnes âgées",
+      "description": "Les techniques d'animation pour le public senior.",
+      "competences": [
+        {
+          "intitule": "Animer des activités de maintien de l'autonomie et du lien social pour les personnes âgées",
+          "exemples_themes": ["Atelier mémoire : quiz, loto, réminiscence", "Atelier d'activité physique adaptée (gymnastique douce, parcours moteur)", "Animation musicale et chant (karaoké, chorale)", "Atelier cuisine thérapeutique en EHPAD"]
+        },
+        {
+          "intitule": "Connaître les caractéristiques du vieillissement et adapter son animation",
+          "exemples_themes": ["Les effets du vieillissement (sensoriel, cognitif, moteur)", "L'animation auprès de personnes atteintes de troubles cognitifs (Alzheimer)", "La prévention de l'isolement social en résidence autonomie", "L'animation intergénérationnelle (crèche-EHPAD)"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication et relation professionnelle",
+      "description": "La communication avec les publics, les familles et l'équipe.",
+      "competences": [
+        {
+          "intitule": "Communiquer avec les publics, les familles et les partenaires",
+          "exemples_themes": ["L'accueil des familles et la présentation du programme d'activités", "La communication bienveillante avec les personnes âgées", "La gestion des conflits dans un groupe d'enfants", "La rédaction d'un article pour le journal de la structure ou les réseaux sociaux"]
+        },
+        {
+          "intitule": "Travailler en équipe et participer au fonctionnement de la structure",
+          "exemples_themes": ["La réunion d'équipe : préparation et compte rendu", "Le projet pédagogique de la structure (analyse et contribution)", "Les partenariats locaux (médiathèque, associations, école)", "Le cadre réglementaire de l'animation (ACM, taux d'encadrement)"]
+        }
+      ]
+    },
+    {
+      "nom": "Techniques d'animation spécifiques",
+      "description": "Les supports et techniques au service de l'animation.",
+      "competences": [
+        {
+          "intitule": "Maîtriser des techniques d'animation variées",
+          "exemples_themes": ["Les techniques d'animation sportive (jeux collectifs, parcours)", "Les techniques d'animation artistique (peinture, modelage, théâtre)", "Les techniques d'animation numérique (photo, vidéo, tablette)", "Les techniques d'animation nature et environnement (jardinage, land art)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro AEPA forme aux métiers de l'animation auprès de deux publics : les enfants/adolescents et les personnes âgées. Il couvre la conception de projets d'animation, les techniques d'animation variées (sportives, artistiques, culturelles, numériques), la communication professionnelle et la connaissance des publics. L'animation intergénérationnelle et l'inclusion sont des axes transversaux."
+}

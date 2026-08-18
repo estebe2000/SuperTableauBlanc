@@ -1,0 +1,77 @@
+            <div class="workspace-header">
+                <h2>Outil : Vision AI</h2>
+                <p>Uploadez une image et laissez <code>gemma4:12b</code> l'analyser ou transcrire son texte.</p>
+            </div>
+            <div class="app-grid">
+                <section class="panel input-panel">
+                    <div class="panel-header">
+                        <h2>1. Charger une image</h2>
+                    </div>
+
+                    <div class="drop-zone" id="dropZone">
+                        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+
+                        <div class="drop-zone-content" id="dropZoneContent">
+                            <div class="upload-icon">📸</div>
+                            <p class="primary-text">Glissez-déposez une image ici</p>
+                            <p class="secondary-text">ou cliquez pour parcourir les fichiers</p>
+                            <div class="paste-badge">Supporte le copier-coller (Ctrl+V)</div>
+                        </div>
+
+                        <div class="preview-container" id="previewContainer" style="display: none;">
+                            <img id="imagePreview" src="" alt="Aperçu de l'image">
+                            <div class="preview-overlay">
+                                <button class="btn btn-secondary btn-sm" id="changeImageBtn">
+                                    Changer d'image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="prompt-section">
+                        <div class="panel-header">
+                            <h2>2. Consigne pour le modèle</h2>
+                        </div>
+
+                        <div class="presets-container">
+                            <button class="preset-btn active" data-prompt="Décris en détail le contenu de cette image.">Description générale</button>
+                            <button class="preset-btn" data-prompt="Extrais tout le texte visible dans cette image sous forme de transcription fidèle.">Extraire le texte (OCR)</button>
+                            <button class="preset-btn" data-prompt="Quels sont les objets clés présents sur cette image et où se trouvent-ils ? (Fais une liste)">Détecter les objets</button>
+                            <button class="preset-btn" data-prompt="Analyse l'ambiance, les couleurs et le style artistique de cette image.">Analyse artistique</button>
+                        </div>
+
+                        <div class="input-wrapper">
+                            <textarea id="promptInput" rows="3" placeholder="Entrez vos instructions pour l'analyse de l'image...">Décris en détail le contenu de cette image.</textarea>
+                        </div>
+
+                        <button class="btn btn-primary" id="generateBtn" disabled>
+                            <span class="btn-text">Générer la description</span>
+                            <div class="btn-loader" style="display: none;"></div>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="panel result-panel">
+                    <div class="panel-header">
+                        <h2>3. Analyse de l'image</h2>
+                        <div class="actions">
+                            <button class="btn btn-icon" id="copyBtn" title="Copier le résultat" disabled>📋</button>
+                            <button class="btn btn-icon" id="clearBtn" title="Effacer" disabled>🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="output-container">
+                        <div class="output-placeholder" id="outputPlaceholder">
+                            <p>Le résultat de l'analyse s'affichera ici en temps réel.</p>
+                        </div>
+
+                        <div class="skeleton-loader" id="skeletonLoader" style="display: none;">
+                            <div class="skeleton-line" style="width: 90%;"></div>
+                            <div class="skeleton-line" style="width: 85%;"></div>
+                            <div class="skeleton-line" style="width: 70%;"></div>
+                        </div>
+
+                        <div class="output-text markdown-content" id="outputText" style="display: none;"></div>
+                    </div>
+                </section>
+            </div>

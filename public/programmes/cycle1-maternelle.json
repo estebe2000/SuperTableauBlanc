@@ -1,0 +1,992 @@
+{
+  "meta": {
+    "cycle": "cycle1",
+    "niveau": "Maternelle (PS, MS, GS)",
+    "source": "B.O. n°41 du 31 octobre 2024 (Langage et Maths) + Programme 2021 (autres domaines)",
+    "date_creation": "2026-03-29"
+  },
+  "programme_resume": "L'école maternelle est une école de l'épanouissement et du langage. Sa mission principale est de donner envie aux enfants d'aller à l'école pour apprendre. Elle s'organise autour de 5 domaines d'apprentissage. Les nouveaux programmes 2025 renforcent la structuration du langage oral et écrit et l'acquisition des premiers outils mathématiques, avec des repères annuels et des attendus explicites par niveau (PS, MS, GS). L'enseignement s'appuie sur le jeu, la manipulation, l'observation et la verbalisation.",
+  "domaines": {
+    "Langage oral et écrit": {
+      "label": "Développement et structuration du langage oral et écrit",
+      "sous_domaines": {
+        "Langage oral": {
+          "attendus": [
+            {
+              "intitule": "(PS) S'exprimer par des mots-phrases et de courtes phrases simples",
+              "sujets": [
+                "Les animaux de la ferme (nommer, montrer, imiter les cris)",
+                "Les objets de la classe (nommer : crayon, colle, ciseaux)",
+                "Les vêtements du matin (nommer en s'habillant au vestiaire)",
+                "Les fruits de la collation (nommer, décrire la couleur)",
+                "Les photos de la famille (dire qui est qui)",
+                "Les personnages de l'album : Petit Ours Brun"
+              ]
+            },
+            {
+              "intitule": "(PS) Répéter et dire de mémoire des comptines courtes",
+              "sujets": [
+                "Comptine : Pomme de reinette et pomme d'api",
+                "Comptine : Bateau sur l'eau",
+                "Comptine : Les petits poissons",
+                "Comptine avec gestes : Tourne tourne petit moulin",
+                "Chanson : Petit escargot",
+                "Comptine : Meunier tu dors"
+              ]
+            },
+            {
+              "intitule": "(PS) Comprendre une consigne simple (va chercher, montre-moi, donne)",
+              "sujets": [
+                "Jeu de la marchande (va chercher 2 pommes)",
+                "Parcours moteur avec consignes (passe sous, monte sur)",
+                "Jeu du panier (mets la balle dans le panier)",
+                "Rangement des jouets (mets les cubes dans la boîte rouge)"
+              ]
+            },
+            {
+              "intitule": "(PS) Raconter un événement vécu avec l'aide de l'adulte",
+              "sujets": [
+                "Les photos du week-end (qu'as-tu fait ?)",
+                "La sortie au parc (qu'as-tu vu ?)",
+                "Le goûter d'anniversaire (raconter avec les photos)",
+                "L'arrivée du lapin en classe (qu'a-t-il fait ?)"
+              ]
+            },
+            {
+              "intitule": "(MS) S'exprimer dans un langage oral syntaxiquement correct avec des phrases plus longues",
+              "sujets": [
+                "Album : Le loup qui voulait changer de couleur (Orianne Lallemand)",
+                "Album : La chenille qui fait des trous (Eric Carle)",
+                "Les images séquentielles du petit-déjeuner (3-4 images)",
+                "Décrire ce qu'on a construit (Kapla, Lego, pâte à modeler)",
+                "Raconter la recette de cuisine réalisée en classe",
+                "Les photos de la sortie (raconter dans l'ordre)"
+              ]
+            },
+            {
+              "intitule": "(MS) Reformuler son propos pour se faire mieux comprendre",
+              "sujets": [
+                "Un album sans texte (Loup Noir de Antoine Guilloppé)",
+                "Un objet caché dans un sac (décrire pour le faire deviner)",
+                "Un jeu de société (expliquer la règle à un camarade)",
+                "Un dessin à décrire pour que l'autre le reproduise"
+              ]
+            },
+            {
+              "intitule": "(MS) Dire de mémoire et de manière expressive des comptines et poésies",
+              "sujets": [
+                "Comptine : Am stram gram",
+                "Comptine : Une souris verte",
+                "Comptine : Trois petits chats",
+                "Poésie : L'automne (Carême)",
+                "Chanson : Frère Jacques (canon à deux voix)",
+                "Comptine à structure répétitive à compléter"
+              ]
+            },
+            {
+              "intitule": "(MS) Comprendre et exécuter une consigne complexe (deux actions enchaînées)",
+              "sujets": [
+                "Jeu de parcours (prends la balle et lance-la dans le cerceau)",
+                "Atelier cuisine (verse la farine puis mélange)",
+                "Jeu du facteur (prends l'enveloppe et donne-la à Léa)",
+                "Consignes d'arts plastiques (découpe puis colle)"
+              ]
+            },
+            {
+              "intitule": "(GS) Pratiquer divers usages de la langue orale : raconter, décrire, évoquer, expliquer, questionner, proposer des solutions, discuter un point de vue",
+              "sujets": [
+                "Album : Ours brun, dis-moi ce que tu vois (Bill Martin Jr)",
+                "Album : Le petit chaperon rouge (comparer deux versions)",
+                "L'élevage de chenilles en classe (observer, décrire, expliquer)",
+                "Un conflit dans la cour (conseil d'élèves, proposer des solutions)",
+                "Un film d'animation court (raconter, donner son avis)",
+                "Présenter un objet apporté de la maison (show and tell)"
+              ]
+            },
+            {
+              "intitule": "(GS) Communiquer avec les adultes et les autres enfants en se faisant comprendre avec un vocabulaire précis",
+              "sujets": [
+                "Album : Les trois brigands (Tomi Ungerer) — vocabulaire des émotions",
+                "Jeu de devinettes (décrire un animal sans le nommer)",
+                "Vocabulaire spatial : devant, derrière, à côté, entre, au-dessus",
+                "Le vocabulaire du corps humain (nommer les articulations)",
+                "Le vocabulaire des formes et des couleurs (précision : ovale, turquoise)",
+                "Le vocabulaire du temps (hier, aujourd'hui, demain, matin, après-midi)"
+              ]
+            },
+            {
+              "intitule": "(GS) Dire de mémoire et de manière expressive des textes en prose et des poésies",
+              "sujets": [
+                "Poésie : Le chat (Charles Baudelaire, version simplifiée)",
+                "Poésie : Page d'écriture (Jacques Prévert)",
+                "Un passage narratif d'album mémorisé et restitué",
+                "Comptine longue avec enchaînements logiques",
+                "Virelangue pour l'articulation (Les chaussettes de l'archiduchesse)",
+                "Récitation devant un autre groupe ou les parents"
+              ]
+            },
+            {
+              "intitule": "(GS) Participer à des échanges dans des situations diversifiées (débat, projet, régulation)",
+              "sujets": [
+                "Le conseil d'élèves (ordre du jour, prise de parole)",
+                "Débat : « Est-ce que les animaux ont des sentiments ? »",
+                "Planification d'un projet collectif (spectacle, jardin, sortie)",
+                "Résolution d'un problème de vie collective (règles de la classe)",
+                "Compte rendu oral d'une expérience scientifique"
+              ]
+            }
+          ]
+        },
+        "Se préparer à lire": {
+          "attendus": [
+            {
+              "intitule": "(PS) Écouter une histoire lue par l'adulte et manifester sa compréhension (montrer, mimer)",
+              "sujets": [
+                "Album : Bébés chouettes (Martin Waddell)",
+                "Album : Petit Ours Brun s'habille",
+                "Album : A table ! (texte court, images expressives)",
+                "Album : Coucou ! (jeu de cache-cache)",
+                "Album à toucher : La couleur des émotions (version pop-up)"
+              ]
+            },
+            {
+              "intitule": "(PS) Reconnaître son prénom en lettres capitales",
+              "sujets": [
+                "Les étiquettes-prénoms au vestiaire",
+                "Le tableau de présence (retrouver son prénom parmi 4-5)",
+                "Le prénom en lettres mobiles (reconstituer)",
+                "Jeu de loto des prénoms de la classe"
+              ]
+            },
+            {
+              "intitule": "(MS) Comprendre un récit lu (personnages, actions, déroulement)",
+              "sujets": [
+                "Album : Roule Galette (conte en randonnée)",
+                "Album : Le géant de Zéralda (Tomi Ungerer)",
+                "Album : Elmer (David McKee)",
+                "Album : La moufle (conte traditionnel)",
+                "Album : Cornebidouille (Pierre Bertrand)",
+                "Marottes ou marionnettes pour rejouer l'histoire"
+              ]
+            },
+            {
+              "intitule": "(MS) Reconnaître les lettres de l'alphabet en capitales et commencer à les nommer",
+              "sujets": [
+                "L'abécédaire de la classe (une image par lettre)",
+                "Lettres magnétiques sur le tableau",
+                "Jeu de loto des lettres capitales",
+                "Tri de lettres (distinguer lettres et chiffres)",
+                "Les lettres du prénom des copains"
+              ]
+            },
+            {
+              "intitule": "(MS) Commencer à segmenter les mots en syllabes (frapper, compter)",
+              "sujets": [
+                "Frapper les syllabes des prénoms de la classe",
+                "Le jeu du robot (parler en détachant les syllabes)",
+                "Compter les syllabes avec des jetons",
+                "Classer des images par nombre de syllabes (1, 2, 3)"
+              ]
+            },
+            {
+              "intitule": "(GS) Connaître les correspondances entre les trois écritures (capitales, script, cursive)",
+              "sujets": [
+                "Loto des lettres dans les 3 écritures",
+                "Memory : associer une lettre capitale à sa cursive",
+                "L'alphabet affiché en classe dans les 3 écritures",
+                "Les prénoms écrits dans les 3 graphies (étiquettes)"
+              ]
+            },
+            {
+              "intitule": "(GS) Manipuler les syllabes et les phonèmes : segmenter, fusionner, supprimer, substituer",
+              "sujets": [
+                "Jeu des syllabes : supprimer la syllabe finale (bateau → ba)",
+                "Fusion de syllabes (pa + pa = papa, toi + ture = toiture)",
+                "Repérer le phonème d'attaque (quel son au début de « maman » ?)",
+                "Jeu de rimes (trouver un mot qui rime avec « chat »)",
+                "Localiser un son dans un mot (début, milieu, fin)",
+                "Les boîtes à sons : classer des images par phonème d'attaque"
+              ]
+            },
+            {
+              "intitule": "(GS) Comprendre un texte lu et savoir le reformuler (récit à 5 épisodes)",
+              "sujets": [
+                "Album : Les trois petits cochons (réseau de contes)",
+                "Album : Le petit chaperon rouge (Rascal, version sans texte)",
+                "Album : Loup (Olivier Douzou)",
+                "Album : C'est moi le plus fort (Mario Ramos)",
+                "Album : La brouille (Claude Boujon)",
+                "Reformulation avec des images séquentielles (6-8 images)"
+              ]
+            },
+            {
+              "intitule": "(GS) Connaître le principe alphabétique : comprendre que les lettres codent des sons",
+              "sujets": [
+                "Encoder des mots simples avec des lettres mobiles (LA, LE, MUR, SOL)",
+                "Les alphas ou les Borel-Maisonny (associations lettre-son)",
+                "Dictée de syllabes simples (PA, TI, MO)",
+                "Écriture inventée / essais d'écriture de mots connus",
+                "Lecture de petits mots déchiffrables (vu, lu, ami, moto)"
+              ]
+            }
+          ]
+        },
+        "Se préparer à écrire": {
+          "attendus": [
+            {
+              "intitule": "(PS) Laisser des traces avec différents outils (doigt, pinceau, tampon, craie)",
+              "sujets": [
+                "Peinture au doigt sur grande feuille",
+                "Traces dans le sable, la semoule, la farine",
+                "Tampons et empreintes (bouchons, éponges)",
+                "Craies grasses sur papier de couleur",
+                "Gommettes à coller sur un chemin"
+              ]
+            },
+            {
+              "intitule": "(PS) Développer la motricité fine et la pince (pouce-index)",
+              "sujets": [
+                "Jeux de transvasement (verser, remplir, vider)",
+                "Pâte à modeler : faire des boules et des colombins",
+                "Enfilage de grosses perles",
+                "Déchirer du papier et coller",
+                "Pinces à linge : accrocher sur une corde"
+              ]
+            },
+            {
+              "intitule": "(MS) Tracer des formes graphiques de base (lignes droites, courbes, ronds, ponts, boucles)",
+              "sujets": [
+                "Les lignes verticales (la pluie, les barreaux)",
+                "Les lignes horizontales (les vagues, la mer)",
+                "Les ronds (les bulles, les ballons)",
+                "Les ponts (les arcs-en-ciel)",
+                "Les boucles (la fumée, les ressorts)",
+                "Les spirales (les escargots, les serpentins)"
+              ]
+            },
+            {
+              "intitule": "(MS) Écrire son prénom en lettres capitales sans modèle",
+              "sujets": [
+                "Le prénom en pâte à modeler (chaque lettre)",
+                "Le prénom au feutre sur ardoise blanche (essais/effacements)",
+                "Le prénom avec des lettres mobiles puis recopié",
+                "Le prénom au dos du dessin (rituel quotidien)"
+              ]
+            },
+            {
+              "intitule": "(GS) Écrire son prénom en cursive",
+              "sujets": [
+                "Le modèle du prénom en cursive au-dessus de la ligne",
+                "Entraînement sur ardoise lignée",
+                "Le prénom en cursive sur les productions quotidiennes",
+                "Comparaison des prénoms de la classe en cursive (lettres communes)"
+              ]
+            },
+            {
+              "intitule": "(GS) Écrire des mots en cursive en respectant le sens et la forme des lettres",
+              "sujets": [
+                "Les jours de la semaine en cursive (rituel de la date)",
+                "Copie de mots-outils (le, la, un, une, et, est)",
+                "Copie de courts messages (Bonne fête maman, Joyeux Noël)",
+                "Écriture de légendes sous un dessin (je suis à la plage)",
+                "Les lettres à boucles ascendantes et descendantes (l, b, f, g, j)"
+              ]
+            },
+            {
+              "intitule": "(GS) Tenir correctement l'outil scripteur et adopter une posture adaptée",
+              "sujets": [
+                "La prise en pince tripode (pouce-index-majeur)",
+                "La posture assise : dos droit, pieds au sol, feuille inclinée",
+                "Le sens de l'écriture (gauche → droite, haut → bas)",
+                "La gestion de l'espace de la feuille (partir de la marge)"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Activité physique": {
+      "label": "Agir, s'exprimer, comprendre à travers l'activité physique",
+      "attendus": [
+        {
+          "intitule": "(PS) Se déplacer de manières variées (marcher, courir, sauter, ramper, grimper)",
+          "sujets": [
+            "Parcours moteur simple (3-4 ateliers : banc, cerceaux, tunnel)",
+            "Le jeu des déménageurs (transporter des objets d'un camp à l'autre)",
+            "Courir dans un espace délimité (jeu du loup)",
+            "Grimper sur le toboggan et glisser",
+            "Sauter à pieds joints par-dessus un petit obstacle"
+          ]
+        },
+        {
+          "intitule": "(PS) Danser, bouger en rythme sur une musique",
+          "sujets": [
+            "Ronde : Jean Petit qui danse",
+            "Danse libre sur une musique douce puis rapide",
+            "Jeu des statues (bouger / s'arrêter au signal)",
+            "Comptines dansées avec gestes (Savez-vous planter les choux ?)"
+          ]
+        },
+        {
+          "intitule": "(PS) Coopérer dans un jeu collectif simple (suivre une règle, jouer avec les autres)",
+          "sujets": [
+            "Le jeu du chat (courir, attraper)",
+            "Les rondes (tourner ensemble, se donner la main)",
+            "Le jeu du foulard (attraper le foulard dans le dos)",
+            "Le parachute collectif (lever, baisser ensemble)"
+          ]
+        },
+        {
+          "intitule": "(MS) Adapter ses déplacements à des situations variées (espace, obstacles, vitesse)",
+          "sujets": [
+            "Parcours moteur complexe (6-8 ateliers enchaînés)",
+            "Vélos, trottinettes et draisiennes dans la cour",
+            "Jeu de poursuite avec zones refuges (loup glacé)",
+            "Franchir des obstacles de hauteurs variées (sauter, enjamber)",
+            "Slalomer entre des plots"
+          ]
+        },
+        {
+          "intitule": "(MS) Réaliser des actions à visée expressive et artistique (danse, mime, gymnastique)",
+          "sujets": [
+            "Danse d'expression sur Le Carnaval des animaux (Saint-Saëns)",
+            "Mime d'animaux : marcher comme un éléphant, un chat, un serpent",
+            "Enchaînement gymnique simple (roulade, équilibre sur un pied)",
+            "Spectacle de danse préparé pour les parents"
+          ]
+        },
+        {
+          "intitule": "(MS) Coopérer et s'opposer individuellement ou collectivement",
+          "sujets": [
+            "Jeux de lutte douce (tirer, pousser sans faire mal)",
+            "Jeu de l'épervier (traverser sans se faire toucher)",
+            "Jeux de relais en équipes (transporter un objet)",
+            "Jeu de la balle assise (lancer et esquiver)"
+          ]
+        },
+        {
+          "intitule": "(GS) Courir, sauter, lancer dans des espaces orientés avec des performances mesurables",
+          "sujets": [
+            "Course de vitesse sur 20 mètres (chronomètre)",
+            "Saut en longueur (mesurer la distance avec une ficelle)",
+            "Lancer de balles lestées dans une zone cible",
+            "Course d'endurance (courir 3-4 minutes sans s'arrêter)",
+            "Mini-olympiades (enchaîner courir, sauter, lancer)"
+          ]
+        },
+        {
+          "intitule": "(GS) Ajuster et enchaîner ses actions dans des parcours d'obstacles (grimper, rouler, se suspendre, se balancer)",
+          "sujets": [
+            "Parcours gymnique complexe (poutre, espalier, tapis)",
+            "Escalade sur mur adapté (prises multicolores)",
+            "Roulade avant et roulade arrière sur tapis",
+            "Se balancer et se réceptionner (barres, cordes)"
+          ]
+        },
+        {
+          "intitule": "(GS) Créer et présenter une chorégraphie collective",
+          "sujets": [
+            "Création d'une danse à partir d'un album (Max et les Maximonstres)",
+            "Danse avec accessoires (rubans, foulards, cerceaux)",
+            "Danse en formation (lignes, cercles, dispersé, regroupé)",
+            "Présentation du spectacle de danse devant une autre classe"
+          ]
+        },
+        {
+          "intitule": "(GS) Respecter les règles d'un jeu collectif avec stratégie",
+          "sujets": [
+            "Balle au capitaine (coopérer pour marquer)",
+            "Jeu des déménageurs par équipes avec défenseurs",
+            "Jeu de la thèque (frapper, courir, défendre)",
+            "Jeu collectif avec rôles différenciés (attaquants, défenseurs, arbitre)"
+          ]
+        }
+      ]
+    },
+    "Activités artistiques": {
+      "label": "Agir, s'exprimer, comprendre à travers les activités artistiques",
+      "sous_domaines": {
+        "Arts visuels": {
+          "attendus": [
+            {
+              "intitule": "(PS) Explorer des matières, des outils et des gestes (déchirer, coller, empiler, peindre)",
+              "sujets": [
+                "Peinture à la main sur grande feuille",
+                "Empreintes de mains et de pieds (fresque collective)",
+                "Collage de papiers déchirés (mosaïque libre)",
+                "Modelage libre en pâte à sel ou pâte à modeler",
+                "Assemblage de matériaux de récupération (bouchons, rouleaux)"
+              ]
+            },
+            {
+              "intitule": "(PS) Réaliser des compositions plastiques simples (en 2D et en 3D)",
+              "sujets": [
+                "Bonhomme en pâte à modeler (tête, corps, bras, jambes)",
+                "Soleil en collage (rond central + rayons en bandes de papier)",
+                "Arbre d'automne (tronc au pinceau + feuilles en gommettes)",
+                "Tour en empilant des cubes ou des boîtes"
+              ]
+            },
+            {
+              "intitule": "(MS) Choisir différents outils, médiums, supports en fonction d'un projet",
+              "sujets": [
+                "Peindre à la manière de Mondrian (lignes noires + carrés de couleur)",
+                "Peindre à la manière de Kusama (ronds sur fond coloré)",
+                "Réaliser un portrait avec des éléments naturels (à la manière d'Arcimboldo)",
+                "Techniques mixtes : encre + collage + dessin",
+                "Tamponage à l'éponge (fond pour un paysage)"
+              ]
+            },
+            {
+              "intitule": "(MS) Observer et décrire une œuvre d'art (couleurs, formes, ce qu'on voit, ce qu'on ressent)",
+              "sujets": [
+                "Les Nymphéas de Monet (les couleurs de l'eau)",
+                "Le Poisson rouge de Matisse",
+                "Les mobiles de Calder (formes et équilibre)",
+                "Un autoportrait de Frida Kahlo (les émotions)"
+              ]
+            },
+            {
+              "intitule": "(GS) Réaliser des compositions plastiques en combinant des techniques variées",
+              "sujets": [
+                "Land art dans la cour (mandalas de feuilles, cailloux, bâtons)",
+                "Création d'un livre illustré collectif (histoire inventée)",
+                "Sculpture en matériaux de récupération (personnage, animal)",
+                "Gravure sur polystyrène et impression (monotype)",
+                "Autoportrait en technique mixte (photo + dessin + collage)"
+              ]
+            },
+            {
+              "intitule": "(GS) Décrire une œuvre d'art en utilisant un vocabulaire adapté",
+              "sujets": [
+                "Comparer deux œuvres sur le même thème (le chat chez différents artistes)",
+                "Nommer les couleurs chaudes et froides dans un tableau",
+                "Les œuvres de Keith Haring (personnages en mouvement)",
+                "Visite virtuelle d'un musée (choisir et commenter son œuvre préférée)"
+              ]
+            }
+          ]
+        },
+        "Univers sonores": {
+          "attendus": [
+            {
+              "intitule": "(PS) Écouter des sons et les identifier (animaux, objets, musique)",
+              "sujets": [
+                "Loto sonore (les cris d'animaux)",
+                "Les boîtes à sons (secouer et apparier)",
+                "Écouter et reconnaître : cloche, tambourin, triangle",
+                "Musique douce pour le temps calme (Debussy, Saint-Saëns)"
+              ]
+            },
+            {
+              "intitule": "(PS) Chanter des chansons simples en groupe",
+              "sujets": [
+                "Petit escargot porte sur son dos",
+                "Ainsi font font font les petites marionnettes",
+                "Dans sa maison un grand cerf",
+                "Les crocodiles (s'en allaient à la guerre)"
+              ]
+            },
+            {
+              "intitule": "(MS) Explorer des instruments de musique simples et jouer ensemble",
+              "sujets": [
+                "Les percussions : claves, maracas, tambourin, cymbale",
+                "Accompagner une comptine avec des instruments",
+                "Jeu du chef d'orchestre (suivre les indications)",
+                "Créer un instrument avec du matériel de récupération (maracas en bouteille)"
+              ]
+            },
+            {
+              "intitule": "(MS) Chanter une dizaine de chansons et comptines en respectant la mélodie",
+              "sujets": [
+                "Répertoire de 10 chansons connues (cahier de chansons illustré)",
+                "Chant à deux voix simple (canon Frère Jacques)",
+                "Chansons avec couplets et refrain (Au clair de la lune)",
+                "Chant avec nuances (fort, doucement, en chuchotant)"
+              ]
+            },
+            {
+              "intitule": "(GS) Inventer et produire des paysages sonores et des rythmes",
+              "sujets": [
+                "Création d'un paysage sonore (la forêt, la mer, la ville)",
+                "Reproduire un rythme frappé (court-court-long)",
+                "Ostinato : maintenir un rythme pendant que d'autres jouent",
+                "Sonorisation d'un album (bruitage pendant la lecture)"
+              ]
+            },
+            {
+              "intitule": "(GS) Écouter des extraits d'œuvres musicales variées et exprimer son ressenti",
+              "sujets": [
+                "Pierre et le Loup de Prokofiev (reconnaître les instruments/personnages)",
+                "Le Carnaval des animaux de Saint-Saëns (deviner l'animal)",
+                "Un extrait de musique africaine, asiatique ou sud-américaine",
+                "Comparer deux musiques (joyeuse vs triste, rapide vs lente)"
+              ]
+            }
+          ]
+        },
+        "Spectacle vivant": {
+          "attendus": [
+            {
+              "intitule": "(PS) Jouer un personnage ou un animal avec son corps (imiter, mimer)",
+              "sujets": [
+                "Mimer les animaux de la ferme (marcher, manger, dormir)",
+                "Jouer au papa et à la maman (coin jeux symboliques)",
+                "Se déguiser et jouer un personnage (coin déguisements)",
+                "Marionnettes à doigts (le loup, les trois petits cochons)"
+              ]
+            },
+            {
+              "intitule": "(MS) Raconter une histoire connue avec des marionnettes ou en jouant un rôle",
+              "sujets": [
+                "Théâtre de marionnettes : Boucle d'or et les trois ours",
+                "Jeu dramatique : les personnages de Roule Galette",
+                "Mise en scène d'une comptine avec accessoires",
+                "Ombres chinoises d'une histoire simple"
+              ]
+            },
+            {
+              "intitule": "(GS) Inventer et présenter un court spectacle (théâtre, danse, marionnettes, ombres)",
+              "sujets": [
+                "Création collective d'un spectacle de fin d'année",
+                "Écriture et mise en scène d'une saynète inventée",
+                "Spectacle de marionnettes créées par les élèves (chaussettes, papier mâché)",
+                "Spectacle d'ombres chinoises sur un conte (Le petit chaperon rouge)"
+              ]
+            },
+            {
+              "intitule": "(GS) Être spectateur : regarder, écouter, donner son avis sur un spectacle",
+              "sujets": [
+                "Sortie au spectacle de marionnettes ou de théâtre",
+                "Regarder le spectacle d'une autre classe et en discuter",
+                "Visionnage d'un court spectacle filmé (cirque, danse)",
+                "Dessiner et raconter ce qu'on a vu au spectacle"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Mathématiques": {
+      "label": "Acquérir les premiers outils mathématiques",
+      "sous_domaines": {
+        "Découvrir les nombres": {
+          "attendus": [
+            {
+              "intitule": "(PS) Dénombrer de petites quantités (1 à 3)",
+              "sujets": [
+                "Les marrons ramassés en automne (combien en as-tu ?)",
+                "Mettre 1, 2 ou 3 cubes dans une boîte",
+                "La comptine numérique jusqu'à 5 (réciter en comptant sur ses doigts)",
+                "Le jeu de la marchande (donne-moi 2 pommes)"
+              ]
+            },
+            {
+              "intitule": "(PS) Réaliser des correspondances terme à terme",
+              "sujets": [
+                "Mettre un chapeau à chaque personnage (autant que)",
+                "Un œuf dans chaque coquetier",
+                "Une assiette et un verre pour chaque enfant (coin dînette)",
+                "Mettre les bouchons sur les bouteilles (correspondance)"
+              ]
+            },
+            {
+              "intitule": "(PS) Reconnaître globalement des petites quantités (subitizing 1-2-3)",
+              "sujets": [
+                "Les constellations du dé (1, 2, 3 points)",
+                "Montrer 1, 2 ou 3 doigts à la demande",
+                "Jeu de cartes avec 1, 2, 3 objets (apparier)",
+                "Album à compter : 1, 2, 3 petits chats (Van Genechten)"
+              ]
+            },
+            {
+              "intitule": "(MS) Dénombrer des quantités jusqu'à 6",
+              "sujets": [
+                "Le jeu de la marchande (donne-moi 4 oranges)",
+                "Les doigts : représenter une quantité de 1 à 6",
+                "Jeu de plateau avec un dé (avancer du nombre de cases)",
+                "Compter les absents et les présents (rituel du matin)",
+                "Créer des collections de 1 à 6 (jetons, cubes, images)"
+              ]
+            },
+            {
+              "intitule": "(MS) Dire la suite des nombres jusqu'à 10 (comptine numérique)",
+              "sujets": [
+                "Comptine : 1, 2, 3, nous irons au bois",
+                "La bande numérique murale (accrocher les nombres dans l'ordre)",
+                "Le jeu du furet (compter à tour de rôle jusqu'à 10)",
+                "Compter les jours d'école (chaque jour un bâton)"
+              ]
+            },
+            {
+              "intitule": "(MS) Lire et écrire les chiffres de 1 à 5",
+              "sujets": [
+                "Écriture des chiffres en pâte à modeler",
+                "Tracer les chiffres dans le sable ou la semoule",
+                "Écriture du chiffre au feutre sur ardoise",
+                "Associer un chiffre à une quantité (jeu de cartes)"
+              ]
+            },
+            {
+              "intitule": "(GS) Dénombrer des quantités jusqu'à 10 (et au-delà pour certains)",
+              "sujets": [
+                "Le jeu du banquier (échanger 10 unités contre 1 dizaine)",
+                "Distribuer un nombre précis d'objets à chaque enfant",
+                "Boîte de Picbille ou boîtes à 10 (visualiser les quantités)",
+                "Résoudre : combien de cubes si j'en ajoute 2 à ma tour de 5 ?"
+              ]
+            },
+            {
+              "intitule": "(GS) Dire la suite des nombres au moins jusqu'à 30",
+              "sujets": [
+                "Le calendrier : compter les jours du mois",
+                "Le nombre de jours d'école (écrire chaque jour)",
+                "Le jeu du furet jusqu'à 30 (ne pas se tromper à 15-16)",
+                "Compter à reculons depuis 10 (fusée : 10, 9, 8… décollage !)"
+              ]
+            },
+            {
+              "intitule": "(GS) Lire, écrire et décomposer les nombres jusqu'à 10",
+              "sujets": [
+                "Les compléments à 5 et à 10 (doigts, réglettes Cuisenaire)",
+                "Décomposer 6 : c'est 3 et 3, ou 4 et 2, ou 5 et 1",
+                "Écriture des chiffres de 0 à 9 en cursive",
+                "Le jeu du nombre mystère (c'est plus que 4 et moins que 7)"
+              ]
+            },
+            {
+              "intitule": "(GS) Résoudre des problèmes de quantités (ajouter, retirer, partager)",
+              "sujets": [
+                "Problème : j'ai 5 billes, j'en perds 2, combien m'en reste-t-il ?",
+                "Partager équitablement 6 gâteaux entre 3 enfants",
+                "Jeu de la marchande avec monnaie (payer et rendre la monnaie)",
+                "Problème : combien de pattes ont 3 chats ?"
+              ]
+            }
+          ]
+        },
+        "Formes et grandeurs": {
+          "attendus": [
+            {
+              "intitule": "(PS) Reconnaître et nommer quelques formes simples (rond, carré, triangle)",
+              "sujets": [
+                "Les blocs logiques (trier par forme)",
+                "Chercher des ronds dans la classe (horloge, roue, assiette)",
+                "Encastrements et puzzles de formes simples",
+                "Coller des gommettes rondes, carrées, triangulaires sur une feuille"
+              ]
+            },
+            {
+              "intitule": "(PS) Comparer des objets selon leur taille (grand/petit, long/court)",
+              "sujets": [
+                "Ranger les ours par taille (petit, moyen, grand)",
+                "Les tours de cubes : faire la plus grande tour",
+                "Album : Boucle d'or (le grand bol, le moyen bol, le petit bol)",
+                "Comparer la taille de deux enfants (qui est le plus grand ?)"
+              ]
+            },
+            {
+              "intitule": "(MS) Classer et trier des objets selon un critère (forme, taille, couleur)",
+              "sujets": [
+                "Trier les blocs logiques par 1 critère puis 2 critères",
+                "Jeu du portrait (devine la forme : elle est rouge et elle a 4 côtés)",
+                "Ranger des baguettes de la plus courte à la plus longue",
+                "Classer les formes en 3D : boule, cube, cylindre (roule / ne roule pas)"
+              ]
+            },
+            {
+              "intitule": "(MS) Reproduire un assemblage de formes (pavage, tangram simplifié)",
+              "sujets": [
+                "Tangram simplifié à 4 pièces (reproduire un modèle)",
+                "Pavage avec des formes géométriques (dallage)",
+                "Mosaïque en gommettes sur un quadrillage",
+                "Reproduire une figure avec des bâtonnets"
+              ]
+            },
+            {
+              "intitule": "(GS) Reconnaître et nommer les solides (cube, boule, cylindre, pavé, pyramide, cône)",
+              "sujets": [
+                "Le sac à toucher (reconnaître un solide sans le voir)",
+                "Construire un château avec les solides (cube = tour, cylindre = colonne)",
+                "Empreintes des solides (quelle face laisse un cube ? un cylindre ?)",
+                "Classer des objets du quotidien par forme de solide (boîte = pavé, balle = boule)"
+              ]
+            },
+            {
+              "intitule": "(GS) Reproduire et décrire des figures planes (carré, rectangle, triangle, disque, losange)",
+              "sujets": [
+                "Reproduire des formes sur géoplan (élastiques et plots)",
+                "Tracer des formes avec des gabarits puis à main levée",
+                "Tangram complet : reproduire des silhouettes (7 pièces)",
+                "Décrire une forme cachée pour la faire deviner (nombre de côtés, de sommets)"
+              ]
+            },
+            {
+              "intitule": "(GS) Comparer et ranger des objets selon la masse, la contenance, la longueur",
+              "sujets": [
+                "La balance à plateaux : quel objet est le plus lourd ?",
+                "Les verres : lequel contient le plus d'eau ? (transvasement)",
+                "Mesurer avec une unité non conventionnelle (la longueur en pas, en cubes)",
+                "Ranger 5 bandes de papier de la plus courte à la plus longue"
+              ]
+            }
+          ]
+        },
+        "Motifs organisés et algorithmes": {
+          "attendus": [
+            {
+              "intitule": "(PS) Reconnaître et reproduire un algorithme simple (AB AB)",
+              "sujets": [
+                "Alterner perles rouges et bleues sur un fil (AB AB)",
+                "Gommettes : rond rouge, rond bleu, rond rouge, rond bleu",
+                "Le train des couleurs (wagon rouge, wagon vert, wagon rouge)",
+                "Collier de pâtes colorées (2 couleurs alternées)"
+              ]
+            },
+            {
+              "intitule": "(MS) Reproduire et compléter des algorithmes plus complexes (AAB AAB, ABC ABC)",
+              "sujets": [
+                "Perles : 2 rouges 1 bleue, 2 rouges 1 bleue (AAB)",
+                "Frise décorative : rond-rond-carré, rond-rond-carré",
+                "Suite de gommettes 3 couleurs (ABC ABC)",
+                "Continuer une frise sur un bandeau de papier"
+              ]
+            },
+            {
+              "intitule": "(MS) Repérer un motif répétitif dans un objet décoratif ou un tissu",
+              "sujets": [
+                "Observer les motifs d'un tissu africain (wax)",
+                "Les frises du sol de l'école (carrelage)",
+                "Les motifs d'un pull ou d'une écharpe",
+                "Créer un motif répétitif au tampon (pomme de terre gravée)"
+              ]
+            },
+            {
+              "intitule": "(GS) Créer des algorithmes originaux et coder un motif",
+              "sujets": [
+                "Inventer un algorithme à 3 ou 4 éléments et le faire reproduire",
+                "Coder un algorithme avec des symboles (étoile = rouge, cercle = bleu)",
+                "Créer une frise pour décorer la bordure d'un cadre",
+                "Reproduire un algorithme en le décalant ou le transformant"
+              ]
+            },
+            {
+              "intitule": "(GS) Se repérer et coder des déplacements dans un quadrillage",
+              "sujets": [
+                "Le jeu du robot (coder un trajet avec des flèches : ↑ → ↓ ←)",
+                "Blue-Bot ou Bee-Bot : programmer un trajet sur un tapis quadrillé",
+                "Placer un objet sur un quadrillage en suivant des coordonnées (A3, B1)",
+                "Reproduire un modèle sur un quadrillage (pixel art simple)"
+              ]
+            }
+          ]
+        },
+        "Résoudre des problèmes": {
+          "attendus": [
+            {
+              "intitule": "(PS) Résoudre des problèmes de la vie quotidienne impliquant des quantités très petites (1-3)",
+              "sujets": [
+                "Distribuer 1 serviette à chaque enfant (correspondance)",
+                "Il manque des cuillères : combien faut-il en ajouter ?",
+                "Partager 3 bonbons entre 3 enfants (1 chacun)",
+                "Album à compter : 1 petit canard, 2 petits canards, 3 petits canards"
+              ]
+            },
+            {
+              "intitule": "(MS) Résoudre des problèmes portant sur les quantités (comparer, compléter, partager)",
+              "sujets": [
+                "La boîte à œufs : combien d'œufs pour remplir les 6 alvéoles ?",
+                "Comparer deux collections : qui en a le plus ? le moins ?",
+                "Mettre le bon nombre de couverts pour le coin dînette (5 assiettes, 5 verres)",
+                "Album : Dix petites graines (Helen Drew) — compter et anticiper"
+              ]
+            },
+            {
+              "intitule": "(GS) Résoudre des problèmes arithmétiques (ajouter, retirer, comparer, partager équitablement)",
+              "sujets": [
+                "Problème de partage : 10 perles pour 2 enfants, combien chacun ?",
+                "Problème de complément : j'ai 4 billes, il m'en faut 7, combien manque-t-il ?",
+                "Problème de comparaison : Léa a 5 images, Tom en a 3, qui en a le plus ? combien de plus ?",
+                "Problème de transformation : il y avait 8 poissons, 3 sont partis, combien reste-t-il ?"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    "Explorer le monde": {
+      "label": "Explorer le monde du vivant, des objets et de la matière — Se repérer dans le temps et l'espace",
+      "sous_domaines": {
+        "Se repérer dans le temps": {
+          "attendus": [
+            {
+              "intitule": "(PS) Repérer les moments de la journée (accueil, récréation, cantine, sieste, sortie)",
+              "sujets": [
+                "La frise de la journée en images (pictogrammes)",
+                "Album : Spot va à l'école (les moments de la journée)",
+                "Le rituel du matin (date, météo, comptage des présents)",
+                "Les photos des temps forts de la journée"
+              ]
+            },
+            {
+              "intitule": "(MS) Situer des événements les uns par rapport aux autres (avant, après, d'abord, ensuite, enfin)",
+              "sujets": [
+                "Images séquentielles : la croissance d'une plante (graine, pousse, fleur)",
+                "Images séquentielles : s'habiller (3-4 étapes dans l'ordre)",
+                "Album : La grosse faim de P'tit bonhomme (les étapes du pain)",
+                "Le calendrier de la semaine (aujourd'hui, hier, demain)"
+              ]
+            },
+            {
+              "intitule": "(GS) Utiliser le calendrier pour se repérer dans la semaine, le mois, l'année",
+              "sujets": [
+                "Le calendrier du mois (éphéméride à construire chaque jour)",
+                "La poutre du temps (frise annuelle avec les événements)",
+                "Les saisons : repérer le cycle sur la frise de l'année",
+                "Le compte à rebours (combien de jours avant les vacances / la sortie)"
+              ]
+            },
+            {
+              "intitule": "(GS) Ordonner des événements dans une chronologie (histoire personnelle, saisons, récit)",
+              "sujets": [
+                "Ma frise de vie (photos bébé, PS, MS, GS)",
+                "Remettre 6-8 images séquentielles dans l'ordre chronologique",
+                "Les étapes de la fabrication du pain (du blé au pain)",
+                "Le cycle de vie d'un animal (œuf, larve, adulte — le papillon)"
+              ]
+            }
+          ]
+        },
+        "Se repérer dans l'espace": {
+          "attendus": [
+            {
+              "intitule": "(PS) Se situer par rapport aux objets et aux personnes (dedans, dehors, dessus, dessous, devant, derrière)",
+              "sujets": [
+                "Jeu moteur : va dedans le cerceau, sors du cerceau",
+                "Album : Ours brun, où es-tu ? (dessus, dessous, dedans)",
+                "Parcours moteur avec consignes spatiales (passe sous le tunnel)",
+                "Cacher un objet et le décrire (il est sous la chaise)"
+              ]
+            },
+            {
+              "intitule": "(MS) Suivre un parcours, un itinéraire simple dans l'école",
+              "sujets": [
+                "Le plan de la classe (placer les coins jeux)",
+                "Le parcours fléché dans la cour (suivre les flèches au sol)",
+                "Le jeu de la chasse au trésor dans l'école (indices spatiaux)",
+                "Guider un camarade les yeux bandés (avance, tourne)"
+              ]
+            },
+            {
+              "intitule": "(GS) Lire et réaliser des représentations spatiales (plan, maquette, parcours codé)",
+              "sujets": [
+                "Construire la maquette de la classe avec des boîtes",
+                "Dessiner le plan de la cour de récréation (vu de dessus)",
+                "Blue-Bot / Bee-Bot : coder un itinéraire sur un tapis",
+                "Placer des objets sur un plan d'après des consignes (le livre est près de la fenêtre)"
+              ]
+            }
+          ]
+        },
+        "Explorer le monde du vivant": {
+          "attendus": [
+            {
+              "intitule": "(PS) Observer les animaux et les plantes de l'environnement proche",
+              "sujets": [
+                "L'escargot en classe (observer, nourrir, dessiner)",
+                "Les plantations de lentilles (observer la pousse chaque jour)",
+                "Les animaux de la cour (oiseaux, insectes, escargots)",
+                "Album : La petite poule rousse (les animaux de la ferme)"
+              ]
+            },
+            {
+              "intitule": "(MS) Reconnaître et nommer les différentes parties du corps humain",
+              "sujets": [
+                "Le pantin articulé (tête, tronc, bras, jambes, mains, pieds)",
+                "Le dessin du bonhomme (évolution tout au long de l'année)",
+                "Les 5 sens : voir, entendre, toucher, sentir, goûter (ateliers)",
+                "L'hygiène : se laver les mains, se brosser les dents"
+              ]
+            },
+            {
+              "intitule": "(MS) Observer le cycle de vie d'un être vivant (plante, insecte)",
+              "sujets": [
+                "L'élevage de chenilles → chrysalide → papillon",
+                "Les bulbes de jacinthes (planter, arroser, observer la croissance)",
+                "Le cycle de vie de la grenouille (têtard → grenouille — images)",
+                "Le lombricomposteur (observer la décomposition)"
+              ]
+            },
+            {
+              "intitule": "(GS) Connaître les besoins des êtres vivants (eau, nourriture, lumière, air) et les grands régimes alimentaires",
+              "sujets": [
+                "L'expérience : une plante avec lumière / sans lumière",
+                "Le menu des animaux : herbivore, carnivore, omnivore",
+                "Le composteur de l'école (que mangent les vers ?)",
+                "Les chaînes alimentaires simples (herbe → lapin → renard)"
+              ]
+            },
+            {
+              "intitule": "(GS) Distinguer le vivant du non-vivant ; observer les changements d'état de la matière",
+              "sujets": [
+                "Est-ce vivant ou pas ? (tri d'images : chat, caillou, fleur, voiture)",
+                "L'eau : solide, liquide, gaz (glaçons qui fondent, eau qui gèle)",
+                "La fabrication du beurre (transformer la crème en beurre)",
+                "Mélanges et solutions : le sucre dans l'eau (disparaît-il ?)"
+              ]
+            }
+          ]
+        },
+        "Explorer le monde des objets et de la matière": {
+          "attendus": [
+            {
+              "intitule": "(PS) Explorer des matières et des objets (sable, eau, pâte, tissu, papier)",
+              "sujets": [
+                "Le bac à sable : remplir, vider, couler, mouler",
+                "Les jeux d'eau : flotte ou coule ? (objets variés)",
+                "La pâte à modeler : écraser, rouler, couper, assembler",
+                "Le papier : déchirer, froisser, plier, coller"
+              ]
+            },
+            {
+              "intitule": "(MS) Utiliser des outils et des objets techniques simples (ciseaux, rouleau, balance, loupe)",
+              "sujets": [
+                "Les ciseaux : découper en suivant une ligne droite puis courbe",
+                "La loupe : observer un insecte, une feuille, un cristal de sucre",
+                "La balance : comparer la masse de deux objets",
+                "Les aimants : qu'est-ce qui est attiré ? qu'est-ce qui ne l'est pas ?"
+              ]
+            },
+            {
+              "intitule": "(MS) Réaliser une construction technique simple selon un plan (Kapla, Lego, mécano)",
+              "sujets": [
+                "Construire un pont en Kapla (qui supporte un petit personnage)",
+                "Reproduire un modèle Lego d'après une fiche",
+                "Construire un circuit à billes (la bille doit arriver en bas)",
+                "Assembler un engrenage simple (roues dentées)"
+              ]
+            },
+            {
+              "intitule": "(GS) Utiliser des objets numériques simples (tablette, appareil photo, robot programmable)",
+              "sujets": [
+                "Prendre une photo avec la tablette pour documenter un projet",
+                "Bee-Bot / Blue-Bot : programmer un trajet (séquence d'instructions)",
+                "Enregistrer sa voix pour le cahier de vie numérique",
+                "Regarder une vidéo documentaire courte sur les animaux"
+              ]
+            },
+            {
+              "intitule": "(GS) Mener une expérience simple et en rendre compte (observer, supposer, tester, conclure)",
+              "sujets": [
+                "Expérience flotte/coule avec des objets variés (bois, métal, plastique)",
+                "De quoi la plante a-t-elle besoin pour pousser ? (protocole expérimental)",
+                "Mélanges de couleurs : rouge + jaune = ? (peinture, encres)",
+                "Construire un objet qui roule le plus loin possible (plan incliné)"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

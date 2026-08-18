@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Bac Pro Cuisine",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro Cuisine (famille des métiers de l'hôtellerie-restauration)",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des productions culinaires variées et maîtrisées",
+    "Organiser la production en respectant les normes d'hygiène (HACCP)",
+    "Gérer les approvisionnements et les stocks",
+    "Communiquer en situation professionnelle",
+    "S'adapter aux évolutions du métier (nutrition, développement durable)"
+  ],
+  "domaines": [
+    {
+      "nom": "Techniques culinaires de base",
+      "description": "Les gestes fondamentaux et les cuissons.",
+      "competences": [
+        {
+          "intitule": "Maîtriser les techniques culinaires de base",
+          "exemples_themes": ["Les taillages de légumes (brunoise, julienne, mirepoix, chiffonnade)", "Les cuissons de base (sauter, rôtir, braiser, pocher, griller)", "Les sauces mères (béchamel, velouté, tomate) et leurs dérivées", "Les pâtes de base (brisée, feuilletée, à choux)"]
+        },
+        {
+          "intitule": "Réaliser des productions culinaires élaborées",
+          "exemples_themes": ["Un menu complet : entrée, plat, dessert (production en temps limité)", "Les cuissons sous vide et basse température", "Les émulsions et les mousses (techniques modernes)", "Le dressage et la présentation des assiettes"]
+        }
+      ]
+    },
+    {
+      "nom": "Hygiène et sécurité alimentaire",
+      "description": "Les normes d'hygiène et la méthode HACCP.",
+      "competences": [
+        {
+          "intitule": "Appliquer les règles d'hygiène et de sécurité alimentaire",
+          "exemples_themes": ["La méthode HACCP : les 7 principes", "La marche en avant et la séparation des secteurs", "Le plan de nettoyage et de désinfection (PND)", "La traçabilité des produits et les températures de conservation"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion des approvisionnements",
+      "description": "Les achats, les stocks et le calcul des coûts.",
+      "competences": [
+        {
+          "intitule": "Gérer les approvisionnements et calculer les coûts de production",
+          "exemples_themes": ["La fiche technique de fabrication (quantités, coûts matière)", "La réception et le contrôle des marchandises", "Le calcul du coût matière et du ratio", "La gestion des stocks et la lutte contre le gaspillage alimentaire"]
+        }
+      ]
+    },
+    {
+      "nom": "Connaissance des produits et nutrition",
+      "description": "Les produits alimentaires et l'équilibre nutritionnel.",
+      "competences": [
+        {
+          "intitule": "Connaître les produits et adapter les menus aux besoins nutritionnels",
+          "exemples_themes": ["Les produits de saison et les circuits courts (un producteur local)", "Les allergènes : réglementation et gestion (les 14 allergènes majeurs)", "L'équilibre nutritionnel d'un menu (GEMRCN)", "Les régimes spécifiques : végétarien, sans gluten, halal"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication et organisation en cuisine",
+      "description": "Le travail en brigade et la relation avec la salle.",
+      "competences": [
+        {
+          "intitule": "Communiquer en brigade et organiser son travail en cuisine",
+          "exemples_themes": ["L'organisation d'une brigade de cuisine (rôles et hiérarchie)", "Le bon de commande et l'annonce en cuisine", "La coordination cuisine-salle pendant le service", "La gestion du stress et du temps pendant un service"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro Cuisine forme aux métiers de la restauration : techniques culinaires (taillages, cuissons, sauces, pâtisserie), hygiène et sécurité alimentaire (HACCP), gestion des approvisionnements et des coûts, connaissance des produits et nutrition. L'organisation en brigade et la communication en situation de service sont des compétences clés."
+}

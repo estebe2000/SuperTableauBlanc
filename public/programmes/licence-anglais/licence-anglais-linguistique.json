@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Linguistique",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Analyse du discours et de la langue",
+      "details": [
+        "Comprendre les théories de l'énonciation",
+        "Analyser la structure morphologique des mots",
+        "Étudier la sémantique et la pragmatique",
+        "Réaliser des commentaires linguistiques de textes"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "discipline": "Biologie-Écologie",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de biologie-écologie spécialité lycée GT (lycées agricoles)",
+    "mise_a_jour": "2019-01-22",
+    "note": "Spécialité proposée uniquement dans les lycées d'enseignement agricole"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre les interactions entre les êtres vivants et leur environnement",
+    "Analyser les enjeux de la gestion durable des écosystèmes",
+    "Pratiquer une démarche scientifique expérimentale et de terrain",
+    "Mobiliser des connaissances en biologie et en écologie",
+    "Argumenter sur des questions environnementales et de santé"
+  ],
+  "domaines": [
+    {
+      "nom": "Biologie cellulaire et moléculaire",
+      "description": "Les mécanismes fondamentaux du vivant à l'échelle cellulaire.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'organisation et le fonctionnement cellulaire",
+          "exemples_themes": ["Observation de cellules au microscope (végétales, animales)", "La photosynthèse et la respiration cellulaire (schéma bilan)", "L'ADN et l'expression des gènes (de l'ADN à la protéine)", "Les biotechnologies : OGM, sélection variétale, CRISPR"]
+        }
+      ]
+    },
+    {
+      "nom": "Écologie et dynamique des écosystèmes",
+      "description": "Les relations entre les êtres vivants et leurs milieux.",
+      "competences": [
+        {
+          "intitule": "Analyser la structure et le fonctionnement d'un écosystème",
+          "exemples_themes": ["Inventaire de la biodiversité d'un milieu (sortie terrain)", "Les réseaux trophiques et les flux de matière et d'énergie", "La dynamique des populations (croissance, régulation, compétition)", "Les cycles biogéochimiques (carbone, azote)"]
+        },
+        {
+          "intitule": "Évaluer les impacts des activités humaines sur les écosystèmes",
+          "exemples_themes": ["La déforestation et ses conséquences (étude de cas Amazonie)", "La pollution des sols et des eaux (nitrates, pesticides)", "Les services écosystémiques et leur évaluation", "La restauration écologique (renaturation d'un cours d'eau)"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion durable des ressources et des territoires",
+      "description": "Les enjeux de durabilité appliqués à l'agriculture et aux territoires.",
+      "competences": [
+        {
+          "intitule": "Comprendre les enjeux de la gestion durable des ressources naturelles",
+          "exemples_themes": ["L'agroécologie : principes et exemples (rotation, agroforesterie)", "La gestion de l'eau : ressource, usage, conflits", "Les aires protégées et la conservation de la biodiversité (parc national)", "L'agriculture biologique : cahier des charges et filière"]
+        }
+      ]
+    },
+    {
+      "nom": "Santé et environnement",
+      "description": "Les liens entre environnement, santé humaine et animale.",
+      "competences": [
+        {
+          "intitule": "Analyser les interactions entre santé et environnement",
+          "exemples_themes": ["Les zoonoses et le concept One Health", "Les perturbateurs endocriniens dans l'environnement", "La résistance aux antibiotiques (élevage et santé humaine)", "La qualité de l'air et les maladies respiratoires"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La spécialité Biologie-Écologie, proposée dans les lycées agricoles, articule biologie cellulaire et moléculaire, écologie des écosystèmes, gestion durable des ressources et santé-environnement. Les élèves pratiquent régulièrement le terrain et les travaux pratiques, et développent une réflexion sur les enjeux de durabilité et de biodiversité."
+}

@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Phonétique",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Maîtrise de la phonologie anglaise",
+      "details": [
+        "Maîtriser l'alphabet phonétique international (API)",
+        "Analyser l'accentuation lexicale et l'intonation",
+        "Comprendre les processus de phonétique combinatoire",
+        "Améliorer la prononciation et la perception auditive"
+      ]
+    }
+  ]
+}

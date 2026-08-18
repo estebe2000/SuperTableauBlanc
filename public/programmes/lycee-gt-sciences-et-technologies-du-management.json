@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "discipline": "Sciences et Technologies du Management (STMG)",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme STMG 1ère/Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre le fonctionnement des organisations (entreprises, associations, administrations)",
+    "Maîtriser les fondamentaux du management, du droit et de l'économie",
+    "Analyser des situations de gestion à l'aide d'outils adaptés",
+    "Utiliser les systèmes d'information pour traiter des données",
+    "Développer un esprit d'analyse et de synthèse"
+  ],
+  "domaines": [
+    {
+      "nom": "Management",
+      "description": "Le pilotage des organisations et la prise de décision.",
+      "competences": [
+        {
+          "intitule": "Comprendre le management des organisations : stratégie, décision, performance",
+          "exemples_themes": ["Analyse stratégique d'une entreprise (SWOT, Pestel)", "Un cas d'étude : la stratégie de diversification de LVMH", "Le management participatif vs autoritaire (exemples concrets)", "Les indicateurs de performance (tableaux de bord)"]
+        },
+        {
+          "intitule": "Analyser les relations humaines et la gestion des ressources humaines",
+          "exemples_themes": ["Le recrutement et la gestion des compétences", "La motivation au travail (Maslow, Herzberg)", "Le management de projet (diagramme de Gantt, méthode agile)", "La responsabilité sociale de l'entreprise (RSE)"]
+        }
+      ]
+    },
+    {
+      "nom": "Droit et économie",
+      "description": "Les cadres juridiques et économiques des organisations.",
+      "competences": [
+        {
+          "intitule": "Comprendre le cadre juridique de l'activité économique",
+          "exemples_themes": ["Le contrat de travail (CDI, CDD) : droits et obligations", "La protection du consommateur (garanties, recours)", "La propriété intellectuelle (brevet, marque, droit d'auteur)", "Un litige commercial : résolution et jurisprudence"]
+        },
+        {
+          "intitule": "Analyser les mécanismes économiques fondamentaux",
+          "exemples_themes": ["L'offre et la demande sur un marché concret", "Le rôle de l'État dans l'économie (redistribution, régulation)", "La monnaie et le financement de l'économie (création monétaire)", "La mondialisation et ses effets sur l'emploi"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion et finance (spécialité Terminale)",
+      "description": "L'analyse financière et la comptabilité de gestion.",
+      "competences": [
+        {
+          "intitule": "Analyser la situation financière d'une organisation",
+          "exemples_themes": ["Lecture d'un bilan et d'un compte de résultat simplifié", "Calcul et interprétation du seuil de rentabilité", "Le budget prévisionnel d'une association ou d'une PME", "Les ratios financiers : rentabilité, solvabilité, liquidité"]
+        }
+      ]
+    },
+    {
+      "nom": "Marketing et relation client (spécialité Terminale)",
+      "description": "La stratégie commerciale et la connaissance du client.",
+      "competences": [
+        {
+          "intitule": "Comprendre la démarche marketing et la relation client",
+          "exemples_themes": ["L'étude de marché : questionnaire et analyse (Google Forms)", "Le mix marketing (4P) appliqué à un produit concret", "Le marketing digital : réseaux sociaux, SEO, e-commerce", "La fidélisation client : programme de fidélité, CRM"]
+        }
+      ]
+    },
+    {
+      "nom": "Systèmes d'information de gestion (spécialité Terminale)",
+      "description": "Le rôle des systèmes d'information dans les organisations.",
+      "competences": [
+        {
+          "intitule": "Comprendre et exploiter un système d'information de gestion",
+          "exemples_themes": ["Une base de données relationnelle (requêtes SQL simples)", "Le tableur pour l'analyse de données commerciales (tableaux croisés)", "La sécurité des systèmes d'information (RGPD, cyberattaques)", "Un PGI/ERP : fonctionnement et démonstration"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La série STMG forme les élèves au management, au droit, à l'économie et à la gestion des organisations. En 1ère, les élèves découvrent les fondamentaux (management, droit-économie, sciences de gestion). En Terminale, ils choisissent une spécialité : gestion-finance, marketing, ressources humaines ou systèmes d'information. L'approche est concrète, fondée sur des cas d'étude et des situations de gestion réelles."
+}

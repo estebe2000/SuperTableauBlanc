@@ -1,0 +1,1684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusionneur H5P</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+
+	<link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+    
+    <script src="../vendor/jszip/jszip.min.js"></script>
+    <script src="../vendor/sortable/Sortable.min.js"></script>
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+    <style>
+        
+        .section {
+            margin-bottom: 2rem;
+            padding: 30px;
+            background: var(--surface);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .section h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .format-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .format-option {
+            background: var(--surface);
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+        }
+
+        .format-option:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .format-option.selected {
+            border-color: var(--hapi-green);
+            background: linear-gradient(135deg, #ff6b6b10, #feca5710);
+        }
+
+        .format-priority {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            background-color: var(--hapi-green-dark);
+            background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .format-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border-radius: 12px;
+            background: var(--page-bg);
+        }
+
+        .format-icon {
+            background: rgba(var(--hapi-green-rgb), 0.12);
+            color: var(--hapi-accent-text);
+        }
+        .format-icon svg { width: 30px; height: 30px; }
+
+        .format-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .format-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .compatibility-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 2px;
+        }
+
+        .compatible {
+            /* Pastille « compatible » : suit la couleur du thème (switcher) */
+            background: rgba(var(--hapi-green-rgb), 0.15);
+            color: var(--hapi-accent-text);
+        }
+
+        /* En mode sombre, atténuer la teinte du fond pour garantir ≥ 4.5:1
+           entre l'accent clair et le fond de la pastille (RGAA 3.2). */
+        [data-mode="dark"] .compatible {
+            background: rgba(var(--hapi-green-rgb), 0.06);
+        }
+
+        .needs-adaptation {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .input-group { 
+            margin: 15px 0; 
+        }
+        
+        .input-group label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 8px; 
+            color: var(--text);
+        }
+        
+        .input-group input[type="text"], 
+        .input-group input[type="number"], 
+        .input-group textarea { 
+            width: 100%; 
+            padding: 12px 15px; 
+            border: 2px solid var(--border); 
+            border-radius: 8px; 
+            font-size: 14px; 
+            transition: border-color 0.3s ease; 
+        }
+        
+        .input-group input:focus, 
+        .input-group textarea:focus { 
+            outline: none; 
+            border-color: var(--hapi-green); 
+            box-shadow: 0 0 0 3px rgba(var(--hapi-green-rgb), 0.12); 
+        }
+        
+        .input-group input[type="file"] { 
+            display: none; 
+        }
+        
+        .btn { 
+            background-color: var(--hapi-green-dark);
+            background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%);
+            color: white; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: 600; 
+            transition: all 0.3s ease; 
+        }
+        
+        .btn:hover { 
+            box-shadow: 0 8px 20px rgba(var(--hapi-green-rgb), 0.3); 
+        }
+
+        .btn:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        label.btn-file { 
+            background: var(--hapi-green-dark); 
+            color: #fff; 
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            display: inline-block; 
+        }
+        
+        .activity-item { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: var(--surface); 
+            padding: 15px; 
+            border-radius: 10px; 
+            margin-bottom: 10px; 
+            border: 2px solid var(--border); 
+            transition: all 0.3s ease; 
+            cursor: grab;
+        }
+
+        .activity-item:active {
+            cursor: grabbing;
+        }
+        
+        .activity-item:hover { 
+            border-color: var(--hapi-green); 
+            transform: translateY(-1px); 
+        }
+
+        .sortable-ghost {
+            opacity: 0.4;
+            background: rgba(var(--hapi-green-rgb), 0.15);
+        }
+        
+        .activity-content { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+            flex: 1; 
+        }
+
+        .drag-handle {
+            cursor: move;
+            color: var(--text-muted);
+            font-size: 1.2em;
+        }
+
+        .activity-number {
+            background: #b91c1c;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .activity-title { 
+            font-weight: 600; 
+            color: var(--text); 
+        }
+        
+        .activity-type { 
+            background: #b91c1c; 
+            color: white; 
+            padding: 4px 8px; 
+            border-radius: 4px; 
+            font-size: 12px; 
+        }
+        
+        .delete-btn { 
+            background: #b91c1c; 
+            color: white; 
+            border: none; 
+            width: 32px; 
+            height: 32px; 
+            border-radius: 50%; 
+            cursor: pointer; 
+            font-size: 14px; 
+        }
+        
+        .log-area { 
+            background: #1e1e1e; 
+            color: #00ff00; 
+            padding: 20px; 
+            border-radius: 8px; 
+            font-family: 'Courier New', monospace; 
+            font-size: 13px; 
+            max-height: 400px; 
+            overflow-y: auto; 
+            margin: 15px 0; 
+        }
+        
+        .alert { 
+            padding: 15px; 
+            margin: 15px 0; 
+            border-radius: 8px; 
+            border: 1px solid; 
+        }
+        
+        .alert-success { 
+            background: rgba(var(--hapi-green-rgb), 0.12); 
+            color: var(--hapi-accent-text); 
+            border-color: rgba(var(--hapi-green-rgb), 0.4); 
+        }
+        
+        .alert-info { 
+            background: #d1ecf1; 
+            color: #0c5460; 
+            border-color: #bee5eb; 
+        }
+
+        .alert-warning {
+            background: #fff3cd;
+            color: #856404;
+            border-color: #ffeaa7;
+        }
+        
+        .two-columns { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 20px; 
+        }
+        
+        .file-info { 
+            background: rgba(var(--hapi-green-rgb), 0.08); 
+            padding: 10px 15px; 
+            border-radius: 6px; 
+            margin-top: 10px; 
+            color: var(--text); 
+        }
+
+        .mega-highlight {
+            background: rgba(var(--hapi-green-rgb), 0.08);
+            border: 2px solid var(--hapi-green);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .mega-highlight h2 {
+            color: var(--hapi-accent-text);
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .feature-item {
+            background: var(--surface);
+            padding: 12px;
+            border-left: 4px solid var(--hapi-green);
+        }
+
+        .compatibility-section {
+            background: var(--page-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .compatibility-stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--hapi-accent-text);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--text-muted);
+        }
+
+        /* STYLES POUR LES FEEDBACKS QUESTION SET */
+        .feedback-section {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .feedback-section h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seuil-suggestions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .pastille {
+            background-color: var(--border);
+            color: var(--text);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 13px;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .pastille:hover {
+            background-color: #b45309;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        .feedback-suggestions {
+            margin-top: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-suggestion {
+            background: var(--hapi-green-dark);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-suggestion:hover {
+            background: var(--hapi-green-deep);
+            transform: translateY(-1px);
+        }
+		
+		
+		/* --- STYLES POUR LA MODALE ET LE BOUTON --- */
+		.header-with-button {
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-between;
+		    flex-wrap: wrap;
+		    gap: 15px;
+		    margin-bottom: 20px;
+		}
+
+		.header-with-button h2 {
+		    margin-bottom: 0; /* Évite le décalage avec le bouton */
+		}
+
+		.btn-outline {
+		    background: transparent;
+		    color: var(--text);
+		    border: 2px solid var(--border);
+		    padding: 8px 16px;
+		    border-radius: 8px;
+		    cursor: pointer;
+		    font-size: 14px;
+		    font-weight: 600;
+		    transition: all 0.3s ease;
+		    display: flex;
+		    align-items: center;
+		    gap: 8px;
+		}
+
+		.btn-outline:hover {
+		    border-color: var(--hapi-green);
+		    color: var(--hapi-accent-text);
+		    background: rgba(var(--hapi-green-rgb), 0.06);
+		}
+
+		/* Structure de la modale */
+		.modal-overlay {
+		    display: none;
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    background: rgba(0, 0, 0, 0.5);
+		    z-index: 1000;
+		    justify-content: center;
+		    align-items: center;
+		    opacity: 0;
+		    backdrop-filter: blur(3px);
+		    transition: opacity 0.3s ease;
+		}
+
+		.modal-overlay.active {
+		    display: flex;
+		    opacity: 1;
+		}
+
+		.modal-content {
+		    background: var(--surface);
+		    padding: 30px;
+		    border-radius: 12px;
+		    max-width: 900px;
+		    width: 90%;
+		    max-height: 85vh;
+		    overflow-y: auto;
+		    position: relative;
+		    transform: translateY(-20px);
+		    transition: transform 0.3s ease;
+		    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+		}
+
+		.modal-overlay.active .modal-content {
+		    transform: translateY(0);
+		}
+
+		.modal-close {
+		    position: absolute;
+		    top: 20px;
+		    right: 20px;
+		    font-size: 28px;
+		    color: var(--text-muted);
+		    cursor: pointer;
+		    border: none;
+		    background: none;
+		    line-height: 1;
+		    transition: color 0.2s ease;
+		}
+
+		.modal-close:hover {
+		    color: var(--danger-text);
+		}
+		
+
+    </style>
+</head>
+<body class="page-without-ia page-fusionneur">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span></span><a href="./">Outils</a>
+            <span>Fusionneur H5P</span>
+        </div>
+		<div class="content" id="contenu" role="main">
+            <h1><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 6 4-4 4 4"/><path d="M12 2v10.3a4 4 0 0 1-1.172 2.872L4 22"/><path d="m20 22-5-5"/></svg> Fusionneur H5P</h1>
+            <p>Concaténer des activités H5P : combinez plusieurs contenus en un seul package. Créez des objets pédagogiques complets en assemblant vos activités existantes.</p>
+
+            <div class="mega-highlight">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Fonctionnalités du fusionneur H5P</h2>
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Question Set</strong><br>
+                        <small>Format recommandé + Feedback</small>
+                    </div>
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Interactive Book</strong><br>
+                        <small>Structure Logiquiz validée</small>
+                    </div>
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C22 6 17.5 2 12 2z"/></svg> Course Presentation</strong><br>
+                        <small>Format diaporama</small>
+                    </div>
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Filtrage intelligent</strong><br>
+                        <small>Compatibilité analysée</small>
+                    </div>
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Glisser-déposer</strong><br>
+                        <small>Réorganisation facile</small>
+                    </div>
+                    <div class="feature-item">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Éléa compatible</strong><br>
+                        <small>Adéquation des librairies</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+				<div class="header-with-button">
+				    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Choisissez le format H5P de sortie</h2>
+				    <button type="button" class="btn-outline" onclick="openModal('compat-modal')">
+				        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> Voir les compatibilités
+				    </button>
+				</div>
+                <div class="format-selector">
+                    <div class="format-option" data-format="question-set" onclick="selectFormat('question-set')">
+                        <div class="format-priority">1</div>
+                        <div class="format-icon question-set"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
+                        <div class="format-title">Question Set</div>
+                        <div class="format-description">
+                            Quiz et QCM<br>
+                            <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Compatible avec les H5P les plus fréquents.</strong><br>
+                            <span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Feedbacks personnalisables</span><br>
+                            Idéal pour des évaluations, tests de connaissances sur Éléa
+                        </div>
+                    </div>
+                    
+                    <div class="format-option" data-format="interactive-book" onclick="selectFormat('interactive-book')">
+                        <div class="format-priority">2</div>
+                        <div class="format-icon interactive-book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></div>
+                        <div class="format-title">Interactive Book</div>
+                        <div class="format-description">
+                            Livre interactif avec chapitres et navigation.<br>
+                            <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Structure Éléa compatible</strong><br>
+                            <span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Tous H5P supportés</span><br>
+                            Idéal pour des cours structurés, des parcours pédagogiques
+                        </div>
+                    </div>
+                    
+                    <div class="format-option" data-format="course-presentation" onclick="selectFormat('course-presentation')">
+                        <div class="format-priority">3</div>
+                        <div class="format-icon course-presentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C22 6 17.5 2 12 2z"/></svg></div>
+                        <div class="format-title">Course Presentation</div>
+                        <div class="format-description">
+                            Présentation avec slides interactives.<br>
+                            <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C22 6 17.5 2 12 2z"/></svg> Format diaporama</strong><br>
+                            <span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Autres éléments</span><br>
+                            Idéal pour des présentations, des cours sur Éléa
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Sélectionnez vos fichiers H5P</h2>
+                <div class="input-group">
+                    <label for="h5p-files">Choisissez vos fichiers .h5p :</label>
+                    <label for="h5p-files" class="btn btn-file"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Parcourir les fichiers</label>
+                    <input type="file" id="h5p-files" multiple accept=".h5p" onchange="handleFileSelect(event)">
+                    <div id="file-info" class="file-info" style="display: none;"></div>
+                </div>
+
+                <div id="editor-section" style="display: none;">
+                    <div class="input-group">
+                        <label>Activités détectées (glisser-déposer pour réorganiser) :</label>
+                        <div id="activities-list"></div>
+                    </div>
+
+                    <div id="compatibility-analysis" class="compatibility-section" style="display: none;">
+                        <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Analyse de compatibilité</h3>
+                        <div id="compatibility-details"></div>
+                        <div class="compatibility-stats">
+                            <div class="stat-item">
+                                <div class="stat-number" id="compatible-count">0</div>
+                                <div class="stat-label">Compatible</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="adaptation-count">0</div>
+                                <div class="stat-label">Adaptation</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number" id="total-count">0</div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="two-columns">
+                        <div class="input-group">
+                            <label for="output-title">Titre de sortie :</label>
+                            <input type="text" id="output-title" value="Mon Contenu H5P Fusionné">
+                        </div>
+                        <div class="input-group">
+                            <label for="output-description">Description :</label>
+                            <textarea id="output-description" rows="3" placeholder="Décrivez votre contenu..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- SECTION FEEDBACK QUESTION SET -->
+                    <div id="feedback-section" class="feedback-section" style="display: none;">
+                        <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> <span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> </span> Options de fin (Question Set uniquement)</h3>
+                        <div class="input-group">
+                            <label for="passPercentage">Seuil de réussite (%) :</label>
+                            <input type="number" id="passPercentage" value="67" min="0" max="100" step="1">
+                            <div class="seuil-suggestions">
+                                <span class="pastille" onclick="setSeuil('passPercentage', 50)">50%</span>
+                                <span class="pastille" onclick="setSeuil('passPercentage', 67)">67%</span>
+                                <span class="pastille" onclick="setSeuil('passPercentage', 75)">75%</span>
+                                <span class="pastille" onclick="setSeuil('passPercentage', 100)">100%</span>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div class="input-group">
+                                <label for="feedback-fail">Feedback si score &lt; seuil :</label>
+                                <textarea id="feedback-fail" rows="3">Continue tes efforts, tu vas y arriver !</textarea>
+                                <div class="feedback-suggestions">
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-fail', 'Continue tes efforts !')">Continue !</button>
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-fail', 'Presque ! Réessaye pour t\'améliorer.')">Presque...</button>
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-fail', 'Certains points sont à revoir.')">À revoir</button>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label for="feedback-success">Feedback si score ≥ seuil :</label>
+                                <textarea id="feedback-success" rows="3">Bravo, excellent travail !</textarea>
+                                <div class="feedback-suggestions">
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-success', 'Excellent travail !')">Excellent !</button>
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-success', 'Bravo, c\'est une belle réussite !')">Bravo !</button>
+                                    <button type="button" class="btn-suggestion" onclick="setFeedback('feedback-success', 'Parfait !')">Parfait !</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn" id="generate-btn" onclick="generateH5P()" disabled style="padding: 15px 30px; font-size: 18px;">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Générer le contenu H5P
+                        </button>
+                        <div id="format-info" style="margin-top: 10px; color: var(--text-muted); font-style: italic;">
+                            Sélectionnez d'abord un format de sortie
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="download-section" style="display: none;"></div>
+
+            <div class="section">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Journal de traitement</h2>
+                <div class="log-area" id="log-area"></div>
+            </div>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="../index.html">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+
+
+<!-- MODALE DE COMPATIBILITÉ -->
+<div id="compat-modal" class="modal-overlay" onclick="closeModal(event, 'compat-modal')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="modal-close" onclick="closeModalForce('compat-modal')" title="Fermer">&times;</button>
+        <h2 style="margin-top: 0; margin-bottom: 20px;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> Tableau récapitulatif des compatibilités H5P</h2>
+        
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left; background: var(--surface); border-radius: 8px; overflow: hidden; border: 1px solid var(--border);">
+                <thead>
+                    <tr style="background: var(--page-bg); border-bottom: 2px solid var(--border);">
+                        <th style="padding: 15px; font-weight: 600; color: var(--text);">Type d'activité H5P</th>
+                        <th style="padding: 15px; font-weight: 600; text-align: center; color: var(--text);"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"/><circle cx="12" cy="8" r="6"/></svg> Question Set</th>
+                        <th style="padding: 15px; font-weight: 600; text-align: center; color: var(--text);"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg> Interactive Book</th>
+                        <th style="padding: 15px; font-weight: 600; text-align: center; color: var(--text);"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.83-.44-1.12-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C22 6 17.5 2 12 2z"/></svg> Course Presentation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 15px; font-weight: bold;">Blanks, DragQuestion, DragText, Essay, MarkTheWords, MultiChoice, TrueFalse</td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 15px;">ImageChoice</td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 15px;">Audio, DialogCards, Image, InteractiveVideo, Link, SingleChoiceSet, Summary, Table, Text, Video</td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 15px;">ImageHotspots, MemoryGame</td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge needs-adaptation"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg> Adaptation</span></td>
+                    </tr>
+                    <tr style="border-bottom: 1px solid var(--border);">
+                        <td style="padding: 12px 15px;">ImageHotspotQuestion</td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px;">Accordion, Agamotto, AudioRecorder, Chart, Collage, Column, CoursePresentation, DocumentationTool, FindTheHotspot, GuessTheAnswer, IFrameEmbedder, ImageSlider, Questionnaire, QuestionSet, Timeline</td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                        <td style="padding: 12px 15px; text-align: center;"><span class="compatibility-badge compatible"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible</span></td>
+                        <td style="padding: 12px 15px; text-align: center; color: var(--text-muted);">✕ </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+    <script>
+        // Variables globales
+        let activities = [];
+        let generatedFile = null;
+        let selectedFormat = null;
+        let sortableInstance = null;
+		let moodleLibraries = {};
+		
+		
+		// --- NOUVELLE FONCTION ---
+		// Chargement et analyse du fichier CSV des bibliothèques Moodle
+		async function loadMoodleLibraries() {
+		    // Chemin vers le fichier, comme dans le convertisseur
+		    const csvPath = '../ia/H5P-libraries-list/H5P-libraries-list.csv';
+		    try {
+		        const response = await fetch(csvPath);
+		        if (!response.ok) {
+		            throw new Error(`Fichier non trouvé : ${csvPath}`);
+		        }
+		        const content = await response.text();
+		        const lines = content.trim().split('\n');
+
+		        // Détection automatique du séparateur (virgule ou point-virgule)
+		        const firstDataLine = lines.find(l => l.trim().length > 0) || '';
+		        const separator = firstDataLine.includes(';') ? ';' : ',';
+		        log(`🔎 Séparateur CSV détecté : "${separator}"`, 'info');
+		        
+		        lines.forEach(line => {
+		            const [name, version] = line.split(separator).map(s => s.trim());
+		            // Ignore les en-têtes et lignes sans nom H5P valide
+		            if (name && version && name.startsWith('H5P.')) {
+		                moodleLibraries[name] = version;
+		            }
+		        });
+        
+		        log(`✅ Fichier des bibliothèques chargé : ${Object.keys(moodleLibraries).length} versions connues.`, 'success');
+
+		    } catch (error) {
+		        log(`❌ Impossible de charger les bibliothèques depuis le CSV : ${error.message}`, 'error');
+		    }
+		}
+		
+		// Met à jour la version d'une bibliothèque et supprime la patchVersion
+		function updateLibraryVersion(library) {
+		    const availableVersion = moodleLibraries[library.machineName];
+		    let finalLibrary;
+
+		    // Si une version est trouvée dans notre liste CSV
+		    if (availableVersion) {
+		        const versionParts = availableVersion.split('.').map(Number);
+		        finalLibrary = {
+		            ...library,
+		            majorVersion: versionParts[0] || library.majorVersion,
+		            minorVersion: versionParts[1] || library.minorVersion
+		        };
+        
+		        if (finalLibrary.majorVersion !== library.majorVersion || finalLibrary.minorVersion !== library.minorVersion) {
+		            log(`🔄 Alignement de version pour ${library.machineName} → v${finalLibrary.majorVersion}.${finalLibrary.minorVersion}`);
+		        }
+		    } else {
+		        // Sinon, on prend une copie de la bibliothèque originale
+		        finalLibrary = { ...library };
+		    }
+    
+		    // On supprime la clé "patchVersion" dans tous les cas
+		    delete finalLibrary.patchVersion;
+
+		    return finalLibrary;
+		}
+
+        // Configuration de compatibilité corrigée
+ // Configuration de compatibilité CORRIGÉE ET MISE À JOUR
+		const compatibilityConfig = {
+		            'question-set': {
+		                // La liste est maintenant exacte et basée sur la documentation officielle
+		                compatible: [
+		                    'H5P.MultiChoice',
+		                    'H5P.DragQuestion',
+		                    'H5P.Blanks',
+		                    'H5P.MarkTheWords',
+		                    'H5P.DragText',
+		                    'H5P.TrueFalse',
+		                    'H5P.Essay',
+		                    'H5P.ImageChoice'
+		                ],
+		                // Cette catégorie est retirée car source de confusion pour ce format
+		                needsAdaptation: [], 
+		                description: 'Compatible avec les types de questions et activités interactives les plus courantes'
+		            },
+		            'interactive-book': {
+		                compatible: ['H5P.Accordion', 'H5P.Agamotto', 'H5P.Audio', 'H5P.AudioRecorder', 'H5P.Blanks', 'H5P.Chart', 'H5P.Collage', 'H5P.CoursePresentation', 'H5P.DialogCards', 'H5P.DocumentationTool', 'H5P.DragQuestion', 'H5P.DragText', 'H5P.Essay', 'H5P.GuessTheAnswer', 'H5P.Table', 'H5P.Text', 'H5P.IFrameEmbedder', 'H5P.Image', 'H5P.ImageHotspots', 'H5P.FindTheHotspot', 'H5P.ImageSlider', 'H5P.InteractiveVideo', 'H5P.Link', 'H5P.MarkTheWords', 'H5P.MemoryGame', 'H5P.MultiChoice', 'H5P.Questionnaire', 'H5P.QuestionSet', 'H5P.Column', 'H5P.SingleChoiceSet', 'H5P.Summary', 'H5P.Timeline', 'H5P.TrueFalse', 'H5P.Video', 'H5P.ImageChoice'],
+		                needsAdaptation: [],
+		                description: 'Optimisé pour les contenus pédagogiques et questions'
+		            },
+		            'course-presentation': {
+		                compatible: ['H5P.Text' , 'H5P.Link' , 'H5P.Image' , 'H5P.Video' , 'H5P.Audio' , 'H5P.Blanks' , 'H5P.SingleChoiceSet' , 'H5P.MultiChoice' , 'H5P.TrueFalse' , 'H5P.DragQuestion' , 'H5P.Summary' , 'H5P.DragText' , 'H5P.MarkTheWords' , 'H5P.DialogCards' , 'H5P.Essay' , 'H5P.Table' , 'H5P.InteractiveVideo', 'H5P.ImageHotspotQuestion'],
+		                needsAdaptation: ['H5P.ImageHotspots', 'H5P.MemoryGame'],
+		                description: 'Idéal pour les présentations avec éléments interactifs'
+		            }
+		        };
+       
+
+        // Configuration de compatibilité des formats
+        const formatCompatibility = compatibilityConfig;
+
+        // Fonction de logging
+        function log(message, type = 'info') {
+            const logArea = document.getElementById('log-area');
+            const timestamp = new Date().toLocaleTimeString();
+            const colors = {
+                'info': '#00ff00',
+                'warning': '#ffff00', 
+                'error': '#ff0000',
+                'success': '#00ffff'
+            };
+            logArea.innerHTML += `<div style="color: ${colors[type]}">[${timestamp}] ${message}</div>`;
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+
+        // Fonctions pour les pastilles de feedback
+        function setSeuil(inputId, value) {
+            const input = document.getElementById(inputId);
+            if(input) {
+                input.value = value;
+                log(`🎯 Seuil de réussite défini à ${value}%`, 'info');
+            }
+        }
+
+        function setFeedback(textareaId, text) {
+            const textarea = document.getElementById(textareaId);
+            if(textarea) {
+                textarea.value = text;
+                log(`💬 Feedback défini : "${text}"`, 'info');
+            }
+        }
+
+        // Sélection du format
+        function selectFormat(format) {
+            selectedFormat = format;
+            
+            // Mise à jour visuelle
+            document.querySelectorAll('.format-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            document.querySelector(`[data-format="${format}"]`).classList.add('selected');
+            
+            // Afficher/masquer la section feedback selon le format
+            const feedbackSection = document.getElementById('feedback-section');
+            if (format === 'question-set') {
+                feedbackSection.style.display = 'block';
+                log(`📊 Section feedback activée pour Question Set`, 'info');
+            } else {
+                feedbackSection.style.display = 'none';
+            }
+            
+            // Mise à jour du bouton
+            const generateBtn = document.getElementById('generate-btn');
+            const formatInfo = document.getElementById('format-info');
+            
+            generateBtn.disabled = activities.length === 0;
+            
+            const formatNames = {
+                'question-set': 'Question Set (Recommandé + Feedback)',
+                'interactive-book': 'Interactive Book (Structure Logiquiz)',
+                'course-presentation': 'Course Presentation (Diaporama)'
+            };
+            
+            formatInfo.textContent = `Format sélectionné : ${formatNames[format]}`;
+            formatInfo.style.color = 'var(--hapi-accent-text)';
+            
+            // Analyser la compatibilité
+            if (activities.length > 0) {
+                analyzeCompatibility();
+            }
+            
+            log(`🎯 Format sélectionné : ${formatNames[format]}`, 'success');
+        }
+
+        // Analyse de compatibilité
+        function analyzeCompatibility() {
+            if (!selectedFormat || activities.length === 0) return;
+
+            const config = compatibilityConfig[selectedFormat];
+            let compatibleCount = 0;
+            let adaptationCount = 0;
+
+            const details = activities.map(activity => {
+                const isCompatible = config.compatible.includes(activity.mainLibrary);
+                const needsAdaptation = config.needsAdaptation.includes(activity.mainLibrary);
+                
+                if (isCompatible) compatibleCount++;
+                else if (needsAdaptation) adaptationCount++;
+                
+                const status = isCompatible ? 'compatible' : (needsAdaptation ? 'needs-adaptation' : 'unknown');
+                const icon = isCompatible ? '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ' : (needsAdaptation ? '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg> ' : '? ');
+                
+                return `<span class="compatibility-badge ${status}">${icon} ${activity.title}</span>`;
+            }).join(' ');
+
+            document.getElementById('compatibility-details').innerHTML = details;
+            document.getElementById('compatible-count').textContent = compatibleCount;
+            document.getElementById('adaptation-count').textContent = adaptationCount;
+            document.getElementById('total-count').textContent = activities.length;
+            document.getElementById('compatibility-analysis').style.display = 'block';
+
+            log(`🔍 Compatibilité analysée : ${compatibleCount} compatibles, ${adaptationCount} adaptations`, 'info');
+        }
+
+        // Gestion de la sélection des fichiers
+        async function handleFileSelect(event) {
+            const files = event.target.files;
+			
+			if (window._paq && files.length > 0) {
+			                window._paq.push(['trackEvent', 'HAPI - Fusionneur', 'Ajout Fichiers', files.length + ' fichiers']);
+			            }
+			
+			
+            const fileInfo = document.getElementById('file-info');
+            
+            if (files.length === 0) {
+                fileInfo.style.display = 'none';
+                document.getElementById('editor-section').style.display = 'none';
+                return;
+            }
+
+            fileInfo.style.display = 'block';
+            fileInfo.innerHTML = `<strong>Analyse de ${files.length} fichier(s) en cours...</strong>`;
+            
+            activities = [];
+            log(`📂 Début d'analyse de ${files.length} fichier(s) H5P...`);
+
+            for (const file of files) {
+                try {
+                    log(`🔍 Analyse du fichier: ${file.name}`);
+                    const zip = await JSZip.loadAsync(file);
+                    
+                    const h5pFile = zip.file('h5p.json');
+                    const contentFile = zip.file('content/content.json');
+
+                    if (h5pFile && contentFile) {
+                        const h5pData = JSON.parse(await h5pFile.async('string'));
+                        const contentData = JSON.parse(await contentFile.async('string'));
+
+                        let activityTitle = h5pData.title || 
+                                          contentData.title || 
+                                          file.name.replace('.h5p', '') || 
+                                          `Activité ${activities.length + 1}`;
+                        
+                        activities.push({
+                            id: `activity-${Date.now()}-${Math.random()}`,
+                            title: activityTitle,
+                            mainLibrary: h5pData.mainLibrary,
+                            preloadedDependencies: h5pData.preloadedDependencies || [],
+                            params: contentData,
+                            originalZip: zip,
+                            fileName: file.name
+                        });
+
+                        log(`✅ Analysé avec succès : ${activityTitle} (${h5pData.mainLibrary})`);
+                    } else {
+                        log(`❌ Fichier invalide : ${file.name} - Manque h5p.json ou content.json`, 'error');
+                    }
+                } catch (error) {
+                    log(`❌ Erreur lors de l'analyse de ${file.name}: ${error.message}`, 'error');
+                }
+            }
+
+            fileInfo.innerHTML = `<strong>${files.length} fichier(s) analysé(s)</strong> - ${activities.length} activité(s) trouvée(s)`;
+            
+            renderActivitiesList();
+            document.getElementById('editor-section').style.display = 'block';
+            
+            // Analyser la compatibilité si un format est sélectionné
+            if (selectedFormat) {
+                analyzeCompatibility();
+            }
+            
+            // Mise à jour du bouton générer
+            const generateBtn = document.getElementById('generate-btn');
+            generateBtn.disabled = !selectedFormat || activities.length === 0;
+        }
+
+        // Affichage de la liste des activités avec glisser-déposer
+        function renderActivitiesList() {
+            const container = document.getElementById('activities-list');
+            container.innerHTML = '';
+
+            activities.forEach((activity, index) => {
+                const item = document.createElement('div');
+                item.className = 'activity-item';
+                item.dataset.id = activity.id;
+                item.innerHTML = `
+                    <div class="activity-content">
+                        <span class="drag-handle">☰</span>
+                        <span class="activity-number">${index + 1}</span>
+                        <span class="activity-title">${activity.title}</span>
+                        <span class="activity-type">${activity.mainLibrary.replace('H5P.', '')}</span>
+                        <small style="color: var(--text-muted);">(${activity.fileName})</small>
+                    </div>
+                    <button class="delete-btn" onclick="removeActivity('${activity.id}')">×</button>
+                `;
+                container.appendChild(item);
+            });
+
+            // Initialiser Sortable.js pour le glisser-déposer
+            if (sortableInstance) {
+                sortableInstance.destroy();
+            }
+            
+            sortableInstance = new Sortable(container, {
+                animation: 150,
+                ghostClass: 'sortable-ghost',
+                handle: '.drag-handle',
+                onEnd: function(evt) {
+                    // Réorganiser le tableau activities
+                    const element = activities.splice(evt.oldIndex, 1)[0];
+                    activities.splice(evt.newIndex, 0, element);
+                    
+                    // Re-rendre pour mettre à jour les numéros
+                    renderActivitiesList();
+                    
+                    // Analyser la compatibilité si un format est sélectionné
+                    if (selectedFormat) {
+                        analyzeCompatibility();
+                    }
+                    
+                    log(`🔄 Ordre des activités mis à jour : "${element.title}" déplacé`, 'info');
+                }
+            });
+        }
+
+        // Supprimer une activité
+        function removeActivity(activityId) {
+            const activityIndex = activities.findIndex(a => a.id === activityId);
+            const activityName = activities[activityIndex]?.title || 'Activité inconnue';
+            
+            activities = activities.filter(a => a.id !== activityId);
+            
+            if (activities.length === 0) {
+                document.getElementById('editor-section').style.display = 'none';
+                document.getElementById('h5p-files').value = '';
+                document.getElementById('file-info').style.display = 'none';
+                document.getElementById('compatibility-analysis').style.display = 'none';
+            } else {
+                renderActivitiesList();
+                if (selectedFormat) {
+                    analyzeCompatibility();
+                }
+            }
+            
+            // Mise à jour du bouton
+            const generateBtn = document.getElementById('generate-btn');
+            generateBtn.disabled = !selectedFormat || activities.length === 0;
+            
+            log(`🗑️ Activité supprimée : "${activityName}"`);
+        }
+
+        // Génération du H5P selon le format choisi
+        async function generateH5P() {
+            if (activities.length === 0 || !selectedFormat) {
+                alert('Sélectionnez un format et ajoutez des activités !');
+                return;
+            }
+
+			if (window._paq) {
+			                window._paq.push(['trackEvent', 'HAPI - Fusionneur', 'Fusion Globale', selectedFormat + ' (' + activities.length + ' sources)']);
+			            }
+			
+            log(`🚀 Génération en format ${selectedFormat}...`);
+
+            try {
+                let result;
+                
+                switch(selectedFormat) {
+                    case 'question-set':
+                        result = await createQuestionSetWithFeedback(activities);
+                        break;
+                    case 'interactive-book':
+                        result = await createInteractiveBook(activities);
+                        break;
+                    case 'course-presentation':
+                        result = await createCoursePresentation(activities);
+                        break;
+                    default:
+                        throw new Error('Format non supporté');
+                }
+
+                if (result && result.blob) {
+                    generatedFile = result;
+                    showDownloadSection();
+                    log(`✅ Contenu généré avec succès !`, 'success');
+                } else {
+                    throw new Error('Échec de la génération');
+                }
+            } catch (error) {
+                log(`❌ Erreur lors de la génération : ${error.message}`, 'error');
+                alert('Erreur lors de la génération. Consultez le journal pour plus de détails.');
+            }
+        }
+
+		// 1. QUESTION SET avec feedback personnalisé
+		async function createQuestionSetWithFeedback(activities) {
+		    const zip = new JSZip();
+		    const allQuestions = [];
+		    const allDependencies = new Map();
+
+		    // --- NOUVELLE LOGIQUE DE FILTRAGE EN 2 ÉTAPES ---
+		    log('🔬 Étape 1/2 : Filtrage des activités non autorisées (absentes du CSV)...');
+		    const authorizedActivities = activities.filter(activity => {
+		        if (moodleLibraries.hasOwnProperty(activity.mainLibrary)) { return true; }
+		        log(`❌ Activité exclue (non autorisée par le CSV) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+
+		    log('🔬 Étape 2/2 : Filtrage des activités non compatibles avec le format "Question Set"...');
+		    const finalActivities = authorizedActivities.filter(activity => {
+		        if (activity.mainLibrary === 'H5P.QuestionSet' || compatibilityConfig['question-set'].compatible.includes(activity.mainLibrary)) {
+		            return true;
+		        }
+		        log(`❌ Activité exclue (non compatible avec Question Set) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+		    // --- FIN DU FILTRAGE ---
+
+		    if (finalActivities.length === 0) {
+		        log('⚠️ Aucune activité compatible trouvée après les deux filtrages.', 'warning');
+		        alert('Aucune des activités sélectionnées n\'est valide et compatible pour être ajoutée à un Question Set.');
+		        return;
+		    }
+
+		    if (moodleLibraries.hasOwnProperty('H5P.QuestionSet')) {
+		        const questionSetLib = { machineName: 'H5P.QuestionSet', majorVersion: 1, minorVersion: 20 };
+		        allDependencies.set('H5P.QuestionSet', updateLibraryVersion(questionSetLib));
+		    }
+
+		    for (const activity of finalActivities) {
+		        if (activity.preloadedDependencies) {
+		            activity.preloadedDependencies.forEach(dep => {
+		                if (moodleLibraries.hasOwnProperty(dep.machineName)) {
+		                    const updatedDep = updateLibraryVersion(dep);
+		                    allDependencies.set(updatedDep.machineName, updatedDep);
+		                }
+		            });
+		        }
+		        if (activity.mainLibrary === 'H5P.QuestionSet' && activity.params.questions) {
+		            allQuestions.push(...activity.params.questions);
+		        } else {
+		            const question = {
+		                params: activity.params,
+		                library: `${activity.mainLibrary} ${getLibraryVersion(activity.mainLibrary, activity.preloadedDependencies)}`,
+		                subContentId: generateSubContentId()
+		            };
+		            allQuestions.push(question);
+		        }
+		        await copyMediaFiles(activity.originalZip, zip);
+		    }
+
+		    const passPercentage = parseInt(document.getElementById('passPercentage').value, 10);
+		    const feedbackFail = document.getElementById('feedback-fail').value;
+		    const feedbackSuccess = document.getElementById('feedback-success').value;
+		    const h5pJson = { title: document.getElementById('output-title').value, language: 'fr', mainLibrary: 'H5P.QuestionSet', embedTypes: ['div'], license: 'U', preloadedDependencies: Array.from(allDependencies.values()) };
+		    const contentJson = { introPage: { showIntroPage: false, startButtonText: "Commencer", introduction: "" }, progressType: "dots", passPercentage: passPercentage, questions: allQuestions, disableBackwardsNavigation: false, randomQuestions: false, endGame: { showResultPage: true, showSolutionButton: true, showRetryButton: true, noResultMessage: "Terminé", message: "Vos résultats :", scoreBarLabel: "Vous avez obtenu @finals sur @totals points", overallFeedback: [ { from: 0, to: passPercentage - 1, feedback: feedbackFail }, { from: passPercentage, to: 100, feedback: feedbackSuccess } ], solutionButtonText: "Voir la solution", retryButtonText: "Recommencer", finishButtonText: "Terminer", submitButtonText: "Soumettre", showAnimations: false, skippable: false, skipButtonText: "Passer la vidéo" }, texts: { prevButton: "Retour", nextButton: "Suivant", finishButton: "Terminer", submitButton: "Vérifier", textualProgress: "Question @current sur @total", jumpToQuestion: "Question %d sur %total", questionLabel: "Question", readSpeakerProgress: "Question @current sur @total", unansweredText: "Pas de réponse donnée", answeredText: "Réponse donnée", currentQuestionText: "Question en cours", navigationLabel: "Questions", questionSetInstruction: "Choose question to display" }, override: { checkButton: true } };
+    
+		    zip.file('h5p.json', JSON.stringify(h5pJson, null, 2));
+		    zip.file('content/content.json', JSON.stringify(contentJson, null, 2));
+    
+		    // ✅ CORRECTION MOODLE : Supprime manuellement toutes les entrées de dossiers vides
+		    Object.keys(zip.files).forEach(filename => {
+		        if (filename.endsWith('/')) {
+		            delete zip.files[filename];
+		        }
+		    });
+    
+		    log('📦 Compression du fichier Question Set (compatible Moodle)...');
+		    const blob = await zip.generateAsync({ 
+		        type: 'blob', 
+		        compression: 'DEFLATE'
+		    });
+    
+		    return { blob: blob, fileName: `question-set-feedback-${Date.now()}.h5p` };
+		}
+		
+		
+		// 2. INTERACTIVE BOOK (Structure Logiquiz)
+		async function createInteractiveBook(activities) {
+		    const zip = new JSZip();
+		    const chapters = [];
+		    const allDependencies = new Map();
+
+		    // --- NOUVELLE LOGIQUE DE FILTRAGE EN 2 ÉTAPES ---
+		    log('🔬 Étape 1/2 : Filtrage des activités non autorisées (absentes du CSV)...');
+		    const authorizedActivities = activities.filter(activity => {
+		        if (moodleLibraries.hasOwnProperty(activity.mainLibrary)) { return true; }
+		        log(`❌ Activité exclue (non autorisée par le CSV) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+
+		    log('🔬 Étape 2/2 : Filtrage des activités non compatibles avec le format "Interactive Book"...');
+		    const finalActivities = authorizedActivities.filter(activity => {
+		        if (compatibilityConfig['interactive-book'].compatible.includes(activity.mainLibrary)) {
+		            return true;
+		        }
+		        log(`❌ Activité exclue (non compatible avec Interactive Book) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+		    // --- FIN DU FILTRAGE ---
+
+		    if (finalActivities.length === 0) {
+		        log('⚠️ Aucune activité compatible trouvée après les deux filtrages.', 'warning');
+		        alert('Aucune des activités sélectionnées n\'est valide et compatible pour être ajoutée à un Interactive Book.');
+		        return;
+		    }
+
+		    if (moodleLibraries.hasOwnProperty('H5P.InteractiveBook')) {
+		        const lib = { machineName: 'H5P.InteractiveBook', majorVersion: 1, minorVersion: 9 };
+		        allDependencies.set('H5P.InteractiveBook', updateLibraryVersion(lib));
+		    }
+		    if (moodleLibraries.hasOwnProperty('H5P.Column')) {
+		        const lib = { machineName: 'H5P.Column', majorVersion: 1, minorVersion: 17 };
+		        allDependencies.set('H5P.Column', updateLibraryVersion(lib));
+		    }
+
+		    for (let i = 0; i < finalActivities.length; i++) {
+		        const activity = finalActivities[i];
+		        if (activity.preloadedDependencies) {
+		            activity.preloadedDependencies.forEach(dep => {
+		                if (moodleLibraries.hasOwnProperty(dep.machineName)) {
+		                    const updatedDep = updateLibraryVersion(dep);
+		                    allDependencies.set(updatedDep.machineName, updatedDep);
+		                }
+		            });
+		        }
+		        const chapter = { params: { content: [{ content: { params: activity.params, library: `${activity.mainLibrary} ${getLibraryVersion(activity.mainLibrary, activity.preloadedDependencies)}`, metadata: { contentType: getContentType(activity.mainLibrary), license: "U", title: activity.title, authors: [], changes: [], extraTitle: activity.title }, subContentId: generateSubContentId() }, useSeparator: "auto" }] }, library: "H5P.Column 1.17", subContentId: generateSubContentId(), metadata: { contentType: "Column", license: "U", title: `Chapitre ${i + 1}`, authors: [], changes: [], extraTitle: `Chapitre ${i + 1}` } };
+		        chapters.push(chapter);
+		        await copyMediaFiles(activity.originalZip, zip);
+		    }
+
+		    const h5pJson = { title: document.getElementById('output-title').value, language: 'fr', mainLibrary: 'H5P.InteractiveBook', embedTypes: ['div'], license: 'U', preloadedDependencies: Array.from(allDependencies.values()) };
+		    const contentJson = { showCoverPage: false, bookCover: { coverDescription: "<p style=\"text-align:center\"></p>" }, chapters: chapters, behaviour: { baseColor: "#1768c4", defaultTableOfContents: true, progressIndicators: true, progressAuto: true, displaySummary: true, enableRetry: true }, read: "Lire", displayTOC: "Afficher la 'Table des matières'", hideTOC: "Cacher la 'Table des matières'", nextPage: "Page suivante", previousPage: "Page précédente", chapterCompleted: "Page terminée!", partCompleted: "@pages sur @total terminé", incompleteChapter: "Page non terminée", navigateToTop: "Revenir en haut", markAsFinished: "J'ai terminé cette page", fullscreen: "Plein écran", exitFullscreen: "Réduire", bookProgressSubtext: "@count sur @total pages", interactionsProgressSubtext: "@count sur @total interactions", submitReport: "Soumettre le rapport", restartLabel: "Relancer", summaryHeader: "Sommaire", allInteractions: "Toutes les interactions", unansweredInteractions: "Interactions sans réponse", scoreText: "@score / @maxscore", leftOutOfTotalCompleted: "@left sur @max interactions réalisées", noInteractions: "Aucune interaction", score: "Score", summaryAndSubmit: "Résumé et transmission", noChapterInteractionBoldText: "Vous n'avez interagi avec aucune page.", noChapterInteractionText: "Vous devez interagir avec au moins une page avant de pouvoir voir le résumé.", yourAnswersAreSubmittedForReview: "Vos réponses sont soumises à examen !", bookProgress: "Avancement dans la lecture", interactionsProgress: "Avancement des interactions", totalScoreLabel: "Score total", a11y: { progress: "Page @page sur @total.", menu: "Étendre/Réduire le menu" } };
+    
+		    zip.file('h5p.json', JSON.stringify(h5pJson, null, 2));
+		    zip.file('content/content.json', JSON.stringify(contentJson, null, 2));
+    
+		    // ✅ CORRECTION MOODLE : Supprime manuellement toutes les entrées de dossiers vides
+		    Object.keys(zip.files).forEach(filename => {
+		        if (filename.endsWith('/')) {
+		            delete zip.files[filename];
+		        }
+		    });
+    
+		    log('📦 Compression du fichier Interactive Book (compatible Moodle)...');
+		    const blob = await zip.generateAsync({ 
+		        type: 'blob', 
+		        compression: 'DEFLATE'
+		    });
+    
+		    return { blob: blob, fileName: `interactive-book-${Date.now()}.h5p` };
+		}
+		
+		
+		
+		// 3. COURSE PRESENTATION
+		async function createCoursePresentation(activities) {
+		    const zip = new JSZip();
+		    const slides = [];
+		    const allDependencies = new Map();
+
+		    // --- NOUVELLE LOGIQUE DE FILTRAGE EN 2 ÉTAPES ---
+		    log('🔬 Étape 1/2 : Filtrage des activités non autorisées (absentes du CSV)...');
+		    const authorizedActivities = activities.filter(activity => {
+		        if (moodleLibraries.hasOwnProperty(activity.mainLibrary)) { return true; }
+		        log(`❌ Activité exclue (non autorisée par le CSV) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+
+		    log('🔬 Étape 2/2 : Filtrage des activités non compatibles avec le format "Course Presentation"...');
+		    const finalActivities = authorizedActivities.filter(activity => {
+		        if (compatibilityConfig['course-presentation'].compatible.includes(activity.mainLibrary)) {
+		            return true;
+		        }
+		        log(`❌ Activité exclue (non compatible avec Course Presentation) : "${activity.title}" (${activity.mainLibrary})`, 'error');
+		        return false;
+		    });
+		    // --- FIN DU FILTRAGE ---
+
+		    if (finalActivities.length === 0) {
+		        log('⚠️ Aucune activité compatible trouvée après les deux filtrages.', 'warning');
+		        alert('Aucune des activités sélectionnées n\'est valide et compatible pour être ajoutée à une Course Presentation.');
+		        return;
+		    }
+
+		    if (moodleLibraries.hasOwnProperty('H5P.CoursePresentation')) {
+		        const lib = { machineName: 'H5P.CoursePresentation', majorVersion: 1, minorVersion: 25 };
+		        allDependencies.set('H5P.CoursePresentation', updateLibraryVersion(lib));
+		    }
+
+		    for (let i = 0; i < finalActivities.length; i++) {
+		        const activity = finalActivities[i];
+		        if (activity.preloadedDependencies) {
+		            activity.preloadedDependencies.forEach(dep => {
+		                if (moodleLibraries.hasOwnProperty(dep.machineName)) {
+		                    const updatedDep = updateLibraryVersion(dep);
+		                    allDependencies.set(updatedDep.machineName, updatedDep);
+		                }
+		            });
+		        }
+		        const slide = { elements: [{ x: 10, y: 10, width: 80, height: 80, action: { library: `${activity.mainLibrary} ${getLibraryVersion(activity.mainLibrary, activity.preloadedDependencies)}`, params: activity.params, subContentId: generateSubContentId(), metadata: { contentType: getContentType(activity.mainLibrary), license: "U", title: activity.title, authors: [], changes: [], extraTitle: activity.title } } }], keywords: [] };
+		        slides.push(slide);
+		        await copyMediaFiles(activity.originalZip, zip);
+		    }
+
+		    const h5pJson = { title: document.getElementById('output-title').value, language: 'fr', mainLibrary: 'H5P.CoursePresentation', embedTypes: ['div'], license: 'U', preloadedDependencies: Array.from(allDependencies.values()) };
+		    const contentJson = { presentation: { slides: slides, keywordListEnabled: true, keywordListAlwaysShow: false, keywordListAutoHide: false, keywordListOpacity: 90 }, l10n: { slide: "Diapositive", score: "Score", yourScore: "Votre score", maxScore: "Score max", goodScore: "Félicitations !", okScore: "Bien joué !", badScore: "Vous pouvez mieux faire !", total: "Total", totalScore: "Score total", showSolutions: "Afficher les solutions", retry: "Recommencer", exportAnswers: "Exporter les réponses", hideKeywords: "Masquer la liste des mots-clés", showKeywords: "Afficher la liste des mots-clés", fullscreen: "Plein écran", exitFullscreen: "Quitter le plein écran", prevSlide: "Diapositive précédente", nextSlide: "Diapositive suivante", currentSlide: "Diapositive actuelle", lastSlide: "Dernière diapositive", solutionModeTitle: "Quitter le mode solution", solutionModeText: "Mode solution", summaryMultipleTaskText: "Tâches multiples", scoreMessage: "Vous avez obtenu @score sur @total points", shareFacebook: "Partager sur Facebook", shareTwitter: "Partager sur Twitter", shareGoogle: "Partager sur Google+", goToSlide: "Aller à la diapositive @slide", solutionsButtonTitle: "Afficher les commentaires" }, override: { activeSurface: false, hideSummary: false, summarySlideName: "Résumé" } };
+    
+		    zip.file('h5p.json', JSON.stringify(h5pJson, null, 2));
+		    zip.file('content/content.json', JSON.stringify(contentJson, null, 2));
+    
+		    // ✅ CORRECTION MOODLE : Supprime manuellement toutes les entrées de dossiers vides
+		    Object.keys(zip.files).forEach(filename => {
+		        if (filename.endsWith('/')) {
+		            delete zip.files[filename];
+		        }
+		    });
+    
+		    log('📦 Compression du fichier Course Presentation (compatible Moodle)...');
+		    const blob = await zip.generateAsync({ 
+		        type: 'blob', 
+		        compression: 'DEFLATE'
+		    });
+    
+		    return { blob: blob, fileName: `course-presentation-${Date.now()}.h5p` };
+		}
+		
+		
+
+        // Fonctions utilitaires
+        function getLibraryVersion(mainLibrary, dependencies) {
+            const dep = dependencies.find(d => d.machineName === mainLibrary);
+            return dep ? `${dep.majorVersion}.${dep.minorVersion}` : '1.20';
+        }
+
+        function getContentType(mainLibrary) {
+            const types = {
+                'H5P.QuestionSet': 'Question Set',
+                'H5P.MultiChoice': 'Multiple Choice',
+                'H5P.TrueFalse': 'True/False Question',
+                'H5P.DragQuestion': 'Drag and Drop',
+                'H5P.Blanks': 'Fill in the Blanks',
+                'H5P.Essay': 'Essay',
+                'H5P.ImageHotspots': 'Image Hotspots'
+            };
+            return types[mainLibrary] || mainLibrary.replace('H5P.', '');
+        }
+
+        function generateSubContentId() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                const r = Math.random() * 16 | 0;
+                const v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+/**
+ * CORRIGÉ POUR MOODLE : Copie les fichiers média d'un zip source vers un zip cible,
+ * en ignorant les entrées de type dossier pour éviter l'erreur "not in whitelist".
+ * @param {JSZip} sourceZip - Le zip H5P d'origine.
+ * @param {JSZip} targetZip - Le zip H5P de destination.
+ */
+async function copyMediaFiles(sourceZip, targetZip) {
+    let copiedCount = 0;
+    const fileEntries = Object.entries(sourceZip.files);
+
+    for (const [relativePath, file] of fileEntries) {
+        
+        // --- BLOC DE SÉCURITÉ ANTI-DOSSIER ---
+        // On ignore l'entrée si c'est un dossier (se termine par '/') 
+        // ou si JSZip l'identifie comme tel (file.dir).
+        if (relativePath.endsWith('/') || file.dir) {
+            continue; // On passe à l'entrée suivante sans la copier
+        }
+
+        // On ignore aussi les métadonnées H5P et système
+        if (relativePath === 'h5p.json' ||
+            relativePath === 'content/content.json' ||
+            relativePath.includes('__MACOSX') ||
+            relativePath.startsWith('.') ||
+            targetZip.file(relativePath)) {
+            continue;
+        }
+        // --- FIN DU BLOC DE SÉCURITÉ ---
+        
+        try {
+            const fileData = await file.async('uint8array');
+            if (fileData.length > 0) {
+                // Cette ligne crée implicitement la structure de dossiers
+                // sans ajouter d'entrée "dossier" invalide.
+                targetZip.file(relativePath, fileData);
+                copiedCount++;
+            }
+        } catch (error) {
+            log(`⚠️ Impossible de copier ${relativePath}: ${error.message}`, 'warning');
+        }
+    }
+    if (copiedCount > 0) {
+        log(`📁 ${copiedCount} fichier(s) média copiés (compatible Moodle)`);
+    }
+}
+		
+		
+
+        // Affichage de la section de téléchargement
+        function showDownloadSection() {
+            const downloadSection = document.getElementById('download-section');
+            downloadSection.style.display = 'block';
+            
+            const formatNames = {
+                'question-set': 'Question Set avec Feedback',
+                'interactive-book': 'Interactive Book (Logiquiz)',
+                'course-presentation': 'Course Presentation'
+            };
+            
+            const feedbackInfo = selectedFormat === 'question-set' ? 
+                `<li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Feedback personnalisé (seuil: ${document.getElementById('passPercentage').value}%)</li>` : '';
+            
+            downloadSection.innerHTML = `
+                <div class="section">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Téléchargement</h2>
+                    <div class="alert alert-success">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ${formatNames[selectedFormat]} généré avec succès !</strong><br>
+                        Votre fichier H5P est prêt à être importé.
+                    </div>
+                    <div style="text-align: center; padding: 20px;">
+                        <button class="btn" onclick="downloadFile()" style="padding: 15px 30px; font-size: 18px;">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Télécharger ${generatedFile.fileName}
+                        </button>
+                    </div>
+                    <div class="alert alert-info">
+                        <strong><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> Informations :</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Format : ${formatNames[selectedFormat]}</li>
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Fichier : ${generatedFile.fileName}</li>
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Taille : ${(generatedFile.blob.size / 1024).toFixed(2)} KB</li>
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Activités traitées : ${activities.length}</li>
+                            ${feedbackInfo}
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Compatible : Moodle, H5P.com, WordPress</li>
+                            <li><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Whitelist Moodle respectée</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Téléchargement du fichier
+        function downloadFile() {
+            if (!generatedFile) return;
+            
+            const url = URL.createObjectURL(generatedFile.blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = generatedFile.fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            log(`📥 Téléchargement démarré : ${generatedFile.fileName}`, 'success');
+        }
+
+		
+		// --- FONCTIONS POUR LA MODALE DE COMPATIBILITÉ ---
+		function openModal(modalId) {
+		    const modal = document.getElementById(modalId);
+		    modal.style.display = 'flex';
+		    // Petit délai pour permettre l'animation CSS
+		    setTimeout(() => {
+		        modal.classList.add('active');
+		    }, 10);
+		    // Empêche le scroll de la page en arrière-plan
+		    document.body.style.overflow = 'hidden';
+		}
+
+		function closeModal(event, modalId) {
+		    // Si on clique sur le fond sombre (overlay) en dehors du contenu
+		    if (event.target.id === modalId) { 
+		        closeModalForce(modalId);
+		    }
+		}
+
+		function closeModalForce(modalId) {
+		    const modal = document.getElementById(modalId);
+		    modal.classList.remove('active');
+		    setTimeout(() => {
+		        modal.style.display = 'none';
+		    }, 300); // Doit correspondre à la durée de transition CSS
+		    // Réactive le scroll de la page
+		    document.body.style.overflow = 'auto';
+		}
+
+
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+			loadMoodleLibraries();
+            log('🚀 MÉGA FUSIONNEUR H5P FINAL prêt !', 'success');
+            log('🥇 Question Set en priorité avec feedback personnalisable');
+            log('📚 Interactive Book avec structure Logiquiz validée');
+            log('🎨 Course Presentation avec adaptation automatique');
+            log('🎯 Glisser-déposer activé pour réorganiser les activités');
+            log('🔍 Filtrage intelligent selon le format choisi');
+            log('🔒 Whitelist Moodle respectée - Compatible terminal');
+        });
+		
+    </script>
+<script src="../js/tracking-static.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

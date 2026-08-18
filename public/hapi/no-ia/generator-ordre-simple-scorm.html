@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+    <script src="../js/export-marianne.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'activités interactives - Remise en Ordre Simple</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+
+	<link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+    <script src="../vendor/jszip/jszip.min.js"></script>
+    <style>
+        /* --- STYLES GLOBAUX --- */
+        .section { background: var(--surface); padding: 25px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); border-radius: 12px; margin-bottom: 20px; }
+        .section-title { font-size: 1.4rem; color: var(--hapi-accent-text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title::before { content: ''; width: 4px; height: 24px; background: linear-gradient(135deg, var(--hapi-green) 0%, var(--hapi-green-light) 100%); border-radius: 2px; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text-muted); }
+        input[type="text"], input[type="number"], textarea, select { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem; transition: all 0.3s ease; font-family: inherit; box-sizing: border-box; }
+        input[type="text"]:focus, input[type="number"]:focus, textarea:focus, select:focus { outline: none; border-color: var(--hapi-green); box-shadow: 0 0 0 3px rgba(var(--hapi-green-rgb), 0.1); }
+        textarea { resize: vertical; min-height: 80px; }
+
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); color: white; margin-top:8px; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(var(--hapi-green-rgb), 0.4); }
+        .btn-secondary { background: var(--page-bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+        .btn-success { background: var(--hapi-green-dark); color: white; }
+        .btn-success:hover { background: var(--hapi-green-deep); }
+        .btn-danger { background: #b91c1c; color: white; }
+        .btn-danger:hover { background: #991b1b; }
+        .btn-small { padding: 8px 16px; font-size: 0.9rem; margin-top:0; }
+
+        /* --- ONGLETS --- */
+        .tabs { display: flex; background: var(--page-bg); border-bottom: 1px solid var(--border); flex-wrap: wrap; border-radius: 8px 8px 0 0; margin-top: 20px; }
+        .tab { flex: 1; padding: 1rem; background: none; border: none; cursor: pointer; font-size: 1.0em; font-weight: 600; color: var(--text-muted); transition: all 0.3s ease; min-width: 120px; }
+        .tab.active { background: var(--surface); color: var(--hapi-accent-text); border-bottom: 3px solid var(--hapi-green); }
+        .tab:hover { background: var(--border); }
+        .tab-content { display: none; padding: 20px 0; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+
+        /* --- CARTES ELEMENTS --- */
+        .items-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .item-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); transition: all 0.3s; position: relative; border-left: 5px solid var(--hapi-green); }
+        .item-card:hover { box-shadow: 0 6px 12px rgba(0,0,0,0.05); }
+        .item-card.intrus { border-left-color: #ff4757; background: rgba(255, 71, 87, 0.07); }
+        
+        .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        .item-title { font-weight: bold; color: var(--text); font-size: 1.1rem; }
+        .item-controls { display: flex; gap: 5px; }
+        .control-btn { cursor: pointer; font-size: 1.1rem; padding: 4px 8px; border-radius: 4px; transition: background-color 0.2s; background: var(--page-bg); color: var(--text); border: none; }
+        .control-btn:hover { background: var(--border); }
+        .control-btn:disabled { color: var(--text-muted); cursor: not-allowed; }
+
+        .item-body { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .item-body { grid-template-columns: 1fr; } }
+        
+        .media-controls, .options-controls { background: var(--page-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .options-controls { display: flex; flex-direction: column; gap: 15px; }
+        
+        /* Audio Generator Styles */
+        .audio-controls { margin-top: 10px; display: flex; flex-direction: column; gap: 10px; }
+        .audio-controls button { background: var(--hapi-green-dark); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; }
+        .audio-controls button.recording { background: #dc3545; animation: pulse 1.5s infinite; }
+        .audio-controls audio { max-width: 100%; height: 35px; border-radius: 5px; }
+        .item-audio-icon { font-size: 1.1em; margin-left: 5px; cursor: help; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
+     
+        .checkbox-group { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .checkbox-group input { width: 18px; height: 18px; cursor: pointer; }
+        .checkbox-group label { margin: 0; cursor: pointer; }
+
+/* --- STYLES DE LIGNE NUMEROTÉE (PREVIEW & SCORM) --- */
+        .preview-area { background: var(--page-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border); min-height: 150px; box-sizing: border-box; width: 100%; overflow: hidden; }
+        .sortable-list { display: flex; gap: 20px; padding: 20px; background: var(--page-bg); border-radius: 12px; min-height: 120px; counter-reset: step-counter; position: relative; box-sizing: border-box; width: 100%; }
+        
+        /* Ligne verticale */
+        .sortable-list.vertical { flex-direction: column; padding-left: 60px; }
+        .sortable-list.vertical::before { content: ''; position: absolute; left: 35px; top: 30px; bottom: 30px; width: 4px; background: var(--border-strong); border-radius: 2px; }
+        
+        /* Ligne horizontale / Frise */
+        .sortable-list.horizontal, .sortable-list.frise { flex-direction: row; flex-wrap: wrap; justify-content: center; padding-top: 60px; }
+        .sortable-list.horizontal::before, .sortable-list.frise::before { content: ''; position: absolute; top: 35px; left: 30px; right: 30px; height: 4px; background: var(--border-strong); border-radius: 2px; }
+        
+        .sortable-item { background: var(--surface); border: 2px solid var(--border); border-radius: 8px; padding: 15px; cursor: grab; user-select: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-weight: 500; transition: transform 0.2s, box-shadow 0.2s; position: relative; box-sizing: border-box; max-width: 100%; word-break: break-word; }
+        .sortable-list.vertical .sortable-item { width: 100%; justify-content: flex-start; }
+        .sortable-list.horizontal .sortable-item, .sortable-list.frise .sortable-item { min-width: 150px; max-width: 100%; }
+		
+		
+        /* Numéros d'étapes auto-calculés via CSS */
+        .sortable-item:not([data-intrus="true"])::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            background: var(--hapi-green-dark);
+            color: white;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px var(--page-bg); /* Découpe visuelle sur la ligne */
+            z-index: 2;
+        }
+        
+        /* Positionnement des numéros / icones */
+        .sortable-list.vertical .sortable-item:not([data-intrus="true"])::before { left: -42px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; font-size: 1.1rem; }
+        .sortable-list.horizontal .sortable-item:not([data-intrus="true"])::before, .sortable-list.frise .sortable-item:not([data-intrus="true"])::before { top: -42px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; font-size: 1.1rem; }
+        
+        .sortable-item[data-intrus="true"]::before {
+            content: '🚫'; position: absolute; background: #ff4757; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 4px var(--page-bg); z-index: 2;
+        }
+        .sortable-list.vertical .sortable-item[data-intrus="true"]::before { left: -42px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; font-size: 1rem; }
+        .sortable-list.horizontal .sortable-item[data-intrus="true"]::before, .sortable-list.frise .sortable-item[data-intrus="true"]::before { top: -42px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; font-size: 1rem; }
+
+        /* Cacher les numéros pendant le drag pour un effet "ligne fixe" */
+        .sortable-ghost::before, .sortable-drag::before, .dragging::before { opacity: 0 !important; }
+
+        /* Flèches mode frise */
+        .sortable-list.frise .sortable-item::after { content: '➔'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); font-size: 1.5em; color: var(--hapi-accent-text); pointer-events: none; font-weight: bold; display: none; }
+        .sortable-list.frise .sortable-item:not(:last-child)::after { display: block; }
+        .sortable-item.dragging::after { display: none !important; }
+
+        /* Helpers Item Content */
+        .preview-content-wrapper { display: flex; align-items: center; flex-grow: 1; }
+        .preview-img-box { position: relative; display: inline-block; margin-right: 15px; }
+        .preview-img { max-height: 80px; border-radius: 4px; pointer-events: none; display: block; }
+        .preview-img-zoom { position: absolute; bottom: -5px; right: -10px; background: white; color: #333; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3); font-size: 12px; cursor: pointer; pointer-events: auto; }
+        .preview-speak-btn { cursor: pointer; display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; transition: 0.2s; background: var(--page-bg); border: 1px solid var(--border); font-size: 14px; margin-left: auto; pointer-events: auto; }
+        .preview-speak-btn:hover { background: var(--border); transform: scale(1.1); }
+        .placed-pin { position: absolute; top: -10px; right: -10px; font-size: 1.5rem; transform: rotate(15deg); text-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 5; }
+
+
+		/* --- NOTIFICATIONS --- */
+		        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 25px; border-radius: 8px; color: white; font-weight: 600; z-index: 10000; opacity: 0; transform: translateX(100%); transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+		        .notification.show { opacity: 1; transform: translateX(0); }
+		        .notification.success { background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); }
+		        .notification.error { background: #b91c1c; }
+
+
+        /* --- EXPORT SECTION --- */
+        .generate-section { text-align: center; padding: 50px 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .generate-title { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text); }
+        .stats { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
+        .stat { text-align: center; background: var(--page-bg); padding: 25px 30px; border-radius: 12px; min-width: 180px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .stat-value { font-size: 3.2rem; font-weight: 800; color: var(--hapi-accent-text); margin-bottom: 5px; line-height: 1; }
+        .stat-label { font-size: 1.05rem; color: var(--text-muted); font-weight: 600; }
+        
+        /* --- IMPORT/EXPORT GRID --- */
+        .import-export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .import-section, .export-section { background: var(--page-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column; }
+        .import-section h3, .export-section h3 { margin-bottom: 15px; color: var(--text); margin-top: 0; }
+
+        /* Tools */
+        .sub-tabs { display: flex; gap: 5px; margin-bottom: 10px; background: var(--page-bg); padding: 4px; border-radius: 6px; }
+        .sub-tab-btn { flex: 1; padding: 6px 10px; cursor: pointer; background: transparent; border: none; border-radius: 4px; font-weight: 600; color: var(--text-muted); font-size: 0.85rem; }
+        .sub-tab-btn.active { background: var(--surface); color: var(--hapi-accent-text); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .sub-tab-content { display: none; }
+        .sub-tab-content.active { display: block; animation: fadeIn 0.3s; }
+        
+		input[type="file"] { padding: 10px; background: var(--field-bg); border: 2px dashed var(--border-strong); border-radius: 8px; cursor: pointer; color: var(--text-muted); width: 100%; }
+		input[type="file"]::file-selector-button { padding: 8px 16px; border: none; border-radius: 6px; background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); color: white; font-weight: 600; cursor: pointer; margin-right: 15px; transition: all 0.3s ease; }
+		input[type="file"]::file-selector-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb), 0.3); }
+		.zoom-btn { transition: transform 0.2s; }
+		.zoom-btn:hover { transform: scale(1.2); }
+        
+        .wiki-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; margin-top: 10px; max-height: 150px; overflow-y: auto; }
+        .wiki-thumb { height: 60px; cursor: pointer; border-radius: 4px; overflow: hidden; border: 2px solid transparent; }
+        .wiki-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .wiki-thumb:hover { border-color: var(--hapi-green); }
+
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: center; justify-content: center; }
+        .lightbox-content { background: var(--surface); padding: 20px; border-radius: 12px; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .lightbox-content img { max-width: 100%; max-height: 70vh; object-fit: contain; border-radius: 8px; }
+    </style>
+</head>
+<body class="page-without-ia page-ordre-scorm">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil"><img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo"></a>
+            </div>
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil"><h1>HAPI</h1></a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span></span><a href="./">Générateur d'activités sans assistance de l'IA</a>
+            <span>Remise en ordre simple</span>
+        </div>
+        
+        <div class="content" id="contenu" role="main">
+            <h1><svg class="gen-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 12h11"/><path d="M10 18h11"/><path d="M10 6h11"/><path d="M4 10h2"/><path d="M4 6h1v4"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg> Générateur de Remise en ordre</h1>
+            <p>Créez des activités où les élèves doivent replacer des étapes, des mots ou des images dans le bon ordre chronologique ou logique.</p>
+
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab(event, 'config')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg> Configuration</button>
+                <button class="tab" onclick="switchTab(event, 'items')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Éléments</button>
+                <button class="tab" onclick="switchTab(event, 'preview')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Aperçu</button>
+                <button class="tab" onclick="switchTab(event, 'import-export')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Import / Export</button>
+                <button class="tab" onclick="switchMainTab(event, 'export-scorm')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Export SCORM</button>
+            </div>
+
+            <div id="config" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">Paramètres de l'activité</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div class="form-group"><label for="activityTitle">Titre de l'activité :</label><input type="text" id="activityTitle" value="Remettre dans l'ordre" oninput="updatePreview()"></div>
+                            <div class="form-group"><label for="activityInstructions">Instructions / Consigne :</label><textarea id="activityInstructions" oninput="updatePreview()">Glissez-déposez les éléments pour les remettre dans le bon ordre.</textarea></div>
+                            <div class="form-group"><label for="successThreshold">Seuil de réussite (%) :</label><input type="number" id="successThreshold" value="100" min="0" max="100"></div>
+                        </div>
+                        <div>
+							<div class="form-group"><label for="activityOrientation">Orientation de l'affichage :</label>
+							   <select id="activityOrientation" onchange="updatePreview()">
+							       <option value="vertical">Verticale (ligne de haut en bas)</option>
+							       <option value="horizontal">Horizontale (ligne de gauche à droite)</option>
+							       <option value="frise">Frise chronologique (ligne avec flèches)</option>
+							   </select>
+							</div>
+                            <div class="form-group"><label for="feedbackSuccess">Feedback si réussite :</label><textarea id="feedbackSuccess">Bravo ! L'ordre est correct.</textarea></div>
+                            <div class="form-group"><label for="feedbackFailure">Feedback si échec :</label><textarea id="feedbackFailure">L'ordre n'est pas correct. Vérifiez vos réponses.</textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="items" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Liste des éléments (dans le bon ordre)</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 20px;">Ajoutez vos éléments du premier (en haut) au dernier (en bas). Le module les mélangera automatiquement pour l'élève.</p>
+                    
+                    <div id="items-list" class="items-list"></div>
+                    
+                    <div style="text-align: center; margin-top: 20px;">
+                        <button class="btn btn-primary" onclick="addItem()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Ajouter un élément</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="preview" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Aperçu du rendu final</h2>
+                    <div class="preview-area" id="preview-area"></div>
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button class="btn btn-secondary" onclick="previewInNewTab()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Tester l'activité interactive</button>
+                    </div>
+                </div>
+            </div>
+
+			<div id="import-export" class="tab-content">
+			                <div class="section">
+			                    <h2 class="section-title">Sauvegarde et restauration</h2>
+			                    <p style="margin-bottom: 20px; color: var(--text-muted);">Sauvegardez votre travail en cours pour le reprendre plus tard, ou partagez votre configuration avec des collègues.</p>
+			                    <div class="import-export-grid">
+			                        <div class="export-section">
+			                            <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg> Exporter</h3>
+			                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Sauvegarde tous vos éléments, images et paramètres audio dans un fichier sur votre ordinateur.</p>
+			                            <button class="btn btn-primary" onclick="exportConfiguration()" style="width: 100%; justify-content: center; margin-top: auto;"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></span> Télécharger le fichier .json</button>
+			                        </div>
+			                        <div class="import-section">
+			                            <h3><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Importer</h3>
+			                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Restaure une activité depuis un fichier .json. <strong>Attention, cela remplacera votre travail actuel.</strong></p>
+			                            <button class="btn btn-success" onclick="importConfiguration()" style="width: 100%; justify-content: center; margin-top: auto;"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg></span> Ouvrir un fichier .json</button>
+			                            <input type="file" id="importFile" accept=".json" style="display: none;" onchange="handleFileImport(event)">
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+            </div>
+
+            <div id="export-scorm" class="tab-content">
+                <div class="generate-section">
+                    <h2 class="generate-title" style="padding-bottom :10px">Générer votre module ?</h2>
+                    <div class="stats">
+                        <div class="stat"><div class="stat-value" id="statItemsCount">0</div><div class="stat-label" id="statItemsLabel">Élément dans la séquence</div></div>
+                    </div>
+                    <button class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;" onclick="generateScormPackage()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Générer le package SCORM 1.2 (.zip)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-title" id="lightboxTitle"></div>
+            <img id="lightboxImg" src="" alt="">
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="validateWikiImage()">✓ Choisir cette image</button>
+                <button class="btn btn-secondary" onclick="closeLightbox()">✕ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="../index.html">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+
+    <script>
+        // ==========================================
+        // VARIABLES GLOBALES
+        // ==========================================
+        let currentItems = [];
+        let itemCounter = 0;
+        let currentWikiItemId = null;
+        let tempWikiImage = null;
+        let tempMediaRecorder = {};
+
+        // ==========================================
+        // GESTION DES ONGLETS
+        // ==========================================
+        function switchTab(event, tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (event) event.currentTarget.classList.add('active');
+            else document.querySelector(`.tab[onclick*="'${tabId}'"]`).classList.add('active');
+            
+            if (tabId === 'preview' || tabId === 'export-scorm') {
+                updatePreview();
+                document.getElementById('statItemsCount').textContent = currentItems.length;
+                document.getElementById('statItemsLabel').textContent = currentItems.length > 1 ? 'Éléments dans la séquence' : 'Élément dans la séquence';
+            }
+        }
+
+        function switchMainTab(event, tabId) { switchTab(event, tabId); }
+
+        // ==========================================
+        // GESTION DES ELEMENTS (CRUD)
+        // ==========================================
+        function addItem(content = "") {
+            itemCounter++;
+            currentItems.push({
+                id: itemCounter,
+                type: 'text',
+                content: content,
+                source: null,
+                alt: '',
+                dejaPlace: false,
+                intrus: false,
+                audioMode: 'none',
+                audioData: null,
+                ttsLang: 'fr-FR'
+            });
+            renderItemsList();
+            updatePreview();
+        }
+
+        function removeItem(id) {
+            currentItems = currentItems.filter(i => i.id !== id);
+            renderItemsList();
+            updatePreview();
+        }
+
+        function moveItem(id, direction) {
+            const index = currentItems.findIndex(i => i.id === id);
+            if (index < 0) return;
+            if (direction === -1 && index > 0) {
+                [currentItems[index - 1], currentItems[index]] = [currentItems[index], currentItems[index - 1]];
+            } else if (direction === 1 && index < currentItems.length - 1) {
+                [currentItems[index], currentItems[index + 1]] = [currentItems[index + 1], currentItems[index]];
+            }
+            renderItemsList();
+            updatePreview();
+        }
+
+        function renderItemsList() {
+            const list = document.getElementById('items-list');
+            list.innerHTML = '';
+            
+            currentItems.forEach((item, index) => {
+                const isFirst = index === 0;
+                const isLast = index === currentItems.length - 1;
+                
+                const headerTitle = item.intrus ? `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg> Intrus` : `Étape ${index + 1}`;
+                
+                const card = document.createElement('div');
+                card.className = 'item-card ' + (item.intrus ? 'intrus' : '');
+                
+                card.innerHTML = `
+                    <div class="item-header">
+                        <div class="item-title" style="${item.intrus ? 'color: var(--danger-text);' : ''}">${headerTitle}</div>
+                        <div class="item-controls">
+                            <button class="control-btn" title="Monter" onclick="moveItem(${item.id}, -1)" ${isFirst ? 'disabled' : ''}>↑</button>
+                            <button class="control-btn" title="Descendre" onclick="moveItem(${item.id}, 1)" ${isLast ? 'disabled' : ''}>↓</button>
+                            <button class="control-btn" title="Supprimer" onclick="removeItem(${item.id})">✕</button>
+                        </div>
+                    </div>
+                    <div class="item-body">
+                        <div class="media-controls">
+                            <label>Contenu visuel ou textuel</label>
+                            <div class="sub-tabs">
+                                <button class="sub-tab-btn ${item.type === 'text' ? 'active' : ''}" onclick="changeItemType(${item.id}, 'text')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Texte</button>
+                                <button class="sub-tab-btn ${item.type === 'image' && item.source === 'wiki' ? 'active' : ''}" onclick="changeItemType(${item.id}, 'wiki')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg> Image Web</button>
+                                <button class="sub-tab-btn ${item.type === 'image' && item.source === 'local' ? 'active' : ''}" onclick="changeItemType(${item.id}, 'local')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Image locale</button>
+                            </div>
+                            <div id="media-content-${item.id}"></div>
+                        </div>
+
+                        <div class="options-controls">
+                            <div>
+                                <label>Options de comportement</label>
+                               
+                                <div class="checkbox-group" style="margin-top: 8px;">
+                                    <input type="checkbox" id="dejaPlace-${item.id}" ${item.dejaPlace ? 'checked' : ''} onchange="updateItemOption(${item.id}, 'dejaPlace', this.checked)" ${item.intrus ? 'disabled' : ''}>
+                                    <label for="dejaPlace-${item.id}" style="font-weight: 300;" style="${item.intrus ? 'opacity:0.5' : ''}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Déjà placé (aide)</label>
+                                </div>
+				
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="intrus-${item.id}" ${item.intrus ? 'checked' : ''} onchange="updateItemOption(${item.id}, 'intrus', this.checked)">
+                                    <label for="intrus-${item.id}" style="font-weight: 300;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg> Intrus</label>
+                                </div>
+                            </div>
+                            
+                            <div class="audio-section">
+                                <label><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg> Son (optionnel)</label>
+                                <select onchange="updateItemAudioMode(${item.id}, this.value)" style="width:100%; padding:6px; font-size:0.9rem;">
+                                    <option value="none" ${item.audioMode === 'none' ? 'selected' : ''}>Aucun son</option>
+                                    <option value="tts" ${item.audioMode === 'tts' ? 'selected' : ''}>Synthèse vocale</option>
+                                    <option value="upload" ${item.audioMode === 'upload' ? 'selected' : ''}>Fichier audio</option>
+                                    <option value="record" ${item.audioMode === 'record' ? 'selected' : ''}>Enregistrement</option>
+                                </select>
+                                <div id="audio-controls-${item.id}" class="audio-controls"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+                
+                renderMediaContent(item);
+                renderAudioControls(item);
+            });
+        }
+
+        // ==========================================
+        // GESTION DU CONTENU (Texte/Image)
+        // ==========================================
+// ==========================================
+        // GESTION DU CONTENU (Texte/Image)
+        // ==========================================
+        function changeItemType(id, target) {
+            const item = currentItems.find(i => i.id === id);
+            if (!item) return;
+            
+            // Sécurité : on vide le contenu si on passe de Texte à Image (ou inversement) 
+            // pour éviter d'afficher du texte dans une balise <img src="...">
+            if ((item.type === 'text' && target !== 'text') || (item.type !== 'text' && target === 'text')) {
+                item.content = '';
+            }
+            
+            if (target === 'text') { item.type = 'text'; item.source = null; } 
+            else if (target === 'wiki') { item.type = 'image'; item.source = 'wiki'; } 
+            else if (target === 'local') { item.type = 'image'; item.source = 'local'; }
+            
+            renderItemsList();
+            updatePreview();
+        }
+
+        function renderMediaContent(item) {
+            const container = document.getElementById(`media-content-${item.id}`);
+            if (!container) return;
+
+            if (item.type === 'text') {
+                container.innerHTML = `<input type="text" value="${escapeHTML(item.content || '')}" placeholder="Saisir le texte..." oninput="updateItemContent(${item.id}, 'content', this.value)">`;
+            } else if (item.source === 'wiki') {
+                // Vérifie que le contenu ressemble bien à une URL d'image valide
+                const isValidImg = item.content && (item.content.startsWith('http') || item.content.startsWith('data:'));
+                let previewHtml = isValidImg ? `<div style="margin-top:10px;text-align:center;"><img src="${escapeHTML(item.content)}" style="max-height:80px;border-radius:4px;"><input type="text" value="${escapeHTML(item.alt)}" placeholder="Légende..." oninput="updateItemContent(${item.id}, 'alt', this.value)" style="margin-top:5px;font-size:0.85em;"></div>` : '';
+                
+                container.innerHTML = `
+                    <div style="display:flex; gap:5px;">
+                        <input type="text" id="search-wiki-${item.id}" placeholder="Mot-clé..." onkeypress="if(event.key==='Enter') searchWiki(${item.id})">
+                        <button class="btn btn-secondary btn-small" onclick="searchWiki(${item.id})"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+                    </div>
+                    <div id="wiki-res-${item.id}" class="wiki-results" style="display:none;"></div>
+                    ${previewHtml}
+                `;
+            } else if (item.source === 'local') {
+                let previewHtml = '';
+                if (item.file) previewHtml = `<img src="${URL.createObjectURL(item.file)}" style="max-height:80px;border-radius:4px;display:block;margin:10px auto;">`;
+                else if (item.content && item.content.startsWith('data:image')) previewHtml = `<img src="${escapeHTML(item.content)}" style="max-height:80px;border-radius:4px;display:block;margin:10px auto;">`;
+                
+                container.innerHTML = `
+                    <input type="file" accept="image/*" onchange="handleLocalImageUpload(${item.id}, this.files[0])">
+                    ${previewHtml}
+                    <input type="text" value="${escapeHTML(item.alt)}" placeholder="Légende..." oninput="updateItemContent(${item.id}, 'alt', this.value)" style="margin-top:5px;font-size:0.85em;">
+                `;
+            }
+        }
+
+        function updateItemContent(id, field, value) {
+            const item = currentItems.find(i => i.id === id);
+            if (item) { item[field] = value; updatePreview(); }
+        }
+
+        function updateItemOption(id, option, value) {
+            const item = currentItems.find(i => i.id === id);
+            if (!item) return;
+            item[option] = value;
+            if (option === 'intrus' && value === true) item.dejaPlace = false;
+            renderItemsList();
+            updatePreview();
+        }
+
+        function handleLocalImageUpload(id, file) {
+            const item = currentItems.find(i => i.id === id);
+            if (item && file) { item.file = file; item.content = null; renderItemsList(); updatePreview(); }
+        }
+
+        // ==========================================
+        // GESTION AUDIO
+        // ==========================================
+        function updateItemAudioMode(id, mode) {
+            const item = currentItems.find(i => i.id === id);
+            if (item) { item.audioMode = mode; item.audioData = null; renderAudioControls(item); updatePreview(); }
+        }
+
+        function renderAudioControls(item) {
+            const container = document.getElementById(`audio-controls-${item.id}`);
+            if (!container) return;
+            
+            if (item.audioMode === 'tts') {
+                container.innerHTML = `
+                    <select onchange="updateItemContent(${item.id}, 'ttsLang', this.value)" style="width:100%; padding:5px; font-size:0.85em;">
+                        <option value="fr-FR" ${item.ttsLang==='fr-FR'?'selected':''}>🇫🇷 Français</option>
+                        <option value="en-GB" ${item.ttsLang==='en-GB'?'selected':''}>🇬🇧 Anglais (UK)</option>  
+                        <option value="es-ES" ${item.ttsLang==='es-ES'?'selected':''}>🇪🇸 Espagnol</option>
+                        <option value="de-DE" ${item.ttsLang==='de-DE'?'selected':''}>🇩🇪 Allemand</option>
+                        <option value="it-IT" ${item.ttsLang==='it-IT'?'selected':''}>🇮🇹 Italien</option>
+                    </select>
+                `;
+            } else if (item.audioMode === 'upload') {
+                const preview = item.audioData ? `<audio src="${item.audioData}" controls></audio>` : '';
+                container.innerHTML = `<input type="file" accept="audio/*" onchange="handleAudioUpload(${item.id}, this.files[0])" style="padding:4px;">${preview}`;
+            } else if (item.audioMode === 'record') {
+                const preview = item.audioData ? `<audio src="${item.audioData}" controls></audio>` : '';
+                container.innerHTML = `
+                    <div style="display:flex; gap:5px;">
+                        <button class="btn btn-secondary btn-small" onclick="startRecording(${item.id})" id="rec-btn-${item.id}"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg> Enregistrer</button>
+                        <button class="btn btn-secondary btn-small" onclick="stopRecording(${item.id})" id="stop-btn-${item.id}" disabled><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/></svg> Arrêter</button>
+                    </div>
+                    <p id="rec-status-${item.id}" style="font-size:0.75em; color:var(--text-muted); margin:0;"></p>
+                    ${preview}
+                `;
+            } else { container.innerHTML = ''; }
+        }
+
+        function handleAudioUpload(id, file) {
+            if(!file) return;
+            const reader = new FileReader();
+            reader.onload = e => { const item = currentItems.find(i => i.id === id); if(item) { item.audioData = e.target.result; renderAudioControls(item); updatePreview(); } };
+            reader.readAsDataURL(file);
+        }
+
+        async function startRecording(id) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const btnRec = document.getElementById(`rec-btn-${id}`);
+                const btnStop = document.getElementById(`stop-btn-${id}`);
+                const status = document.getElementById(`rec-status-${id}`);
+                btnRec.disabled = true; btnStop.disabled = false; btnRec.classList.add('recording');
+                status.textContent = "Enregistrement...";
+                
+                tempMediaRecorder[id] = new MediaRecorder(stream);
+                let chunks = [];
+                tempMediaRecorder[id].ondataavailable = e => chunks.push(e.data);
+                tempMediaRecorder[id].onstop = () => {
+                    const blob = new Blob(chunks, {type:'audio/wav'});
+                    const reader = new FileReader();
+                    reader.onload = e => { const item = currentItems.find(i => i.id === id); if(item) { item.audioData = e.target.result; renderAudioControls(item); updatePreview(); } };
+                    reader.readAsDataURL(blob);
+                    btnRec.disabled = false; btnStop.disabled = true; btnRec.classList.remove('recording');
+                    status.textContent = "Terminé.";
+                    stream.getTracks().forEach(t => t.stop());
+                };
+                tempMediaRecorder[id].start();
+            } catch(e) { alert("Microphone inaccessible."); }
+        }
+        function stopRecording(id) { if(tempMediaRecorder[id] && tempMediaRecorder[id].state === 'recording') tempMediaRecorder[id].stop(); }
+
+        // ==========================================
+        // RECHERCHE WIKI
+        // ==========================================
+        async function searchWiki(id) {
+            const q = document.getElementById(`search-wiki-${id}`).value.trim();
+            if (!q) return;
+            const resDiv = document.getElementById(`wiki-res-${id}`);
+            resDiv.style.display = 'grid'; resDiv.innerHTML = '<span style="grid-column:1/-1;">Recherche...</span>';
+            const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(q)}%20filetype:bitmap&gsrlimit=12&prop=imageinfo&iiprop=url&iiurlwidth=400&format=json&origin=*`;
+            try {
+                const r = await fetch(url); const d = await r.json(); resDiv.innerHTML = '';
+                if (!d.query) { resDiv.innerHTML = '<span style="grid-column:1/-1;">Aucun résultat</span>'; return; }
+                Object.values(d.query.pages).forEach(p => {
+                    if (!p.imageinfo) return;
+                    const info = p.imageinfo[0]; const thumb = info.thumburl || info.url; const fullUrl = info.url; const title = p.title.replace("File:", "");
+                    const img = document.createElement('div'); img.className = 'wiki-thumb'; img.innerHTML = `<img src="${escapeHTML(thumb)}">`;
+                    img.onclick = () => {
+                        currentWikiItemId = id; tempWikiImage = { url: thumb, alt: title };
+                        document.getElementById('lightboxImg').src = fullUrl; document.getElementById('lightboxTitle').innerText = title; document.getElementById('lightbox').style.display = 'flex';
+                    };
+                    resDiv.appendChild(img);
+                });
+            } catch (e) { resDiv.innerHTML = 'Erreur réseau'; }
+        }
+
+        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; currentWikiItemId = null; tempWikiImage = null; }
+        function validateWikiImage() {
+            if (tempWikiImage && currentWikiItemId) {
+                const item = currentItems.find(i => i.id === currentWikiItemId);
+                if (item) { item.content = tempWikiImage.url; item.alt = tempWikiImage.alt; renderItemsList(); updatePreview(); }
+            }
+            closeLightbox();
+        }
+
+        // ==========================================
+        // APERÇU STATIQUE (AVEC LIGNE CSS)
+        // ==========================================
+        function escapeHTML(str) { return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+		function getPreviewHtmlForItem(item) {
+		            let audioHtml = (item.audioMode && item.audioMode !== 'none') ? '<div class="preview-speak-btn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg></div>' : '';
+            
+		            if (item.type === 'image') {
+		                let src = item.content;
+		                if (item.source === 'local' && item.file) src = URL.createObjectURL(item.file);
+		                if (!src) return `<div class="preview-content-wrapper" style="min-width:0;"><i>Image manquante</i></div>`;
+		                return `
+		                    <div class="preview-content-wrapper" style="min-width:0;">
+		                        <div class="preview-img-box" style="flex-shrink:0;">
+		                            <img src="${escapeHTML(src)}" class="preview-img">
+		                            <div class="preview-img-zoom"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+		                        </div>
+		                        <span style="font-size:1em; font-weight:600; white-space:normal; word-break:break-word;">${escapeHTML(item.alt || '')}</span>
+		                    </div>
+		                    ${audioHtml}
+		                `;
+		            }
+		            return `
+		                <div class="preview-content-wrapper" style="min-width:0;">
+		                    <span style="white-space:normal; word-break:break-word;">${escapeHTML(item.content || '(Vide)')}</span>
+		                </div>
+		                ${audioHtml}
+		            `;
+		        }
+
+        function updatePreview() {
+            const area = document.getElementById('preview-area');
+            if (!area) return;
+            
+            const orientation = document.getElementById('activityOrientation').value;
+            
+            area.className = 'preview-area sortable-list ' + orientation;
+            area.innerHTML = '';
+            
+            if (currentItems.length === 0) { 
+                area.innerHTML = '<p style="color:var(--text-muted); text-align:center; width: 100%;">Aucun élément à afficher.</p>'; 
+                return; 
+            }
+            
+            currentItems.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'sortable-item ' + (item.intrus ? 'intrus' : '') + (item.dejaPlace ? ' fixed' : '');
+                
+                if (item.intrus) div.setAttribute('data-intrus', 'true');
+                
+                let rankHtml = '';
+                if (item.dejaPlace) {
+                    rankHtml = '<span class="placed-pin" title="Déjà placé"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg></span>';
+                }
+                
+                div.innerHTML = rankHtml + getPreviewHtmlForItem(item);
+                area.appendChild(div);
+            });
+        }
+
+        // ==========================================
+        // IMPORT / EXPORT JSON
+        // ==========================================
+        const blobToBase64 = b => new Promise(r => { const rd = new FileReader(); rd.onloadend = () => r(rd.result); rd.readAsDataURL(b); });
+
+        async function exportConfiguration() {
+            if(currentItems.length === 0) { showNotification("Aucun élément à exporter.", "error"); return; }
+            try {
+                let exportItems = [];
+                for(let item of currentItems) {
+                    let exItem = {...item};
+                    if (item.type === 'image' && item.source === 'local' && item.file) {
+                        exItem.content = await blobToBase64(item.file);
+                        delete exItem.file;
+                    }
+                    exportItems.push(exItem);
+                }
+                const conf = {
+                    version: "1.4",
+                    title: document.getElementById('activityTitle').value,
+                    instructions: document.getElementById('activityInstructions').value,
+                    orientation: document.getElementById('activityOrientation').value,
+                    threshold: document.getElementById('successThreshold').value,
+                    feedbackSuccess: document.getElementById('feedbackSuccess').value,
+                    feedbackFailure: document.getElementById('feedbackFailure').value,
+                    items: exportItems
+                };
+                const blob = new Blob([JSON.stringify(conf, null, 2)], {type:'application/json'});
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `remise_ordre_config.json`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                showNotification("Configuration exportée.", "success");
+            } catch(e) { showNotification("Erreur d'exportation.", "error"); }
+        }
+
+        function importConfiguration() { document.getElementById('importFile').click(); }
+        function handleFileImport(e) {
+            const file = e.target.files[0]; if(!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                try {
+                    const d = JSON.parse(ev.target.result);
+                    document.getElementById('activityTitle').value = d.title || '';
+                    document.getElementById('activityInstructions').value = d.instructions || '';
+                    document.getElementById('activityOrientation').value = d.orientation || 'vertical';
+                    document.getElementById('successThreshold').value = d.threshold || 100;
+                    document.getElementById('feedbackSuccess').value = d.feedbackSuccess || '';
+                    document.getElementById('feedbackFailure').value = d.feedbackFailure || '';
+                    
+                    itemCounter = 0;
+                    currentItems = (d.items || []).map(i => {
+                        itemCounter = Math.max(itemCounter, i.id);
+                        return { ...i, audioMode: i.audioMode||'none', ttsLang: i.ttsLang||'fr-FR', audioData: i.audioData||null };
+                    });
+                    renderItemsList(); updatePreview();
+                    showNotification("Configuration importée.", "success");
+                    switchTab(null, 'config');
+                } catch(err) { showNotification("Fichier invalide.", "error"); }
+            };
+            reader.readAsText(file); e.target.value = '';
+        }
+
+        function showNotification(msg, type) {
+            const notif = document.createElement('div');
+            notif.className = `notification ${type}`;
+            notif.textContent = msg;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.classList.add('show'), 10);
+            setTimeout(() => { notif.classList.remove('show'); setTimeout(() => notif.remove(), 300); }, 3000);
+        }
+
+        // ==========================================
+        // MOTEUR SCORM
+        // ==========================================
+        const fetchBlob = async u => (await fetch(u)).blob();
+
+        async function prepareItemsForScorm(mode) {
+            let preparedItems = [];
+            let assets = [];
+            
+            for(let i=0; i<currentItems.length; i++) {
+                let it = currentItems[i];
+                let pData = { id: it.id, type: it.type, content: it.content, alt: it.alt, dejaPlace: it.dejaPlace, intrus: it.intrus, audioMode: it.audioMode, ttsLang: it.ttsLang, audioPath: null };
+
+                if ((it.audioMode === 'upload' || it.audioMode === 'record') && it.audioData) {
+                    if (mode === 'zip') {
+                        const audioBlob = await (await fetch(it.audioData)).blob();
+                        const ext = it.audioData.match(/audio\/([a-zA-Z0-9]+);/)?.[1] || 'wav';
+                        const fileName = `audio_${it.id}.${ext}`;
+                        assets.push({name: fileName, blob: audioBlob});
+                        pData.audioPath = `assets/${fileName}`;
+                    } else {
+                        pData.audioPath = it.audioData;
+                    }
+                }
+
+                if (it.type === 'image') {
+                    let b = it.file;
+                    if (it.source === 'wiki') b = await fetchBlob(it.content);
+                    else if (it.source === 'local' && !it.file && it.content && it.content.startsWith('data:image')) b = await fetchBlob(it.content);
+                    
+                    if (b) {
+                        if (mode === 'zip') {
+                            const ext = b.type.split('/')[1] || 'jpg';
+                            const fileName = `img_${it.id}.${ext}`;
+                            assets.push({name: fileName, blob: b});
+                            pData.content = `assets/${fileName}`;
+                        } else {
+                            pData.content = await blobToBase64(b);
+                        }
+                    }
+                }
+                preparedItems.push(pData);
+            }
+            return { preparedItems, assets };
+        }
+
+        async function generateHtmlContent(preparedItems) {
+            const title = document.getElementById('activityTitle').value || 'Remise en ordre';
+            const instructions = document.getElementById('activityInstructions').value || '';
+            const orientation = document.getElementById('activityOrientation').value || 'vertical';
+            const successMsg = document.getElementById('feedbackSuccess').value || 'Bravo !';
+            const failureMsg = document.getElementById('feedbackFailure').value || 'Erreur.';
+            const threshold = document.getElementById('successThreshold').value || 100;
+
+            const scormItemsJson = JSON.stringify(preparedItems).replace(/<\//g, '<\\/');
+
+	const css = `
+	            * { box-sizing: border-box; }
+	            ${window.HAPI_MARIANNE_CSS||''}body { font-family: 'Marianne', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #50e3c2 100%); margin: 0; padding: 5vh 20px 20px 20px; min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; }
+	            .app-container { background: white; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); max-width: 900px; width: 100%; overflow: hidden; position: relative; }
+	            .header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 25px; text-align: center; position:relative; }
+	            .header h1 { margin: 0; font-size: 24px; padding: 0 40px; }
+            
+	            #scormToggleFullscreenBtn { position: absolute; top: 15px; right: 15px; padding: 8px 10px; background-color: white; border: 1px solid #667eea; color: #667eea; cursor: pointer; border-radius: 8px; font-size: 1.1rem; font-weight: bold; line-height: 1; z-index: 1001; transition: all 0.3s ease; }
+	            #scormToggleFullscreenBtn:hover { background-color: #f0f0f0; color: #007aff; border-color: #007aff; }
+
+	            .content { padding: 30px; width: 100%; overflow-x: hidden; }
+            
+	            /* -- STYLE DE LA LIGNE DE TEMPS ET DES NUMÉROS -- */
+	            .sortable-list { display: flex; gap: 20px; padding: 20px; background: #f1f5f9; border-radius: 12px; min-height: 120px; counter-reset: step-counter; position: relative; width: 100%; }
+            
+	            /* Ligne verticale */
+	            .sortable-list.vertical { flex-direction: column; padding-left: 60px; }
+	            .sortable-list.vertical::before { content: ''; position: absolute; left: 35px; top: 30px; bottom: 30px; width: 4px; background: #cbd5e1; border-radius: 2px; }
+            
+	            /* Ligne horizontale / Frise */
+	            .sortable-list.horizontal, .sortable-list.frise { flex-direction: row; flex-wrap: wrap; justify-content: center; padding-top: 60px; }
+	            .sortable-list.horizontal::before, .sortable-list.frise::before { content: ''; position: absolute; top: 35px; left: 30px; right: 30px; height: 4px; background: #cbd5e1; border-radius: 2px; }
+            
+	            .sortable-item { background: white; border: 2px solid #cbd5e1; border-radius: 8px; padding: 15px; cursor: grab; user-select: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: center; font-weight: 500; transition: transform 0.2s, box-shadow 0.2s; position: relative; max-width: 100%; word-break: break-word; }
+	            .sortable-list.vertical .sortable-item { width: 100%; justify-content: flex-start; }
+	            .sortable-list.horizontal .sortable-item, .sortable-list.frise .sortable-item { min-width: 150px; max-width: 100%; }
+				
+            /* Numéros d'étapes auto-calculés via CSS */
+            .sortable-item:not([data-intrus="true"])::before {
+                counter-increment: step-counter;
+                content: counter(step-counter);
+                position: absolute;
+                background: #667eea;
+                color: white;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                box-shadow: 0 0 0 4px #f1f5f9; /* Découpe visuelle sur la ligne */
+                z-index: 2;
+            }
+            
+            /* Positionnement des numéros / icones */
+            .sortable-list.vertical .sortable-item:not([data-intrus="true"])::before { left: -42px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; font-size: 1.1rem; }
+            .sortable-list.horizontal .sortable-item:not([data-intrus="true"])::before, .sortable-list.frise .sortable-item:not([data-intrus="true"])::before { top: -42px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; font-size: 1.1rem; }
+            
+            /* INTRUS : Icone spécifique */
+            .sortable-item[data-intrus="true"]::before {
+                content: '🚫'; position: absolute; background: #ff4757; display: flex; align-items: center; justify-content: center; border-radius: 50%; box-shadow: 0 0 0 4px #f1f5f9; z-index: 2;
+            }
+            .sortable-list.vertical .sortable-item[data-intrus="true"]::before { left: -42px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; font-size: 1rem; }
+            .sortable-list.horizontal .sortable-item[data-intrus="true"]::before, .sortable-list.frise .sortable-item[data-intrus="true"]::before { top: -42px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; font-size: 1rem; }
+
+            /* MAGIE : On cache les numéros pendant le drag pour un effet "ligne fixe" ! */
+            .sortable-ghost::before, .sortable-drag::before, .dragging::before { opacity: 0 !important; }
+
+            /* Flèches mode frise */
+            .sortable-list.frise .sortable-item::after { content: '➔'; position: absolute; right: -27px; top: 50%; transform: translateY(-50%); font-size: 1.5em; color: #667eea; pointer-events: none; font-weight: bold; display: none; }
+            .sortable-list.frise .sortable-item:not(:last-child)::after { display: block; }
+            .sortable-item.dragging::after { display: none !important; }
+            
+            .sortable-item:hover { border-color: #667eea; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(74, 144, 226, 0.2); }
+            .sortable-item.dragging { opacity: 0.5; cursor: grabbing; transform: scale(1.05); z-index: 1000; box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+            .sortable-item.fixed { background: #e6fffa; border-color: #50e3c2; cursor: default; }
+            .sortable-item.fixed:hover { transform: none; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+            
+            /* Boutons Média à l'intérieur */
+            .speak-btn { cursor:pointer; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; transition: 0.2s; background: rgba(240,244,248,1); border: 1px solid #cbd5e1; font-size:14px; margin-left: auto; pointer-events:auto;}
+            .speak-btn:hover { background: #e2e8f0; transform: scale(1.1); }
+            
+            /* Evaluation classes */
+            .sortable-item.eval-correct { border-color: #10b981; background: #d1fae5; color: #065f46; }
+            .sortable-item.eval-incorrect { border-color: #ef4444; background: #fee2e2; color: #991b1b; }
+            .sortable-item.eval-intrus { border-color: #f59e0b; background: #fef3c7; color: #92400e; }
+
+            .controls { text-align: center; margin-top: 30px; display: flex; gap: 15px; justify-content: center; }
+            .btn { padding: 12px 30px; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; background: #667eea; }
+            .btn:hover { background: #357abd; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3); }
+            .btn-secondary { background: #f8f9fa; color: #333; border: 1px solid #cbd5e1; }
+            .btn-secondary:hover { background: #e2e8f0; color: #333; }
+            
+            /* MODALES CENTRÉES SUR TOUT L'ÉCRAN */
+            .modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(2px); }
+            .modal-content { background: white; padding: 35px 30px; border-radius: 12px; text-align: center; max-width: 400px; width: 90%; border-top: 8px solid #667eea; margin: auto; box-shadow: 0 15px 30px rgba(0,0,0,0.2); animation: modalIn 0.3s ease-out; }
+            .modal-content.success { border-color: #10b981; }
+            .modal-content.fail { border-color: #ef4444; }
+            @keyframes modalIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+            .scorm-image-zoom-overlay { display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out; }
+            .scorm-image-zoom-overlay img { max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.5); object-fit:contain; }
+            .zoom-btn { transition: transform 0.2s; margin-left: 10px; cursor: zoom-in; }
+            .zoom-btn:hover { transform: scale(1.2); }
+            `;
+
+            return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>${escapeHTML(title)}</title>
+    <style>${css}</style>
+</head>
+<body>
+    <div class="app-container">
+        <button id="scormToggleFullscreenBtn" title="Basculer plein écran" onclick="toggleFullscreen()">⛶</button>
+        <div class="header"><h1>${escapeHTML(title)}</h1></div>
+        <div class="content">
+            <div class="sortable-list ${orientation}" id="sortableList"></div>
+            <div class="controls">
+                <button class="btn btn-secondary" onclick="document.getElementById('instructionsModal').style.display='flex'">Instructions</button>
+                <button class="btn" id="checkBtn" onclick="evaluateOrder()">Vérifier l'ordre</button>
+                <button class="btn btn-secondary" id="resetBtn" onclick="location.reload()" style="display: none;">Recommencer</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="scorm-image-zoom-overlay" id="zoomOverlay" onclick="this.style.display='none'"><img id="zoomOverlayImg" src=""></div>
+    
+    <div class="modal" id="instructionsModal">
+        <div class="modal-content">
+            <h2>Instructions</h2>
+            <p style="white-space: pre-wrap; text-align: left; color: #555; line-height: 1.5;">${escapeHTML(instructions)}</p>
+            <button class="btn" onclick="document.getElementById('instructionsModal').style.display='none'" style="margin-top: 15px;">Compris !</button>
+        </div>
+    </div>
+
+    <div class="modal" id="feedbackModal">
+        <div class="modal-content" id="feedbackContent">
+            <h2 id="feedbackTitle">Résultat</h2>
+            <p id="feedbackText"></p>
+            <button class="btn" onclick="document.getElementById('feedbackModal').style.display='none'">Fermer</button>
+        </div>
+    </div>
+
+    <script src="../vendor/sortable/Sortable.min.js"><\/script>
+    <script>
+        var scorm = {
+            version: "1.2", API: null, isInitialized: false,
+            findAPI: function(win) { let tries=0; while(win.API==null && win.parent!=null && win.parent!=win && tries<=500){ tries++; win=win.parent; } if(win.API!=null) this.API=win.API; return this.API; },
+            init: function() { if(this.isInitialized) return true; if(this.findAPI(window), this.API) { if(this.API.LMSInitialize("").toString()==="true") { this.isInitialized=true; return true; } } return false; },
+            set: function(param, val) { if(this.isInitialized && this.API) this.API.LMSSetValue(param, String(val)); },
+            save: function() { if(this.isInitialized && this.API) this.API.LMSCommit(""); },
+            end: function() { if(this.isInitialized && this.API) this.API.LMSFinish(""); }
+        };
+
+        const scormItems = ${scormItemsJson};
+        const expectedOrder = scormItems.filter(i => !i.intrus).map(i => String(i.id));
+        const orientation = '${orientation}';
+        const threshold = ${threshold};
+        
+        let startTime = new Date();
+        let sortableInstance = null;
+
+        function escapeHTML(str) { return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => console.log(err));
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
+        window.speakText = function(text, lang='fr-FR') { 
+            if ('speechSynthesis' in window) { 
+                window.speechSynthesis.cancel(); 
+                const u = new SpeechSynthesisUtterance(text); u.lang = lang; 
+                const voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    let matched = voices.filter(v => v.lang === lang || v.lang.replace('_', '-') === lang);
+                    if (matched.length > 0) {
+                        matched.sort((a, b) => {
+                            const scoreA = (a.name.includes('Google') || a.name.includes('Premium') || a.name.includes('Natural')) ? 1 : 0;
+                            const scoreB = (b.name.includes('Google') || b.name.includes('Premium') || b.name.includes('Natural')) ? 1 : 0;
+                            return scoreB - scoreA;
+                        });
+                        u.voice = matched[0]; 
+                    }
+                }
+                window.speechSynthesis.speak(u); 
+            } 
+        };
+        window.playAudio = function(id) { const audio = document.getElementById('audio-' + id); if(audio) { audio.currentTime=0; audio.play(); } };
+        window.openZoom = function(ev, src) { ev.stopPropagation(); document.getElementById('zoomOverlayImg').src = src; document.getElementById('zoomOverlay').style.display='flex'; };
+
+		function renderItemContent(item) {
+		            let audioHtml = '';
+		            if (item.audioMode === 'tts') {
+		                const textToSpeak = (item.type === 'text' ? item.content : item.alt).replace(/'/g, "\\\\\\'").replace(/"/g, '&quot;');
+		                audioHtml = '<div class="speak-btn" onclick="event.stopPropagation(); window.speakText(\\''+textToSpeak+'\\', \\''+item.ttsLang+'\\')" title="Écouter">🔊</div>';
+		            } else if ((item.audioMode === 'upload' || item.audioMode === 'record') && item.audioPath) {
+		                audioHtml = '<div class="speak-btn" onclick="event.stopPropagation(); window.playAudio(\\''+item.id+'\\')" title="Écouter">🔊</div>';
+		                const audioContainer = document.getElementById('audio-players') || (function(){ const div = document.createElement('div'); div.id='audio-players'; div.style.display='none'; document.body.appendChild(div); return div; })();
+		                if (!document.getElementById('audio-'+item.id)) audioContainer.innerHTML += '<audio id="audio-'+item.id+'" src="'+item.audioPath+'"></audio>';
+		            }
+
+		            if (item.type === 'image') {
+		                return '<div style="display:flex; align-items:center; flex-grow:1; min-width:0;">' +
+		                       '<div style="position:relative; display:inline-block; margin-right:15px; flex-shrink:0;">' +
+		                       '<img src="' + escapeHTML(item.content) + '" alt="' + escapeHTML(item.alt) + '" style="max-height:80px; border-radius:4px; pointer-events:none; display:block;">' +
+		                       '<div class="zoom-btn" onclick="window.openZoom(event, this.previousElementSibling.src)" style="position:absolute; bottom:-5px; right:-10px; background:white; color:#333; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.3); font-size:12px; cursor:pointer; pointer-events:auto;">🔍</div>' +
+		                       '</div><span style="font-size:1em; font-weight:600; white-space:normal; word-break:break-word;">' + escapeHTML(item.alt) + '</span></div>' + audioHtml;
+		            }
+		            return '<div style="display:flex; align-items:center; flex-grow:1; min-width:0;">' + 
+		                   (item.content ? '<span style="white-space:normal; word-break:break-word;">' + escapeHTML(item.content) + '</span>' : '') + '</div>' + audioHtml;
+		        }
+
+        window.onload = function() {
+            scorm.init();
+            scorm.set("cmi.core.lesson_status", "incomplete");
+            
+            document.getElementById('instructionsModal').style.display = 'flex';
+            
+            const list = document.getElementById('sortableList');
+            let fixedItems = scormItems.filter(i => i.dejaPlace);
+            let movableItems = scormItems.filter(i => !i.dejaPlace);
+            movableItems.sort(() => Math.random() - 0.5);
+
+            let finalArray = [];
+            let movableIndex = 0;
+            for(let i=0; i<scormItems.length; i++) {
+                let fixed = fixedItems.find(f => scormItems.indexOf(f) === i);
+                if(fixed) finalArray.push(fixed);
+                else { finalArray.push(movableItems[movableIndex]); movableIndex++; }
+            }
+
+            finalArray.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'sortable-item ' + (item.dejaPlace ? 'fixed' : '');
+                if (item.intrus) el.setAttribute('data-intrus', 'true');
+                el.dataset.id = item.id;
+                
+                let rankHtml = '';
+                if (item.dejaPlace) {
+                    rankHtml = '<span class="placed-pin" title="Déjà placé" style="position: absolute; top: -10px; right: -10px; font-size: 1.5rem; transform: rotate(15deg); text-shadow: 0 2px 4px rgba(0,0,0,0.2); z-index: 5;">📌</span>';
+                }
+                
+                el.innerHTML = rankHtml + renderItemContent(item);
+                list.appendChild(el);
+            });
+
+            sortableInstance = new Sortable(list, {
+                animation: 150,
+                ghostClass: 'dragging',
+                filter: '.fixed', 
+                onMove: function (evt) { return !evt.related.classList.contains('fixed'); }
+            });
+        };
+
+        window.onunload = function() { scorm.end(); };
+
+        function evaluateOrder() {
+            if(document.getElementById('checkBtn').disabled) return;
+            sortableInstance.destroy(); 
+            
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('resetBtn').style.display = 'inline-block';
+
+            const items = Array.from(document.querySelectorAll('.sortable-item'));
+            let correctCount = 0;
+            
+            const currentOrder = items.filter(el => el.dataset.intrus !== 'true').map(el => el.dataset.id);
+            
+            let report = "[ANALYSE ORDRE SIMPLE]\\\\n";
+            
+            items.forEach((el, index) => {
+                const id = el.dataset.id;
+                const isIntrus = el.dataset.intrus === 'true';
+                
+                if(isIntrus) {
+                    el.classList.add('eval-intrus');
+                    report += \`Position \${index+1}: INTRUS (Invalide)\\\\n\`;
+                } else {
+                    const expectedPos = expectedOrder.indexOf(id);
+                    const currentPos = currentOrder.indexOf(id);
+                    if(expectedPos === currentPos) {
+                        el.classList.add('eval-correct');
+                        correctCount++;
+                        report += \`Position \${index+1}: CORRECT\\\\n\`;
+                    } else {
+                        el.classList.add('eval-incorrect');
+                        report += \`Position \${index+1}: INCORRECT (Attendu: pos \${expectedPos+1})\\\\n\`;
+                    }
+                }
+            });
+
+            const score = Math.round((correctCount / expectedOrder.length) * 100);
+            const passed = score >= threshold;
+
+            const sessionTime = Math.floor((new Date() - startTime) / 1000);
+            const h = String(Math.floor(sessionTime / 3600)).padStart(4, '0');
+            const m = String(Math.floor((sessionTime % 3600) / 60)).padStart(2, '0');
+            const s = String(sessionTime % 60).padStart(2, '0');
+            
+            scorm.set("cmi.core.score.raw", score);
+            scorm.set("cmi.core.lesson_status", passed ? "passed" : "failed");
+            scorm.set("cmi.core.session_time", \`\${h}:\${m}:\${s}\`);
+            scorm.set("cmi.suspend_data", report);
+            scorm.save();
+
+            const modal = document.getElementById('feedbackModal');
+            const content = document.getElementById('feedbackContent');
+            content.className = 'modal-content ' + (passed ? 'success' : 'fail');
+            document.getElementById('feedbackTitle').innerText = passed ? 'Félicitations !' : 'Résultat';
+            document.getElementById('feedbackText').innerText = passed ? ${JSON.stringify(successMsg)} : ${JSON.stringify(failureMsg)};
+            modal.style.display = 'flex';
+        }
+    <\/script>
+
+</body>
+</html>`;
+        }
+
+        async function previewInNewTab() {
+            if(currentItems.length === 0) return alert('Ajoutez au moins un élément.');
+            const data = await prepareItemsForScorm('preview');
+            const html = await generateHtmlContent(data.preparedItems);
+            const blob = new Blob([html], { type: 'text/html' });
+            window.open(URL.createObjectURL(blob), '_blank');
+        }
+
+        async function generateScormPackage() {
+            if(currentItems.length === 0) return alert('Ajoutez au moins un élément.');
+			
+// 📈 SUIVI MATOMO : Génération SCORM (Sans IA)
+            if (window._paq) {
+                window._paq.push(['trackEvent', 'HAPI - Export Sans IA', 'SCORM', 'ordre-simple']);
+            }
+			
+            const data = await prepareItemsForScorm('zip');
+            const html = await generateHtmlContent(data.preparedItems);
+            
+            const title = document.getElementById('activityTitle').value || 'Ordre_Simple';
+            const safeTitle = title.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-]/gi, '_').substring(0, 30);
+            
+            const zip = new JSZip();
+            const assets = zip.folder("assets");
+            data.assets.forEach(a => assets.file(a.name, a.blob));
+            
+            const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<manifest identifier="com.scorm.ordresimple.1" version="1.2" xmlns="http://www.imsglobal.org/xsd/imscp_v1p1" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_v1p3">
+    <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>
+    <organizations default="B0"><organization identifier="B0"><title>${escapeHTML(title)}</title><item identifier="I1" identifierref="R1"><title>${escapeHTML(title)}</title></item></organization></organizations>
+    <resources><resource identifier="R1" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/></resource></resources>
+</manifest>`;
+
+            zip.file("index.html", html);
+            zip.file("imsmanifest.xml", manifest);
+
+            zip.generateAsync({type:"blob"}).then(content => {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(content);
+                a.download = `${safeTitle}_scorm_1-2.zip`;
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            });
+        }
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab(null, 'config');
+            addItem("Première étape");
+            addItem("Deuxième étape");
+            addItem("Troisième étape");
+        });
+    </script>
+		
+<script src="../js/tracking-static.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "discipline": "Enseignement moral et civique",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°24 du 13 juin 2024 — Programme d'EMC",
+    "mise_a_jour": "2024-06-13"
+  },
+  "attendus_fin_cycle": [
+    "Respecter autrui et accepter les différences",
+    "Acquérir et partager les valeurs de la République",
+    "Construire une culture civique",
+    "Développer les compétences psychosociales"
+  ],
+  "domaines": [
+    {
+      "nom": "Respecter autrui",
+      "description": "Accepter les différences, manifester le respect des autres, comprendre les notions de droits et de devoirs.",
+      "competences": [
+        {
+          "intitule": "Accepter les différences et respecter autrui",
+          "exemples_themes": ["Album : La petite casserole d'Anatole (handicap)", "Le film Wonder (harcèlement et différence)", "Témoignage d'un sportif paralympique", "Les lunettes de l'empathie (jeu de rôle)", "Album : On n'est pas des moutons (pression du groupe)"]
+        },
+        {
+          "intitule": "Identifier et exprimer ses émotions et ses sentiments, s'estimer et être capable d'empathie",
+          "exemples_themes": ["Le jeu des émotions (cartes illustrées)", "Album : La couleur des émotions", "Le message clair (protocole de résolution de conflit)", "Le journal des émotions (écrire son ressenti)", "Les saynètes sur le harcèlement (jouer pour comprendre)"]
+        },
+        {
+          "intitule": "Se situer et s'exprimer en respectant les codes de la communication orale, les règles de l'échange",
+          "exemples_themes": ["Le conseil d'élèves (ordre du jour, secrétaire, président)", "Le débat réglé : « A-t-on le droit de tout dire ? »", "Le tribunal philo (juger un personnage de conte)", "Le cercle de parole (bâton de parole)", "Les règles de vie de la classe (les rédiger ensemble)"]
+        }
+      ]
+    },
+    {
+      "nom": "Acquérir et partager les valeurs de la République",
+      "description": "Comprendre les principes de liberté, égalité, fraternité, laïcité.",
+      "competences": [
+        {
+          "intitule": "Comprendre les notions de droits, de devoirs et de règles",
+          "exemples_themes": ["La Convention internationale des droits de l'enfant (affiche illustrée)", "Le règlement intérieur de l'école (pourquoi des règles ?)", "L'élection des délégués de classe (campagne et vote)", "Les droits et devoirs du citoyen (tableau comparatif)", "La visite du tribunal (ou simulation d'audience)"]
+        },
+        {
+          "intitule": "Reconnaître les principes et valeurs de la République et de la démocratie",
+          "exemples_themes": ["La devise Liberté Égalité Fraternité (sur le fronton de la mairie)", "Le drapeau tricolore et La Marseillaise", "La Déclaration des droits de l'homme et du citoyen de 1789 (extraits)", "La Journée de la laïcité (9 décembre)", "Le portrait de Marianne (qui est-elle ?)"]
+        },
+        {
+          "intitule": "Comprendre le principe de laïcité",
+          "exemples_themes": ["La charte de la laïcité à l'école (affiche commentée)", "Les fêtes religieuses et les jours fériés (d'où viennent-ils ?)", "Un reportage sur la laïcité à l'école", "Le calendrier des différentes cultures (comparaison)", "Le texte de la loi de 1905 (extraits simplifiés)"]
+        }
+      ]
+    },
+    {
+      "nom": "Construire une culture civique",
+      "description": "S'engager, coopérer, comprendre le fonctionnement démocratique.",
+      "competences": [
+        {
+          "intitule": "Comprendre le fonctionnement de la commune et de la République",
+          "exemples_themes": ["La visite de la mairie (rencontrer le maire)", "Le conseil municipal des enfants (simuler ou participer)", "L'organigramme de la République (président, gouvernement, parlement)", "Le rôle du maire, du député, du sénateur", "Les symboles de la République dans la commune"]
+        },
+        {
+          "intitule": "S'engager et assumer des responsabilités dans l'école et la communauté",
+          "exemples_themes": ["Le projet solidaire de la classe (collecte pour une association)", "Les éco-délégués (tri, composteur, économies d'énergie)", "Le parrainage CP-CM2 (aider les plus jeunes)", "La participation à la Journée du sport scolaire", "Le nettoyage de la nature (opération « Nettoyons la nature »)"]
+        },
+        {
+          "intitule": "Prendre soin de soi et des autres ; la sécurité",
+          "exemples_themes": ["Les gestes de premiers secours (apprendre à alerter)", "Le permis piéton (sécurité routière)", "Les dangers d'Internet et des réseaux sociaux (EMI)", "Le harcèlement : repérer, agir, en parler (numéro 3020)", "L'alimentation équilibrée et l'activité physique"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EMC du cycle 3 (B.O. 2024) s'organise autour de trois axes : respecter autrui (empathie, émotions, respect des différences), acquérir les valeurs de la République (droits, devoirs, laïcité, démocratie), construire une culture civique (engagement, responsabilité, sécurité). L'enseignement s'appuie sur des situations concrètes, des dilemmes moraux, des débats réglés et des projets d'engagement. Les compétences psychosociales (estime de soi, empathie, coopération) sont au cœur de la démarche."
+}

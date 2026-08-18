@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr https://www.youtube.com https://s.ytimg.com; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visionneuse H5P - Master Fix</title>
+    
+    <link rel="stylesheet" href="h5p-core/styles/h5p.css">
+    <link rel="stylesheet" href="../vendor/fontawesome/css/font-awesome.min.css">
+    
+    <!-- Le rendu mathématique du contenu H5P est assuré par la librairie
+         H5P.MathDisplay, qui charge sa propre copie de MathJax 2.7.5 vendorisée
+         (cf. window.H5PIntegration.libraryConfig plus bas). On ne charge donc
+         PAS MathJax v3 ici : son API (typesetPromise) est incompatible avec
+         celle attendue par H5P.MathDisplay (MathJax.Hub.Queue, v2), et deux
+         window.MathJax concurrents se neutralisent. -->
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	  
+   <style>
+       /* ==========================================================================
+          0. STRUCTURE DE BASE
+          ========================================================================== */
+       html { box-sizing: border-box; height: 100%; }
+       *, *:before, *:after { box-sizing: inherit; }
+       body {
+           margin: 0; padding: 0; width: 100%; min-height: 100vh;
+           background-color: #2e3842; color: #000;
+           font-family: 'Open Sans', sans-serif;
+           display: flex; align-items: center; justify-content: center;
+           overflow-y: auto !important; 
+       }
+       .h5p-content img { max-width: 100% !important; height: auto !important; object-fit: contain !important; }
+       #h5p-container {
+           width: 100%; max-width: 900px; height: auto !important; min-height: 400px; 
+           background: #f8f8f8; padding: 20px; position: relative;
+       }
+
+       /* --- STYLES TEXTE (RESTRICTION DES COULEURS) --- */
+       p, .h5p-alternative-inner, .h5p-question-introduction, .h5p-true-false-answer { color: #000; padding-top: 5px; }
+       .h5p-mark-the-words .h5p-question-introduction,
+       .h5p-find-the-words .h5p-task-description, .h5p-drag-text .h5p-question-introduction,
+       .h5p-crossword .h5p-question-introduction, .h5p-sort-paragraphs .h5p-question-introduction,
+       .h5p-accordion, .h5p-panel-content .h5p-advanced-text p, .h5p-accordion h3, .h5p-image-pair .h5p-image-pair-desc { color: #ffffff; }
+       #h5p-dialogcards-progress-0 { color: #ffffff; }
+	   
+	 
+    
+       /* --- BOUTONS DÉGRADÉS --- */
+       .h5p-joubelui-button, .h5p-question-check-answer, .h5p-question-show-solution, .h5p-question-try-again {
+           background: linear-gradient(135deg, #4e54c8, #8f94fb) !important; color: white !important;
+           border: none !important; border-radius: 25px !important; padding: 10px 25px !important;
+           font-weight: bold !important; box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+       }
+       
+       /* --- COMPOSANTS SPÉCIFIQUES --- */
+       .h5p-timeline, .vco-timeline, .vco-storyjs { width: 100% !important; height: 100% !important; min-height: 600px !important; background-color: #fff !important; color: #333 !important; border-radius: 4px; }
+       .h5p-find-the-words.h5p-container { height: 100% !important; min-height: 800px !important; }
+       .h5p-find-the-words .puzzle-container { background-color: #ffffff !important; border-radius: 8px; padding: 15px; margin: 0 auto; }
+       .joubel-speech-bubble { z-index: 9999 !important; position: absolute !important; }
+
+       /* --- DICTÉE : centrage de l'icône dans les boutons audio ronds --- */
+       .h5p-dictation .h5p-audio-minimal-button {
+           display: inline-flex !important;
+           align-items: center !important;
+           justify-content: center !important;
+           line-height: 1 !important;
+       }
+       .h5p-dictation .h5p-audio-minimal-button:before {
+           margin: 0 !important;
+       }
+
+       /* --- VIDEO INTERACTIVE CONTROLS --- */
+       .h5p-interactive-video .h5p-controls { z-index: 100 !important; }
+       .h5p-interactive-video .h5p-interaction-container { z-index: 50 !important; }
+       .h5p-dialog { background: #fff !important; color: #333 !important; border-radius: 8px; z-index: 10001; }
+	   /* Hauteur minimale pour Interactive Video */
+	   .h5p-interactive-video { min-height: 400px !important; }
+	   .h5p-interactive-video .h5p-video-wrapper { position: relative !important; }
+	   .h5p-interactive-video .h5p-interactions { pointer-events: auto !important; z-index: 10 !important; }
+</style>
+</head>
+<body>
+
+    <!-- main en display:contents : repère de structure pour lecteurs d'écran
+         sans modifier la mise en page flex centrée (RGAA 9.2 / 12.6). -->
+    <main style="display:contents">
+        <h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0;">Visionneuse H5P</h1>
+        <div id="h5p-container">Chargement...</div>
+    </main>
+
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    
+<script>
+	function loadScript(src) {
+	        return new Promise((resolve) => {
+	            const script = document.createElement('script');
+	            script.src = src;
+	            script.onload = () => resolve();
+	            script.onerror = () => { console.warn("Fichier ignoré:", src); resolve(); };
+	            document.head.appendChild(script);
+	        });
+	    }
+
+	    (function init() {
+	        if (typeof jQuery === 'undefined') { setTimeout(init, 50); return; }
+    
+	        window.H5P = window.H5P || {};
+	        window.H5P.jQuery = jQuery;
+
+	        // 🛡️ PATCH ULTIME ANTI-CORS POUR LA PREVIEW LOCALE
+	        const originalCreateElement = document.createElement;
+	        document.createElement = function(tagName) {
+	            const el = originalCreateElement.call(document, tagName);
+	            if (tagName.toLowerCase() === 'video') {
+	                // 1. Intercepter et absorber l'assignation de la propriété
+	                let fakeCrossOrigin = null;
+	                Object.defineProperty(el, 'crossOrigin', {
+	                    get: function() { return fakeCrossOrigin; },
+	                    set: function(val) { fakeCrossOrigin = val; console.log("🛡️ CORS intercepté (property) !"); }
+	                });
+                
+	                // 2. Intercepter et bloquer l'assignation par attribut
+	                const originalSetAttr = el.setAttribute;
+	                el.setAttribute = function(name, value) {
+	                    if (name.toLowerCase() === 'crossorigin') {
+	                        console.log("🛡️ CORS intercepté (attribute) !");
+	                        return;
+	                    }
+	                    originalSetAttr.call(el, name, value);
+	                };
+	            }
+	            return el;
+	        };
+
+	        // Dictionnaire standard...
+	        window.H5PIntegration = {
+            baseUrl: window.location.origin,
+            // Bibliothèques externalisées (dépôt hapi-h5p-libraries). Valeur de
+            // repli : elle est normalement écrasée par le postMessage du
+            // preview-manager. Doit rester synchro avec H5P_LIBS_BASE_URL
+            // (modules/utils/h5p-constants.js).
+            url: 'https://drane-normandie.forge.apps.education.fr/hapi-h5p-libraries/ia/h5p-libraries',
+            urlLibraries: 'https://drane-normandie.forge.apps.education.fr/hapi-h5p-libraries/ia/h5p-libraries',
+            contents: {},
+            // Configuration de H5P.MathDisplay : on force le renderer MathJax
+            // vers la copie 2.7.5 vendorisée (script-src 'self') au lieu du CDN
+            // cdnjs codé en dur dans la lib, bloqué par la CSP. Le chemin est
+            // relatif au viewer (/ia/), comme les autres assets vendorisés.
+            libraryConfig: {
+                'H5P.MathDisplay': {
+                    observers: [
+                        { name: 'mutationObserver', params: { cooldown: 500 } }
+                    ],
+                    renderer: {
+                        mathjax: {
+                            src: '../vendor/mathjax-2.7.5/MathJax.js?config=TeX-AMS_HTML',
+                            config: {
+                                extensions: ['tex2jax.js'],
+                                jax: ['input/TeX', 'output/HTML-CSS'],
+                                tex2jax: {
+                                    inlineMath: [['\\(', '\\)']],
+                                    displayMath: [['\\[', '\\]']],
+                                    processEscapes: true,
+                                    ignoreClass: 'ckeditor'
+                                },
+                                messageStyle: 'none'
+                            }
+                        }
+                    }
+                }
+            },
+            l10n: {
+                "H5P": { "fullscreen": "Plein écran", "disableFullscreen": "Quitter", "download": "Télécharger", "close": "Fermer" },
+                "H5P.InteractiveVideo": {},
+                "H5P.DragNBar": {},
+                "H5P.Dialog": {}
+            }
+        };
+    
+        window.H5P.patchGetPath = function() {
+            if (typeof H5P.getPath === 'function' && !H5P.getPath._isPatched) {
+                const original = H5P.getPath;
+                H5P.getPath = function(path, contentId) {
+                    if (path && (path.startsWith('data:') || path.startsWith('blob:') || path.startsWith('http') || path.includes('.mp4'))) return path;
+                    return original.call(this, path, contentId);
+                };
+                H5P.getPath._isPatched = true;
+            }
+        };
+    
+        const coreScripts = [
+            'h5p-core/js/h5p-event-dispatcher.js',
+            'h5p-core/js/h5p-x-api-event.js',
+            'h5p-core/js/h5p-x-api.js',
+            'h5p-core/js/h5p-content-type.js',
+            'h5p-core/js/h5p.js'
+        ];
+    
+        async function loadCore() {
+            for (const src of coreScripts) await loadScript(src);
+            window.H5P.patchGetPath(); 
+            setupMessaging();
+        }
+        loadCore();
+    })();
+
+    function setupMessaging() {
+        window.addEventListener('message', async function(event) {
+            const data = event.data;
+            if (!data || data.action !== 'loadH5P') return;
+        
+            window.H5PIntegration.baseUrl = data.integration.baseUrl || window.H5PIntegration.baseUrl;
+            window.H5PIntegration.url = data.integration.url || window.H5PIntegration.url;
+            window.H5PIntegration.siteUrl = data.integration.siteUrl || window.H5PIntegration.siteUrl;
+            window.H5PIntegration.contents = data.integration.contents || {};
+            // On conserve le libraryConfig par défaut (MathJax vendorisé) ; un
+            // override éventuel du manager reste possible mais facultatif.
+            window.H5PIntegration.libraryConfig = data.integration.libraryConfig || window.H5PIntegration.libraryConfig;
+
+            if (data.integration.l10n) {
+                window.H5PIntegration.l10n = { ...window.H5PIntegration.l10n, ...data.integration.l10n };
+            }
+
+            if (!window.H5P.communicator) window.H5P.communicator = { on: ()=>{}, send: ()=>{} };
+            if (!window.H5P.fullscreen) window.H5P.fullscreen = function() {};
+            if (!window.H5P.createUUID) window.H5P.createUUID = function() { return 'xxxx-xxxx'.replace(/x/g, () => (Math.random()*16|0).toString(16)); };
+            
+            if (data.styles) {
+                data.styles.forEach(href => {
+                    const link = document.createElement('link'); link.rel = 'stylesheet'; link.href = href;
+                    document.head.appendChild(link);
+                });
+            }
+        
+			if (data.scripts) {
+						    const scriptPromises = data.scripts.map(src => {
+						        return new Promise((resolve) => {
+						            const script = document.createElement('script');
+						            script.src = src;
+						            // ⚡ LA MAGIE EST LÀ : 'async = false' force le navigateur à respecter 
+						            // l'ordre d'insertion pour l'exécution, tout en téléchargeant TOUS les fichiers en parallèle !
+						            script.async = false; 
+						            script.onload = () => resolve();
+						            script.onerror = () => { console.warn("Fichier ignoré:", src); resolve(); };
+						            document.head.appendChild(script);
+						        });
+						    });
+						    await Promise.all(scriptPromises);
+						}
+        
+            const container = document.getElementById('h5p-container');
+            const contentId = data.contentId;
+            const contentData = window.H5PIntegration.contents[contentId];
+            let params = typeof contentData.jsonContent === 'string' ? JSON.parse(contentData.jsonContent) : contentData.jsonContent;
+
+            const $container = H5P.jQuery(container);
+            $container.html('');
+            
+            try {
+                // INJECTION DE SECOURS JUSTE AVANT L'EXECUTION
+                window.H5PIntegration.l10n = window.H5PIntegration.l10n || {};
+                window.H5PIntegration.l10n.H5P = window.H5PIntegration.l10n.H5P || {"close": "Fermer", "fullscreen": "Plein écran", "disableFullscreen": "Quitter"};
+                window.H5PIntegration.l10n['H5P.InteractiveVideo'] = window.H5PIntegration.l10n['H5P.InteractiveVideo'] || {};
+                window.H5PIntegration.l10n['H5P.Dialog'] = window.H5PIntegration.l10n['H5P.Dialog'] || {};
+
+                const instance = H5P.newRunnable({ library: contentData.library, params: params }, contentId, $container, true);
+                let attempts = 0;
+                const timer = setInterval(() => {
+                    attempts++;
+                    if(instance && instance.trigger) instance.trigger('resize');
+                    if (attempts > 15) clearInterval(timer);
+                }, 250);
+            } catch (e) { console.error("🔥 Crash H5P:", e); }
+
+            // Le rendu mathématique est pris en charge par H5P.MathDisplay
+            // (MathJax 2.7.5 vendorisé) via son MutationObserver ; pas de
+            // typeset manuel ici.
+        });
+    }
+</script>
+<script>
+(function() {
+    console.log("👮‍♂️ Script Gendarme V8 : INTELLIGENT & CHIRURGICAL");
+
+	function forceImageStyles() {
+	    const elements = document.querySelectorAll(
+	        '[class*="draggable"], .ui-draggable, .h5p-image-pairing-item, ' + 
+	        '[class*="droppable"], .ui-droppable, ' +  
+	        '[class*="dropzone"], .h5p-dragquestion-dropzone, ' +
+	        '.h5p-drag-element' // 🌟 AJOUTEZ CE SÉLECTEUR pour cibler les étiquettes H5P
+	    );
+
+        elements.forEach(el => {
+            // 1. VÉRIFICATION VITALE : Y a-t-il une image dedans ?
+            // Si NON (c'est du Drag Text), on ne touche à RIEN sur le conteneur.
+            const img = el.querySelector('img');
+            
+            if (img) {
+                // C'est une IMAGE ! On applique les correctifs UNIQUEMENT ici.
+
+                // A. Force le cadre
+                el.style.setProperty('overflow', 'visible', 'important'); 
+                el.style.setProperty('display', 'flex', 'important');
+                el.style.setProperty('align-items', 'center', 'important');
+                el.style.setProperty('justify-content', 'center', 'important');
+                el.style.setProperty('border-radius', '8px', 'important'); // Arrondi cadre
+                
+                // B. Force l'image
+                img.style.setProperty('width', '100%', 'important');
+                img.style.setProperty('height', '100%', 'important');
+                img.style.setProperty('object-fit', 'contain', 'important');
+                img.style.setProperty('padding', '0', 'important'); 
+                img.style.setProperty('margin', '0', 'important'); 
+                img.style.setProperty('background', 'transparent', 'important'); 
+                
+                // C. FIX DÉBORDEMENT : L'image hérite de l'arrondi du cadre (8px)
+                // Comme ça, les coins carrés de l'image ne sortent plus !
+                img.style.setProperty('border-radius', '8px', 'important'); 
+
+                img.removeAttribute('width');
+                img.removeAttribute('height');
+            }
+        });
+    }
+
+    forceImageStyles();
+    setInterval(forceImageStyles, 500);
+})();
+</script>
+<script src="../js/tracking-static.js"></script>
+</body>
+</html>

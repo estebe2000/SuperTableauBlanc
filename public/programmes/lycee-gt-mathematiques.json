@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Lycée GT",
+    "classes": ["Terminale"],
+    "programme": "Terminale générale — spécialité mathématiques (2019, exigible jusqu'en 2027)",
+    "source": "B.O. spécial n°8 du 25 juillet 2019 — Programme de spécialité mathématiques de la classe terminale générale (nouveau programme à compter de 2027)",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Chercher, modéliser, représenter, raisonner, calculer, communiquer",
+    "Maîtriser les suites, les limites, la continuité et le calcul différentiel et intégral",
+    "Étudier les fonctions logarithme et exponentielle et la convexité",
+    "Raisonner en géométrie de l'espace (vecteurs, droites, plans, produit scalaire)",
+    "Modéliser le hasard : variables aléatoires, loi binomiale, concentration et loi des grands nombres",
+    "Mettre en œuvre des algorithmes et programmer en Python"
+  ],
+  "domaines": [
+    {
+      "nom": "Analyse — Suites, limites et continuité",
+      "description": "Étudier le comportement asymptotique des suites et des fonctions ; raisonner par récurrence ; utiliser la continuité.",
+      "competences": [
+        {
+          "intitule": "Raisonnement par récurrence et limites de suites",
+          "exemples_themes": ["Démontrer une propriété par récurrence", "Limite finie ou infinie d'une suite ; suites géométriques", "Théorèmes de comparaison et d'encadrement (gendarmes)", "Limite d'une suite arithmético-géométrique", "Modéliser l'évolution d'une population ou d'un capital"]
+        },
+        {
+          "intitule": "Limites de fonctions et asymptotes",
+          "exemples_themes": ["Limites en l'infini et en un point ; opérations sur les limites", "Asymptotes horizontales et verticales", "Croissances comparées (exponentielle, puissances, logarithme)", "Lever une forme indéterminée"]
+        },
+        {
+          "intitule": "Continuité et théorème des valeurs intermédiaires",
+          "exemples_themes": ["Continuité des fonctions usuelles", "Théorème des valeurs intermédiaires et corollaire (fonction strictement monotone)", "Résolution approchée d'une équation par dichotomie ou balayage (Python)", "Existence et unicité d'une solution"]
+        }
+      ]
+    },
+    {
+      "nom": "Analyse — Dérivation, fonctions exponentielle et logarithme, convexité",
+      "description": "Approfondir le calcul différentiel, étudier la convexité et les fonctions de référence exponentielle et logarithme népérien.",
+      "competences": [
+        {
+          "intitule": "Compléments sur la dérivation",
+          "exemples_themes": ["Dérivée d'une fonction composée", "Dérivées des fonctions usuelles (racine, puissances, trigonométriques)", "Étudier les variations et les extremums d'une fonction", "Optimisation d'un coût, d'une aire, d'un volume"]
+        },
+        {
+          "intitule": "Convexité d'une fonction",
+          "exemples_themes": ["Fonction convexe, fonction concave", "Lien avec le sens de variation de la dérivée et le signe de la dérivée seconde", "Point d'inflexion", "Interprétation graphique (position par rapport aux tangentes)"]
+        },
+        {
+          "intitule": "Fonctions logarithme népérien et exponentielle",
+          "exemples_themes": ["Fonction ln : propriétés algébriques, variations, limites", "Résolution d'équations et d'inéquations avec exp et ln", "Échelle de Richter, pH, intensité sonore (logarithme)", "Décroissance radioactive, charge d'un condensateur (exponentielle)"]
+        }
+      ]
+    },
+    {
+      "nom": "Analyse — Primitives, intégration et équations différentielles",
+      "description": "Calculer des primitives et des intégrales, modéliser par des équations différentielles simples.",
+      "competences": [
+        {
+          "intitule": "Primitives et calcul intégral",
+          "exemples_themes": ["Primitives des fonctions usuelles", "Intégrale et aire sous une courbe ; valeur moyenne d'une fonction", "Intégration par reconnaissance d'une forme dérivée", "Application à la cinématique (vitesse → position)", "Approximation d'une intégrale par la méthode des rectangles (Python)"]
+        },
+        {
+          "intitule": "Équations différentielles",
+          "exemples_themes": ["Équation différentielle y′ = a y ; y′ = a y + b", "Modèle de refroidissement, charge d'un circuit RC", "Croissance ou décroissance proportionnelle", "Déterminer la solution vérifiant une condition initiale"]
+        }
+      ]
+    },
+    {
+      "nom": "Géométrie dans l'espace",
+      "description": "Étendre le calcul vectoriel et la géométrie repérée à l'espace, utiliser le produit scalaire et l'orthogonalité.",
+      "competences": [
+        {
+          "intitule": "Vecteurs, droites et plans de l'espace",
+          "exemples_themes": ["Vecteurs de l'espace, combinaisons linéaires, bases et repères", "Représentation paramétrique d'une droite", "Positions relatives de droites et de plans", "Coplanarité, alignement"]
+        },
+        {
+          "intitule": "Produit scalaire dans l'espace et orthogonalité",
+          "exemples_themes": ["Produit scalaire et expression analytique dans un repère orthonormé", "Vecteur normal à un plan, équation cartésienne d'un plan", "Orthogonalité de droites et de plans", "Projeté orthogonal, distance d'un point à un plan", "Problèmes de géométrie et applications (architecture, physique)"]
+        }
+      ]
+    },
+    {
+      "nom": "Probabilités",
+      "description": "Modéliser des expériences aléatoires par des variables aléatoires, étudier la loi binomiale et la concentration.",
+      "competences": [
+        {
+          "intitule": "Succession d'épreuves indépendantes et loi binomiale",
+          "exemples_themes": ["Modèle de la succession d'épreuves indépendantes (arbre)", "Schéma de Bernoulli, loi binomiale", "Coefficients binomiaux et calcul de probabilités", "Espérance, variance et écart type d'une variable aléatoire", "Simulation d'un schéma de Bernoulli (Python)"]
+        },
+        {
+          "intitule": "Concentration, loi des grands nombres",
+          "exemples_themes": ["Inégalité de Bienaymé-Tchebychev", "Inégalité de concentration", "Loi des grands nombres (échantillon de variables identiques et indépendantes)", "Estimation d'une probabilité par une fréquence ; fluctuation d'échantillonnage", "Simulation et observation de la stabilisation des moyennes"]
+        }
+      ]
+    },
+    {
+      "nom": "Algorithmique et programmation (Python)",
+      "description": "Mettre en œuvre des algorithmes en lien avec l'analyse, les probabilités et la géométrie.",
+      "competences": [
+        {
+          "intitule": "Concevoir et exécuter des programmes en Python",
+          "exemples_themes": ["Calcul des termes d'une suite, recherche d'un seuil", "Dichotomie pour la résolution approchée d'une équation", "Méthode des rectangles pour approcher une intégrale", "Simulation d'une loi binomiale et d'échantillons", "Manipulation de listes et de fonctions"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de spécialité mathématiques de la classe terminale générale (B.O. spécial n°8 du 25 juillet 2019) reste exigible jusqu'en 2027, date d'entrée en vigueur du nouveau programme. Il approfondit l'analyse (raisonnement par récurrence, limites de suites et de fonctions, continuité et théorème des valeurs intermédiaires, compléments sur la dérivation, convexité, fonctions logarithme népérien et exponentielle, primitives, calcul intégral, équations différentielles y′ = ay + b), la géométrie dans l'espace (vecteurs, droites et plans, représentation paramétrique, produit scalaire, orthogonalité, équation cartésienne d'un plan), les probabilités (succession d'épreuves indépendantes, loi binomiale, espérance et variance, inégalités de concentration et loi des grands nombres) et l'algorithmique en Python. Les six compétences (chercher, modéliser, représenter, raisonner, calculer, communiquer) structurent l'activité mathématique. À noter : en terminale coexistent aussi les options « mathématiques complémentaires » (pour les élèves ayant suivi la spécialité en première) et « mathématiques expertes » (en complément de la spécialité, incluant nombres complexes et arithmétique), qui ne sont pas détaillées ici."
+}

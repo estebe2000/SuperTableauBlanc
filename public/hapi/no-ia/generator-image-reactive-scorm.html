@@ -1,0 +1,1445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+    <script src="../js/export-marianne.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'activités interactives - Images réactives</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+
+	<link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+    <script src="../vendor/jszip/jszip.min.js"></script>
+    <!-- Assainissement HTML (anti-XSS) des contenus générés — vendoré localement -->
+    <script src="../js/vendor/purify.min.js"></script>
+    <script src="../js/sanitize-standalone.js"></script>
+    <style>
+		:root {
+		            --primary-color: #3498db; --secondary-color: #2980b9; --success-color: var(--hapi-green);
+		            --danger-color: #b91c1c; --warning-color: #f39c12; --text-color: var(--text);
+		            --border-color: var(--border); --handle-color: #e67e22;
+		}
+
+        .main-layout {
+            height: calc(100vh - 40px);
+            display: flex;
+            flex-grow: 1;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        #canvas-container {
+            flex-grow: 1;
+            background-color: var(--page-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow: auto;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.05);
+        }
+        #loaded-image { max-width: 100%; max-height: 100%; display: none; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        #upload-area { border: 3px dashed var(--hapi-green); border-radius: 12px; padding: 50px; text-align: center; transition: all 0.3s ease; cursor: pointer; background: var(--surface); color: var(--text-muted); }
+        #upload-area:hover, #upload-area.dragover { border-color: var(--hapi-green-dark); background: rgba(var(--hapi-green-rgb), 0.1); }
+        #drawing-canvas { position: absolute; border-radius: 8px; pointer-events: none; }
+        #drawing-canvas.is-interactive { pointer-events: auto; }
+
+        #sidebar {
+            width: 380px;
+            flex-shrink: 0;
+            background: var(--page-bg);
+            overflow-y: auto;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .generator-section { margin-bottom: 25px; }
+        .generator-section h2 { color: var(--text); margin-bottom: 15px; font-size: 1.3em; border-bottom: 2px solid var(--hapi-green); padding-bottom: 5px; }
+
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; color: var(--text); }
+        .form-group.inline-check { display: flex; align-items: center; background: var(--page-bg); padding: 10px; border-radius: 8px; }
+        .form-group.inline-check input { width: auto; margin-right: 10px; }
+        .form-group.inline-check label { margin-bottom: 0; font-weight: normal; cursor: pointer; }
+        .form-group.inline-group { display: flex; align-items: center; justify-content: space-between; }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--hapi-green); }
+        textarea { resize: vertical; min-height: 80px; }
+        input[type="color"] {
+            width: 40px !important;
+            height: 40px !important;
+            padding: 2px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn {
+            background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%);
+            color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer;
+            font-size: 1em; font-weight: 600; transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: inline-block; text-align: center;
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); }
+        .btn:disabled { background: var(--border); color: var(--text-muted); cursor: not-allowed; box-shadow: none; transform: none; }
+
+        .toolbar { display: flex; gap: 8px; margin-bottom: 15px; }
+        .tool-btn {
+            background: var(--surface); color: var(--text-color); border: 2px solid var(--border);
+            padding: 10px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+            flex: 1; display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .tool-btn:hover { border-color: var(--hapi-green-light); }
+        .tool-btn.active { background: var(--hapi-green-dark); color: white; border-color: var(--hapi-green-dark); }
+
+        #zones-list { list-style: none; padding-top: 15px; max-height: 250px; overflow-y: auto;}
+        .zone-item { background: var(--surface); padding: 12px; border-radius: 8px; margin-bottom: 8px; display: flex; align-items: center; cursor: pointer; border: 2px solid var(--border-color); border-left: 5px solid var(--border-color); transition: all 0.2s ease; }
+        .zone-item:hover { border-color: var(--hapi-green-light); border-left-color: var(--hapi-green-light); }
+        .zone-item.selected { border-color: var(--hapi-green); border-left-color: var(--hapi-green); background: rgba(var(--hapi-green-rgb), 0.05); box-shadow: 0 0 10px rgba(var(--hapi-green-rgb), 0.3); }
+        .zone-info { display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden; }
+        .zone-info span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .zone-color { width: 18px; height: 18px; border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); flex-shrink: 0; }
+
+        .zone-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+        }
+        .zone-status { font-size: 16px; }
+
+        .btn-icon-delete {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+            padding: 0;
+        }
+        .btn-icon-delete:hover {
+            background-color: #991b1b; /* Rouge plus foncé */
+        }
+
+        .rich-editor-container { border: 2px solid var(--border); border-radius: 8px; margin-top: 5px; }
+        .rich-editor-toolbar { background: var(--page-bg); padding: 5px; border-bottom: 2px solid var(--border); display: flex; flex-wrap: wrap; gap: 5px; }
+        .rich-editor-toolbar button { background: none; border: 1px solid transparent; border-radius: 4px; padding: 4px 8px; cursor: pointer; font-size: 1em; }
+        .rich-editor-content { padding: 12px; min-height: 120px; outline: none; }
+
+        .is-hidden { display: none !important; }
+        .notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); padding: 15px 25px; border-radius: 25px; color: white; font-weight: 600; box-shadow: 0 5px 15px rgba(0,0,0,0.2); transition: all 0.5s ease; z-index: 1001; }
+        .notification.show { transform: translateX(-50%) translateY(0); }
+        .notification.success { background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); }
+        .notification.error { background: #b91c1c; }
+        
+        @media (max-width: 768px) {
+            .home-btn {
+                    top: 12px;
+                    left: 15px;
+                    padding: 10px 16px;
+                    font-size: 0.9rem;
+                }
+        }
+	</style>
+</head>
+<body class="page-without-ia page-image-reactive-scorm">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span></span><a href="./">Générateur d'activités sans assistance de l'IA</a>
+            <span>Image réactive</span>
+        </div>
+		<div class="content" id="contenu" role="main">
+            <h1><svg class="gen-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Générateur d'image réactive</h1>
+            <p>Créer des activités interactives avec des images. Découvrir des zones dans l'image selon deux modes d'utilisation : découverte ou quiz.</p>
+        </div>
+
+        <div class="main-layout">
+            <div id="canvas-container" tabindex="0" role="region" aria-label="Zone d'édition de l'image">
+                <div id="upload-area"><p><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg> Glissez-déposez une image ou cliquez</p></div>
+                <img id="loaded-image" src="" alt="Image chargée"/>
+                <canvas id="drawing-canvas"></canvas>
+            </div>
+            <aside id="sidebar">
+                <div class="generator-section">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Projet</h2>
+                    <div style="display: flex; gap: 10px; flex-direction: column;">
+                        <button class="btn" onclick="exportProjectToZip()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Exporter le projet (.zip)</button>
+                        <button class="btn" style="background: var(--hapi-green-dark);" onclick="document.getElementById('zipFileInput').click()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Importer un projet (.zip)</button>
+                        <input type="file" id="zipFileInput" class="is-hidden" accept=".zip" onchange="importProjectFromZip(event)">
+                    </div>
+                </div>
+
+                <div class="generator-section" id="section-config">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> Configuration</h2>
+                    <div class="form-group">
+                        <label for="imageUpload">Image de fond :</label>
+                        <button class="btn" style="width: 100%;" onclick="document.getElementById('imageUpload').click()">Changer l'image</button>
+                        <input type="file" id="imageUpload" class="is-hidden" accept="image/*">
+                    </div>
+                    <div class="form-group"><label for="project-title">Titre du projet :</label><input type="text" id="project-title" value="Mon activité interactive"></div>
+                    <div class="form-group">
+                        <label for="project-instructions">Consignes pour l'élève :</label>
+                        <textarea id="project-instructions" rows="3" placeholder="Ex: Cliquez sur les zones de l'image pour les découvrir."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="mode-selector">Mode d'activité :</label>
+                        <select id="mode-selector"><option value="discovery">Mode Découverte</option><option value="quiz">Mode Quiz (Trouver les zones)</option></select>
+                    </div>
+                    <div class="form-group is-hidden quiz-only-setting" id="feedback-success-group">
+                        <label for="feedback-success">Feedback si réussite :</label>
+                        <textarea id="feedback-success" placeholder="Bravo, vous avez terminé le quiz !"></textarea>
+                    </div>
+                    <div class="form-group is-hidden quiz-only-setting" id="feedback-failure-group">
+                        <label for="feedback-failure">Feedback si échec :</label>
+                        <textarea id="feedback-failure" placeholder="Vous avez terminé, mais certaines zones n'ont pas été trouvées du premier coup."></textarea>
+                    </div>
+                    <div class="form-group is-hidden quiz-only-setting" id="success-threshold-group">
+                        <label for="success-threshold">Seuil de réussite (%) :</label>
+                        <input type="number" id="success-threshold" value="100" min="0" max="100">
+                    </div>
+                    <div class="form-group is-hidden inline-check quiz-only-setting" id="quiz-settings">
+                        <label for="quiz-ordered-zones">
+                            <input type="checkbox" id="quiz-ordered-zones">
+                            Afficher les zones à trouver dans l'ordre
+                        </label>
+                    </div>
+                    <div class="form-group is-hidden quiz-only-setting" id="quiz-hint-settings">
+                        <label for="hint-threshold">Seuil d'indice (clics manqués)</label>
+                        <input type="number" id="hint-threshold" value="3" min="1" style="width: 80px;">
+                    </div>
+                </div>
+                <div class="generator-section" id="section-tools">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Outils de dessin</h2>
+                    <div class="toolbar">
+                        <button class="tool-btn active" data-tool="polygon">Polygone</button>
+                        <button class="tool-btn" data-tool="rectangle">Rectangle</button>
+                        <button class="tool-btn" data-tool="circle">Cercle</button>
+                        <button class="tool-btn" data-tool="lasso">Lasso</button>
+                    </div>
+                    <button id="add-zone-btn" class="btn" style="width: 100%;">+ Ajouter une zone</button>
+                </div>
+                <div class="generator-section" id="section-zones">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg> Zones créées</h2>
+                    <div id="zones-list-container"><ul id="zones-list"></ul></div>
+                </div>
+                
+                <div class="generator-section is-hidden" id="section-zone-content">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Contenu de la Zone</h2>
+                    <div class="form-group"><label for="zoneTitle">Titre (libellé de la zone à trouver)</label><input type="text" id="zoneTitle"></div>
+                    <div class="form-group inline-group">
+                        <label for="zone-color">Couleur</label>
+                        <input type="color" id="zone-color" value="#3498db">
+                    </div>
+                    <div class="form-group">
+                        <label>Contenu (affiché quand la zone est trouvée)</label>
+                        <div class="rich-editor-container">
+                            <div class="rich-editor-toolbar">
+                                <button data-command="bold"><b>B</b></button><button data-command="italic"><i>I</i></button><button data-command="underline"><u>U</u></button>
+                                <button data-command="insertUnorderedList">• Liste</button><button data-command="createLink"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Lien</button>
+                            </div>
+                            <div class="rich-editor-content" id="zoneContent" contenteditable="true"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="generator-section">
+                    <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Export</h2>
+                    <div style="display: flex; gap: 10px; flex-direction: column;">
+                        <button id="preview-btn" class="btn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Prévisualiser</button>
+                        <button id="export-btn" class="btn btn-success"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Exporter SCORM 1.2</button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="../index.html">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const el = {
+        imageUpload: document.getElementById('imageUpload'),
+        loadedImage: document.getElementById('loaded-image'),
+        uploadArea: document.getElementById('upload-area'),
+        canvasContainer: document.getElementById('canvas-container'),
+        addZoneBtn: document.getElementById('add-zone-btn'),
+        zonesList: document.getElementById('zones-list'),
+        sectionZoneContent: document.getElementById('section-zone-content'),
+        canvas: document.getElementById('drawing-canvas'),
+        modeSelector: document.getElementById('mode-selector'),
+        previewBtn: document.getElementById('preview-btn'),
+        exportBtn: document.getElementById('export-btn'),
+        toolBtns: document.querySelectorAll('.tool-btn'),
+        projectTitle: document.getElementById('project-title'),
+        projectInstructions: document.getElementById('project-instructions'),
+        quizSettings: document.getElementById('quiz-settings'),
+        quizOrderedZones: document.getElementById('quiz-ordered-zones'),
+        zoneTitle: document.getElementById('zoneTitle'),
+        zoneColor: document.getElementById('zone-color'),
+        zoneContent: document.getElementById('zoneContent'),
+        richEditorToolbar: document.querySelector('.rich-editor-toolbar'),
+        feedbackSuccess: document.getElementById('feedback-success'),
+        feedbackFailure: document.getElementById('feedback-failure'),
+        successThreshold: document.getElementById('success-threshold'),
+    };
+    const ctx = el.canvas.getContext('2d');
+    
+    let project = { 
+        title: "Mon activité interactive",
+        instructions: "", 
+        mode: "discovery",
+        quizOrdered: false,
+        hintThreshold: 3,
+        zones: [],
+        feedback: {
+            success: "Bravo, vous avez terminé le quiz avec succès !",
+            failure: "Vous avez terminé le quiz."
+        },
+        successThreshold: 100
+    };
+    let selectedZoneId = null;
+    let nextZoneId = 1;
+    let currentTool = 'polygon';
+    let hoveredZoneId = null;
+    let interaction = { mode: 'none', startPos: null, lastPos: null, currentPoints: [], pointIndex: -1 };
+
+    function init() {
+        setupEventListeners();
+        updateModeUI();
+        setupDragAndDrop();
+    }
+
+    function setupEventListeners() {
+        el.imageUpload.addEventListener('change', e => handleImageFile(e.target.files[0]));
+        el.addZoneBtn.addEventListener('click', toggleDrawingMode);
+        el.zonesList.addEventListener('click', handleZoneSelection);
+        el.zonesList.addEventListener('mouseover', handleZoneHover);
+        el.zonesList.addEventListener('mouseout', handleZoneHoverOut);
+        el.canvas.addEventListener('mousedown', handleMouseDown);
+        el.canvas.addEventListener('mousemove', handleMouseMove);
+        el.canvas.addEventListener('mouseup', handleMouseUp);
+        el.canvas.addEventListener('mouseleave', () => { if (interaction.mode !== 'none') handleMouseUp(); });
+        el.modeSelector.addEventListener('change', updateModeUI);
+        el.quizOrderedZones.addEventListener('change', e => project.quizOrdered = e.target.checked);
+        document.getElementById('hint-threshold').addEventListener('input', e => project.hintThreshold = parseInt(e.target.value, 10));
+        el.previewBtn.addEventListener('click', showPreview);
+        el.exportBtn.addEventListener('click', exportSCORM);
+        el.toolBtns.forEach(btn => btn.addEventListener('click', () => selectTool(btn.dataset.tool)));
+        window.addEventListener('resize', () => { setupCanvas(); redrawAll(); });
+        el.projectTitle.addEventListener('input', e => project.title = e.target.value);
+        el.projectInstructions.addEventListener('input', e => project.instructions = e.target.value);
+        el.zoneTitle.addEventListener('input', e => updateZoneData('name', e.target.value));
+        el.zoneColor.addEventListener('input', e => updateZoneData('color', e.target.value));
+        el.zoneContent.addEventListener('input', e => updateZoneData('content', el.zoneContent.innerHTML));
+        el.feedbackSuccess.addEventListener('input', e => project.feedback.success = e.target.value);
+        el.feedbackFailure.addEventListener('input', e => project.feedback.failure = e.target.value);
+        el.successThreshold.addEventListener('input', e => project.successThreshold = parseInt(e.target.value, 10) || 100);
+
+        el.richEditorToolbar.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const command = button.dataset.command;
+                el.zoneContent.focus();
+                document.execCommand(command, false, command === 'createLink' ? prompt("Entrez l'URL:") : null);
+                updateZoneData('content', el.zoneContent.innerHTML);
+            });
+        });
+    }
+
+    function dataURLtoBlob(dataurl) {
+        let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+        while(n--){ u8arr[n] = bstr.charCodeAt(n); }
+        return new Blob([u8arr], {type:mime});
+    }
+
+    function hardReset() {
+        project = { 
+            title: "Mon activité interactive", instructions: "", mode: "discovery", quizOrdered: false, hintThreshold: 3, zones: [],
+            feedback: { success: "Bravo !", failure: "Réessayez." }, successThreshold: 100
+        };
+        selectedZoneId = null;
+        nextZoneId = 1;
+        el.projectTitle.value = project.title;
+        el.projectInstructions.value = project.instructions;
+        el.modeSelector.value = project.mode;
+        el.feedbackSuccess.value = project.feedback.success;
+        el.feedbackFailure.value = project.feedback.failure;
+        el.successThreshold.value = project.successThreshold;
+        document.getElementById('hint-threshold').value = 3;
+        el.quizOrderedZones.checked = false;
+        el.loadedImage.src = '';
+        el.loadedImage.style.display = 'none';
+        el.uploadArea.style.display = 'block';
+        renderZonesList();
+        showZoneEditor();
+        redrawAll();
+        updateModeUI();
+    }
+    
+    window.exportProjectToZip = async function() {
+        if (!el.loadedImage.src) {
+            showNotification('Veuillez ajouter une image avant d\'exporter le projet.', 'error');
+            return;
+        }
+        const zip = new JSZip();
+        
+        const config = { ...project };
+        config.imageFilename = "background_image.png";
+
+        zip.file("config.json", JSON.stringify(config, null, 2));
+        zip.file(config.imageFilename, dataURLtoBlob(el.loadedImage.src));
+        
+        try {
+            const content = await zip.generateAsync({type:"blob"});
+            const link = document.createElement('a');
+            const safeTitle = (project.title || 'projet-image-interactive').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-]/gi, '').replace(/\s+/g, '_');
+            link.href = URL.createObjectURL(content);
+            link.download = `${safeTitle}_projet.zip`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+            showNotification('Projet exporté avec succès !', 'success');
+        } catch (error) {
+            showNotification('Erreur lors de l\'exportation du projet.', 'error');
+        }
+    }
+
+    window.importProjectFromZip = async function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        hardReset();
+        try {
+            const zip = await JSZip.loadAsync(file);
+            const configFile = zip.file("config.json");
+            if (!configFile) throw new Error("config.json manquant.");
+
+            const config = JSON.parse(await configFile.async("string"));
+            
+            project = { ...config };
+            project.feedback = config.feedback || { success: 'Bravo !', failure: 'Terminé.'};
+            project.successThreshold = config.successThreshold || 100;
+
+            // Anti self-XSS : un config.json piégé peut contenir du HTML malveillant dans zone.content
+            // (chargé tel quel dans l'éditeur contenteditable). On assainit à l'import — la mise en
+            // forme légitime est préservée, les vecteurs d'exécution sont retirés.
+            if (Array.isArray(project.zones)) {
+                project.zones.forEach(z => { if (z && typeof z.content === 'string') z.content = HAPISanitize.sanitizeRichHtml(z.content); });
+            }
+            
+            const imageFile = zip.file(config.imageFilename);
+            if (imageFile) {
+                const base64String = await imageFile.async("base64");
+                el.loadedImage.src = `data:image/png;base64,${base64String}`;
+                el.loadedImage.style.display = 'block';
+                el.uploadArea.style.display = 'none';
+            }
+            
+            el.projectTitle.value = project.title;
+            el.projectInstructions.value = project.instructions || "";
+            el.modeSelector.value = project.mode;
+            el.quizOrderedZones.checked = project.quizOrdered || false;
+            document.getElementById('hint-threshold').value = project.hintThreshold || 3;
+            el.feedbackSuccess.value = project.feedback.success;
+            el.feedbackFailure.value = project.feedback.failure;
+            el.successThreshold.value = project.successThreshold;
+            nextZoneId = project.zones.reduce((maxId, zone) => Math.max(maxId, zone.id), 0) + 1;
+            
+            el.loadedImage.onload = () => {
+                updateModeUI();
+                renderZonesList();
+                redrawAll();
+                showNotification('Projet importé avec succès !', 'success');
+            };
+            if(!imageFile) { updateModeUI(); renderZonesList(); }
+
+        } catch (error) {
+            console.error(error);
+            showNotification(`Erreur d'importation: ${error.message}`, 'error');
+            hardReset();
+        } finally {
+            event.target.value = '';
+        }
+    }
+
+    function setupDragAndDrop() {
+        const area = el.uploadArea;
+        ['dragover', 'dragleave', 'drop'].forEach(eventName => {
+            area.addEventListener(eventName, e => {
+                e.preventDefault();
+                e.stopPropagation();
+            }, false);
+        });
+        area.addEventListener('dragover', () => area.classList.add('dragover'));
+        area.addEventListener('dragleave', () => area.classList.remove('dragover'));
+        area.addEventListener('drop', e => {
+            area.classList.remove('dragover');
+            handleImageFile(e.dataTransfer.files[0]);
+        });
+        area.addEventListener('click', () => el.imageUpload.click());
+    }
+
+    function handleImageFile(file) {
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                el.loadedImage.src = e.target.result;
+                el.loadedImage.style.display = 'block';
+                el.uploadArea.style.display = 'none';
+                el.loadedImage.onload = () => {
+                    setupCanvas();
+                    redrawAll();
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
+    function setupCanvas() {
+        if (el.loadedImage.complete && el.loadedImage.naturalWidth !== 0) {
+            const imageRect = el.loadedImage.getBoundingClientRect();
+            const containerRect = el.canvasContainer.getBoundingClientRect();
+            el.canvas.width = imageRect.width;
+            el.canvas.height = imageRect.height;
+            el.canvas.style.top = `${imageRect.top - containerRect.top}px`;
+            el.canvas.style.left = `${imageRect.left - containerRect.left}px`;
+        }
+    }
+
+    function selectTool(toolName) {
+        if (interaction.mode === 'drawing' && interaction.currentPoints.length > 0) {
+            showNotification("Veuillez terminer la forme actuelle avant de changer d'outil.", "error");
+            return;
+        }
+        currentTool = toolName;
+        el.toolBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tool === toolName));
+    }
+
+    function toggleDrawingMode() {
+        if (interaction.mode === 'drawing') {
+            finishInteraction(true); // true = cancel
+        } else {
+            enterDrawingMode();
+        }
+    }
+
+    function enterDrawingMode() {
+        if (interaction.mode === 'none') {
+            if (!el.loadedImage.src) {
+                showNotification("Chargez une image d'abord.", "error");
+                return;
+            }
+            interaction.mode = 'drawing';
+            selectedZoneId = null;
+            renderZonesList();
+            showZoneEditor();
+            redrawAll();
+            el.addZoneBtn.classList.add('active');
+            el.addZoneBtn.textContent = "Annuler le dessin";
+            updateCanvasInteractivity();
+        }
+    }
+
+    function finishInteraction(isCancel = false) {
+        if (interaction.mode === 'drawing' && !isCancel && interaction.currentPoints.length >= 2) {
+            const newZone = {
+                id: nextZoneId++,
+                name: `Zone ${project.zones.length + 1}`,
+                shape: currentTool,
+                color: '#3498db',
+                content: ''
+            };
+            if ((newZone.shape === 'lasso' || newZone.shape === 'polygon') && interaction.currentPoints.length > 2) {
+                interaction.currentPoints.push(interaction.currentPoints[0]);
+            }
+            newZone.coords = interaction.currentPoints.map(point => ({
+                x: (point.x / el.canvas.width) * 100,
+                y: (point.y / el.canvas.height) * 100
+            }));
+            project.zones.push(newZone);
+            selectedZoneId = newZone.id;
+        }
+        interaction = { mode: 'none', startPos: null, lastPos: null, currentPoints: [], pointIndex: -1 };
+        el.addZoneBtn.classList.remove('active');
+        el.addZoneBtn.textContent = "+ Ajouter une zone";
+        renderZonesList();
+        showZoneEditor();
+        redrawAll();
+        updateCanvasInteractivity();
+    }
+
+    function handleMouseDown(e) {
+        const pos = getCanvasMousePos(e);
+        if (interaction.mode === 'none' && selectedZoneId !== null) {
+            const zone = project.zones.find(z => z.id === selectedZoneId);
+            if (!zone || zone.coords.length === 0) return;
+            const handleIndex = getHandleIndexAt(pos.x, pos.y, zone);
+            if (handleIndex !== -1) {
+                interaction.mode = 'draggingHandle';
+                interaction.pointIndex = handleIndex;
+            } else if (isPointInPolygon(pos, zone.coords.map(p => ({ x: (p.x / 100) * el.canvas.width, y: (p.y / 100) * el.canvas.height })))) {
+                interaction.mode = 'draggingShape';
+                interaction.lastPos = pos;
+            }
+        } else if (interaction.mode === 'drawing') {
+            if (interaction.currentPoints.length === 0) {
+                interaction.startPos = pos;
+            }
+            interaction.currentPoints.push(pos);
+            if (currentTool === 'polygon' && interaction.currentPoints.length > 2 && isClickOnPoint(interaction.currentPoints[0], pos.x, pos.y)) {
+                interaction.currentPoints.pop();
+                finishInteraction();
+            } else {
+                redrawAll();
+            }
+        }
+    }
+
+    function handleMouseMove(e) {
+        updateCursor(e);
+        if (interaction.mode !== 'none') {
+            const pos = getCanvasMousePos(e);
+            switch (interaction.mode) {
+                case 'drawing':
+                    if (interaction.startPos) {
+                        if (currentTool === 'polygon') {
+                            redrawAll({ previewX: pos.x, previewY: pos.y });
+                        } else if (currentTool === 'lasso') {
+                            const lastPoint = interaction.currentPoints[interaction.currentPoints.length - 1];
+                            if (Math.hypot(pos.x - lastPoint.x, pos.y - lastPoint.y) > 5) {
+                                interaction.currentPoints.push(pos);
+                                redrawAll();
+                            }
+                        } else {
+                            updateShapePreview(pos.x, pos.y);
+                        }
+                    }
+                    break;
+                case 'draggingHandle':
+                    updateHandlePosition(project.zones.find(z => z.id === selectedZoneId), pos.x, pos.y, interaction.pointIndex);
+                    redrawAll();
+                    break;
+                case 'draggingShape':
+                    const dx = pos.x - interaction.lastPos.x;
+                    const dy = pos.y - interaction.lastPos.y;
+                    const zone = project.zones.find(z => z.id === selectedZoneId);
+                    if (zone) {
+                        zone.coords.forEach(coord => {
+                            coord.x += (dx / el.canvas.width) * 100;
+                            coord.y += (dy / el.canvas.height) * 100;
+                        });
+                        interaction.lastPos = pos;
+                        redrawAll();
+                    }
+                    break;
+            }
+        }
+    }
+
+    function handleMouseUp(e) {
+        if (interaction.mode === 'drawing' && currentTool !== 'polygon') {
+            finishInteraction();
+        } else if (interaction.mode === 'draggingHandle' || interaction.mode === 'draggingShape') {
+            interaction.mode = 'none';
+            updateCursor(e);
+        }
+    }
+
+    function updateCanvasInteractivity() {
+        const isInteractive = interaction.mode !== 'none' || selectedZoneId !== null;
+        el.canvas.classList.toggle('is-interactive', isInteractive);
+    }
+
+    function updateCursor(e) {
+        const pos = getCanvasMousePos(e);
+        let cursorStyle = 'default';
+        if (interaction.mode === 'drawing') {
+            cursorStyle = 'crosshair';
+        } else if (interaction.mode === 'draggingHandle') {
+            cursorStyle = 'move';
+        } else if (interaction.mode === 'draggingShape') {
+            cursorStyle = 'grabbing';
+        } else if (selectedZoneId !== null) {
+            const zone = project.zones.find(z => z.id === selectedZoneId);
+            if (zone && zone.coords.length > 0) {
+                if (getHandleIndexAt(pos.x, pos.y, zone) !== -1) {
+                    cursorStyle = 'move';
+                } else if (isPointInPolygon(pos, zone.coords.map(p => ({ x: (p.x / 100) * el.canvas.width, y: (p.y / 100) * el.canvas.height })))) {
+                    cursorStyle = 'grab';
+                }
+            }
+        }
+        el.canvas.style.cursor = cursorStyle;
+        updateCanvasInteractivity();
+    }
+
+    function updateShapePreview(x2, y2) {
+        const start = interaction.startPos;
+        if (currentTool === 'rectangle') {
+            interaction.currentPoints = [start, { x: x2, y: start.y }, { x: x2, y: y2 }, { x: start.x, y: y2 }];
+        } else if (currentTool === 'circle') {
+            const radius = Math.hypot(x2 - start.x, y2 - start.y) / 2;
+            const centerX = start.x + (x2 - start.x) / 2;
+            const centerY = start.y + (y2 - start.y) / 2;
+            interaction.currentPoints = Array.from({ length: 32 }, (_, i) => ({
+                x: centerX + radius * Math.cos((i / 16) * Math.PI),
+                y: centerY + radius * Math.sin((i / 16) * Math.PI)
+            }));
+        }
+        redrawAll();
+    }
+
+    function updateHandlePosition(zone, x, y, index) {
+        if (!zone) return;
+        if (zone.shape === 'rectangle') {
+            const pixelCoords = zone.coords.map(p => ({ x: (p.x / 100) * el.canvas.width, y: (p.y / 100) * el.canvas.height }));
+            const oppositeCorner = pixelCoords[(index + 2) % 4];
+            const newMin = { x: Math.min(x, oppositeCorner.x), y: Math.min(y, oppositeCorner.y) };
+            const newMax = { x: Math.max(x, oppositeCorner.x), y: Math.max(y, oppositeCorner.y) };
+            zone.coords = [
+                { x: newMin.x, y: newMin.y },
+                { x: newMax.x, y: newMin.y },
+                { x: newMax.x, y: newMax.y },
+                { x: newMin.x, y: newMax.y }
+            ].map(p => ({ x: (p.x / el.canvas.width) * 100, y: (p.y / el.canvas.height) * 100 }));
+        } else {
+            zone.coords[index] = { x: (x / el.canvas.width) * 100, y: (y / el.canvas.height) * 100 };
+        }
+    }
+
+    function redrawAll(preview = null) {
+        setupCanvas();
+        ctx.clearRect(0, 0, el.canvas.width, el.canvas.height);
+        project.zones.forEach(zone => {
+            if (zone.coords.length > 0) {
+                const pixelCoords = zone.coords.map(p => ({ x: (p.x / 100) * el.canvas.width, y: (p.y / 100) * el.canvas.height }));
+                drawShape(pixelCoords, zone.id === selectedZoneId, zone.id === hoveredZoneId, zone.color, false, zone.shape);
+                if (zone.id === selectedZoneId && interaction.mode !== 'drawing') {
+                    drawHandles(pixelCoords, zone.shape);
+                }
+            }
+        });
+        if (interaction.mode === 'drawing' && interaction.currentPoints.length > 0) {
+            drawShape(interaction.currentPoints, false, false, '#27ae60', true, currentTool);
+            if (currentTool === 'polygon') {
+                drawHandles(interaction.currentPoints, currentTool);
+            }
+            if (preview && currentTool === 'polygon') {
+                ctx.beginPath();
+                ctx.moveTo(interaction.currentPoints[interaction.currentPoints.length - 1].x, interaction.currentPoints[interaction.currentPoints.length - 1].y);
+                ctx.lineTo(preview.previewX, preview.previewY);
+                ctx.strokeStyle = 'rgba(0,0,0,0.5)';
+                ctx.setLineDash([4, 4]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+            }
+        }
+    }
+
+    function drawShape(points, isSelected, isHovered, color, isDrawing, shape) {
+        let fill;
+        if (isDrawing) fill = 'rgba(46, 204, 113, 0.4)';
+        else if (isSelected) fill = 'rgba(231, 76, 60, 0.4)';
+        else if (isHovered) fill = 'rgba(243, 156, 18, 0.4)';
+        else fill = hexToRgba(color, 0.4);
+        const stroke = isDrawing ? '#27ae60' : (isSelected ? '#c0392b' : (isHovered ? '#f39c12' : color));
+        ctx.fillStyle = fill;
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            ctx.lineTo(points[i].x, points[i].y);
+        }
+        if (shape !== 'lasso' || !isDrawing) {
+            ctx.closePath();
+        }
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    function drawHandles(points, shape) {
+        const handlePoints = (shape === 'rectangle') ? points : points;
+        handlePoints.forEach((point, index) => {
+            ctx.fillStyle = (index === 0 && interaction.mode === 'drawing' && currentTool === 'polygon') ? 'lime' : 'white';
+            ctx.strokeStyle = '#e67e22';
+            ctx.lineWidth = 2;
+            ctx.fillRect(point.x - 4, point.y - 4, 8, 8);
+            ctx.strokeRect(point.x - 4, point.y - 4, 8, 8);
+        });
+    }
+
+    function getCanvasMousePos(e) {
+        const rect = el.canvas.getBoundingClientRect();
+        return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function isClickOnPoint(point, x, y) {
+        return Math.hypot(x - point.x, y - point.y) < 8;
+    }
+
+    function getHandleIndexAt(x, y, zone) {
+        if (!zone || !zone.coords || zone.coords.length === 0) return -1;
+        const pixelCoords = zone.coords.map(p => ({ x: (p.x / 100) * el.canvas.width, y: (p.y / 100) * el.canvas.height }));
+        const handlePoints = (zone.shape === 'rectangle') ? pixelCoords : pixelCoords;
+        return handlePoints.findIndex(p => isClickOnPoint(p, x, y));
+    }
+
+    function isPointInPolygon(point, polygon) {
+        let x = point.x, y = point.y, inside = false;
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            let xi = polygon[i].x, yi = polygon[i].y;
+            let xj = polygon[j].x, yj = polygon[j].y;
+            let intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+        return inside;
+    }
+
+    function hexToRgba(hex, alpha) {
+        if (!/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) return `rgba(52, 152, 219, ${alpha})`;
+        let c = hex.substring(1).split('');
+        if (c.length === 3) { c = [c[0], c[0], c[1], c[1], c[2], c[2]]; }
+        c = '0x' + c.join('');
+        return `rgba(${[(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',')},${alpha})`;
+    }
+
+    function handleZoneSelection(e) {
+        const item = e.target.closest('.zone-item');
+        if (item && !e.target.closest('.btn-danger')) {
+            if (interaction.mode === 'drawing') {
+                finishInteraction(true);
+            }
+            selectedZoneId = parseInt(item.dataset.id);
+            renderZonesList();
+            showZoneEditor();
+            redrawAll();
+            updateCanvasInteractivity();
+        }
+    }
+
+    function handleZoneHover(e) {
+        const item = e.target.closest('.zone-item');
+        if (item) {
+            hoveredZoneId = parseInt(item.dataset.id);
+            redrawAll();
+        }
+    }
+
+    function handleZoneHoverOut() {
+        hoveredZoneId = null;
+        redrawAll();
+    }
+
+    function updateZoneData(key, value) {
+        if (selectedZoneId !== null) {
+            const zone = project.zones.find(z => z.id === selectedZoneId);
+            if (zone) {
+                zone[key] = value;
+                if (key === 'name') { renderZonesList(); }
+                if (key === 'color') { redrawAll(); }
+            }
+        }
+    }
+
+	function renderZonesList(){
+	        const listHtml = project.zones.map(zone => {
+	            const zoneName = zone.name || `Zone ${zone.id}`;
+	            const deleteButtonHtml = `
+	                <button class="btn-icon-delete" onclick="event.stopPropagation();deleteZone(${zone.id});" title="Supprimer la zone">
+	                    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="currentColor" viewBox="0 0 16 16">
+	                        <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m3 0l-.5 8.5a.5.5 0 1 0 .998-.06l.5-8.5a.5.5 0 1 0-.998.06m2.5 0l-.5 8.5a.5.5 0 1 0 .998-.06l.5-8.5a.5.5 0 1 0-.998.06"/>
+	                    </svg>
+	                </button>`;
+
+	            return `<li class="zone-item ${selectedZoneId===zone.id?"selected":""}" data-id="${zone.id}">
+	                        <div class="zone-info">
+	                            <span class="zone-color" style="background-color:${zone.color}"></span>
+	                            <span>${zoneName}</span>
+	                        </div>
+	                        <div class="zone-actions">
+	                            <span class="zone-status">${zone.coords.length>0?'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>':'<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>'}</span>
+	                            ${deleteButtonHtml}
+	                        </div>
+	                    </li>`;
+	        }).join("");
+	        el.zonesList.innerHTML = listHtml;
+	    }
+		function showZoneEditor(){
+            if (selectedZoneId === null) {
+                return void el.sectionZoneContent.classList.add("is-hidden");
+            }
+            const zone = project.zones.find(z => z.id === selectedZoneId);
+            if (zone) {
+                el.zoneTitle.value = zone.name;
+                el.zoneColor.value = zone.color;
+                el.zoneContent.innerHTML = zone.content;
+                el.sectionZoneContent.classList.remove("is-hidden");
+            } else {
+                el.sectionZoneContent.classList.add("is-hidden");
+            }
+        }
+
+    function updateModeUI() { 
+        project.mode = el.modeSelector.value;
+        const isQuiz = project.mode === 'quiz';
+        document.querySelectorAll('.quiz-only-setting').forEach(elem => {
+            elem.classList.toggle('is-hidden', !isQuiz);
+        });
+    }
+    window.deleteZone = function(zoneId) {
+        project.zones = project.zones.filter(z => z.id !== zoneId);
+        project.zones.forEach((zone, index) => {
+            if (/^Zone \d+$/.test(zone.name)) {
+                zone.name = `Zone ${index + 1}`;
+            }
+        });
+        if (selectedZoneId === zoneId) {
+            selectedZoneId = null;
+        }
+        renderZonesList();
+        showZoneEditor();
+        redrawAll();
+        updateCanvasInteractivity();
+    }
+    function showNotification(message, type = "success"){
+        const notification = document.createElement("div");
+        notification.className = `notification ${type}`;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        setTimeout(() => {
+            notification.classList.add("show");
+            setTimeout(() => {
+                notification.classList.remove("show");
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }, 10);
+    }
+
+    function showPreview(){if(!el.loadedImage.src)return showNotification("Chargez une image.","error");const e=generateActivityHtml(!1),t=window.open("","_blank");t.document.write(e),t.document.close()};
+    function exportSCORM(){if(!el.loadedImage.src)return showNotification("Chargez une image.","error");if(project.zones.some(e=>0===e.coords.length))return showNotification("Toutes les zones doivent être dessinées.", "error");
+	
+// 📈 SUIVI MATOMO : Génération SCORM (Sans IA)
+    if (window._paq) {
+        window._paq.push(['trackEvent', 'HAPI - Export Sans IA', 'SCORM', 'image-reactive']);
+    }
+	
+	const e=new JSZip;e.file("imsmanifest.xml",generateScormManifest()),e.file("index.html",generateActivityHtml(!0)),e.file("scorm.js",generateScormApiWrapper()),e.generateAsync({type:"blob"}).then(e=>{const t=document.createElement("a");t.href=URL.createObjectURL(e),t.download=`scorm_${project.title.replace(/\s+/g,"_")}.zip`,document.body.appendChild(t),t.click(),document.body.removeChild(t),showNotification("Package SCORM généré !","success")})};
+    function generateScormManifest(){return`<?xml version="1.0" encoding="UTF-8"?><manifest identifier="SCORM_ID_${Date.now()}" version="1.2" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2"><metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata><organizations default="ORG-1"><organization identifier="ORG-1"><title>${project.title}</title><item identifier="ITEM-1" identifierref="RES-1"><title>${project.title}</title></item></organization></organizations><resources><resource identifier="RES-1" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/><file href="scorm.js"/></resource></resources></manifest>`};
+    
+	function generateActivityHtml(isScorm) {
+	    const scormScriptTag = isScorm ? `<script src="scorm.js"><\/script>` : "";
+	    return `<!DOCTYPE html><html><head><title>${HAPISanitize.escapeHtml(project.title)}</title><style>
+            html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+            ${window.HAPI_MARIANNE_CSS||''}body { font-family: 'Marianne', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f0f2f5; }
+            #activity-root { width: 100%; height: 100%; }
+            #activity { display: flex; width: 100%; height: 100%; background: white; }
+            #activity-root:-webkit-full-screen, #activity-root:-moz-full-screen, #activity-root:fullscreen { background: #fff; }
+            .fullscreen-btn { position:absolute; top:15px; right:15px; z-index: 5; background:rgba(0,0,0,0.4); color:white; border:none; width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.5em; display:flex; align-items:center; justify-content:center; transition:background .3s ease, transform 0.3s ease; }
+            .fullscreen-btn:hover { background:rgba(0,0,0,0.6); transform: scale(1.1); }
+            #image-container { position: relative; display: flex; justify-content: center; align-items: center; background: #f8f9fa; flex-grow: 1; overflow: hidden; height: 100%; }
+            #image-container img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+            #activity-canvas, #highlight-canvas { position: absolute; pointer-events: none; }
+            #activity-canvas { cursor: pointer; pointer-events: auto; }
+            #sidebar-player { width: 450px; min-width: 400px; background: #ffffff; border-left: 1px solid #e9ecef; display: flex; flex-direction: column; height: 100%; }
+            #sidebar-header { padding: 25px; border-bottom: 1px solid #e9ecef; }
+            #sidebar-header h2 { margin: 0 0 8px 0; font-size: 1.6em; color: #2c3e50; }
+            #sidebar-header p { margin: 0; font-size: 0.95em; color: #7f8c8d; line-height: 1.5; }
+            #player-stats { padding: 20px 25px; display: flex; justify-content: space-between; background: #f8f9fa; border-bottom: 1px solid #e9ecef; }
+            .stat-item { text-align: center; }
+            .stat-item .label { font-size: 0.8em; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; }
+            .stat-item .value { font-size: 1.4em; font-weight: 600; color: #2c3e50; }
+            #prompt-list-container { flex-shrink: 1; overflow-y: auto; }
+            .sidebar-item-list { list-style: none; padding: 8px; margin: 0; }
+            .sidebar-item { position: relative; padding: 14px 20px 14px 35px; border-radius: 8px; cursor: pointer; transition: all 0.2s ease-in-out; font-weight: 500; color: #34495e; margin-bottom: 4px; }
+            .sidebar-item.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; font-weight: 600; box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3); transform: scale(1.02); }
+            .sidebar-item.found { background-color: #e9f5e9; color: #27ae60; border: 1px solid #b7e1cd; cursor: pointer; }
+            .sidebar-item.found::before { content: '▶'; position: absolute; left: 15px; top: 50%; transform: translateY(-50%); transition: transform 0.2s ease; }
+            .sidebar-item.found.expanded { border-bottom-left-radius: 0; border-bottom-right-radius: 0; margin-bottom: 0; }
+            .sidebar-item.found.expanded::before { transform: translateY(-50%) rotate(90deg); }
+            .quiz-mode .sidebar-item:not(.active):not(.found) { display: none; }
+            .quiz-mode .sidebar-item.found { display: block; }
+            #player-content { flex-grow: 1; overflow-y: auto; padding: 25px; }
+            .content-placeholder { color: #95a5a6; text-align: center; padding-top: 50px; font-style: italic; }
+            .zone-content-details { display: none; padding: 15px; margin: 0 8px 8px 8px; background-color: #f8f9fa; border: 1px solid #e9ecef; border-top: none; border-radius: 0 0 8px 8px; animation: fadeIn 0.3s ease; line-height: 1.7; color: #34495e;}
+            .sidebar-item.found.expanded + .zone-content-details { display: block; }
+            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+            .feedback-cross { position: absolute; font-size: 2em; color: red; user-select: none; pointer-events: none; transform: translate(-50%, -50%); transition: opacity 0.5s ease-out; opacity: 1; z-index: 10; }
+            .hint-button { background: #ffc107; color: #333; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9em; display: inline-block; margin-top: 15px; animation: fadeIn 0.5s; }
+            .hint-content { background: #fff9c4; border-left: 4px solid #fbc02d; padding: 15px; margin-top: 10px; border-radius: 8px; font-size: 0.95em; }
+            .feedback-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; z-index: 2000; backdrop-filter: blur(5px); }
+            .feedback-modal-content { background: white; border-radius: 1rem; padding: 2.5rem; max-width: 550px; width: 90%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.1); animation: fadeIn .3s ease-out; position: relative; border-top: 8px solid; }
+            .feedback-modal-content.success { border-color: #27ae60; }
+            .feedback-modal-content.fail { border-color: #e74c3c; }
+            .feedback-modal-content h2 { font-size: 1.75rem; margin: 0 0 1rem; }
+            .feedback-modal-content p { font-size: 1.1rem; color: #555; margin: 0 0 2rem; line-height: 1.7; white-space: pre-wrap; }
+            .feedback-modal-content .btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; padding: 12px 24px; border-radius: 25px; cursor: pointer; font-size: 1em; }
+        </style></head>
+    <body><div id="activity-root">
+        <button class="fullscreen-btn" onclick="toggleFullScreen()" title="Plein écran">⤢</button>
+        <div id="activity"><div id="image-container">
+            <img src="${el.loadedImage.src}">
+            <canvas id="activity-canvas"></canvas>
+            <canvas id="highlight-canvas"></canvas>
+        </div>
+        <div id="sidebar-player">
+            <div id="sidebar-header"><h2>${HAPISanitize.escapeHtml(project.title)}</h2><p>${HAPISanitize.escapeHtml(project.instructions||"")}</p></div>
+            <div id="player-stats"></div>
+            <div id="prompt-list-container"></div>
+            <div id="player-content"></div>
+        </div></div></div>
+    <div class="feedback-modal" id="feedbackModal">
+        <div class="feedback-modal-content" id="feedbackModalContent">
+            <h2 id="feedbackTitle">Résultat</h2><p id="feedbackText"></p>
+            <button class="btn" id="closeFeedbackBtn">Fermer</button>
+        </div>
+    </div>
+    ${scormScriptTag}<script>${generatePreviewScript(isScorm)}<\/script>
+</body></html>`;
+	}
+
+	function generatePreviewScript(isScorm) {
+		    const scormDeclaration = isScorm ? '' : 'const scorm = { init:()=>{}, set:()=>{}, save:()=>{} };';
+		    // Assainissement anti-XSS avant embarquement : zone.content (HTML riche du contenteditable)
+		    // est injecté via innerHTML dans le paquet ouvert ensuite sur un LMS. On n'échappe PAS
+		    // title/instructions/name ici : ils sont aussi lus via textContent côté runtime (un échappement
+		    // afficherait « &amp; »). Ces champs sont échappés à leurs points d'injection innerHTML.
+		    const safeProject = {
+		        ...project,
+		        zones: (project.zones || []).map(z => ({
+		            ...z,
+		            content: HAPISanitize.sanitizeRichHtml(z.content)
+		        }))
+		    };
+		    const mainScript = `
+	            const IS_SCORM_CONTEXT = ${isScorm};
+		        const project = ${JSON.stringify(safeProject)};
+                // Échappement runtime pour les champs texte (noms de zones) injectés via innerHTML.
+                const escHtml = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+                const FEEDBACK_SUCCESS = ${JSON.stringify(project.feedback.success)};
+                const FEEDBACK_FAILURE = ${JSON.stringify(project.feedback.failure)};
+                const SUCCESS_THRESHOLD = ${project.successThreshold};
+
+		        const el = {
+		            activityRoot: document.getElementById('activity-root'),
+		            image: document.querySelector('#image-container img'),
+		            canvas: document.getElementById('activity-canvas'),
+		            highlightCanvas: document.getElementById('highlight-canvas'),
+		            content: document.getElementById('player-content'),
+		            stats: document.getElementById('player-stats'),
+		            promptContainer: document.getElementById('prompt-list-container'),
+                    feedbackModal: document.getElementById('feedbackModal'),
+                    imageContainer: document.getElementById('image-container'),
+		        };
+		        let state = {};
+
+	            function toggleFullScreen() { const e = el.activityRoot; if (!document.fullscreenElement) { if (e.requestFullscreen) e.requestFullscreen(); else if (e.webkitRequestFullscreen) e.webkitRequestFullscreen(); } else { if (document.exitFullscreen) document.exitFullscreen(); } }
+	            
+                function genererRapportQuiz(scoreRaw, lessonStatus) {
+                    if (!project.zones || project.zones.length === 0) return;
+                    const sessionDurationMs = Date.now() - state.startTime;
+                    const scormTime = new Date(sessionDurationMs).toISOString().substr(11, 12);
+                    let suspendData = '[ RÉSULTATS GLOBAUX ]\\n';
+                    suspendData += 'Type d\\'activité: image_reactive\\n';
+                    suspendData += 'Score final: ' + scoreRaw + '%\\n';
+                    suspendData += 'Zones trouvées: ' + state.foundCount + ' / ' + project.zones.length + '\\n\\n';
+                    suspendData += "[ DÉFINITIONS DE L\\'ACTIVITÉ ]\\n";
+                    suspendData += 'Mode: ' + project.mode + '\\n';
+                    suspendData += 'Seuil de réussite: ' + SUCCESS_THRESHOLD + '%\\n';
+                    suspendData += "Seuil d\\'indice (clics manqués): " + project.hintThreshold + '\\n';
+                    suspendData += '\\n[ ANALYSE ]\\n';
+                    suspendData += 'Nombre de clics: ' + state.totalClicks + '\\n';
+                    project.zones.forEach(function(zone) {
+                        const isFound = state.foundZones.includes(zone.id);
+                        const clickCount = state.zoneClickCounts[zone.name] || 0;
+                        suspendData += 'Zone: "' + zone.name + '" | Statut: ' + (isFound ? 'Trouvée' : 'Manquée') + ' | Clics: ' + clickCount + '\\n';
+                    });
+                    suspendData += '\\n[ STATISTIQUES TEMPORELLES ]\\n';
+                    suspendData += 'Temps total de session: ' + scormTime + '\\n\\n';
+                    suspendData += '[ CHRONOLOGIE COMPLÈTE ]\\n';
+                    suspendData += state.timeline.join('\\n');
+                    scorm.set('cmi.core.lesson_status', lessonStatus);
+                    scorm.set('cmi.core.score.raw', scoreRaw.toString());
+                    scorm.set('cmi.suspend_data', suspendData);
+                    scorm.save();
+                }
+	            
+                function genererRapportDecouverte() { 
+                    const sessionDurationMs = Date.now() - state.startTime; 
+                    const scormTime = new Date(sessionDurationMs).toISOString().substr(11, 12); 
+                    scorm.set('cmi.core.lesson_status', 'completed'); 
+                    scorm.set('cmi.core.score.raw', '100'); 
+                    let suspendData = '[ RÉSULTATS GLOBAUX ]\\n'; 
+                    suspendData += 'Type d\\'activité: image_reactive\\n'; 
+                    suspendData += 'Score final: 100%\\n'; 
+                    suspendData += 'Zones découvertes: ' + state.viewedZones.length + ' / ' + project.zones.length + '\\n\\n'; 
+                    suspendData += "[ DÉFINITIONS DE L\\'ACTIVITÉ ]\\n"; 
+                    suspendData += 'Mode: ' + project.mode + '\\n\\n'; 
+                    suspendData += '[ STATISTIQUES TEMPORELLES ]\\n'; 
+                    suspendData += 'Temps total de session: ' + scormTime + '\\n\\n'; 
+                    suspendData += '[ CHRONOLOGIE COMPLÈTE ]\\n'; 
+                    suspendData += state.timeline.join('\\n'); 
+                    scorm.set('cmi.suspend_data', suspendData); 
+                    scorm.save(); 
+                }
+
+	            function getPixelCoords(zone) { 
+                    const rect = el.image.getBoundingClientRect(); 
+                    if (!zone || !zone.coords) return []; 
+                    return zone.coords.map(p => ({ x: p.x / 100 * rect.width, y: p.y / 100 * rect.height })); 
+                }
+
+	            function isPointInPolygon(point, vs) { 
+                    let x = point.x, y = point.y, inside = false; 
+                    for (let i = 0, j = vs.length - 1; i < vs.length; j = i++) { 
+                        let xi = vs[i].x, yi = vs[i].y; 
+                        let xj = vs[j].x, yj = vs[j].y; 
+                        let intersect = ((yi > y) != (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi); 
+                        if (intersect) inside = !inside; 
+                    } 
+                    return inside; 
+                }
+                
+                function highlightZone(zoneId) {
+                    const hCtx = el.highlightCanvas.getContext('2d');
+                    hCtx.clearRect(0, 0, el.highlightCanvas.width, el.highlightCanvas.height);
+                    if (!zoneId) return;
+                    const zone = project.zones.find(z => z.id === zoneId);
+                    if (zone) {
+                        const pixelCoords = getPixelCoords(zone);
+                        if (pixelCoords.length === 0) return;
+                        hCtx.fillStyle = 'rgba(102, 126, 234, 0.5)';
+                        hCtx.strokeStyle = '#667eea';
+                        hCtx.lineWidth = 2;
+                        hCtx.beginPath();
+                        hCtx.moveTo(pixelCoords[0].x, pixelCoords[0].y);
+                        for (let i = 1; i < pixelCoords.length; i++) {
+                            hCtx.lineTo(pixelCoords[i].x, pixelCoords[i].y);
+                        }
+                        hCtx.closePath();
+                        hCtx.fill();
+                        hCtx.stroke();
+                    }
+                }
+                
+                function showFeedbackModal(status) {
+                    const content = document.getElementById('feedbackModalContent');
+                    const text = document.getElementById('feedbackText');
+                    const title = document.getElementById('feedbackTitle');
+                    if (status === 'passed') {
+                        content.className = 'feedback-modal-content success';
+                        title.textContent = 'Félicitations !';
+                        text.textContent = FEEDBACK_SUCCESS;
+                    } else {
+                        content.className = 'feedback-modal-content fail';
+                        title.textContent = 'Résultat';
+                        text.textContent = FEEDBACK_FAILURE;
+                    }
+                    el.feedbackModal.style.display = 'flex';
+                }
+
+                function handleDiscoveryClick(event) {
+                    const rect = el.canvas.getBoundingClientRect();
+                    const clickPosOnCanvas = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+                    
+                    // Itérer en sens inverse pour trouver la zone la plus en surface (la dernière dessinée)
+                    for (const zone of [...project.zones].reverse()) {
+                        if (isPointInPolygon(clickPosOnCanvas, getPixelCoords(zone))) {
+                            const listItem = document.querySelector('#discovery-list .sidebar-item[data-id="' + zone.id + '"]');
+                            if (listItem) {
+                                listItem.click(); // Simuler un clic sur l'élément de la liste
+                            }
+                            return; // Arrêter après avoir trouvé la première zone
+                        }
+                    }
+                }
+
+	            function initDiscoveryMode() {
+                    state = { startTime: Date.now(), viewedZones: [], timeline: [], isCompleted: false, activeZoneId: null };
+                    state.timeline.push('[' + new Date(state.startTime).toISOString() + '] Début de l\\'activité');
+                    el.promptContainer.innerHTML = '<ul id="discovery-list" class="sidebar-item-list"></ul>';
+                    const list = document.getElementById('discovery-list');
+                    project.zones.forEach(zone => {
+                        const li = document.createElement('li');
+                        li.className = 'sidebar-item';
+                        li.dataset.id = zone.id; // Ajout d'un data-id pour le retrouver
+                        li.textContent = zone.name;
+                        li.onclick = () => {
+                            document.querySelectorAll('#discovery-list .sidebar-item.active').forEach(item => item.classList.remove('active'));
+                            li.classList.add('active');
+                            state.activeZoneId = zone.id;
+                            highlightZone(zone.id);
+                            el.content.innerHTML = '<div>' + zone.content + '</div>';
+                            if (!state.viewedZones.includes(zone.id)) {
+                                state.viewedZones.push(zone.id);
+                                state.timeline.push('[' + new Date().toISOString() + '] Découverte de la zone: "' + zone.name + '"');
+                            }
+                            if (state.viewedZones.length === project.zones.length && !state.isCompleted) {
+                                state.isCompleted = true;
+                                state.timeline.push('[' + new Date().toISOString() + '] Toutes les zones ont été découvertes. Fin de l\\'activité.');
+                                genererRapportDecouverte();
+                            }
+                        };
+                        list.appendChild(li);
+                    });
+                    el.content.innerHTML = "<div class='content-placeholder'>Sélectionnez un élément dans la liste pour voir son contenu.</div>";
+                    el.canvas.addEventListener('click', handleDiscoveryClick); // Activation du clic sur l'image
+                }
+
+	            function showFeedbackCross(x, y) { const cross = document.createElement('div'); cross.textContent = '❌'; cross.className = 'feedback-cross'; cross.style.left = x + 'px'; cross.style.top = y + 'px'; el.imageContainer.appendChild(cross); setTimeout(() => { cross.style.opacity = '0'; setTimeout(() => cross.remove(), 500); }, 800); }
+
+		        function showHint() { const hintBtn = el.content.querySelector('#hint-btn'); if (hintBtn) hintBtn.disabled = true; const currentZone = state.prompts[state.currentPromptIndex]; if (!currentZone) return; const hintContainer = el.content.querySelector('#hint-container'); if (hintContainer) { const hintContent = document.createElement('div'); hintContent.className = 'hint-content'; hintContent.innerHTML = '<strong>Indice :</strong> ' + currentZone.content; hintContainer.appendChild(hintContent); } }
+	            
+                function initQuizMode() { 
+                    state = { prompts: project.quizOrdered ? [...project.zones] : [...project.zones].sort(() => Math.random() - 0.5), currentPromptIndex: 0, totalClicks: 0, foundCount: 0, isFinished: false, startTime: Date.now(), timeline: [], wrongClicksForCurrentPrompt: 0, zoneClickCounts: {}, foundZones: [] }; 
+                    state.timeline.push('[' + new Date(state.startTime).toISOString() + '] Début de l\\'activité'); 
+                    el.stats.innerHTML = '<div class="stat-item"><div class="label">Trouvé</div><div class="value" id="score">' + state.foundCount + ' / ' + project.zones.length + '</div></div><div class="stat-item"><div class="label">Clics</div><div class="value" id="clicks">' + state.totalClicks + '</div></div>'; 
+                    el.promptContainer.innerHTML = '<ul id="quiz-list" class="sidebar-item-list quiz-mode"></ul>'; 
+                    el.canvas.addEventListener('click', handleQuizClick); 
+                    document.getElementById('closeFeedbackBtn').onclick = () => el.feedbackModal.style.display = 'none'; 
+                    renderQuizList(); 
+                }
+	            
+                function renderQuizList() { 
+                    const list = document.getElementById('quiz-list'); 
+                    list.innerHTML = state.prompts.map((p, index) => '<li class="sidebar-item" data-index="' + index + '">' + escHtml(p.name) + '</li>').join(''); 
+                    updateActivePrompt(); 
+                }
+		        
+                function updateActivePrompt() { 
+                    if (state.isFinished) { el.content.innerHTML = ''; return; }; 
+                    state.wrongClicksForCurrentPrompt = 0; 
+                    state.currentPromptIndex = state.prompts.findIndex(p => !state.foundZones.includes(p.id)); 
+                    document.querySelectorAll('#quiz-list .sidebar-item').forEach((item, index) => { 
+                        item.classList.remove('active'); 
+                        if (index === state.currentPromptIndex) { 
+                            item.classList.add('active'); 
+                        } 
+                    }); 
+                    if (state.currentPromptIndex !== -1) { 
+                        const activePrompt = state.prompts[state.currentPromptIndex]; 
+                        el.content.innerHTML = '<div class="content-placeholder">Cliquez sur l\\'image pour trouver : <br><strong>' + escHtml(activePrompt.name) + '</strong></div><div id="hint-container" style="text-align:center;"></div>'; 
+                    } else if (!state.isFinished) { 
+                        el.content.innerHTML = ''; 
+                    } 
+                }
+	            
+                function showFoundZoneContent(itemIndex) { 
+                    const itemNode = document.querySelector('#quiz-list .sidebar-item[data-index="' + itemIndex + '"]'); 
+                    if (!itemNode) return; 
+                    const isAlreadyExpanded = itemNode.classList.contains('expanded'); 
+                    const currentlyExpandedItem = document.querySelector('#quiz-list .sidebar-item.expanded'); 
+                    if (currentlyExpandedItem) { 
+                        currentlyExpandedItem.classList.remove('expanded'); 
+                        const existingContent = currentlyExpandedItem.nextElementSibling; 
+                        if (existingContent && existingContent.classList.contains('zone-content-details')) { 
+                            existingContent.remove(); 
+                        } 
+                    } 
+                    if (!isAlreadyExpanded) { 
+                        itemNode.classList.add('expanded'); 
+                        const foundZone = state.prompts[itemIndex]; 
+                        const contentDiv = document.createElement('div'); 
+                        contentDiv.className = 'zone-content-details'; 
+                        contentDiv.innerHTML = foundZone.content; 
+                        itemNode.after(contentDiv); 
+                    } else { 
+                        updateActivePrompt(); 
+                    } 
+                }
+	            
+                function handleQuizClick(event) { 
+                    if (state.isFinished) return; 
+                    const rect = el.canvas.getBoundingClientRect(); 
+                    const clickPosOnCanvas = { x: event.clientX - rect.left, y: event.clientY - rect.top }; 
+                    let zoneClicked = null; 
+                    for (const zone of project.zones) { 
+                        if (isPointInPolygon(clickPosOnCanvas, getPixelCoords(zone))) { 
+                            zoneClicked = zone; 
+                            break; 
+                        } 
+                    } 
+                    if (zoneClicked) { 
+                        state.zoneClickCounts[zoneClicked.name] = (state.zoneClickCounts[zoneClicked.name] || 0) + 1; 
+                    } 
+                    state.totalClicks++; 
+                    el.stats.querySelector('#clicks').textContent = state.totalClicks; 
+                    const timestamp = new Date().toISOString(); 
+                    const currentZoneToFind = state.currentPromptIndex !== -1 ? state.prompts[state.currentPromptIndex] : null; 
+                    if (zoneClicked && !state.foundZones.includes(zoneClicked.id) && (currentZoneToFind && zoneClicked.id === currentZoneToFind.id || !project.quizOrdered)) { 
+                        const foundIndex = state.prompts.findIndex(p => p.id === zoneClicked.id); 
+                        const itemNode = document.querySelector('#quiz-list .sidebar-item[data-index="' + foundIndex + '"]'); 
+                        state.foundZones.push(zoneClicked.id); 
+                        state.foundCount = state.foundZones.length; 
+                        state.timeline.push('[' + timestamp + '] Clic correct sur "' + zoneClicked.name + '"'); 
+                        itemNode.classList.add('found'); 
+                        itemNode.onclick = function() { showFoundZoneContent(foundIndex); }; 
+                        el.stats.querySelector('#score').textContent = state.foundCount + ' / ' + project.zones.length; 
+                        if (state.foundCount === project.zones.length) { 
+                            endQuiz(); 
+                        } else { 
+                            updateActivePrompt(); 
+                            showFoundZoneContent(foundIndex); 
+                        } 
+                    } else { 
+                        state.timeline.push('[' + timestamp + '] Clic manqué'); 
+                        const containerRect = el.imageContainer.getBoundingClientRect(); 
+                        const x = event.clientX - containerRect.left; 
+                        const y = event.clientY - containerRect.top; 
+                        showFeedbackCross(x, y); 
+                        state.wrongClicksForCurrentPrompt++; 
+                        const hintContainer = el.content.querySelector('#hint-container'); 
+                        if (hintContainer && state.wrongClicksForCurrentPrompt >= project.hintThreshold && !hintContainer.querySelector('#hint-btn')) { 
+                            const hintBtn = document.createElement('button'); 
+                            hintBtn.id = 'hint-btn'; 
+                            hintBtn.className = 'hint-button'; 
+                            hintBtn.innerHTML = '💡 Donner un indice'; 
+                            hintBtn.onclick = showHint; 
+                            hintContainer.appendChild(hintBtn); 
+                        } 
+                    } 
+                }
+
+	            function endQuiz() { 
+                    state.isFinished = true; 
+                    const currentlyExpandedItem = document.querySelector('#quiz-list .sidebar-item.expanded'); 
+                    if (currentlyExpandedItem) { 
+                        currentlyExpandedItem.classList.remove('expanded'); 
+                        const existingContent = currentlyExpandedItem.nextElementSibling; 
+                        if (existingContent) { existingContent.remove(); } 
+                    } 
+                    document.querySelectorAll('#quiz-list .sidebar-item').forEach(item => item.classList.remove('active')); 
+                    el.content.innerHTML = '<div class="content-card" style="text-align:center; border-color: #27ae60;"><h2 style="color:green;">Quiz terminé !</h2><p>Vous avez trouvé ' + state.foundCount + ' sur ' + project.zones.length + ' zones en ' + state.totalClicks + ' clics.</p></div>'; 
+                    const scoreRaw = Math.round((state.foundCount / project.zones.length) * 100); 
+                    const lessonStatus = scoreRaw >= SUCCESS_THRESHOLD ? 'passed' : 'failed'; 
+                    genererRapportQuiz(scoreRaw, lessonStatus); 
+                    showFeedbackModal(lessonStatus); 
+                }
+
+	            function setupCanvas() { 
+                    const containerRect = el.imageContainer.getBoundingClientRect(); 
+                    const imageRect = el.image.getBoundingClientRect(); 
+                    const top = imageRect.top - containerRect.top; 
+                    const left = imageRect.left - containerRect.left; 
+                    [el.canvas, el.highlightCanvas].forEach(cv => { 
+                        if (cv) { 
+                            cv.width = imageRect.width; 
+                            cv.height = imageRect.height; 
+                            cv.style.top = top + 'px'; 
+                            cv.style.left = left + 'px'; 
+                        } 
+                    }); 
+                }
+
+	            function main() {
+                    // Supprimer les anciens listeners pour éviter les doublons
+                    const newCanvas = el.canvas.cloneNode(true);
+                    el.canvas.parentNode.replaceChild(newCanvas, el.canvas);
+                    el.canvas = newCanvas;
+
+	                if (!el.image.complete) { el.image.onload = main; return; }
+	                if (IS_SCORM_CONTEXT) scorm.init();
+	                setupCanvas();
+	                window.addEventListener('resize', setupCanvas);
+	                if (project.mode === 'quiz') { initQuizMode(); } 
+                    else { initDiscoveryMode(); }
+	            }
+	            main();
+		    `;
+		    return scormDeclaration + mainScript;
+		}
+    
+		    function generateScormApiWrapper(){return`var scorm=function(){var e=null,t=0;function n(r){for(;(r.API==null)&&(r.parent!=null)&&(r.parent!=r);)if(t++,t>7)return alert("Error finding API -- too deeply nested."),null;r=r.parent;return r.API}return{init:function(){(window.parent)&&(window.parent!=window)&&(e=n(window.parent)),(e==null)&&(window.opener!=null)&&(e=n(window.opener)),e==null?console.error("SCORM API not found."):e.LMSInitialize("")},finish:function(){e&&e.LMSFinish("")},set:function(t,r){return!!e&&e.LMSSetValue(t,r)},get:function(t){return e?e.LMSGetValue(t):null},save:function(){return!!e&&e.LMSCommit("")}}}()`};
+    
+		    init();
+		});
+		</script>
+	<script src="../js/tracking-static.js"></script>
+	<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

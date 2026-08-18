@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "discipline": "Éducation musicale",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'éducation musicale du cycle 3",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Chanter et interpréter un chant par cœur en restant attentif aux autres",
+    "Écouter, comparer et commenter des musiques de styles et d'époques variés",
+    "Explorer, imaginer et créer des productions sonores",
+    "Échanger, partager, argumenter et débattre autour de la musique"
+  ],
+  "domaines": [
+    {
+      "nom": "Chanter et interpréter",
+      "description": "Interpréter un répertoire varié avec justesse et expressivité.",
+      "competences": [
+        {
+          "intitule": "Chanter et interpréter un chant par cœur, en respectant rythme et justesse",
+          "exemples_themes": ["Armstrong de Claude Nougaro (swing et voix)", "Le lion est mort ce soir (canon à 2 voix)", "Bella Ciao (chant engagé, lien HG)", "Pirouette cacahuète (tradition française)", "Lean on Me de Bill Withers (gospel, en anglais)", "La chorale de l'école (répertoire varié)"]
+        },
+        {
+          "intitule": "Interpréter un chant avec expressivité en tenant compte de l'accompagnement",
+          "exemples_themes": ["Le Temps des cerises (chanson historique, lien Commune de Paris)", "Imagine de John Lennon (message de paix, en anglais)", "Frère Jacques en canon à 3 voix", "Un chant en langue régionale (occitan, breton...)", "Accompagner un chant avec des percussions corporelles"]
+        }
+      ]
+    },
+    {
+      "nom": "Écouter, comparer, construire une culture musicale",
+      "description": "Développer une écoute active et construire des repères culturels.",
+      "competences": [
+        {
+          "intitule": "Écouter et commenter un extrait musical en identifiant ses caractéristiques",
+          "exemples_themes": ["Pierre et le Loup de Prokofiev (les instruments de l'orchestre)", "Le Boléro de Ravel (la montée en puissance, l'ostinato)", "Les Quatre Saisons de Vivaldi (L'Hiver vs Le Printemps)", "Summertime de Gershwin (le jazz)", "Un extrait de musique de film (Star Wars, Harry Potter)"]
+        },
+        {
+          "intitule": "Comparer des musiques de styles et d'époques différents",
+          "exemples_themes": ["Musique médiévale vs musique baroque (lien HG : Moyen Âge)", "Le blues et le rock'n'roll (histoire du rock)", "Musique classique vs musique électronique (Beethoven vs Daft Punk)", "Musique traditionnelle africaine (djembé, balafon, kora)", "Un raga indien vs une sonate de Mozart (comparer les structures)"]
+        },
+        {
+          "intitule": "Situer une œuvre dans son contexte historique et culturel",
+          "exemples_themes": ["La Marseillaise (contexte révolutionnaire, lien EMC)", "Le Sacre du Printemps de Stravinsky (le scandale de 1913)", "Le gospel et les negro spirituals (esclavage, droits civiques)", "La musique à Versailles sous Louis XIV (lien HG)", "Le jazz à la Nouvelle-Orléans (origines et métissage)"]
+        }
+      ]
+    },
+    {
+      "nom": "Explorer, imaginer et créer",
+      "description": "Inventer, organiser et enregistrer des productions sonores.",
+      "competences": [
+        {
+          "intitule": "Explorer, imaginer et créer des paysages sonores et des productions musicales",
+          "exemples_themes": ["Le paysage sonore de la forêt (voix, corps, objets)", "Bruiter un extrait de film muet (Chaplin, Keaton)", "Créer un morceau de rap sur un thème de classe", "Composer un ostinato rythmique en groupe", "Inventer une bande-son pour un album sans texte"]
+        },
+        {
+          "intitule": "Organiser, structurer et enregistrer une production sonore",
+          "exemples_themes": ["L'orchestre de la classe (percussions, voix, objets sonores)", "Enregistrer un podcast musical de la classe", "Créer un jingle pour la radio de l'école", "Structurer un morceau : introduction, couplet, refrain, coda", "Utiliser un logiciel simple de création sonore (GarageBand, Audacity)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'éducation musicale du cycle 3 s'articule autour de trois piliers : chanter et interpréter un répertoire varié, écouter et comparer des musiques de styles et époques différents pour construire une culture musicale, explorer et créer des productions sonores. L'écoute active est au cœur de la démarche : les élèves apprennent à identifier les paramètres du son (hauteur, durée, intensité, timbre), à reconnaître les instruments, à situer les œuvres dans leur contexte. La création et l'expérimentation sonore développent l'imagination et la coopération."
+}

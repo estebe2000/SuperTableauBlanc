@@ -1,0 +1,438 @@
+            <!-- HERO -->
+            <section class="hero" id="hero">
+                <!-- Interactive Neural Synapse Canvas -->
+                <canvas id="heroNeuralCanvas" class="hero-neural-canvas"></canvas>
+
+                <!-- Glowing Cognitive Brain Aura -->
+                <div class="hero-brain-aura" aria-hidden="true"></div>
+
+                <!-- Thematic Neuro-Orbs (Brain, Study & AI) -->
+                <div class="hero-cognitive-orbs">
+                    <div class="neuro-orb orb-neuro" data-speed="1.2">
+                        <div class="orb-icon-wrap">
+                            <span class="orb-icon">🧠</span>
+                            <span class="orb-pulse-ring"></span>
+                        </div>
+                        <div class="orb-content">
+                            <span class="orb-title">Neuro-Inclusion</span>
+                            <span class="orb-desc">DYS · TDAH · TSA · HPI</span>
+                        </div>
+                    </div>
+
+                    <div class="neuro-orb orb-ai" data-speed="-1.0">
+                        <div class="orb-icon-wrap">
+                            <span class="orb-icon">⚡</span>
+                            <span class="orb-pulse-ring"></span>
+                        </div>
+                        <div class="orb-content">
+                            <span class="orb-title">IA Souveraine & Locale</span>
+                            <span class="orb-desc">Albert · Mistral · Ollama</span>
+                        </div>
+                    </div>
+
+                    <div class="neuro-orb orb-study" data-speed="0.8">
+                        <div class="orb-icon-wrap">
+                            <span class="orb-icon">🎓</span>
+                            <span class="orb-pulse-ring"></span>
+                        </div>
+                        <div class="orb-content">
+                            <span class="orb-title">Pédagogie & CUA</span>
+                            <span class="orb-desc">Différenciation universelle</span>
+                        </div>
+                    </div>
+
+                    <div class="neuro-orb orb-cognition" data-speed="-1.4">
+                        <div class="orb-icon-wrap">
+                            <span class="orb-icon">💡</span>
+                            <span class="orb-pulse-ring"></span>
+                        </div>
+                        <div class="orb-content">
+                            <span class="orb-title">Cognition Augmentée</span>
+                            <span class="orb-desc">Allègement charge mentale</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-badge">Éducation inclusive & IA souveraine</div>
+
+                <h1 class="hero-brand">
+                    <span class="brand-ai">A</span>ll' <span class="brand-ai">I</span>nclusive
+                </h1>
+
+                <div class="hero-slogan-wrapper">
+                    <p class="hero-slogan">
+                        « L'AI pour tous, <span class="slogan-accent">sauf les touristes.</span> »
+                    </p>
+                </div>
+
+                <!-- Encart discret de réassurance / IA locale & souveraine -->
+                <div class="hero-privacy-pill">
+                    <div class="privacy-pill-header">
+                        <span class="privacy-pill-icon">🛡️</span>
+                        <span class="privacy-pill-title">Hébergement académique & IA souveraine (Albert, Mistral, Ollama)</span>
+                    </div>
+                    <p class="privacy-pill-desc">
+                        Plateforme hébergée sur l'infrastructure de l'<strong>Université Le Havre Normandie</strong>, inspirée des communs numériques éducatifs (<a href="https://goblin.tools/" target="_blank" rel="noopener" style="color: var(--accent1); text-decoration: underline;">goblin.tools</a> & <a href="https://drane-normandie.forge.apps.education.fr/hapi/" target="_blank" rel="noopener" style="color: var(--accent1); text-decoration: underline;">HAPI DRANE Normandie</a>). Données 100% protégées, sans fuite vers des tiers commerciaux.
+                    </p>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#outils" class="btn-primary" onclick="showToast('Défilement vers les outils')">Découvrir les outils</a>
+                    <button class="btn-profiling-access tab-link" data-tab="profiling">🧬 Créer un profil CUA</button>
+                    <button class="btn-student-access tab-link" data-tab="student">🧑‍🎓 Accès Élève</button>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">3 / 10+</div>
+                        <div class="stat-label">3 fournisseurs pour 10+ modèles</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="8">8</div>
+                        <div class="stat-label">Outils disponibles</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number" data-count="100" data-suffix="%">100%</div>
+                        <div class="stat-label">Souveraineté & RGPD</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SEARCH BAR -->
+            <div class="search-section" id="outils">
+                <div class="search-wrap reveal">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Chercher un outil, un profil d'adaptation..." id="searchInput">
+                    <div class="search-tags">
+                        <span class="stag" onclick="filterTools('vision')">Vision</span>
+                        <span class="stag" onclick="filterTools('todo')">Pas-à-Pas</span>
+                        <span class="stag" onclick="filterTools('formalizer')">Reformulateur</span>
+                        <span class="stag" onclick="filterTools('judge')">Décrypteur</span>
+                        <span class="stag" onclick="filterTools('audio')">Voice AI</span>
+                        <span class="stag" onclick="filterTools('professor')">Clarificateur</span>
+                        <span class="stag" onclick="filterTools('professor-plus')">Studio CUA</span>
+                        <span class="stag" onclick="filterTools('hapi')">HAPI</span>
+                        <span class="stag" onclick="filterTools('tout')">Tout afficher</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TOOLS GRID -->
+            <section class="tools-section">
+                <div class="section-header reveal">
+                    <div class="section-tag">🛠 Outils pédagogiques & CUA</div>
+                    <h2 class="section-title">Des outils intelligents pour <em>tous</em></h2>
+                    <p class="section-desc">Chaque module exploite l'IA locale et souveraine pour lever les obstacles d'apprentissage, d'organisation, d'écriture et de compréhension.</p>
+                </div>
+
+                <div class="tools-grid" id="toolsGrid">
+                    <!-- Category: Facilitateur -->
+                    <div class="grid-category-title">🤝 Facilitateur d'Apprentissage</div>
+
+                    <!-- Tool 1: Vision & Décripteur -->
+                    <div class="tool-card reveal" data-tags="vision image description ocr dessin schema" data-target-tab="vision" style="--card-accent: linear-gradient(90deg,#dc2626,#ea580c)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(220,38,38,0.08);--icon-glow:rgba(220,38,38,0.12)">👁️</div>
+                        <div class="tool-tag" style="background:rgba(220,38,38,0.06);color:var(--accent1)">Accessibilité Visuelle</div>
+                        <h3>Vision & Décripteur</h3>
+                        <p>Description détaillée d'images, extraction de texte (OCR), repérage spatial et analyse de schémas pour rendre tout support visuel accessible.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Multi-modal & OCR</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 2: Pas-à-Pas (Tâches) -->
+                    <div class="tool-card reveal reveal-delay-1" data-tags="todo pas a pas taches organisation planification decoupage" data-target-tab="todo" style="--card-accent: linear-gradient(90deg,#ea580c,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(234,88,12,0.08);--icon-glow:rgba(234,88,12,0.12)">🧩</div>
+                        <div class="tool-tag" style="background:rgba(234,88,12,0.06);color:var(--accent2)">Découpage & Méthode</div>
+                        <h3>Pas-à-Pas (Tâches)</h3>
+                        <p>Décompose une consigne, un devoir ou un projet complexe en micro-étapes claires et gérables. Réduit la surcharge cognitive et l'anxiété.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Granularité 1 à 5</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 3: Reformulateur -->
+                    <div class="tool-card reveal reveal-delay-2" data-tags="formalizer reformulateur ecriture registres falc ton" data-target-tab="formalizer" style="--card-accent: linear-gradient(90deg,#16a34a,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(22,163,74,0.08);--icon-glow:rgba(22,163,74,0.12)">✍️</div>
+                        <div class="tool-tag" style="background:rgba(22,163,74,0.06);color:var(--accent3)">Expression & Nuance</div>
+                        <h3>Reformulateur</h3>
+                        <p>Adapte le ton et le registre d'un texte selon vos besoins : professionnel, courtois, simplifié (FALC), amical ou synthétique.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Multi-registres & FALC</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 4: Voice AI -->
+                    <div class="tool-card reveal reveal-delay-3" data-tags="audio voix transcription voice ai synthese mindmap" data-target-tab="audio" style="--card-accent: linear-gradient(90deg,#7c3aed,#dc2626)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(124,58,237,0.08);--icon-glow:rgba(124,58,237,0.12)">🎙️</div>
+                        <div class="tool-tag" style="background:rgba(124,58,237,0.06);color:var(--accent5)">Audio & CUA</div>
+                        <h3>Voice AI (Transcription)</h3>
+                        <p>Transcrit la parole en texte fidèle avec horodatage, puis génère 5 formats visuels inclusifs (cartes mentales, tuiles CUA, sketchnote).</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Formats visuels CUA</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 5: Décrypteur d'Intention -->
+                    <div class="tool-card reveal reveal-delay-4" data-tags="judge decrypteur decryptage message emotions intention communication" data-target-tab="judge" style="--card-accent: linear-gradient(90deg,#2563eb,#7c3aed)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(37,99,235,0.08);--icon-glow:rgba(37,99,235,0.12)">🧭</div>
+                        <div class="tool-tag" style="background:rgba(37,99,235,0.06);color:var(--accent4)">Boussole Relationnelle</div>
+                        <h3>Décrypteur d'Intention</h3>
+                        <p>Analyse le ton, les sous-entendus et l'émotion d'un message reçu pour lever les ambiguïtés et suggérer des réponses adaptées.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Clarté relationnelle</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Category: Conception -->
+                    <div class="grid-category-title">🧑‍🏫 Conception & Différenciation</div>
+
+                    <!-- Tool 6: Clarificateur -->
+                    <div class="tool-card reveal reveal-delay-3" data-tags="professor clarificateur explication concept apprentissage cua" data-target-tab="professor" style="--card-accent: linear-gradient(90deg,#dc2626,#ea580c)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(220,38,38,0.08);--icon-glow:rgba(220,38,38,0.12)">💡</div>
+                        <div class="tool-tag" style="background:rgba(220,38,38,0.06);color:var(--accent1)">Compréhension CUA</div>
+                        <h3>Clarificateur (Concepts)</h3>
+                        <p>Explique des notions complexes en multipliant les représentations : langage simple, métaphores concrètes, schémas ou définitions clés.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Multi-représentations</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 7: Studio Pédagogique CUA -->
+                    <div class="tool-card reveal" data-tags="professor plus studio cua conception seance udl pedagogie" data-target-tab="professor-plus" style="--card-accent: linear-gradient(90deg,#7c3aed,#2563eb)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(124,58,237,0.08);--icon-glow:rgba(124,58,237,0.12)">🎓</div>
+                        <div class="tool-tag" style="background:rgba(124,58,237,0.06);color:var(--accent5)">Ingénierie de Cours</div>
+                        <h3>Studio Pédagogique CUA</h3>
+                        <p>Concevez des séances inclusives complètes alignées sur les programmes officiels avec fiches de cours, cartes mentales et activités différenciées.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Export Packs .stb</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Tool 8: HAPI -->
+                    <div class="tool-card reveal reveal-delay-1" data-tags="hapi h5p activites interactives quiz exercices pedagogie numerique" data-target-tab="hapi" style="--card-accent: linear-gradient(90deg,#f59e0b,#ea580c)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(245,158,11,0.08);--icon-glow:rgba(245,158,11,0.12)">🐝</div>
+                        <div class="tool-tag" style="background:rgba(245,158,11,0.08);color:#d97706">Activités Interactives</div>
+                        <h3>HAPI</h3>
+                        <p>Hub d'Assistance Pédagogique Interactif (DRANE Normandie). Créez des activités interactives (H5P, quiz, flashcards) exportables vers Moodle et ENT.</p>
+                        <div class="tool-footer">
+                            <span class="tool-users">Forge Éducation Nationale</span>
+                            <button class="tool-btn">Ouvrir l'outil →</button>
+                        </div>
+                    </div>
+
+                    <!-- Category: Prochainement -->
+                    <div class="grid-category-title">🚀 Prochainement</div>
+
+                    <!-- Card Future: Chef (Prochainement) -->
+                    <div class="tool-card disabled reveal hidden-tool" data-tags="cuisine" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🍳</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Cuisine</div>
+                        <h3>Chef</h3>
+                        <p>Trouve des recettes créatives à partir d'une simple liste des ingrédients restants dans vos placards ou votre réfrigérateur.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Estimator (Prochainement) -->
+                    <div class="tool-card disabled reveal reveal-delay-1 hidden-tool" data-tags="temps estimation" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                    <!-- Card Future: Compiler (Prochainement) -->
+                    <div class="tool-card disabled reveal hidden-tool" data-tags="compiler organisation idees notes" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🗂️</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Organisation</div>
+                        <h3>Compiler</h3>
+                        <p>Prend un vrac d'idées, des notes confuses ou un remue-méninges désordonné et les compile en une liste de tâches structurée.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+
+                    <!-- Card Future: Consultant (Prochainement) -->
+                    <div class="tool-card disabled reveal reveal-delay-1 hidden-tool" data-tags="consultant conseils decision aide" style="--card-accent: linear-gradient(90deg,#94a3b8,#cbd5e1)">
+                        <div class="tool-card-accent"></div>
+                        <div class="tool-icon" style="background:rgba(148,163,184,0.08)">🤝</div>
+                        <div class="tool-tag" style="background:rgba(148,163,184,0.06);color:var(--text-muted)">Aide à la décision</div>
+                        <h3>Consultant</h3>
+                        <p>Propose des conseils, des suggestions et un accompagnement logique lorsque vous hésitez face à un choix difficile.</p>
+                        <div class="tool-footer">
+                            <span class="badge-pending">Prochainement</span>
+                            <button class="tool-btn" disabled>Bientôt disponible</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PROFILS D'APPRENTISSAGE -->
+            <section class="profiles-section" id="profils">
+                <div class="section-header reveal">
+                    <div class="section-tag">👤 Accessibilité</div>
+                    <h2 class="section-title">Adapté à <em>votre profil d'apprentissage</em></h2>
+                    <p class="section-desc">Découvrez comment nos interfaces s'adaptent et comment les profils favorisent un parcours adapté.</p>
+                </div>
+                <div class="profiles-grid">
+                    <div class="profile-card reveal" style="--prof-color:var(--accent1);--prof-border:rgba(220,38,38,0.2)" onclick="showToast('Profil Dyslexie : Police et espacements adaptés')">
+                        <span class="profile-emoji">📖</span>
+                        <h4>Dyslexie / Dysorthographie</h4>
+                        <p>Police simplifiée (Aa), espacement élargi, contrastes ajustés et retours sonores.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-1" style="--prof-color:var(--accent2);--prof-border:rgba(234,88,12,0.2)" onclick="showToast('Profil TDAH : Tâches morcelées & timers')">
+                        <span class="profile-emoji">⚡</span>
+                        <h4>TDAH / TDA</h4>
+                        <p>Morcellement extrême des projets avec Magic ToDo pour vaincre le découragement.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-2" style="--prof-color:var(--accent3);--prof-border:rgba(22,163,74,0.2)" onclick="showToast('Profil TSA : Langage structuré')">
+                        <span class="profile-emoji">🌈</span>
+                        <h4>TSA (Autisme)</h4>
+                        <p>Consignes explicites, pas-à-pas et ton de reformulation très direct.</p>
+                    </div>
+                    <div class="profile-card reveal reveal-delay-3" style="--prof-color:var(--accent5);--prof-border:rgba(124,58,237,0.2)" onclick="showToast('Profil Enseignant : Préparation de cours')">
+                        <span class="profile-emoji">🧑‍🏫</span>
+                        <h4>Enseignants & AVS</h4>
+                        <p>Création rapide de fiches, résumés et cartes mentales pour diversifier vos supports.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FEATURES DESCRIPTION -->
+            <section class="features-section" id="fonctions">
+                <div class="section-header reveal">
+                    <div class="section-tag">⚙️ Performances</div>
+                    <h2 class="section-title">Une technologie <em>local-first</em></h2>
+                </div>
+                <div class="features-layout">
+                    <div class="features-visual reveal">
+                        <div class="features-screen">
+                            <div class="screen-bar"><span></span><span></span><span></span></div>
+                            <div class="screen-line long accent"></div>
+                            <div class="screen-line medium" style="animation-delay:.2s"></div>
+                            <div class="screen-line short" style="animation-delay:.4s"></div>
+                            <div class="screen-cards">
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(220,38,38,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(234,88,12,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(22,163,74,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                                <div class="screen-mini-card">
+                                    <div class="smc-dot" style="background:rgba(124,58,237,0.4)"></div>
+                                    <div class="smc-line"></div>
+                                    <div class="smc-line w60"></div>
+                                </div>
+                            </div>
+                            <div class="screen-line medium" style="margin-top:16px;animation-delay:.6s"></div>
+                        </div>
+                        <div class="features-badge b1"><span class="badge-icon">🔒</span> Données 100% privées</div>
+                        <div class="features-badge b2"><span class="badge-icon">🤖</span> Ollama gemma4:12b</div>
+                    </div>
+
+                    <div class="features-list reveal reveal-delay-2">
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(220,38,38,0.08)">🤖</div>
+                            <div class="fi-content">
+                                <h4>Traitement Multimodal Rapide</h4>
+                                  <p>Grâce aux avancées de gemma4, les requêtes contenant des fichiers images ou audios sont traitées de manière fluide en local.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(22,163,74,0.08)">🔒</div>
+                            <div class="fi-content">
+                                <h4>Souveraineté des Données</h4>
+                                <p>Idéal pour l'Éducation Nationale et les règlements RGPD : aucun stockage externe, aucun serveur tiers, totale conformité.</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="fi-icon" style="background:rgba(234,88,12,0.08)">⚙️</div>
+                            <div class="fi-content">
+                                <h4>Zéro Coût de Requête</h4>
+                                <p>Pas d'abonnement API, pas de limites d'utilisation journalières. L'intelligence tourne tant que votre machine est allumée.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TÉMOIGNAGES -->
+            <section class="testimonials-section" id="temoignages">
+                <div class="section-header reveal">
+                    <div class="section-tag">💬 Témoignages</div>
+                    <h2 class="section-title">Ce qu'ils <em>en pensent</em></h2>
+                </div>
+                <div class="testimonials-track">
+                    <div class="testimonials-inner" id="testiInner">
+                        <!-- Humorous Historical Testimonials -->
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« Si j'avais eu Magic ToDo pour organiser ma campagne de Russie, j'aurais peut-être pensé à prendre des gants plus chauds. 5 étoiles, même si c'est pas moi qui commande. »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(220,38,38,0.2);color:var(--accent1)">N</div>
+                                <div>
+                                    <div class="testi-name">Napoléon Bonaparte</div>
+                                    <div class="testi-role">Empereur à la retraite, Invalides</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« L'intelligence de cet outil est relative, mais son efficacité est absolue. E = mc² : Élève = Motivation x Cartes-mentales-au-carré. Même moi j'ai enfin compris l'entropie ! »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(37,99,235,0.2);color:var(--accent4)">E</div>
+                                <div>
+                                    <div class="testi-name">Albert Einstein</div>
+                                    <div class="testi-role">Physicien décoiffé, Princeton</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« Enfin des schémas qui ne sont pas radioactifs ! Le mode plein écran me permet d'étudier mes atomes sans lunettes de protection. C'est brillant, presque autant que le Radium. »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(124,58,237,0.2);color:var(--accent5)">M</div>
+                                <div>
+                                    <div class="testi-name">Marie Curie</div>
+                                    <div class="testi-role">Chercheuse lumineuse, Panthéon</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testi-card">
+                            <div class="testi-stars">★★★★★</div>
+                            <p class="testi-text">« Grâce à Formalizer, j'ai réussi à négocier avec mon chef et je ne travaille plus que 70 heures par semaine maintenant ! »</p>
+                            <div class="testi-author">
+                                <div class="testi-avatar" style="background:rgba(22,163,74,0.2);color:var(--accent3)">?</div>
+                                <div>
+                                    <div class="testi-name">Membre de la MAP anonyme</div>
+                                    <div class="testi-role">Agent administratif en reconversion</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>

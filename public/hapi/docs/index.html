@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAPI — Documentation technique</title>
+<link rel="icon" type="image/png" href="../images/favicon.ico">
+<script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Alias mappés sur les tokens de thème HAPI (styles.css) → suivent le switcher. */
+  :root{
+    --bg:var(--page-bg); --card:var(--surface); --ink:var(--text); --muted:var(--text-muted);
+    --accent:var(--hapi-green-dark); --accent2:var(--hapi-green); --line:var(--border);
+    --pale:var(--hapi-green-pale); --accent-text:var(--hapi-accent-text);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Marianne","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.55; padding:0 0 40px;
+  }
+  .wrap{max-width:1080px; margin:24px auto 0; padding:0 18px}
+  .doc-hero{
+    background:linear-gradient(135deg, var(--accent2), var(--accent));
+    color:#fff; border-radius:18px; padding:30px 34px; margin-bottom:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+  .doc-hero h1{margin:0 0 6px; font-size:1.7rem}
+  .doc-hero p{margin:0; color:#fff; opacity:.95}
+  .doc-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px}
+  .doc-card{
+    display:flex; flex-direction:column; gap:8px;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px 24px; text-decoration:none; color:var(--ink);
+    box-shadow:0 3px 14px rgba(0,0,0,.04); transition:transform .15s, box-shadow .15s, border-color .15s;
+  }
+  .doc-card:hover{transform:translateY(-3px); box-shadow:0 10px 26px rgba(0,0,0,.10); border-color:var(--accent)}
+  .doc-card .ico{color:var(--accent); line-height:0}
+  .doc-card h2{margin:0; font-size:1.15rem; color:var(--accent-text)}
+  .doc-card p{margin:0; font-size:.92rem; color:var(--muted)}
+  .doc-card .go{margin-top:auto; font-weight:700; font-size:.9rem; color:var(--accent-text)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="doc-hero">
+    <h1><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg>Documentation technique HAPI</h1>
+    <p>Fiches d'architecture et de fonctionnement du Hub d'Assistance Pédagogique Interactif.</p>
+  </div>
+
+  <div class="doc-cards">
+
+    <a class="doc-card" href="hapi-avec-ia-architecture.html">
+      <span class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span>
+      <h2>Architecture avec IA</h2>
+      <p>Arbre de décision : du corpus de l'enseignant aux activités H5P. Frugal d'abord, IA en dernier recours, ~95 % souverain.</p>
+      <span class="go">Ouvrir →</span>
+    </a>
+
+    <a class="doc-card" href="rag.html">
+      <span class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+      <h2>RAG — programmes officiels</h2>
+      <p>Comment HAPI ancre les activités dans le Bulletin officiel : indexation, recherche sémantique et classement des extraits.</p>
+      <span class="go">Ouvrir →</span>
+    </a>
+
+    <a class="doc-card" href="matomo-tracking.html">
+      <span class="ico"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg></span>
+      <h2>Marquage Matomo</h2>
+      <p>Cartographie complète du suivi d'audience : pages instrumentées, couches de marquage et catégories d'événements.</p>
+      <span class="go">Ouvrir →</span>
+    </a>
+
+  </div>
+
+</div>
+<!-- bandeau + sommaire + pied de page injectés par docs-chrome.js -->
+
+<script src="../js/tracking-static.js"></script>
+<script src="docs-chrome.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

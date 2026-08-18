@@ -1,0 +1,767 @@
+{
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/dragndrop-ui.js": {
+    "mtime": 1780232582.4459648,
+    "ast_hash": "b0800570bd6f4f22aa6cc341fa8c1a32",
+    "semantic_hash": "b0800570bd6f4f22aa6cc341fa8c1a32"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/timeline-ui.js": {
+    "mtime": 1780232582.4805746,
+    "ast_hash": "7f8545719477c3d66fa77869e98d35a3",
+    "semantic_hash": "7f8545719477c3d66fa77869e98d35a3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/image-pairing-ui.js": {
+    "mtime": 1780232582.461023,
+    "ast_hash": "eb779c6ab64fdcbd2323e76c84ca605f",
+    "semantic_hash": "eb779c6ab64fdcbd2323e76c84ca605f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/download-ui.js": {
+    "mtime": 1780232929.7216697,
+    "ast_hash": "d719de5b19c0f510d4d53e47c6e359f3",
+    "semantic_hash": "d719de5b19c0f510d4d53e47c6e359f3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/source-selector.js": {
+    "mtime": 1775826932.3076215,
+    "ast_hash": "6353f2bb9e973e5d323e64970cd26755",
+    "semantic_hash": "6353f2bb9e973e5d323e64970cd26755"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/truefalse-math-ui.js": {
+    "mtime": 1780232582.4833837,
+    "ast_hash": "3cbd037480e555e24d51df5126da9524",
+    "semantic_hash": "3cbd037480e555e24d51df5126da9524"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/h5p-3d-ui.js": {
+    "mtime": 1780232582.4542074,
+    "ast_hash": "fe5ac213b76731b93470789391294af4",
+    "semantic_hash": "fe5ac213b76731b93470789391294af4"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/preview-manager.js": {
+    "mtime": 1778780413.2559512,
+    "ast_hash": "c4508d868b29befd4d1e2bde4e285aa0",
+    "semantic_hash": "c4508d868b29befd4d1e2bde4e285aa0"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/crossword-ui.js": {
+    "mtime": 1780232582.4012592,
+    "ast_hash": "ed9c66e1e453b5054f50cb25c4df6b87",
+    "semantic_hash": "ed9c66e1e453b5054f50cb25c4df6b87"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/dragtext-ui.js": {
+    "mtime": 1780232582.4503527,
+    "ast_hash": "8ee364d7fa4cf67209a766f29f699dde",
+    "semantic_hash": "8ee364d7fa4cf67209a766f29f699dde"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/cards-ui.js": {
+    "mtime": 1780232582.3976898,
+    "ast_hash": "a915cc22a13cff591e83a17e5c9bad5f",
+    "semantic_hash": "a915cc22a13cff591e83a17e5c9bad5f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/dictation-ui.js": {
+    "mtime": 1780232582.4147658,
+    "ast_hash": "26fb2c2dde813ab8b2490c931253834b",
+    "semantic_hash": "26fb2c2dde813ab8b2490c931253834b"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/qcm-ui.js": {
+    "mtime": 1780232582.4700706,
+    "ast_hash": "3b6cec9b06a5c4dd1b1e0fadb6791b98",
+    "semantic_hash": "3b6cec9b06a5c4dd1b1e0fadb6791b98"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/wordsearch-ui.js": {
+    "mtime": 1780232582.4884415,
+    "ast_hash": "6ba66a27befc1227f73acd513b09761b",
+    "semantic_hash": "6ba66a27befc1227f73acd513b09761b"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/h5p-video-ui.js": {
+    "mtime": 1780232582.4574714,
+    "ast_hash": "27b91d434b8935059aa38c6ffc3c44c5",
+    "semantic_hash": "27b91d434b8935059aa38c6ffc3c44c5"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/advanced-blanks-ui.js": {
+    "mtime": 1780232582.3919,
+    "ast_hash": "b8e765fbe04697b757063b089c4dffe1",
+    "semantic_hash": "b8e765fbe04697b757063b089c4dffe1"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/sortparagraphs-ui.js": {
+    "mtime": 1780232582.4746532,
+    "ast_hash": "6f851a1dde9f96158e45a39b96e1b7ff",
+    "semantic_hash": "6f851a1dde9f96158e45a39b96e1b7ff"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/activities-discovery.js": {
+    "mtime": 1777840869.8811233,
+    "ast_hash": "03f3f93ea345d7273d1bc38b5fbbc74b",
+    "semantic_hash": "03f3f93ea345d7273d1bc38b5fbbc74b"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/summary-ui.js": {
+    "mtime": 1780232582.476859,
+    "ast_hash": "a378feab076f372d7e44bf6c72a3acd8",
+    "semantic_hash": "a378feab076f372d7e44bf6c72a3acd8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/truefalse-ui.js": {
+    "mtime": 1780232582.4858816,
+    "ast_hash": "96a62f6bb9aba798c4fd635cf9357e38",
+    "semantic_hash": "96a62f6bb9aba798c4fd635cf9357e38"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/interactive-map-ui.js": {
+    "mtime": 1780232582.4651537,
+    "ast_hash": "9590d4753c8c74aceb67a4d6c0539936",
+    "semantic_hash": "9590d4753c8c74aceb67a4d6c0539936"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/quiz-math-ui.js": {
+    "mtime": 1780232582.4724967,
+    "ast_hash": "1a3fbebf9f7db2740be3c5190083558f",
+    "semantic_hash": "1a3fbebf9f7db2740be3c5190083558f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/activity-selector.js": {
+    "mtime": 1780231321.801261,
+    "ast_hash": "94113632bc9a8e76a64a45883c0f2cf2",
+    "semantic_hash": "94113632bc9a8e76a64a45883c0f2cf2"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/markthewords-ui.js": {
+    "mtime": 1780232582.4676738,
+    "ast_hash": "be30f0d0ee7517db1e8ae866c7141067",
+    "semantic_hash": "be30f0d0ee7517db1e8ae866c7141067"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ui/accordion-ui.js": {
+    "mtime": 1780232582.3864489,
+    "ast_hash": "b34d301101be687dbdfc59c9572b39b7",
+    "semantic_hash": "b34d301101be687dbdfc59c9572b39b7"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-generator AVANT LANG.js": {
+    "mtime": 1776945405.5972953,
+    "ast_hash": "fd4a6037ed63734a8315fbf10dc28842",
+    "semantic_hash": "fd4a6037ed63734a8315fbf10dc28842"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-generator copie.js": {
+    "mtime": 1776804902.7209156,
+    "ast_hash": "9ee0152c1f4e7176f22d6fe2662b4022",
+    "semantic_hash": "9ee0152c1f4e7176f22d6fe2662b4022"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-generator copie 3.js": {
+    "mtime": 1776863418.1478417,
+    "ast_hash": "d01441c3aebbb54cef06ebac94a96272",
+    "semantic_hash": "d01441c3aebbb54cef06ebac94a96272"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-generator copie 2.js": {
+    "mtime": 1776806450.4387562,
+    "ast_hash": "cbb3623f601db69e62671249214fdf12",
+    "semantic_hash": "cbb3623f601db69e62671249214fdf12"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-generator.js": {
+    "mtime": 1777021097.5845428,
+    "ast_hash": "1421c39b40a6141c2eef956dda2bb237",
+    "semantic_hash": "1421c39b40a6141c2eef956dda2bb237"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-video-generator.js": {
+    "mtime": 1777050246.997078,
+    "ast_hash": "1b6eaf0660241efd1cc59de24c64393d",
+    "semantic_hash": "1b6eaf0660241efd1cc59de24c64393d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-video-generator AVANT LANG.js": {
+    "mtime": 1776975791.957887,
+    "ast_hash": "b6aa74ed56edf7165d1b03bd23083974",
+    "semantic_hash": "b6aa74ed56edf7165d1b03bd23083974"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-video-generator AVANT summary modif.js": {
+    "mtime": 1776704998.1781962,
+    "ast_hash": "6e9082be745208e91f2524d17c3ef8db",
+    "semantic_hash": "6e9082be745208e91f2524d17c3ef8db"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/h5p-video-generator copie.js": {
+    "mtime": 1776701626.4730058,
+    "ast_hash": "885433dcddcc44517deae661a8d3be41",
+    "semantic_hash": "885433dcddcc44517deae661a8d3be41"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation OLD/pubchem-3d-generator.js": {
+    "mtime": 1775764898.0394032,
+    "ast_hash": "96c4a90dc2d4ce099b396a241bf2a65d",
+    "semantic_hash": "96c4a90dc2d4ce099b396a241bf2a65d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-ui.js": {
+    "mtime": 1780162392.4247394,
+    "ast_hash": "54306c2a338ea5e42f30f835caefd4cb",
+    "semantic_hash": "54306c2a338ea5e42f30f835caefd4cb"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/file-parsers.js": {
+    "mtime": 1774344169.0981395,
+    "ast_hash": "3c44577a330b93532c15f085a8ff1bd8",
+    "semantic_hash": "3c44577a330b93532c15f085a8ff1bd8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-manager AVANT REGEX.js": {
+    "mtime": 1779368910.905316,
+    "ast_hash": "08b20936befbc5d93feddb6d3e94695a",
+    "semantic_hash": "08b20936befbc5d93feddb6d3e94695a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-manager AVANT WARNING ET OPTIMISATION.js": {
+    "mtime": 1779349884.7865138,
+    "ast_hash": "ef3b936af0ef041d35d2c7bf3693acd6",
+    "semantic_hash": "ef3b936af0ef041d35d2c7bf3693acd6"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-manager.js": {
+    "mtime": 1779371594.497751,
+    "ast_hash": "564eea9aaf56957df107618a3bef0dfa",
+    "semantic_hash": "564eea9aaf56957df107618a3bef0dfa"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-manager AVEC VISION BOUTON MOCHE.js": {
+    "mtime": 1778687450.7038665,
+    "ast_hash": "283ab85a2a899e743a0423eb1654a2ca",
+    "semantic_hash": "283ab85a2a899e743a0423eb1654a2ca"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/corpus/corpus-manager AVANT VISION.js": {
+    "mtime": 1777993159.2541888,
+    "ast_hash": "31d7323f9007b17d80890101c64aab19",
+    "semantic_hash": "31d7323f9007b17d80890101c64aab19"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-builder AVT GRAIN.js": {
+    "mtime": 1778685501.6181204,
+    "ast_hash": "7f821a00d779c638cd369d9103bd6331",
+    "semantic_hash": "7f821a00d779c638cd369d9103bd6331"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-builder copie.js": {
+    "mtime": 1776944609.817539,
+    "ast_hash": "8771de09367a0c155ad30c39e920ed2c",
+    "semantic_hash": "8771de09367a0c155ad30c39e920ed2c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-engine AVANT MODIF.js": {
+    "mtime": 1779373967.5512152,
+    "ast_hash": "f8e2401769d9b1f5e73fe78e51230821",
+    "semantic_hash": "f8e2401769d9b1f5e73fe78e51230821"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/ia-connectors.js": {
+    "mtime": 1775652353.252839,
+    "ast_hash": "1584c1599709d42b44763eb05e654770",
+    "semantic_hash": "1584c1599709d42b44763eb05e654770"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-builder AVANT OPTION RAG.js": {
+    "mtime": 1778685479.842371,
+    "ast_hash": "8c71934c92ed4ac3bce37fc6d1636d28",
+    "semantic_hash": "8c71934c92ed4ac3bce37fc6d1636d28"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-builder.js": {
+    "mtime": 1778709665.4590697,
+    "ast_hash": "6d3016d74e01b7990de58151db242e5a",
+    "semantic_hash": "6d3016d74e01b7990de58151db242e5a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/bo-context.js": {
+    "mtime": 1778655415.5482204,
+    "ast_hash": "f6a5778e8c24d4bb166f149cd25f03aa",
+    "semantic_hash": "f6a5778e8c24d4bb166f149cd25f03aa"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-builder copie 2.js": {
+    "mtime": 1778586741.832672,
+    "ast_hash": "8c71934c92ed4ac3bce37fc6d1636d28",
+    "semantic_hash": "8c71934c92ed4ac3bce37fc6d1636d28"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-engine copie.js": {
+    "mtime": 1778702863.8099196,
+    "ast_hash": "d0dfcb28c69fd32b11c2f92832f81ef7",
+    "semantic_hash": "d0dfcb28c69fd32b11c2f92832f81ef7"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompt-engine.js": {
+    "mtime": 1780051384.1564944,
+    "ast_hash": "015fd99eee3e29455b7e8da60c80b5f1",
+    "semantic_hash": "015fd99eee3e29455b7e8da60c80b5f1"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/response-parser.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "c1606ed715d9cd78dd6948966783190c",
+    "semantic_hash": "c1606ed715d9cd78dd6948966783190c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/wordsearch-prompt.js": {
+    "mtime": 1778705534.3659468,
+    "ast_hash": "02a76fa66b0acd7e69b1426d71e6e1f0",
+    "semantic_hash": "02a76fa66b0acd7e69b1426d71e6e1f0"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/image-pairing-prompt.js": {
+    "mtime": 1778704126.043712,
+    "ast_hash": "432d98a7e318953e7e642525ab6051b6",
+    "semantic_hash": "432d98a7e318953e7e642525ab6051b6"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/crosswords-prompt.js": {
+    "mtime": 1778705240.0051124,
+    "ast_hash": "c9b5dac6feec18734a5750ad16284cd4",
+    "semantic_hash": "c9b5dac6feec18734a5750ad16284cd4"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/h5p-video-prompt copie.js": {
+    "mtime": 1778709207.886578,
+    "ast_hash": "22da4dc22cd40ecc978b4350cb825548",
+    "semantic_hash": "22da4dc22cd40ecc978b4350cb825548"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/summary-prompt.js": {
+    "mtime": 1778704680.0080998,
+    "ast_hash": "e7fc2c2106c525751822323cee83c9fa",
+    "semantic_hash": "e7fc2c2106c525751822323cee83c9fa"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/dictation-prompt.js": {
+    "mtime": 1778703391.8749733,
+    "ast_hash": "0146758455c05fc839c93d1190063e72",
+    "semantic_hash": "0146758455c05fc839c93d1190063e72"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/interactive-map-prompt.js": {
+    "mtime": 1778704622.5629263,
+    "ast_hash": "cfa992d6e129e8f25d71750bc43e0fb8",
+    "semantic_hash": "cfa992d6e129e8f25d71750bc43e0fb8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/molecules3D-prompt.js": {
+    "mtime": 1778705370.301017,
+    "ast_hash": "3e993db39df47c58c5f0d1471b78728d",
+    "semantic_hash": "3e993db39df47c58c5f0d1471b78728d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/quiz-math-prompt.js": {
+    "mtime": 1778704946.301249,
+    "ast_hash": "83556f5f735ffef4f2e6cdb073ae6309",
+    "semantic_hash": "83556f5f735ffef4f2e6cdb073ae6309"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/h5p-video-prompt copie 2.js": {
+    "mtime": 1779278705.5079284,
+    "ast_hash": "d5adf5cac6b025983ccdcf768feeb1a8",
+    "semantic_hash": "d5adf5cac6b025983ccdcf768feeb1a8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/dragtext-prompt.js": {
+    "mtime": 1778705277.7492259,
+    "ast_hash": "805a6c88c46e11b317137b1c78d818c8",
+    "semantic_hash": "805a6c88c46e11b317137b1c78d818c8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/h5p-video-prompt.js": {
+    "mtime": 1779352175.991963,
+    "ast_hash": "f18e07dee57fba238a7d62da2ffc360f",
+    "semantic_hash": "f18e07dee57fba238a7d62da2ffc360f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/cards-prompt.js": {
+    "mtime": 1778706526.8789349,
+    "ast_hash": "aed043a01a2e48fd67ff450906902411",
+    "semantic_hash": "aed043a01a2e48fd67ff450906902411"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/advancedblanks-prompt.js": {
+    "mtime": 1778705220.0939276,
+    "ast_hash": "f1ac8e78827e279429f822e7e7752a6a",
+    "semantic_hash": "f1ac8e78827e279429f822e7e7752a6a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/accordion-prompt.js": {
+    "mtime": 1778706460.59334,
+    "ast_hash": "bf9b001bf02cf03951df3b176adc864a",
+    "semantic_hash": "bf9b001bf02cf03951df3b176adc864a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/sortparagraphs-prompt.js": {
+    "mtime": 1778705423.2532961,
+    "ast_hash": "bb79f9fcbc8ef0bb74fdf3bd5900781a",
+    "semantic_hash": "bb79f9fcbc8ef0bb74fdf3bd5900781a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/truefalse-math-prompt.js": {
+    "mtime": 1778705679.8010952,
+    "ast_hash": "55df4a45c03708594069140c6e580b83",
+    "semantic_hash": "55df4a45c03708594069140c6e580b83"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/timeline-prompt.js": {
+    "mtime": 1778704187.4180777,
+    "ast_hash": "a426ecf56d5a63c7bd1c4edaff1b90c1",
+    "semantic_hash": "a426ecf56d5a63c7bd1c4edaff1b90c1"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/qcm-prompt.js": {
+    "mtime": 1778705411.9899187,
+    "ast_hash": "cfdcf2d318d72b46739f6dc46ad73590",
+    "semantic_hash": "cfdcf2d318d72b46739f6dc46ad73590"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/markthewords-prompt.js": {
+    "mtime": 1778705308.8866277,
+    "ast_hash": "8014a336c41e37114dd6fb25fe98788d",
+    "semantic_hash": "8014a336c41e37114dd6fb25fe98788d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/dragndrop-prompt.js": {
+    "mtime": 1778705264.7459998,
+    "ast_hash": "33bc5f8af1a5e308c1d103e42a4472e3",
+    "semantic_hash": "33bc5f8af1a5e308c1d103e42a4472e3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/ia/prompts/truefalse-prompt.js": {
+    "mtime": 1778705457.2833622,
+    "ast_hash": "38446ec9910e1c495931e7e85d3dac68",
+    "semantic_hash": "38446ec9910e1c495931e7e85d3dac68"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/logger.js": {
+    "mtime": 1780058511.5654595,
+    "ast_hash": "5dfbcb84729ecc4bf688ae7e26e62bb0",
+    "semantic_hash": "5dfbcb84729ecc4bf688ae7e26e62bb0"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/quill-manager.js": {
+    "mtime": 1774268866.8632493,
+    "ast_hash": "86b075044fb2a4add509e8ee5b53d472",
+    "semantic_hash": "86b075044fb2a4add509e8ee5b53d472"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/export-helpers.js": {
+    "mtime": 1777314862.1814659,
+    "ast_hash": "dad22e68faad52e7677674822abe7073",
+    "semantic_hash": "dad22e68faad52e7677674822abe7073"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/math-editor.js": {
+    "mtime": 1773779317.5513492,
+    "ast_hash": "ab851def02dc315e6ef060441152dfc2",
+    "semantic_hash": "ab851def02dc315e6ef060441152dfc2"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/h5p-constants.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "6405d98a7d289798715ccffcbd23fea6",
+    "semantic_hash": "6405d98a7d289798715ccffcbd23fea6"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/config-manager.js": {
+    "mtime": 1774790601.8213525,
+    "ast_hash": "083d397e1f6fc93d87c1773c8c651dfd",
+    "semantic_hash": "083d397e1f6fc93d87c1773c8c651dfd"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/h5p-translations.js": {
+    "mtime": 1776972266.0309892,
+    "ast_hash": "5f1ad21420c8ec06bf40c2faab0977f1",
+    "semantic_hash": "5f1ad21420c8ec06bf40c2faab0977f1"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/image-editor.js": {
+    "mtime": 1777221372.6997187,
+    "ast_hash": "fb69a138d4a50503eab67e7faed292f5",
+    "semantic_hash": "fb69a138d4a50503eab67e7faed292f5"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/h5p-library-manager.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "a8940849f1ec20a5dc5357dee8f01850",
+    "semantic_hash": "a8940849f1ec20a5dc5357dee8f01850"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/helpers.js": {
+    "mtime": 1780162392.4185457,
+    "ast_hash": "21b055d648994bf40ec42c91e837dd05",
+    "semantic_hash": "21b055d648994bf40ec42c91e837dd05"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/languages.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "755523dfd285a0199e5254be1d797f44",
+    "semantic_hash": "755523dfd285a0199e5254be1d797f44"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/markthewords-state.js": {
+    "mtime": 1778856346.7425997,
+    "ast_hash": "33ffa7565b5fe045b8822f7af27d38c3",
+    "semantic_hash": "33ffa7565b5fe045b8822f7af27d38c3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/advanced-blanks-state.js": {
+    "mtime": 1778855982.3913233,
+    "ast_hash": "367fc7f1521491ff83aa087d39f4403f",
+    "semantic_hash": "367fc7f1521491ff83aa087d39f4403f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/sortparagraphs-state.js": {
+    "mtime": 1778856450.5282662,
+    "ast_hash": "7f659a550c70dceecf86e3e76ea3b09a",
+    "semantic_hash": "7f659a550c70dceecf86e3e76ea3b09a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/truefalse-state.js": {
+    "mtime": 1778856573.6963947,
+    "ast_hash": "e077266ec8878504aa6fca5da579321c",
+    "semantic_hash": "e077266ec8878504aa6fca5da579321c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/interactive-map-state copie.js": {
+    "mtime": 1778856273.455732,
+    "ast_hash": "c1f9978df3e166748b3c6d52800a4272",
+    "semantic_hash": "c1f9978df3e166748b3c6d52800a4272"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/dictation-state.js": {
+    "mtime": 1778856052.2292063,
+    "ast_hash": "6783e139ed7ff6f6d014f524a5752865",
+    "semantic_hash": "6783e139ed7ff6f6d014f524a5752865"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/dragndrop-state.js": {
+    "mtime": 1777220801.8179755,
+    "ast_hash": "11633277aff4f71ed73530f8fe31df4f",
+    "semantic_hash": "11633277aff4f71ed73530f8fe31df4f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/h5p-3d-state.js": {
+    "mtime": 1778856163.0986278,
+    "ast_hash": "e644782193064cbbe92c11b34574f12c",
+    "semantic_hash": "e644782193064cbbe92c11b34574f12c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/qcm-state.js": {
+    "mtime": 1778855129.757669,
+    "ast_hash": "702c35916ead4c1dc472f4744da9f3ef",
+    "semantic_hash": "702c35916ead4c1dc472f4744da9f3ef"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/quiz-math-state.js": {
+    "mtime": 1778856426.7249057,
+    "ast_hash": "8b7edb4432ec2faa91c4e2b3e6f6b74d",
+    "semantic_hash": "8b7edb4432ec2faa91c4e2b3e6f6b74d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/dragtext-state.js": {
+    "mtime": 1778856129.1326046,
+    "ast_hash": "e5eed8b242c6626f7e8667d52ebf67e3",
+    "semantic_hash": "e5eed8b242c6626f7e8667d52ebf67e3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/timeline-state.js": {
+    "mtime": 1778856491.7693615,
+    "ast_hash": "ce107fb791b112219ef14a852395d7e3",
+    "semantic_hash": "ce107fb791b112219ef14a852395d7e3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/interactive-video-state.js": {
+    "mtime": 1778856321.4609613,
+    "ast_hash": "ea60e2d4e79259a5b45600cc4674c71a",
+    "semantic_hash": "ea60e2d4e79259a5b45600cc4674c71a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/interactive-map-state.js": {
+    "mtime": 1779272046.0767143,
+    "ast_hash": "ff69a68cbd9313abef87ddd105f4ac23",
+    "semantic_hash": "ff69a68cbd9313abef87ddd105f4ac23"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/cards-state.js": {
+    "mtime": 1778856011.8982337,
+    "ast_hash": "286236e775e938accbfb23e8513f289e",
+    "semantic_hash": "286236e775e938accbfb23e8513f289e"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/accordion-state.js": {
+    "mtime": 1778855915.7063382,
+    "ast_hash": "1c3f36c04365fc2a5ea199f1f13c9e91",
+    "semantic_hash": "1c3f36c04365fc2a5ea199f1f13c9e91"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/summary-state.js": {
+    "mtime": 1778856470.5479202,
+    "ast_hash": "5948fdf2af9da18a7719272af46c1f92",
+    "semantic_hash": "5948fdf2af9da18a7719272af46c1f92"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/crossword-state.js": {
+    "mtime": 1778856029.7712855,
+    "ast_hash": "baa1b792383cac5e39a064466a7d104e",
+    "semantic_hash": "baa1b792383cac5e39a064466a7d104e"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/wordsearch-state.js": {
+    "mtime": 1778856385.428644,
+    "ast_hash": "cb56834d66913e20636c33e2234b93d8",
+    "semantic_hash": "cb56834d66913e20636c33e2234b93d8"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/image-pairing-state.js": {
+    "mtime": 1778856189.4413555,
+    "ast_hash": "3d315f5960bfa80f295785f87541a7cd",
+    "semantic_hash": "3d315f5960bfa80f295785f87541a7cd"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/states/truefalse-math-state.js": {
+    "mtime": 1778856549.00307,
+    "ast_hash": "62acf6a65cf899cbbcbe862dca2ec1ae",
+    "semantic_hash": "62acf6a65cf899cbbcbe862dca2ec1ae"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-utils.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "d58444279b0ad26cec110236737eb5b5",
+    "semantic_hash": "d58444279b0ad26cec110236737eb5b5"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-advanced-blanks.js": {
+    "mtime": 1776377543.6701465,
+    "ast_hash": "00b5f3d8785c615623528a89441a90f3",
+    "semantic_hash": "00b5f3d8785c615623528a89441a90f3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-crossword.js": {
+    "mtime": 1775806449.8352249,
+    "ast_hash": "725db961557c0fc3e11a83e1a8a374e5",
+    "semantic_hash": "725db961557c0fc3e11a83e1a8a374e5"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-qcm.js": {
+    "mtime": 1775806422.857628,
+    "ast_hash": "a89e7e6d0059f60a29725fc60c8b211f",
+    "semantic_hash": "a89e7e6d0059f60a29725fc60c8b211f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-accordion.js": {
+    "mtime": 1775806435.5693784,
+    "ast_hash": "2f96b8aecabb74f53f98e273ca3d02fd",
+    "semantic_hash": "2f96b8aecabb74f53f98e273ca3d02fd"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-summary.js": {
+    "mtime": 1775806527.3197548,
+    "ast_hash": "1f8e67531d1049b3b9008fed9abb4ed7",
+    "semantic_hash": "1f8e67531d1049b3b9008fed9abb4ed7"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-sortparagraphs.js": {
+    "mtime": 1775806514.589442,
+    "ast_hash": "522d2f47b7be6fc761689be6f4baaa20",
+    "semantic_hash": "522d2f47b7be6fc761689be6f4baaa20"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-dragtext.js": {
+    "mtime": 1775806463.0907402,
+    "ast_hash": "f3b0f4ffc482fda41bdf42e2d103ac04",
+    "semantic_hash": "f3b0f4ffc482fda41bdf42e2d103ac04"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-qcm-math.js": {
+    "mtime": 1774819568.8548603,
+    "ast_hash": "0a9b50faa3b19f4f4ed22dad89d6a7fa",
+    "semantic_hash": "0a9b50faa3b19f4f4ed22dad89d6a7fa"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-truefalse-math.js": {
+    "mtime": 1775806539.58854,
+    "ast_hash": "c3b74e4fcc971062d2d92f458d46ffd7",
+    "semantic_hash": "c3b74e4fcc971062d2d92f458d46ffd7"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-truefalse.js": {
+    "mtime": 1775806403.3717687,
+    "ast_hash": "629815ec87ff887cf24cd294a48d336b",
+    "semantic_hash": "629815ec87ff887cf24cd294a48d336b"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-markthewords.js": {
+    "mtime": 1775806477.6545286,
+    "ast_hash": "eb63120f846c3651e33bbe48af05f714",
+    "semantic_hash": "eb63120f846c3651e33bbe48af05f714"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-odt/odt-wordsearch.js": {
+    "mtime": 1775806557.9541514,
+    "ast_hash": "18419d9008abe199ec0d6ca1f4c13510",
+    "semantic_hash": "18419d9008abe199ec0d6ca1f4c13510"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-interactive-video.js": {
+    "mtime": 1778059628.451821,
+    "ast_hash": "2dd2fd286484dc994f8474e427aca871",
+    "semantic_hash": "2dd2fd286484dc994f8474e427aca871"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-image-pairing.js": {
+    "mtime": 1773389656.0,
+    "ast_hash": "17f04686adceae1101683fe2966101d3",
+    "semantic_hash": "17f04686adceae1101683fe2966101d3"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-cards.js": {
+    "mtime": 1774820839.3923864,
+    "ast_hash": "0588c63e4121bde19c1e130fb638a4fd",
+    "semantic_hash": "0588c63e4121bde19c1e130fb638a4fd"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-interactive-video copie.js": {
+    "mtime": 1777363476.408881,
+    "ast_hash": "d9326982a026b324a39e53418de3530e",
+    "semantic_hash": "d9326982a026b324a39e53418de3530e"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-molecule.js": {
+    "mtime": 1774821176.6728153,
+    "ast_hash": "03be78d38867a312a3b29af65eeaa642",
+    "semantic_hash": "03be78d38867a312a3b29af65eeaa642"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-timeline.js": {
+    "mtime": 1774821255.9340477,
+    "ast_hash": "a5c7e94be263796ba4a06c5e1765488a",
+    "semantic_hash": "a5c7e94be263796ba4a06c5e1765488a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-interactive-map.js": {
+    "mtime": 1774821181.4743433,
+    "ast_hash": "83deadf3003fc8a99bc43625b8b8b19a",
+    "semantic_hash": "83deadf3003fc8a99bc43625b8b8b19a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-dragndrop copie.js": {
+    "mtime": 1776947467.990131,
+    "ast_hash": "5465897d04e719ea3d26f227e2371f51",
+    "semantic_hash": "5465897d04e719ea3d26f227e2371f51"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-dragndrop.js": {
+    "mtime": 1777568457.8391447,
+    "ast_hash": "8b4b4c07744b9d48d6e3d8f5dd2c57c1",
+    "semantic_hash": "8b4b4c07744b9d48d6e3d8f5dd2c57c1"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-interactive-video copie 2.js": {
+    "mtime": 1777840255.7869146,
+    "ast_hash": "38adaaa733f600169bbd321c7bd4b52f",
+    "semantic_hash": "38adaaa733f600169bbd321c7bd4b52f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/utils/exports-pdf/pdf-interactive-video copie 3.js": {
+    "mtime": 1777887052.0403721,
+    "ast_hash": "b19f6c44f14018719f6f815a7d0dba9c",
+    "semantic_hash": "b19f6c44f14018719f6f815a7d0dba9c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/generator-utils.js": {
+    "mtime": 1777192422.297342,
+    "ast_hash": "f62b771354099df1b132b18abfe57886",
+    "semantic_hash": "f62b771354099df1b132b18abfe57886"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/h5p-generator.js": {
+    "mtime": 1777195372.0400457,
+    "ast_hash": "6551d62b436a651403f357ace9392b92",
+    "semantic_hash": "6551d62b436a651403f357ace9392b92"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/interactive-map-generator copie.js": {
+    "mtime": 1777194936.6399696,
+    "ast_hash": "72e713625aa1f59dd3a7c9ed7aa25cd0",
+    "semantic_hash": "72e713625aa1f59dd3a7c9ed7aa25cd0"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/interactive-map-generator.js": {
+    "mtime": 1779271682.804459,
+    "ast_hash": "4d3bbbddd82aa5961d5c51fc3b55cd15",
+    "semantic_hash": "4d3bbbddd82aa5961d5c51fc3b55cd15"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/wordsearch-generator.js": {
+    "mtime": 1777197458.2114215,
+    "ast_hash": "e523a8d767f9bc0b54bb5883d8a13c53",
+    "semantic_hash": "e523a8d767f9bc0b54bb5883d8a13c53"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/image-pairing-generator.js": {
+    "mtime": 1777197284.5983784,
+    "ast_hash": "c01854c9191ba85a328b7c7b75cb733a",
+    "semantic_hash": "c01854c9191ba85a328b7c7b75cb733a"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/timeline-generator.js": {
+    "mtime": 1777196460.683684,
+    "ast_hash": "11dfb2d998af83b3c5cee83b2db9db4f",
+    "semantic_hash": "11dfb2d998af83b3c5cee83b2db9db4f"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/crosswords-generator.js": {
+    "mtime": 1777197563.649015,
+    "ast_hash": "8ba66e0a2c871e95953bb28cebffe5ff",
+    "semantic_hash": "8ba66e0a2c871e95953bb28cebffe5ff"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/markthewords-generator.js": {
+    "mtime": 1777197606.7346287,
+    "ast_hash": "cb86ad16020464db36aae93118bb9be4",
+    "semantic_hash": "cb86ad16020464db36aae93118bb9be4"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/h5p-video-generator.js": {
+    "mtime": 1777318760.500376,
+    "ast_hash": "67a144244c9649f2003a117bdb268c48",
+    "semantic_hash": "67a144244c9649f2003a117bdb268c48"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/dictation-generator.js": {
+    "mtime": 1777197584.4230013,
+    "ast_hash": "0d0708f152b275dd662dd236f64b7422",
+    "semantic_hash": "0d0708f152b275dd662dd236f64b7422"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/sortparagraphs-generator.js": {
+    "mtime": 1777197628.253259,
+    "ast_hash": "c67848a83fba5d749d9f313445229e3e",
+    "semantic_hash": "c67848a83fba5d749d9f313445229e3e"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/pubchem-3d-generator.js": {
+    "mtime": 1775764898.0394032,
+    "ast_hash": "96c4a90dc2d4ce099b396a241bf2a65d",
+    "semantic_hash": "96c4a90dc2d4ce099b396a241bf2a65d"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/summary-generator.js": {
+    "mtime": 1777197659.7771957,
+    "ast_hash": "75a0b6dfda4ea9214d5e17d2dd22f557",
+    "semantic_hash": "75a0b6dfda4ea9214d5e17d2dd22f557"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/molecules3D-generator.js": {
+    "mtime": 1777197131.293498,
+    "ast_hash": "815deb94b12fe2b7fee347209369fa84",
+    "semantic_hash": "815deb94b12fe2b7fee347209369fa84"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/dragndrop-generator.js": {
+    "mtime": 1777223452.0630918,
+    "ast_hash": "728b4e1cb380ee86006ca37efea40ea2",
+    "semantic_hash": "728b4e1cb380ee86006ca37efea40ea2"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/quiz-generator.js": {
+    "mtime": 1777196426.5216272,
+    "ast_hash": "1c03b3d64137e72652b7d256ba786fc2",
+    "semantic_hash": "1c03b3d64137e72652b7d256ba786fc2"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/advancedblanks-generator.js": {
+    "mtime": 1777196253.2136505,
+    "ast_hash": "b9dacd00a4ca02f020789058380b6270",
+    "semantic_hash": "b9dacd00a4ca02f020789058380b6270"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/accordion-generator.js": {
+    "mtime": 1777196241.4530697,
+    "ast_hash": "e78bb486dc5ad4ad66a9154fa0ceafc0",
+    "semantic_hash": "e78bb486dc5ad4ad66a9154fa0ceafc0"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/dragtext-generator.js": {
+    "mtime": 1777197916.534761,
+    "ast_hash": "3ac060eea05ba1a33777cab4cb01841c",
+    "semantic_hash": "3ac060eea05ba1a33777cab4cb01841c"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/dragndrop-generator-old.js": {
+    "mtime": 1777204711.934045,
+    "ast_hash": "50f7aea0085d9371a3fe3aa1dd334691",
+    "semantic_hash": "50f7aea0085d9371a3fe3aa1dd334691"
+  },
+  "/Users/guillaume/AppsEdu/HAPI/hub-de-creation-pedagogique-forge/V14 Proto CLAUDE RAG/ia/modules/generation/activities/cards-generator.js": {
+    "mtime": 1777202932.1816094,
+    "ast_hash": "533baa55d70ba0fc84b29c3744b749ca",
+    "semantic_hash": "533baa55d70ba0fc84b29c3744b749ca"
+  }
+}

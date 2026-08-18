@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "discipline": "Français",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°16 du 17 avril 2025 — Programme de français du cycle 3",
+    "mise_a_jour": "2025-04-17",
+    "url_source": "https://www.education.gouv.fr/media/199169/download"
+  },
+  "attendus_fin_cycle": [
+    "S'exprimer aisément à l'oral dans des situations variées",
+    "Comprendre et apprécier les textes littéraires et documentaires adaptés à son âge",
+    "Lire de manière fluide, à voix haute et silencieusement",
+    "Écrire en appliquant les règles fondamentales de l'orthographe et de la syntaxe",
+    "Organiser de façon simple mais claire les éléments de son propos"
+  ],
+  "domaines": [
+    {
+      "nom": "Langage oral",
+      "description": "Développer la capacité à s'exprimer, écouter, échanger et argumenter dans des situations variées.",
+      "competences": [
+        {
+          "intitule": "Écouter pour comprendre un message oral, un propos, un discours, un texte lu",
+          "exemples_themes": [
+            "Écoute active d'un récit lu par l'enseignant",
+            "Compréhension de consignes orales complexes",
+            "Identification des informations essentielles dans un document audio"
+          ]
+        },
+        {
+          "intitule": "Parler en prenant en compte son auditoire",
+          "exemples_themes": [
+            "Présentation orale d'un travail, d'une recherche",
+            "Récitation de textes poétiques",
+            "Participation à un débat réglé"
+          ]
+        },
+        {
+          "intitule": "Participer à des échanges dans des situations de communication diversifiées",
+          "exemples_themes": [
+            "Débat interprétatif autour d'une œuvre littéraire",
+            "Travail en groupe avec prise de parole organisée",
+            "Cercle de lecture"
+          ]
+        },
+        {
+          "intitule": "Adopter une attitude critique par rapport à son propos",
+          "exemples_themes": [
+            "Reformulation et autocorrection",
+            "Justification de ses choix et de ses interprétations"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Lecture et compréhension de l'écrit",
+      "description": "Développer le goût et le plaisir de la lecture, maîtriser une lecture fluide et construire une compréhension autonome des textes.",
+      "competences": [
+        {
+          "intitule": "Lire avec fluidité",
+          "exemples_themes": [
+            "Lecture à voix haute expressive",
+            "Entraînement quotidien à la fluence",
+            "Lecture silencieuse autonome"
+          ]
+        },
+        {
+          "intitule": "Comprendre un texte littéraire et se l'approprier",
+          "exemples_themes": [
+            "Le récit d'aventure et de voyage",
+            "Le conte merveilleux et le conte de sagesse",
+            "Le récit de vie et le récit historique",
+            "La fable et le récit allégorique",
+            "Le récit policier",
+            "Le théâtre"
+          ]
+        },
+        {
+          "intitule": "Comprendre des textes, des documents et des images et les interpréter",
+          "exemples_themes": [
+            "Textes documentaires scientifiques et historiques",
+            "Articles de presse adaptés",
+            "Documents composites (texte + image + schéma)"
+          ]
+        },
+        {
+          "intitule": "Contrôler sa compréhension et devenir un lecteur autonome",
+          "exemples_themes": [
+            "Stratégies de compréhension explicites",
+            "Carnet de lecteur",
+            "Cercle de lecture autonome"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Écriture",
+      "description": "Développer la capacité à écrire de manière autonome, régulière et variée, en lien avec la lecture et l'oral.",
+      "competences": [
+        {
+          "intitule": "Écrire à la main de manière fluide et efficace",
+          "exemples_themes": [
+            "Copie fluide et rapide",
+            "Prise de notes simple"
+          ]
+        },
+        {
+          "intitule": "Recourir à l'écriture pour réfléchir et pour apprendre",
+          "exemples_themes": [
+            "Écrits de travail (brouillons, listes, schémas)",
+            "Écrits intermédiaires dans toutes les disciplines",
+            "Journal d'apprentissage"
+          ]
+        },
+        {
+          "intitule": "Produire des écrits variés",
+          "exemples_themes": [
+            "Récits (réels ou fictifs)",
+            "Descriptions et portraits",
+            "Dialogues et saynètes",
+            "Comptes rendus et synthèses",
+            "Écrits poétiques",
+            "Lettres et correspondances"
+          ]
+        },
+        {
+          "intitule": "Réécrire à partir de nouvelles consignes ou faire évoluer son texte",
+          "exemples_themes": [
+            "Révision de texte avec grille de relecture",
+            "Réécriture après échanges entre pairs",
+            "Enrichissement lexical et syntaxique"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Étude de la langue (grammaire, orthographe, lexique)",
+      "description": "Maîtriser les relations entre l'oral et l'écrit, acquérir la structure et le fonctionnement de la langue, enrichir le lexique.",
+      "competences": [
+        {
+          "intitule": "Maîtriser les relations entre l'oral et l'écrit",
+          "exemples_themes": [
+            "Correspondances graphophonologiques complexes",
+            "Homophones grammaticaux (a/à, et/est, son/sont, etc.)"
+          ]
+        },
+        {
+          "intitule": "Acquérir la structure, le sens et l'orthographe des mots",
+          "exemples_themes": [
+            "Familles de mots et dérivation",
+            "Préfixes et suffixes",
+            "Polysémie et sens propre / sens figuré"
+          ]
+        },
+        {
+          "intitule": "Maîtriser la forme des mots en lien avec la syntaxe",
+          "exemples_themes": [
+            "Accords dans le groupe nominal",
+            "Accord sujet-verbe",
+            "Conjugaison des temps simples et composés"
+          ]
+        },
+        {
+          "intitule": "Observer le fonctionnement de la phrase simple et de la phrase complexe",
+          "exemples_themes": [
+            "Sujet, prédicat, compléments",
+            "Phrases simples et phrases complexes",
+            "Ponctuation et effets de sens"
+          ]
+        }
+      ]
+    },
+    {
+      "nom": "Culture littéraire et artistique",
+      "description": "Se constituer une culture littéraire commune, nourrir l'imagination, susciter l'envie de lire.",
+      "competences": [
+        {
+          "intitule": "Héros, héroïnes et personnages",
+          "exemples_themes": [
+            "Le héros ou l'héroïne face à l'épreuve",
+            "La figure du voyageur et de l'explorateur",
+            "Le personnage rusé, le personnage courageux"
+          ]
+        },
+        {
+          "intitule": "La morale en questions",
+          "exemples_themes": [
+            "Les fables et les contes de sagesse",
+            "Les récits qui interrogent le bien et le mal",
+            "La justice et l'injustice dans la fiction"
+          ]
+        },
+        {
+          "intitule": "Créer, recréer le monde (récits des origines)",
+          "exemples_themes": [
+            "Les mythes fondateurs",
+            "Les récits de création du monde",
+            "Les textes fondateurs (Bible, Odyssée, Métamorphoses)"
+          ]
+        },
+        {
+          "intitule": "Chanter et enchanter le monde (mots et merveilles)",
+          "exemples_themes": [
+            "Poésie en vers et en prose",
+            "Jeux poétiques et création",
+            "Chansons et comptines littéraires"
+          ]
+        },
+        {
+          "intitule": "Se confronter au merveilleux, à l'étrange",
+          "exemples_themes": [
+            "Contes merveilleux et fantastiques",
+            "Récits de métamorphose",
+            "Univers imaginaires et mondes parallèles"
+          ]
+        },
+        {
+          "intitule": "Vivre des aventures",
+          "exemples_themes": [
+            "Récits d'aventure et de voyage",
+            "Romans d'exploration",
+            "Récits de survie et d'épreuves"
+          ]
+        },
+        {
+          "intitule": "Imaginer, dire et célébrer le monde",
+          "exemples_themes": [
+            "Poésie lyrique et engagée",
+            "Correspondances entre arts (poésie, peinture, musique)"
+          ]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le cycle 3 poursuit et intensifie la dynamique du cycle 2 en visant l'autonomie de l'élève. L'enseignement de la lecture et de l'écriture s'envisage de façon complémentaire et simultanée. L'élève lit au moins six œuvres complètes en 6e (trois du patrimoine, trois en lecture cursive). L'entraînement à la lecture à voix haute et silencieuse est quotidien. L'étude de la langue est au service de la compréhension et de l'expression. La culture littéraire et artistique nourrit l'imagination et la réflexion des élèves autour d'entrées thématiques (héros, morale, création, aventure, merveilleux, poésie)."
+}

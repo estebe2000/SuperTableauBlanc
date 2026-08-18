@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "discipline": "Éducation Physique et Sportive (EPS)",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'EPS lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Développer sa motricité et construire un langage du corps",
+    "S'approprier une culture physique sportive et artistique",
+    "Exercer sa responsabilité individuelle et au sein d'un collectif",
+    "Construire durablement sa santé par l'activité physique",
+    "Accéder au patrimoine culturel sportif et artistique"
+  ],
+  "domaines": [
+    {
+      "nom": "Champ d'apprentissage 1 — Réaliser une performance motrice maximale",
+      "description": "Activités athlétiques, natation de vitesse.",
+      "competences": [
+        {
+          "intitule": "Réaliser une performance mesurée dans les activités athlétiques",
+          "exemples_themes": ["Course de demi-fond : plan de course sur 3×500m", "Course de haies : franchissement et rythme inter-obstacles", "Lancer de javelot ou de disque : geste technique et sécurité", "Saut en hauteur : approche et technique de Fosbury"]
+        },
+        {
+          "intitule": "Nager vite : course de vitesse en natation",
+          "exemples_themes": ["Le 50m crawl : départ, virage, coulée", "Analyse vidéo de sa nage (fréquence, amplitude)", "Plan d'entraînement individualisé (séries, récupération)", "Comparaison avec les records et les barèmes"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 2 — Adapter ses déplacements à des environnements variés",
+      "description": "Escalade, course d'orientation, natation de sauvetage.",
+      "competences": [
+        {
+          "intitule": "Se déplacer dans un environnement incertain en gérant le risque",
+          "exemples_themes": ["Escalade en bloc ou en voie : lecture de voie et sécurité", "Course d'orientation : carte, boussole et gestion de l'effort", "Natation de sauvetage : remorquage et techniques de sauvetage", "Randonnée : lecture de carte IGN et orientation terrain"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 3 — S'exprimer devant les autres par une prestation artistique ou acrobatique",
+      "description": "Danse, gymnastique, arts du cirque.",
+      "competences": [
+        {
+          "intitule": "Concevoir et réaliser une prestation corporelle à visée artistique ou acrobatique",
+          "exemples_themes": ["Composition chorégraphique collective en danse contemporaine", "Enchaînement gymnique au sol (éléments et liaisons)", "Arts du cirque : jonglage, équilibre, acrobatie", "Création d'un spectacle de classe (mise en scène, musique)"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 4 — Conduire et maîtriser un affrontement collectif ou interindividuel",
+      "description": "Sports collectifs et sports de raquette.",
+      "competences": [
+        {
+          "intitule": "Coopérer et s'opposer dans un sport collectif",
+          "exemples_themes": ["Handball : circulation de balle et montée de balle rapide", "Volleyball : réception-passe-attaque en 3 touches", "Basketball : jeu en transition et pick and roll", "Football : pressing et jeu en déviation"]
+        },
+        {
+          "intitule": "S'opposer dans un sport de raquette ou un sport de combat",
+          "exemples_themes": ["Badminton : construction du point et variation des trajectoires", "Tennis de table : service, placement et déplacements", "Boxe française : touche, esquive et gestion de la distance", "Analyse tactique d'un match (grille d'observation)"]
+        }
+      ]
+    },
+    {
+      "nom": "Champ d'apprentissage 5 — Réaliser une activité physique pour entretenir sa santé",
+      "description": "Musculation, step, course en durée.",
+      "competences": [
+        {
+          "intitule": "Construire un programme d'entraînement personnel pour entretenir sa santé",
+          "exemples_themes": ["Musculation : plan d'entraînement par groupes musculaires", "Step : chorégraphie et fréquence cardiaque cible", "Course en durée : VMA et zones d'intensité", "Carnet d'entraînement et suivi de ses progrès"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'EPS au lycée GT s'organise en cinq champs d'apprentissage : performance motrice, déplacements en environnement varié, prestations artistiques/acrobatiques, affrontements collectifs et individuels, et santé par l'activité physique. Les élèves pratiquent au moins trois champs sur le cursus et sont évalués au baccalauréat sur trois épreuves. L'accent est mis sur l'autonomie, la coopération et la construction d'une pratique physique durable."
+}

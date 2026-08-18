@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Bac Pro AGOrA",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro AGOrA — Assistance à la Gestion des Organisations et de leurs Activités",
+    "mise_a_jour": "2020-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Assurer les travaux courants de gestion administrative",
+    "Prendre en charge les activités de gestion du personnel",
+    "Participer à la gestion comptable et commerciale",
+    "Utiliser les outils numériques de gestion",
+    "Communiquer en situation professionnelle"
+  ],
+  "domaines": [
+    {
+      "nom": "Gestion administrative courante",
+      "description": "Les activités administratives quotidiennes.",
+      "competences": [
+        {
+          "intitule": "Assurer les travaux courants de secrétariat et de gestion",
+          "exemples_themes": ["La rédaction de courriers, notes et comptes rendus (normes AFNOR)", "La gestion du courrier entrant et sortant (tri, distribution, suivi)", "L'organisation de l'agenda et la planification de réunions", "Le classement et l'archivage (plan de classement, GED)"]
+        },
+        {
+          "intitule": "Accueillir et communiquer avec les interlocuteurs internes et externes",
+          "exemples_themes": ["L'accueil physique et téléphonique en milieu professionnel", "La filtrage et la transmission de messages", "La rédaction de mails professionnels", "L'organisation d'un déplacement professionnel (réservation, ordre de mission)"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion administrative du personnel",
+      "description": "Les activités liées aux ressources humaines.",
+      "competences": [
+        {
+          "intitule": "Participer à la gestion administrative du personnel",
+          "exemples_themes": ["Le dossier du salarié : documents d'embauche (DPAE, contrat)", "La gestion des absences et des congés (planning, logiciel)", "Le bulletin de paie : lecture et éléments constitutifs", "La déclaration sociale nominative (DSN) : principes"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion administrative comptable et commerciale",
+      "description": "Les opérations comptables et commerciales courantes.",
+      "competences": [
+        {
+          "intitule": "Assurer les opérations comptables et commerciales courantes",
+          "exemples_themes": ["L'établissement et le suivi de devis et de factures", "Le rapprochement bancaire et le suivi de trésorerie", "La gestion des relations fournisseurs (commande, livraison, litige)", "La saisie comptable de base (journal, comptes — logiciel comptable)"]
+        }
+      ]
+    },
+    {
+      "nom": "Outils numériques de gestion",
+      "description": "La maîtrise des logiciels et outils bureautiques.",
+      "competences": [
+        {
+          "intitule": "Utiliser les outils numériques de gestion et de communication",
+          "exemples_themes": ["Le tableur avancé : formules, tableaux croisés dynamiques, graphiques", "Le traitement de texte : publipostage et modèles de documents", "Un PGI (EBP, Sage, Odoo) : navigation et saisie", "Les outils collaboratifs : agenda partagé, stockage en ligne, visioconférence"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet professionnel et communication",
+      "description": "Le projet de formation et la communication professionnelle.",
+      "competences": [
+        {
+          "intitule": "Construire son projet professionnel et communiquer sur son parcours",
+          "exemples_themes": ["Le rapport de stage : rédaction et soutenance", "Le dossier professionnel pour l'examen", "Le CV et la lettre de motivation adaptés au secteur administratif", "La veille informationnelle sur le secteur (sites spécialisés)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro AGOrA forme aux métiers de l'assistance administrative polyvalente : gestion du courrier, accueil, gestion du personnel, opérations comptables et commerciales. La maîtrise des outils numériques (tableur, PGI, outils collaboratifs) est centrale. La formation prépare à des postes d'assistant de gestion en PME, collectivités ou associations."
+}

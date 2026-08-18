@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "discipline": "Biotechnologies",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de biotechnologies spécialité lycée GT (série STL)",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Maîtriser les techniques de laboratoire en biochimie et microbiologie",
+    "Comprendre les applications des biotechnologies dans la santé, l'agroalimentaire et l'environnement",
+    "Pratiquer une démarche expérimentale rigoureuse",
+    "Analyser et interpréter des résultats expérimentaux",
+    "Respecter les règles de sécurité et d'hygiène au laboratoire"
+  ],
+  "domaines": [
+    {
+      "nom": "Biochimie et biologie moléculaire",
+      "description": "Les molécules du vivant et leurs transformations.",
+      "competences": [
+        {
+          "intitule": "Analyser les biomolécules et leurs propriétés",
+          "exemples_themes": ["Les glucides : tests de caractérisation (Fehling, Lugol)", "Les protéines : électrophorèse et spectrophotométrie", "Les enzymes : cinétique enzymatique (TP amylase)", "L'ADN : extraction, amplification par PCR, électrophorèse"]
+        }
+      ]
+    },
+    {
+      "nom": "Microbiologie",
+      "description": "Le monde microbien et ses applications.",
+      "competences": [
+        {
+          "intitule": "Étudier les micro-organismes : observation, culture, identification",
+          "exemples_themes": ["Observation microscopique de bactéries (coloration de Gram)", "Culture de micro-organismes sur milieux sélectifs", "L'antibiogramme : sensibilité aux antibiotiques (TP)", "Les fermentations : yaourt, bière, pain (applications)"]
+        }
+      ]
+    },
+    {
+      "nom": "Biotechnologies et santé",
+      "description": "Les applications biomédicales des biotechnologies.",
+      "competences": [
+        {
+          "intitule": "Comprendre les applications des biotechnologies dans le domaine de la santé",
+          "exemples_themes": ["Les tests de diagnostic rapide (bandelette, ELISA)", "La production de médicaments par génie génétique (insuline)", "Les vaccins : principes et nouvelles technologies (ARNm)", "Le diagnostic génétique et les thérapies géniques"]
+        }
+      ]
+    },
+    {
+      "nom": "Biotechnologies et environnement",
+      "description": "Les applications environnementales et agroalimentaires.",
+      "competences": [
+        {
+          "intitule": "Analyser les applications des biotechnologies dans l'environnement et l'agroalimentaire",
+          "exemples_themes": ["Le traitement biologique des eaux usées (boues activées)", "La bioremédiation des sols pollués", "Le contrôle qualité agroalimentaire (analyses microbiologiques)", "Les OGM et les nouvelles techniques de sélection (CRISPR)"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet technologique",
+      "description": "Conduite d'un projet expérimental en équipe.",
+      "competences": [
+        {
+          "intitule": "Mener un projet technologique en biotechnologies",
+          "exemples_themes": ["Étude de la qualité microbiologique d'un aliment", "Projet de bioremédiation à l'échelle du laboratoire", "Production et purification d'une enzyme", "Présentation orale du projet avec résultats et analyse"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de biotechnologies au lycée GT (spécialité de la série STL) couvre la biochimie, la microbiologie, et les applications des biotechnologies dans la santé, l'agroalimentaire et l'environnement. La formation est très pratique, centrée sur les travaux de laboratoire : manipulations, analyses, protocoles expérimentaux. Un projet technologique en équipe structure la Terminale."
+}

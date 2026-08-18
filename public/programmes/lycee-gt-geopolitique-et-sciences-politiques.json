@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "discipline": "Géopolitique et Sciences Politiques",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019, B.O. spécial n°8 du 25 juillet 2019 — Programme HGGSP spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Analyser des situations géopolitiques complexes avec une approche pluridisciplinaire",
+    "Maîtriser les outils et méthodes de l'histoire, la géographie, la science politique et la géopolitique",
+    "Construire une argumentation structurée et documentée",
+    "Développer un regard critique sur les enjeux du monde contemporain",
+    "Préparer le Grand Oral à travers une question personnelle de recherche"
+  ],
+  "domaines": [
+    {
+      "nom": "1ère — Comprendre un régime politique : la démocratie",
+      "description": "Les fondements, les formes et les défis de la démocratie.",
+      "competences": [
+        {
+          "intitule": "Penser la démocratie : de l'Antiquité à nos jours",
+          "exemples_themes": ["La démocratie athénienne (discours de Périclès, tirage au sort)", "Les Lumières et les révolutions (1776, 1789)", "Les régimes autoritaires au XXe siècle (comparaison)", "La démocratie représentative et ses critiques contemporaines"]
+        },
+        {
+          "intitule": "Les formes de démocratie dans le monde contemporain",
+          "exemples_themes": ["Comparaison des systèmes politiques (France, États-Unis, Royaume-Uni)", "La démocratie directe en Suisse (référendums)", "Les reculs démocratiques (Hongrie, Turquie, Russie)", "La démocratie participative (budget participatif, convention citoyenne)"]
+        }
+      ]
+    },
+    {
+      "nom": "1ère — Analyser les dynamiques des puissances internationales",
+      "description": "Les fondements et les manifestations de la puissance.",
+      "competences": [
+        {
+          "intitule": "La puissance : ses formes, ses expressions",
+          "exemples_themes": ["Le hard power et le soft power (Joseph Nye)", "La puissance des États-Unis : carte militaire mondiale", "La montée en puissance de la Chine (routes de la soie)", "Le classement des puissances : PIB, dépenses militaires, influence culturelle"]
+        },
+        {
+          "intitule": "Les enjeux de la puissance à l'ère de la mondialisation",
+          "exemples_themes": ["La guerre économique (sanctions, embargos)", "Le cyberespace comme nouveau champ de puissance", "Les organisations internationales (ONU, OTAN, UE)", "Un conflit géopolitique contemporain (Ukraine, Moyen-Orient)"]
+        }
+      ]
+    },
+    {
+      "nom": "1ère — Les frontières dans le monde",
+      "description": "La construction, la remise en question et les enjeux des frontières.",
+      "competences": [
+        {
+          "intitule": "Tracer, franchir, contrôler les frontières",
+          "exemples_themes": ["Le mur de Berlin (1961-1989) et ses héritages", "La frontière États-Unis/Mexique (mur, migrations)", "L'espace Schengen : libre circulation et contrôles", "Les frontières maritimes et les conflits en mer de Chine"]
+        }
+      ]
+    },
+    {
+      "nom": "1ère — S'informer : un regard critique sur les sources et modes de communication",
+      "description": "L'information, les médias et les enjeux de la désinformation.",
+      "competences": [
+        {
+          "intitule": "Les grandes révolutions techniques de l'information",
+          "exemples_themes": ["De Gutenberg à Internet : les révolutions médiatiques", "La liberté de la presse : loi de 1881 et classement RSF", "Les fake news et la désinformation à l'ère numérique", "Le rôle des lanceurs d'alerte (Snowden, WikiLeaks)"]
+        }
+      ]
+    },
+    {
+      "nom": "Terminale — De nouveaux espaces de conquête",
+      "description": "L'espace, les océans : les nouvelles frontières géopolitiques.",
+      "competences": [
+        {
+          "intitule": "Conquêtes, affirmations de puissance et rivalités dans les espaces extra-atmosphériques et maritimes",
+          "exemples_themes": ["La course à l'espace (de la guerre froide à SpaceX)", "Les enjeux de l'Arctique (carte des revendications)", "Les fonds marins : ressources et conflits juridiques", "Les satellites et la surveillance mondiale"]
+        }
+      ]
+    },
+    {
+      "nom": "Terminale — Faire la guerre, faire la paix",
+      "description": "Les formes de la guerre et les processus de paix.",
+      "competences": [
+        {
+          "intitule": "Les transformations de la guerre et les voies de la paix",
+          "exemples_themes": ["La guerre totale (Première et Seconde guerres mondiales)", "Les nouvelles formes de conflits (guérilla, terrorisme, cyberguerre)", "Le rôle de l'ONU dans le maintien de la paix", "Un processus de paix (accords d'Oslo, accords de Dayton)"]
+        }
+      ]
+    },
+    {
+      "nom": "Terminale — Histoire et mémoire",
+      "description": "Les rapports entre histoire, mémoire et justice.",
+      "competences": [
+        {
+          "intitule": "Histoire et mémoire des conflits : le travail de mémoire et les enjeux de la justice",
+          "exemples_themes": ["Les mémoires de la Seconde Guerre mondiale en France", "Le génocide des Tutsis au Rwanda (1994) : mémoire et justice", "La Cour pénale internationale (CPI)", "Les lois mémorielles et le rôle de l'historien"]
+        }
+      ]
+    },
+    {
+      "nom": "Terminale — L'environnement, entre exploitation et protection",
+      "description": "Les enjeux environnementaux dans une perspective géopolitique.",
+      "competences": [
+        {
+          "intitule": "L'environnement comme enjeu géopolitique mondial",
+          "exemples_themes": ["Les COP et la gouvernance climatique mondiale", "Les conflits liés aux ressources (eau, terres rares, pétrole)", "La déforestation en Amazonie : enjeu local et global", "Le concept de justice climatique"]
+        }
+      ]
+    },
+    {
+      "nom": "Terminale — L'enjeu de la connaissance",
+      "description": "Le savoir comme instrument de puissance et enjeu géopolitique.",
+      "competences": [
+        {
+          "intitule": "La connaissance comme outil de puissance et objet de rivalités",
+          "exemples_themes": ["Les classements universitaires mondiaux (Shanghai, QS)", "La propriété intellectuelle et la guerre des brevets", "L'espionnage industriel et le vol de technologies", "La fuite des cerveaux et la compétition pour les talents"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La spécialité HGGSP (Histoire-Géographie, Géopolitique et Sciences Politiques) croise quatre disciplines pour analyser le monde contemporain. En 1ère : la démocratie, les puissances, les frontières, l'information. En Terminale : les nouveaux espaces de conquête, la guerre et la paix, l'histoire et la mémoire, l'environnement, la connaissance. Les élèves travaillent sur des études de cas, des jalons historiques et préparent une question personnelle pour le Grand Oral."
+}

@@ -1,0 +1,399 @@
+<div class="workspace-header">
+    <h2>🎯 Déterminer mon Profil d'Accessibilité (CUA)</h2>
+    <p>Répondez aux mises en situation pour configurer vos outils et documents de cours à vos besoins.</p>
+</div>
+
+<div class="profiling-container">
+    <!-- Progress Header -->
+    <div class="profiling-progress-wrapper">
+        <div class="progress-info">
+            <span class="step-counter">Situation <span id="currentStepNum">1</span> sur 10</span>
+            <span class="progress-percentage" id="progressPercent">10%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressFill" style="width: 10%;"></div>
+        </div>
+    </div>
+
+    <!-- Questions Container -->
+    <div class="profiling-card" id="profilingCard">
+        
+        <!-- STEP 1: Lecture (Chronométrée) -->
+        <div class="profiling-step active" data-step="1">
+            <h3>📖 Situation 1 : Lecture de document</h3>
+            <p class="situation-desc">Nous allons mesurer votre vitesse de lecture. Cliquez sur le bouton, lisez le texte ci-dessous puis cliquez sur "J'ai fini de lire".</p>
+            
+            <div class="interactive-zone reading-zone">
+                <button class="btn btn-primary" id="startReadingBtn">▶ Commencer la lecture</button>
+                
+                <div class="reading-text-box" id="readingTextBox" style="display: none;">
+                    <p id="readingText">L'école inclusive permet à chaque élève, quelles que soient ses difficultés ou ses particularités, d'étudier dans de bonnes conditions. Grâce aux technologies et à des supports de cours adaptés, chacun progresse à son rythme. L'apprentissage devient ainsi plus facile, stimulant et accessible pour tout le monde.</p>
+                </div>
+
+                <button class="btn btn-success" id="stopReadingBtn" style="display: none;">✅ J'ai fini de lire le texte</button>
+                <div class="reading-result-msg" id="readingResultMsg" style="display: none;"></div>
+            </div>
+
+            <div class="options-grid" id="options-q1">
+                <label class="option-card">
+                    <input type="radio" name="q1" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Je lis le document rapidement et sans aucune aide.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q1" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">Je lis correctement, mais plus lentement que les autres.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q1" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">J'ai besoin d'un texte simplifié, aéré ou d'une police spéciale.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q1" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">La lecture est très difficile sans une grande adaptation ou une aide.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 2: Taille du texte (Ajustement dynamique) -->
+        <div class="profiling-step" data-step="2">
+            <h3>🔍 Situation 2 : Taille du texte</h3>
+            <p class="situation-desc">Ajustez la taille du texte ci-dessous jusqu'à ce qu'il soit parfaitement confortable pour vous.</p>
+            
+            <div class="interactive-zone text-size-zone">
+                <div class="size-controls">
+                    <button class="btn btn-secondary btn-circle" id="decreaseSizeBtn">A-</button>
+                    <span class="size-badge" id="fontSizeBadge">16px</span>
+                    <button class="btn btn-secondary btn-circle" id="increaseSizeBtn">A+</button>
+                </div>
+                <div class="text-size-preview" id="textSizePreview">
+                    Voici un exemple de texte pour régler la taille. Choisissez la dimension qui fatigue le moins vos yeux lors de la lecture.
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-q2">
+                <label class="option-card">
+                    <input type="radio" name="q2" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Taille standard (16px ou moins) me convient tout à fait.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q2" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">Une taille légèrement plus grande (18px) est plus confortable.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q2" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">Une taille agrandie (22px) est nécessaire pour lire sans fatigue.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q2" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">Un très grand format (26px) ou un outil spécifique est indispensable.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 3: Mise en page (Choix visuel) -->
+        <div class="profiling-step" data-step="3">
+            <h3>🎨 Situation 3 : Mise en page</h3>
+            <p class="situation-desc">Sélectionnez le type de mise en page que vous préférez lire.</p>
+            
+            <div class="interactive-zone layout-zone">
+                <div class="layout-preview-cards">
+                    <div class="layout-preview-card" data-val="A">
+                        <div class="preview-title">Classique [A]</div>
+                        <p class="preview-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                    </div>
+                    <div class="layout-preview-card" data-val="B">
+                        <div class="preview-title">Aérée [B]</div>
+                        <p class="preview-body-text" style="line-height: 2; letter-spacing: 1px; margin-bottom: 1.5rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.</p>
+                    </div>
+                    <div class="layout-preview-card" data-val="C">
+                        <div class="preview-title">Par bloc [C]</div>
+                        <div class="preview-block">👉 Une seule consigne claire.</div>
+                        <div class="preview-block">👉 Étape suivante à suivre.</div>
+                    </div>
+                    <div class="layout-preview-card" data-val="D">
+                        <div class="preview-title">Simplifiée [D]</div>
+                        <p class="preview-body-text" style="font-weight: 600;">Texte court. Mots importants en gras. Pas de décoration.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-q3" style="display:none;">
+                <input type="radio" name="q3" value="A">
+                <input type="radio" name="q3" value="B">
+                <input type="radio" name="q3" value="C">
+                <input type="radio" name="q3" value="D">
+            </div>
+        </div>
+
+        <!-- STEP 4: Longueur des consignes (Choix interactif) -->
+        <div class="profiling-step" data-step="4">
+            <h3>📏 Situation 4 : Longueur des consignes</h3>
+            <p class="situation-desc">Lisez les quatre façons d'expliquer le même exercice et choisissez celle qui est la plus claire pour vous.</p>
+
+            <div class="options-grid" id="options-q4">
+                <label class="option-card custom-text-option">
+                    <input type="radio" name="q4" value="A">
+                    <span class="option-letter">A</span>
+                    <div class="option-desc-wrapper">
+                        <strong>Consigne détaillée :</strong>
+                        <p>"Pour commencer l'activité de géographie, ouvrez votre manuel à la page 42, prenez votre cahier rouge, puis observez attentivement la carte du relief montagneux de l'Europe avant de rédiger un paragraphe de cinq lignes décrivant les principales chaînes de montagnes."</p>
+                    </div>
+                </label>
+                <label class="option-card custom-text-option">
+                    <input type="radio" name="q4" value="B">
+                    <span class="option-letter">B</span>
+                    <div class="option-desc-wrapper">
+                        <strong>Consigne raccourcie :</strong>
+                        <p>"Ouvrez votre manuel page 42. Dans le cahier rouge, écrivez un court paragraphe pour décrire les montagnes sur la carte de l'Europe."</p>
+                    </div>
+                </label>
+                <label class="option-card custom-text-option">
+                    <input type="radio" name="q4" value="C">
+                    <span class="option-letter">C</span>
+                    <div class="option-desc-wrapper">
+                        <strong>Consigne directe :</strong>
+                        <p>1. Manuel page 42.<br>2. Regarde la carte.<br>3. Décris les montagnes d'Europe dans ton cahier (5 lignes).</p>
+                    </div>
+                </label>
+                <label class="option-card custom-text-option">
+                    <input type="radio" name="q4" value="D">
+                    <span class="option-letter">D</span>
+                    <div class="option-desc-wrapper">
+                        <strong>Consigne très simplifiée (FALC) :</strong>
+                        <p>📖 Ouvrir le livre page 42.<br>🗺️ Regarder la carte.<br>✏️ Écrire le nom des montagnes dans le cahier.</p>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 5: Compréhension des consignes (Écoute vocale) -->
+        <div class="profiling-step" data-step="5">
+            <h3>🗣️ Situation 5 : Compréhension des consignes</h3>
+            <p class="situation-desc">Cliquez sur le haut-parleur pour écouter la consigne et évaluez si l'écoute vocale vous aide à mieux comprendre.</p>
+            
+            <div class="interactive-zone audio-test-zone">
+                <button class="btn btn-secondary btn-circle btn-lg" id="playConsigneSpeech">🔊 Écouter la consigne</button>
+                <div class="audio-status-text" id="audioTestStatus">Cliquez pour tester l'écoute vocale</div>
+                <div class="speech-box" style="display:none;" id="speechTextToRead">
+                    Consigne de l'exercice : Associez chaque pays de l'Union européenne à sa capitale correspondante sur votre feuille de travail.
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-q5">
+                <label class="option-card">
+                    <input type="radio" name="q5" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Je comprends de façon autonome en lisant simplement la consigne.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q5" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">Une explication orale ou une reformulation rapide m'aide de temps en temps.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q5" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">J'ai besoin de reformuler régulièrement la consigne pour être sûr de mon travail.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q5" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">La lecture orale ou l'explication audio m'est absolument indispensable.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 6: Quantité de travail (Fragmentation) -->
+        <div class="profiling-step" data-step="6">
+            <h3>📊 Situation 6 : Quantité de travail</h3>
+            <p class="situation-desc">Face à un long exercice ou une grande leçon, comment préférez-vous travailler ?</p>
+            
+            <div class="options-grid" id="options-q6">
+                <label class="option-card">
+                    <input type="radio" name="q6" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Je peux traiter la quantité normale de travail demandée sans problème.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q6" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">Je suis plus efficace avec une légère réduction de la quantité d'exercices.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q6" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">J'ai besoin d'une quantité de devoirs réduite ou d'une leçon très simplifiée.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q6" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">J'ai besoin de découper mon activité en plusieurs petites étapes distinctes.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 7: Vitesse de travail (Temps) -->
+        <div class="profiling-step" data-step="7">
+            <h3>⏱️ Situation 7 : Vitesse de travail</h3>
+            <p class="situation-desc">Avez-vous besoin de plus de temps que les autres pour terminer un contrôle ou une activité ?</p>
+            
+            <div class="options-grid" id="options-q7">
+                <label class="option-card">
+                    <input type="radio" name="q7" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Le temps standard de la classe est suffisant pour moi.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q7" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">J'ai parfois besoin d'un peu de temps supplémentaire pour finir proprement.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q7" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">Un temps majoré officiel (comme le tiers-temps) m'est indispensable.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q7" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">Je préfère réaliser l'activité en plusieurs fois pour ne pas fatiguer.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 8: Écriture (Mode de réponse) -->
+        <div class="profiling-step" data-step="8">
+            <h3>✏️ Situation 8 : Écriture et saisie</h3>
+            <p class="situation-desc">Comment se passe l'écriture manuscrite (stylo) lors des exercices pour vous ?</p>
+            
+            <div class="options-grid" id="options-q8">
+                <label class="option-card">
+                    <input type="radio" name="q8" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">J'écris au stylo facilement et lisiblement.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q8" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">J'écris à la main, mais c'est fatiguant et prend beaucoup d'énergie.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q8" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">Il faut limiter l'écrit car mon écriture est difficile à lire ou très lente.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q8" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">Je préfère parler pour dicter mes réponses ou utiliser un clavier.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 9: Réponses attendues (Format) -->
+        <div class="profiling-step" data-step="9">
+            <h3>🧩 Situation 9 : Format des réponses</h3>
+            <p class="situation-desc">Quel type d'évaluation préférez-vous pour montrer ce que vous avez compris ?</p>
+            
+            <div class="options-grid" id="options-q9">
+                <label class="option-card">
+                    <input type="radio" name="q9" value="A">
+                    <span class="option-letter">A</span>
+                    <span class="option-text">Rédiger un paragraphe libre avec mes propres phrases.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q9" value="B">
+                    <span class="option-letter">B</span>
+                    <span class="option-text">Écrire des phrases courtes ou des mots-clés.</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q9" value="C">
+                    <span class="option-letter">C</span>
+                    <span class="option-text">Un questionnaire à choix multiples (QCM).</span>
+                </label>
+                <label class="option-card">
+                    <input type="radio" name="q9" value="D">
+                    <span class="option-letter">D</span>
+                    <span class="option-text">Relier des étiquettes entre elles, cocher ou remplir des textes à trous.</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- STEP 10: Repérage visuel (Choix du thème) -->
+        <div class="profiling-step" data-step="10">
+            <h3>👁️ Situation 10 : Repérage visuel</h3>
+            <p class="situation-desc">Sélectionnez la présentation qui fatigue le moins votre attention et vos yeux.</p>
+            
+            <div class="interactive-zone visual-theme-zone">
+                <div class="theme-sample-cards">
+                    <div class="theme-sample-card style-standard" data-val="A">
+                        <div class="theme-sample-header">Standard [A]</div>
+                        <div class="theme-sample-body">Document textuel standard sans repère particulier.</div>
+                    </div>
+                    <div class="theme-sample-card style-structured" data-val="B">
+                        <div class="theme-sample-header" style="border-bottom: 2px solid var(--accent-color);">Structuré [B]</div>
+                        <div class="theme-sample-body">Structure marquée par des titres clairs et des marges larges.</div>
+                    </div>
+                    <div class="theme-sample-card style-colored" data-val="C">
+                        <div class="theme-sample-header" style="background: rgba(37, 99, 235, 0.1); border-left: 4px solid var(--accent-color);">Coloré [C]</div>
+                        <div class="theme-sample-body">Encadrés colorés pour mettre en valeur les idées principales.</div>
+                    </div>
+                    <div class="theme-sample-card style-dark" data-val="D">
+                        <div class="theme-sample-header" style="background: #111; color: #fff;">Contraste [D]</div>
+                        <div class="theme-sample-body" style="background: #222; color: #fff;">Fond sombre et texte blanc pour réduire l'éblouissement.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="options-grid" id="options-q10" style="display:none;">
+                <input type="radio" name="q10" value="A">
+                <input type="radio" name="q10" value="B">
+                <input type="radio" name="q10" value="C">
+                <input type="radio" name="q10" value="D">
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="profiling-nav-btns">
+        <button class="btn btn-secondary" id="prevStepBtn" disabled>⬅ Précédent</button>
+        <button class="btn btn-primary" id="nextStepBtn" disabled>Suivant ➡</button>
+    </div>
+
+    <!-- Result View -->
+    <div class="profiling-result-card" id="profilingResultCard" style="display: none;">
+        <div class="result-icon">🎉</div>
+        <h3>Votre Profil CUA a été calculé !</h3>
+        <p class="result-profile-text" id="resultProfileText">Profil d'adaptation modéré détecté.</p>
+        
+        <div class="result-code-box">
+            <span class="code-label">Code d'Adaptation Unique :</span>
+            <div class="code-value-wrapper">
+                <span class="code-value" id="generatedCuaCode">CUA-A-B-B-C-A-D-C-A-B-C</span>
+                <button class="btn btn-secondary btn-sm" id="copyCuaCodeBtn" title="Copier le code">📋 Copier</button>
+            </div>
+        </div>
+
+        <div class="result-details">
+            <h4>Vos préférences d'affichage et de contenu :</h4>
+            <ul id="cuaPreferencesList">
+                <li>Police standard</li>
+                <li>Taille légèrement agrandie</li>
+                <li>Consignes courtes et directes</li>
+            </ul>
+        </div>
+
+        <button class="btn btn-primary" id="applyProfileBtn" style="margin-top: 1.5rem; width: 100%;">
+            💾 Appliquer le profil à ma session
+        </button>
+    </div>
+</div>

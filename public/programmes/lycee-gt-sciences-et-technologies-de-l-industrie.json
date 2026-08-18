@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "discipline": "Sciences et Technologies de l'Industrie (STI2D)",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme STI2D 1ère/Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Analyser et modéliser des systèmes techniques pluritechnologiques",
+    "Concevoir des solutions techniques innovantes et durables",
+    "Réaliser et valider des prototypes",
+    "Communiquer et travailler en équipe sur un projet technique",
+    "Intégrer les enjeux du développement durable dans la conception"
+  ],
+  "domaines": [
+    {
+      "nom": "Innovation technologique et écoconception",
+      "description": "Tronc commun : les démarches d'innovation et le développement durable.",
+      "competences": [
+        {
+          "intitule": "Analyser un produit ou un système dans une démarche de développement durable",
+          "exemples_themes": ["Analyse du cycle de vie d'un smartphone (ACV)", "Comparaison des matériaux : impact environnemental (bois, acier, plastique)", "L'écoconception d'un emballage alimentaire", "Le biomimétisme : s'inspirer du vivant pour innover"]
+        },
+        {
+          "intitule": "Comprendre la démarche d'innovation et de créativité technique",
+          "exemples_themes": ["Le brainstorming et la carte mentale pour innover", "Le prototypage rapide (impression 3D, découpe laser)", "L'analyse de la valeur d'un produit", "Un cas d'innovation de rupture (Tesla, Dyson)"]
+        }
+      ]
+    },
+    {
+      "nom": "Énergie et environnement (spécialité)",
+      "description": "Les systèmes énergétiques et leur impact environnemental.",
+      "competences": [
+        {
+          "intitule": "Analyser et concevoir des systèmes de production et de gestion de l'énergie",
+          "exemples_themes": ["Installation d'un panneau solaire photovoltaïque (dimensionnement)", "Le fonctionnement d'une pompe à chaleur", "Un bâtiment à énergie positive (BEPOS)", "Le réseau électrique intelligent (smart grid)"]
+        }
+      ]
+    },
+    {
+      "nom": "Systèmes d'information et numérique (spécialité)",
+      "description": "Les systèmes numériques et la communication entre objets.",
+      "competences": [
+        {
+          "intitule": "Concevoir et programmer des systèmes numériques communicants",
+          "exemples_themes": ["Programmation d'un système embarqué (Arduino, Raspberry Pi)", "Communication IoT (MQTT, Wi-Fi, LoRa)", "Développement d'une application web pour piloter un objet connecté", "Le traitement du signal et l'acquisition de données"]
+        }
+      ]
+    },
+    {
+      "nom": "Architecture et construction (spécialité)",
+      "description": "La conception de bâtiments et d'ouvrages.",
+      "competences": [
+        {
+          "intitule": "Analyser et concevoir des solutions constructives durables",
+          "exemples_themes": ["La modélisation d'un bâtiment en BIM (Revit, ArchiCAD)", "Le confort thermique et acoustique d'un bâtiment", "Les matériaux biosourcés (bois, chanvre, paille)", "Un projet d'aménagement d'un espace (maquette numérique)"]
+        }
+      ]
+    },
+    {
+      "nom": "Innovation technologique et design matériel (spécialité)",
+      "description": "La conception de produits industriels.",
+      "competences": [
+        {
+          "intitule": "Concevoir et prototyper un produit innovant",
+          "exemples_themes": ["Modélisation 3D et rendu réaliste (SolidWorks, Fusion 360)", "Choix des matériaux et des procédés de fabrication", "La résistance des matériaux (essai de traction, simulation)", "Prototypage par impression 3D et tests fonctionnels"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet technologique",
+      "description": "Conduite d'un projet technique en équipe.",
+      "competences": [
+        {
+          "intitule": "Mener un projet technologique collaboratif de la conception à la présentation",
+          "exemples_themes": ["Cahier des charges et répartition des tâches", "Planification avec un diagramme de Gantt", "Réalisation d'un prototype fonctionnel", "Soutenance orale du projet devant un jury"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La série STI2D forme les élèves aux sciences et technologies industrielles avec une perspective de développement durable. Le tronc commun (innovation, écoconception) est complété par une spécialité au choix : énergie et environnement, systèmes d'information et numérique, architecture et construction, ou innovation technologique et design matériel. Un projet technologique collaboratif structure la Terminale."
+}

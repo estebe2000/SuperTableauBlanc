@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "discipline": "Histoire des arts",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'histoire des arts du cycle 3",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Donner un avis argumenté sur ce que représente ou exprime une œuvre d'art",
+    "Dégager d'une œuvre d'art des éléments de sens par l'observation ou l'écoute",
+    "Mettre en relation une ou plusieurs œuvres contemporaines entre elles et avec d'autres œuvres dans le cadre d'un questionnement artistique",
+    "Se repérer dans un musée, un lieu d'art, un site patrimonial"
+  ],
+  "domaines": [
+    {
+      "nom": "Des objets, des œuvres, des images (arts visuels et arts de l'espace)",
+      "description": "Étudier des œuvres d'art visuelles, des objets d'art et des réalisations architecturales.",
+      "competences": [
+        {
+          "intitule": "Observer, décrire et analyser une œuvre d'art visuel",
+          "exemples_themes": ["La Liberté guidant le peuple de Delacroix (lien Révolution, HG)", "Les Tournesols de Van Gogh (couleur, touche, lumière)", "La Grande Vague de Kanagawa d'Hokusai (estampe japonaise)", "Guernica de Picasso (guerre civile espagnole, art engagé)", "La nuit étoilée de Van Gogh (expression et mouvement)", "Un vitrail de la cathédrale de Chartres (art médiéval, lien HG)"]
+        },
+        {
+          "intitule": "Identifier les matériaux, les techniques et les outils utilisés par un artiste",
+          "exemples_themes": ["La mosaïque romaine (tesselles, motifs géométriques, lien Antiquité)", "La tapisserie de Bayeux (broderie narrative, lien Moyen Âge)", "La photographie de Doisneau (Le baiser de l'Hôtel de Ville)", "La sculpture de Rodin (Le Penseur : bronze, modelage)", "Les papiers découpés de Matisse (ciseaux, gouache, collage)"]
+        }
+      ]
+    },
+    {
+      "nom": "La musique, les arts du son, les arts du spectacle",
+      "description": "Étudier des œuvres musicales, des spectacles, des arts de la scène.",
+      "competences": [
+        {
+          "intitule": "Écouter et situer une œuvre musicale dans son contexte",
+          "exemples_themes": ["La Flûte enchantée de Mozart (opéra, les Lumières)", "Le Sacre du Printemps de Stravinsky (danse et scandale en 1913)", "Un chant grégorien (musique médiévale, lien HG)", "Le jazz de Louis Armstrong (Nouvelle-Orléans, XXe siècle)", "Billie Jean de Michael Jackson (pop, clip vidéo comme art)"]
+        },
+        {
+          "intitule": "Découvrir un spectacle vivant et en rendre compte",
+          "exemples_themes": ["Une représentation de théâtre classique (Molière)", "Un spectacle de cirque contemporain (Cirque du Soleil)", "Un ballet classique (Le Lac des cygnes de Tchaïkovski)", "Un spectacle de marionnettes (Guignol, lien patrimoine lyonnais)", "Un film d'animation (L'histoire du cinéma : Méliès, Disney, Miyazaki)"]
+        }
+      ]
+    },
+    {
+      "nom": "Arts et société, arts et mémoire",
+      "description": "Comprendre le rôle de l'art dans la société, l'art comme témoignage historique.",
+      "competences": [
+        {
+          "intitule": "Mettre en relation des œuvres d'art avec le contexte historique et social",
+          "exemples_themes": ["Les monuments aux morts de la commune (mémoire de la Grande Guerre)", "Le château de Versailles (pouvoir absolu de Louis XIV)", "L'affiche de propagande (Première et Seconde Guerres mondiales)", "Le Radeau de la Méduse de Géricault (scandale politique)", "L'art pariétal de Lascaux (Préhistoire et expression humaine)"]
+        },
+        {
+          "intitule": "Visiter un musée, un monument, un site patrimonial et en rendre compte",
+          "exemples_themes": ["La visite virtuelle du Louvre (parcours thématique)", "La visite du patrimoine local (église, château, lavoir)", "Le musée d'Orsay (les impressionnistes)", "Les arènes de Nîmes ou le Pont du Gard (patrimoine romain)", "La Cité de Carcassonne (architecture médiévale, lien HG)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "L'histoire des arts au cycle 3 est un enseignement transversal qui croise les disciplines (histoire, français, arts plastiques, éducation musicale). Les élèves étudient des œuvres d'art majeures de la Préhistoire à l'époque contemporaine, en les situant dans leur contexte historique et culturel. Ils développent leur sensibilité, apprennent à observer, décrire et argumenter devant une œuvre, et construisent une culture artistique partagée. L'enseignement s'appuie sur des visites de musées et de sites patrimoniaux, réels ou virtuels."
+}

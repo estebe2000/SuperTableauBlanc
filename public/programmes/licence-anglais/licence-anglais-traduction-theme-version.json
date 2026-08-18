@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Traduction (Thème/Version)",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Passer d'une langue à l'autre",
+      "details": [
+        "Maîtriser les techniques de traduction (transposition, modulation)",
+        "Traduire des textes littéraires et de presse",
+        "Respecter le niveau de langue et les nuances",
+        "Éviter les calques et les faux-amis"
+      ]
+    }
+  ]
+}

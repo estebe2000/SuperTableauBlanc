@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "discipline": "Bac Pro MCV – Commerce et Vente",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro MCV — Métiers du Commerce et de la Vente (options A et B)",
+    "mise_a_jour": "2019-09-01",
+    "note": "Option A : Animation et gestion de l'espace commercial — Option B : Prospection clientèle et valorisation de l'offre commerciale"
+  },
+  "attendus_fin_cycle": [
+    "Conseiller et vendre des produits ou des services",
+    "Animer et gérer un espace commercial",
+    "Prospecter et fidéliser la clientèle",
+    "Participer à la gestion commerciale de l'unité",
+    "Utiliser les outils numériques de la relation client"
+  ],
+  "domaines": [
+    {
+      "nom": "La relation client et la vente",
+      "description": "Les techniques de vente et la relation commerciale.",
+      "competences": [
+        {
+          "intitule": "Accueillir, conseiller et vendre en face à face ou à distance",
+          "exemples_themes": ["La prise de contact et la découverte des besoins (méthode SONCAS)", "L'argumentaire de vente (caractéristiques, avantages, preuves — CAP)", "Le traitement des objections et la conclusion de la vente", "La vente en ligne et le click & collect"]
+        },
+        {
+          "intitule": "Fidéliser la clientèle et gérer la relation après-vente",
+          "exemples_themes": ["Le programme de fidélité (carte, application, avantages)", "La gestion d'une réclamation client (procédure)", "L'enquête de satisfaction (questionnaire, analyse)", "Le suivi client par CRM (logiciel de gestion de la relation client)"]
+        }
+      ]
+    },
+    {
+      "nom": "Animation et gestion de l'espace commercial",
+      "description": "Le merchandising et l'animation du point de vente.",
+      "competences": [
+        {
+          "intitule": "Animer et agencer un espace commercial",
+          "exemples_themes": ["Le merchandising : implantation des produits en rayon (planogramme)", "La vitrine : conception et mise en scène", "L'affichage des prix et la signalétique commerciale (réglementation)", "L'animation commerciale : promotion, dégustation, démonstration"]
+        },
+        {
+          "intitule": "Gérer les approvisionnements et les stocks",
+          "exemples_themes": ["La réception et le contrôle des livraisons", "La gestion des stocks : inventaire, rotation, réassort", "Le calcul du prix de vente (coût d'achat, marge, TVA)", "La démarque connue et inconnue (prévention)"]
+        }
+      ]
+    },
+    {
+      "nom": "Prospection et développement commercial",
+      "description": "La recherche de clients et le développement de l'activité.",
+      "competences": [
+        {
+          "intitule": "Prospecter et développer la clientèle",
+          "exemples_themes": ["Le plan de prospection : ciblage, fichier, prise de rendez-vous", "La prospection téléphonique et par mail (script, relance)", "La prospection digitale : réseaux sociaux, e-mailing", "L'analyse du portefeuille clients (loi de Pareto, segmentation)"]
+        }
+      ]
+    },
+    {
+      "nom": "Environnement économique et juridique du commerce",
+      "description": "Le cadre réglementaire et économique de l'activité commerciale.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'environnement économique et juridique du commerce",
+          "exemples_themes": ["Le contrat de vente : obligations du vendeur et de l'acheteur", "La protection du consommateur (droit de rétractation, garanties)", "Le commerce équitable et le commerce responsable", "L'impact du e-commerce sur le commerce traditionnel"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro MCV forme aux métiers du commerce et de la vente. Il couvre la relation client (accueil, conseil, vente, fidélisation), l'animation de l'espace commercial (merchandising, gestion des stocks), la prospection et le développement commercial, et le cadre juridique de l'activité. Les outils numériques (CRM, réseaux sociaux, e-commerce) sont intégrés à la formation."
+}

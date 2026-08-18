@@ -1,0 +1,1741 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertisseur H5P - Traitement par lot</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+
+	<link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+    <style>
+        .section {
+            margin-bottom: 2rem;
+            padding: 30px;
+            background: var(--surface);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .section h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .csv-status {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 500;
+        }
+
+        .csv-status.success {
+            background: rgba(var(--hapi-green-rgb), 0.12);
+            color: var(--hapi-accent-text);
+            border: 2px solid rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        .csv-status.error {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 2px solid #fecaca;
+        }
+
+        .csv-status.loading {
+            background: rgba(var(--hapi-green-rgb), 0.10);
+            color: var(--hapi-accent-text);
+            border: 2px solid rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        /* En mode sombre, atténuer la teinte du fond pour garantir ≥ 4.5:1
+           entre le texte d'accent clair et le fond (RGAA 3.2). */
+        [data-mode="dark"] .csv-status.success,
+        [data-mode="dark"] .csv-status.loading {
+            background: rgba(var(--hapi-green-rgb), 0.05);
+        }
+
+        .file-input-area {
+            background: var(--page-bg);
+            border: 2px dashed var(--border);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input-area:hover {
+            border-color: var(--hapi-green);
+            background: var(--page-bg);
+            transform: translateY(-2px);
+        }
+
+        .file-input-area.drag-over {
+            border-color: var(--hapi-green);
+            background: rgba(var(--hapi-green-rgb), 0.10);
+            transform: scale(1.02);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-input-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .file-icon {
+            font-size: 4rem;
+            color: var(--hapi-accent-text);
+            margin-bottom: 10px;
+        }
+
+        .file-input-text {
+            font-size: 1.2rem;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .file-input-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            background-color: var(--hapi-green-dark);
+            background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            margin: 8px;
+            box-shadow: 0 4px 15px rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(var(--hapi-green-rgb), 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: var(--border); color: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn.success {
+            background-color: var(--hapi-green-dark);
+            background-image: linear-gradient(135deg, var(--hapi-green-dark) 0%, var(--hapi-green-deep) 100%);
+            box-shadow: 0 4px 15px rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        .btn.success:hover {
+            box-shadow: 0 6px 20px rgba(var(--hapi-green-rgb), 0.5);
+        }
+
+        .btn.warning {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+        }
+
+        .btn.warning:hover {
+            box-shadow: 0 6px 20px rgba(217, 119, 6, 0.5);
+        }
+
+        .btn.danger {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+        }
+
+        .btn.danger:hover {
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.5);
+        }
+
+        .btn.secondary {
+            background: var(--hapi-green-dark);
+            box-shadow: 0 4px 15px rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        .btn.secondary:hover {
+            box-shadow: 0 6px 20px rgba(var(--hapi-green-rgb), 0.5);
+        }
+
+        .btn.small {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .file-card {
+            background: var(--surface);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .file-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .file-card.success {
+            border-color: var(--hapi-green);
+            background: rgba(var(--hapi-green-rgb), 0.10);
+        }
+
+        .file-card.warning {
+            border-color: #d97706;
+            background: rgba(217, 119, 6, 0.10);
+        }
+
+        .file-card.error {
+            border-color: #dc2626;
+            background: rgba(220, 38, 38, 0.10);
+        }
+
+        .file-card.processing {
+            border-color: var(--hapi-green);
+            background: rgba(var(--hapi-green-rgb), 0.08);
+        }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 5px;
+            word-break: break-word;
+        }
+
+        .file-size {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .file-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.pending {
+            background: var(--page-bg);
+            color: var(--text-muted);
+        }
+
+        .status-badge.analyzing {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-badge.analyzed {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge.generating {
+            background: rgba(var(--hapi-green-rgb), 0.12);
+            color: var(--hapi-accent-text);
+        }
+
+        .status-badge.ready {
+            background: rgba(var(--hapi-green-rgb), 0.15);
+            color: var(--hapi-accent-text);
+        }
+
+        .status-badge.downloaded {
+            background: #e0f2fe;
+            color: #0c4a6e;
+        }
+
+        .status-badge.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--hapi-green) 0%, var(--hapi-green-dark) 100%);
+            transition: width 0.3s ease;
+        }
+
+        .compatibility-summary {
+            background: var(--page-bg);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .compatibility-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .compatibility-item {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: var(--surface);
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .compatibility-item .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .compatibility-item .label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .compatibility-item.compatible .number {
+            color: var(--hapi-accent-text);
+        }
+
+        .compatibility-item.missing .number {
+            color: #d97706;
+        }
+
+        .compatibility-item.incompatible .number {
+            color: #dc2626;
+        }
+
+        .global-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: var(--page-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border);
+        }
+
+        .global-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stat-card.total .stat-number {
+            color: var(--hapi-accent-text);
+        }
+
+        .stat-card.success .stat-number {
+            color: var(--hapi-accent-text);
+        }
+
+        .stat-card.warning .stat-number {
+            color: #d97706;
+        }
+
+        .stat-card.error .stat-number {
+            color: #dc2626;
+        }
+
+        .stat-card.processing .stat-number {
+            color: var(--hapi-accent-text);
+        }
+
+        .spinner {
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--hapi-green);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #991b1b;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #fecaca;
+        }
+
+        .success-message {
+            background: rgba(var(--hapi-green-rgb), 0.12);
+            color: var(--hapi-accent-text);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid rgba(var(--hapi-green-rgb), 0.4);
+        }
+
+        .library-details {
+            margin-top: 20px;
+        }
+
+        .library-table-container {
+            margin-top: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .library-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            font-size: 0.9rem;
+        }
+
+        .library-table thead {
+            background-color: var(--hapi-green-dark);
+            background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%);
+            color: white;
+        }
+
+        .library-table th,
+        .library-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .library-table th {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .library-row.compatible {
+            background: rgba(var(--hapi-green-rgb), 0.10);
+        }
+
+        .library-row.missing {
+            background: rgba(217, 119, 6, 0.10);
+        }
+
+        .library-row.incompatible {
+            background: rgba(220, 38, 38, 0.10);
+        }
+
+        .library-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .version-required {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            color: var(--hapi-accent-text);
+            font-weight: 500;
+        }
+
+        .version-available {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            color: var(--hapi-accent-text);
+            font-weight: 500;
+        }
+
+        .library-row.missing .version-available {
+            color: #d97706;
+            font-style: italic;
+        }
+
+        .library-row.incompatible .version-available {
+            color: #dc2626;
+        }
+
+        .status-cell {
+            text-align: center;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-indicator.compatible {
+            background: rgba(var(--hapi-green-rgb), 0.15);
+            color: var(--hapi-accent-text);
+        }
+
+        .status-indicator.missing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-indicator.incompatible {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 1rem;
+            }
+
+            .files-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .global-actions {
+                flex-direction: column;
+            }
+
+            .global-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+
+        /* Responsive pour les cartes de compatibilité */
+        @media (max-width: 600px) {
+            .compatibility-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .compatibility-item {
+                padding: 8px;
+            }
+            
+            .compatibility-item .number {
+                font-size: 1.3rem;
+            }
+            
+            .compatibility-item .label {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .global-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .stat-card {
+                padding: 15px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .stat-label {
+                font-size: 0.8rem;
+            }
+            
+            .compatibility-item .label {
+                font-size: 0.7rem;
+                letter-spacing: 0.3px;
+            }
+            .library-table {
+                font-size: 0.8rem;
+            }
+            
+            .library-table th,
+            .library-table td {
+                padding: 8px 10px;
+            }
+            
+            .library-name {
+                font-size: 0.85rem;
+            }
+        }
+		
+    </style>
+</head>
+<body class="page-without-ia page-convertisseur">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span></span><a href="./">Outils</a>
+            <span>Convertisseur H5P</span>
+        </div>
+		<div class="content" id="contenu" role="main">
+            <h1><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg> Convertisseur H5P</h1>
+            <p>Transformez vos contenus H5P produits sur des logiciels tiers pour une adéquation totale aux plateformes Éléa.</p>
+            <p>Conversion intelligente par lot avec processus en deux étapes</p>
+
+            <div class="section">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> Bibliothèques H5P présentes sur Éléa (Moodle)</h2>
+                <div id="csvStatus">
+                    <div class="csv-status loading">
+                        <div class="spinner"></div>
+                        <span>Chargement automatique des bibliothèques en cours...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Sélection des fichiers H5P</h2>
+                <div class="file-input-area" id="fileInputArea">
+                    <input type="file" id="h5pFiles" class="file-input" accept=".h5p" multiple>
+                    <div class="file-input-content">
+                        <div class="file-icon"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> </div>
+                        <div class="file-input-text">Glissez vos fichiers H5P ici</div>
+                        <div class="file-input-subtext">ou cliquez pour parcourir</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section" id="globalSection" style="display: none;">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg> Actions globales</h2>
+                <div class="global-stats" id="globalStats"></div>
+                <div class="global-actions">
+                    <button class="btn success" onclick="analyzeAllFiles()" id="analyzeAllBtn">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Analyser tous les fichiers
+                    </button>
+                    <button class="btn warning" onclick="generateAllReady()" id="generateAllBtn">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> Générer tous les fichiers compatibles
+                    </button>
+                    <button class="btn secondary" onclick="downloadAllReady()" id="downloadAllBtn">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Télécharger tous les fichiers prêts
+                    </button>
+                    <button class="btn danger" onclick="clearAll()" id="clearAllBtn">
+                        <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Tout effacer
+                    </button>
+                </div>
+            </div>
+
+            <div class="section" id="filesSection" style="display: none;">
+                <h2><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Gestion des fichiers</h2>
+                <div class="files-grid" id="filesGrid"></div>
+            </div>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="../index.html">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+
+    <script src="../vendor/jszip/jszip.min.js"></script>
+    <script>
+        // Variables globales
+        let moodleLibraries = {};
+        let selectedFiles = [];
+
+        // États possibles des fichiers
+        const FILE_STATUS = {
+            PENDING: 'pending',
+            ANALYZING: 'analyzing',
+            ANALYZED: 'analyzed',
+            GENERATING: 'generating',
+            READY: 'ready',
+            DOWNLOADED: 'downloaded',
+            ERROR: 'error'
+        };
+
+        // Chargement automatique au démarrage
+        window.addEventListener('load', function() {
+            loadCSVAutomatically();
+            setupFileInput();
+        });
+
+        // Configuration de la zone de fichiers
+        function setupFileInput() {
+            const fileInput = document.getElementById('h5pFiles');
+            const fileInputArea = document.getElementById('fileInputArea');
+
+            // Clic sur la zone
+            fileInputArea.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Changement de fichiers
+            fileInput.addEventListener('change', (e) => {
+                handleFileSelection(Array.from(e.target.files));
+            });
+
+            // Drag & Drop
+            fileInputArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                fileInputArea.classList.add('drag-over');
+            });
+
+            fileInputArea.addEventListener('dragleave', () => {
+                fileInputArea.classList.remove('drag-over');
+            });
+
+            fileInputArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                fileInputArea.classList.remove('drag-over');
+                
+                const files = Array.from(e.dataTransfer.files).filter(file => 
+                    file.name.toLowerCase().endsWith('.h5p')
+                );
+                
+                if (files.length > 0) {
+                    handleFileSelection(files);
+                }
+            });
+        }
+
+        // Chargement automatique du CSV
+        function loadCSVAutomatically() {
+            const csvFileName = `../ia/H5P-libraries-list/H5P-libraries-list.csv`;
+            
+            fetch(csvFileName)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Fichier ${csvFileName} non trouvé`);
+                    }
+                    return response.text();
+                })
+                .then(content => {
+                    parseCSVContent(content);
+                    updateCSVStatus('success', `Fichier des librairies H5P chargé - ${Object.keys(moodleLibraries).length} bibliothèques disponibles`);
+                })
+                .catch(error => {
+                    updateCSVStatus('error', `Impossible de charger ${csvFileName}: ${error.message}`);
+                });
+        }
+
+        // Parsing du contenu CSV
+        function parseCSVContent(content) {
+            const lines = content.trim().split('\n');
+            moodleLibraries = {};
+
+            // Détection automatique du séparateur (virgule ou point-virgule)
+            const firstDataLine = lines.find(l => l.trim().length > 0) || '';
+            const separator = firstDataLine.includes(';') ? ';' : ',';
+
+            lines.forEach(line => {
+                const [name, version] = line.split(separator).map(s => s.trim());
+                // Ignore les en-têtes et lignes sans nom H5P valide
+                if (name && version && name.startsWith('H5P.')) {
+                    moodleLibraries[name] = version;
+                }
+            });
+        }
+
+        // Mise à jour du statut CSV
+        function updateCSVStatus(type, message) {
+            const statusDiv = document.getElementById('csvStatus');
+            statusDiv.innerHTML = `
+                <div class="csv-status ${type}">
+                    ${type === 'success' ? '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ' : type === 'error' ? '✕ ' : ''}
+                    <span>${message}</span>
+                </div>
+            `;
+        }
+
+        // Gestion de la sélection des fichiers
+        function handleFileSelection(files) {
+// 📈 SUIVI MATOMO : Ajout de fichiers
+            if (window._paq && files.length > 0) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Ajout Fichiers', files.length + ' fichiers']);
+            }
+            const newFiles = files.map((file, index) => ({
+                id: `file-${Date.now()}-${index}`,
+                file: file,
+                name: file.name,
+                size: file.size,
+                status: FILE_STATUS.PENDING,
+                error: null,
+                analysisResult: null,
+                convertedBlob: null,
+                compatibilityData: null
+            }));
+
+            selectedFiles = [...selectedFiles, ...newFiles];
+            
+            // Afficher les sections
+            document.getElementById('globalSection').style.display = 'block';
+            document.getElementById('filesSection').style.display = 'block';
+            
+            updateDisplay();
+        }
+
+        // Mise à jour de l'affichage
+        function updateDisplay() {
+            updateGlobalStats();
+            updateFilesGrid();
+            updateGlobalButtons();
+        }
+
+        // Mise à jour des statistiques globales
+        function updateGlobalStats() {
+            const stats = {
+                total: selectedFiles.length,
+                pending: selectedFiles.filter(f => f.status === FILE_STATUS.PENDING).length,
+                analyzing: selectedFiles.filter(f => f.status === FILE_STATUS.ANALYZING).length,
+                analyzed: selectedFiles.filter(f => f.status === FILE_STATUS.ANALYZED).length,
+                generating: selectedFiles.filter(f => f.status === FILE_STATUS.GENERATING).length,
+                ready: selectedFiles.filter(f => f.status === FILE_STATUS.READY).length,
+                downloaded: selectedFiles.filter(f => f.status === FILE_STATUS.DOWNLOADED).length,
+                error: selectedFiles.filter(f => f.status === FILE_STATUS.ERROR).length
+            };
+
+            const statsDiv = document.getElementById('globalStats');
+            statsDiv.innerHTML = `
+                <div class="stat-card total">
+                    <div class="stat-number">${stats.total}</div>
+                    <div class="stat-label">${stats.total > 1 ? 'Fichiers' : 'Fichier'}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${stats.pending}</div>
+                    <div class="stat-label">En attente</div>
+                </div>
+                <div class="stat-card processing">
+                    <div class="stat-number">${stats.analyzing + stats.generating}</div>
+                    <div class="stat-label">Traitement</div>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-number">${stats.analyzed}</div>
+                    <div class="stat-label">${stats.analyzed > 1 ? 'Analysés' : 'Analysé'}</div>
+                </div>
+                <div class="stat-card success">
+                    <div class="stat-number">${stats.ready}</div>
+                    <div class="stat-label">${stats.ready > 1 ? 'Prêts' : 'Prêt'}</div>
+                </div>
+                <div class="stat-card error">
+                    <div class="stat-number">${stats.error}</div>
+                    <div class="stat-label">${stats.error > 1 ? 'Erreurs' : 'Erreur'}</div>
+                </div>
+            `;
+        }
+
+        // Mise à jour de la grille des fichiers
+        function updateFilesGrid() {
+            const filesGrid = document.getElementById('filesGrid');
+            
+            filesGrid.innerHTML = selectedFiles.map(file => `
+                <div class="file-card ${getCardClass(file.status)}">
+                    <div class="file-header">
+                        <div class="file-info">
+                            <div class="file-name">${file.name}</div>
+                            <div class="file-size">${formatFileSize(file.size)}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="file-status">
+                        <span class="status-badge ${file.status}">
+                            ${getStatusIcon(file.status)} ${getStatusText(file.status)}
+                        </span>
+                        ${file.status === FILE_STATUS.ANALYZING || file.status === FILE_STATUS.GENERATING ? 
+                            '<div class="spinner"></div>' : ''}
+                    </div>
+                    
+                    ${file.status === FILE_STATUS.ANALYZING || file.status === FILE_STATUS.GENERATING ? 
+                        '<div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>' : ''}
+                    
+                    ${file.compatibilityData ? `
+                        <div class="compatibility-summary">
+                            <strong>Compatibilité:</strong>
+                            <div class="compatibility-grid">
+                                <div class="compatibility-item compatible">
+                                    <div class="number">${file.compatibilityData.compatible}</div>
+                                    <div class="label">${file.compatibilityData.compatible > 1 ? 'Compatibles' : 'Compatible'}</div>
+                                </div>
+                                <div class="compatibility-item missing">
+                                    <div class="number">${file.compatibilityData.missing}</div>
+                                    <div class="label">${file.compatibilityData.missing > 1 ? 'Manquantes' : 'Manquante'}</div>
+                                </div>
+                                <div class="compatibility-item incompatible">
+                                    <div class="number">${file.compatibilityData.incompatible}</div>
+                                    <div class="label">${file.compatibilityData.incompatible > 1 ? 'Incompatibles' : 'Incompatible'}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="library-details">
+                            <button class="btn small secondary" onclick="toggleLibraryDetails('${file.id}')" id="toggleBtn-${file.id}">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Voir les détails des bibliothèques
+                            </button>
+                            <div class="library-table-container" id="libraryTable-${file.id}" style="display: none;">
+                                <table class="library-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Bibliothèque</th>
+                                            <th>Version fichier</th>
+                                            <th>Version serveur</th>
+                                            <th>Statut</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${file.compatibilityData.details.map(detail => `
+                                            <tr class="library-row ${detail.status}">
+                                                <td class="library-name">${detail.name}</td>
+                                                <td class="version-required">${detail.requiredVersion}</td>
+                                                <td class="version-available">${detail.availableVersion || 'Non disponible'}</td>
+                                                <td class="status-cell">
+                                                    <span class="status-indicator ${detail.status}">
+                                                        ${getLibraryStatusIcon(detail.status)} ${getLibraryStatusText(detail.status)}
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        `).join('')}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    ` : ''}
+                    
+                    ${file.error ? `
+                        <div class="error-message">
+                            <strong>Erreur:</strong> ${file.error}
+                        </div>
+                    ` : ''}
+                    
+                    <div class="file-actions">
+                        ${getFileActions(file)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Obtenir la classe CSS pour la carte
+        function getCardClass(status) {
+            switch (status) {
+                case FILE_STATUS.READY:
+                case FILE_STATUS.DOWNLOADED:
+                    return 'success';
+                case FILE_STATUS.ANALYZED:
+                    return 'warning';
+                case FILE_STATUS.ERROR:
+                    return 'error';
+                case FILE_STATUS.ANALYZING:
+                case FILE_STATUS.GENERATING:
+                    return 'processing';
+                default:
+                    return '';
+            }
+        }
+
+        // Obtenir l'icône du statut
+        function getStatusIcon(status) {
+            switch (status) {
+                case FILE_STATUS.PENDING: return '';
+                case FILE_STATUS.ANALYZING: return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> ';
+                case FILE_STATUS.ANALYZED: return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg> ';
+                case FILE_STATUS.GENERATING: return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> ';
+                case FILE_STATUS.READY: return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ';
+                case FILE_STATUS.DOWNLOADED: return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> ';
+                case FILE_STATUS.ERROR: return '✕ ';
+                default: return '';
+            }
+        }
+
+        // Obtenir le texte du statut
+        function getStatusText(status) {
+            switch (status) {
+                case FILE_STATUS.PENDING: return 'En attente';
+                case FILE_STATUS.ANALYZING: return 'Analyse en cours';
+                case FILE_STATUS.ANALYZED: return 'Analysé';
+                case FILE_STATUS.GENERATING: return 'Génération en cours';
+                case FILE_STATUS.READY: return 'Prêt à télécharger';
+                case FILE_STATUS.DOWNLOADED: return 'Téléchargé';
+                case FILE_STATUS.ERROR: return 'Erreur';
+                default: return 'Inconnu';
+            }
+        }
+
+        // Obtenir les actions pour un fichier
+        function getFileActions(file) {
+            let actions = '';
+            
+            switch (file.status) {
+                case FILE_STATUS.PENDING:
+                    actions = `
+                        <button class="btn small" onclick="analyzeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Analyser
+                        </button>
+                        <button class="btn small danger" onclick="removeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                        </button>
+                    `;
+                    break;
+                    
+                case FILE_STATUS.ANALYZED:
+                    const needsConversion = file.compatibilityData && 
+                        (file.compatibilityData.incompatible > 0 || file.compatibilityData.missing > 0);
+                    
+                    if (needsConversion) {
+                        actions = `
+                            <button class="btn small warning" onclick="generateFile('${file.id}')">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> Générer
+                            </button>
+                            <button class="btn small" onclick="analyzeFile('${file.id}')">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Re-analyser
+                            </button>
+                            <button class="btn small danger" onclick="removeFile('${file.id}')">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                            </button>
+                        `;
+                    } else {
+                        actions = `
+                            <div class="success-message">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Ce fichier est déjà compatible !
+                            </div>
+                            <button class="btn small danger" onclick="removeFile('${file.id}')">
+                                <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                            </button>
+                        `;
+                    }
+                    break;
+                    
+                case FILE_STATUS.READY:
+                    actions = `
+                        <button class="btn small success" onclick="downloadFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Télécharger
+                        </button>
+                        <button class="btn small warning" onclick="generateFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> Régénérer
+                        </button>
+                        <button class="btn small danger" onclick="removeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                        </button>
+                    `;
+                    break;
+                    
+                case FILE_STATUS.DOWNLOADED:
+                    actions = `
+                        <button class="btn small success" onclick="downloadFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Télécharger à nouveau
+                        </button>
+                        <button class="btn small warning" onclick="generateFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.2 4.2l2.2 2.2M17.6 17.6l2.2 2.2M1 12h3M20 12h3M4.2 19.8l2.2-2.2M17.6 6.4l2.2-2.2"/></svg> Régénérer
+                        </button>
+                        <button class="btn small danger" onclick="removeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                        </button>
+                    `;
+                    break;
+                    
+                case FILE_STATUS.ERROR:
+                    actions = `
+                        <button class="btn small" onclick="analyzeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg> Réessayer l'analyse
+                        </button>
+                        <button class="btn small danger" onclick="removeFile('${file.id}')">
+                            <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Supprimer
+                        </button>
+                    `;
+                    break;
+                    
+                case FILE_STATUS.ANALYZING:
+                case FILE_STATUS.GENERATING:
+                    actions = `
+                        <button class="btn small" disabled>
+                            <div class="spinner"></div>
+                            Traitement...
+                        </button>
+                    `;
+                    break;
+            }
+            
+            return actions;
+        }
+
+        // Mise à jour des boutons globaux
+        function updateGlobalButtons() {
+            const analyzeBtn = document.getElementById('analyzeAllBtn');
+            const generateBtn = document.getElementById('generateAllBtn');
+            const downloadBtn = document.getElementById('downloadAllBtn');
+            
+            const pendingCount = selectedFiles.filter(f => f.status === FILE_STATUS.PENDING).length;
+            const analyzedCount = selectedFiles.filter(f => f.status === FILE_STATUS.ANALYZED && 
+                f.compatibilityData && (f.compatibilityData.incompatible > 0 || f.compatibilityData.missing > 0)).length;
+            const readyCount = selectedFiles.filter(f => f.status === FILE_STATUS.READY).length;
+            const processingCount = selectedFiles.filter(f => 
+                f.status === FILE_STATUS.ANALYZING || f.status === FILE_STATUS.GENERATING).length;
+            
+            analyzeBtn.disabled = pendingCount === 0 || processingCount > 0;
+            generateBtn.disabled = analyzedCount === 0 || processingCount > 0;
+            downloadBtn.disabled = readyCount === 0;
+        }
+
+        // Formatage de la taille des fichiers
+        function formatFileSize(bytes) {
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            if (bytes === 0) return '0 B';
+            const i = Math.floor(Math.log(bytes) / Math.log(1024));
+            return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // Analyser un fichier
+        async function analyzeFile(fileId) {
+// 📈 SUIVI MATOMO : Analyse unitaire
+            if (window._paq) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Analyse Unitaire']);
+            }
+            const file = selectedFiles.find(f => f.id === fileId);
+            if (!file) return;
+            
+            file.status = FILE_STATUS.ANALYZING;
+            file.error = null;
+            updateDisplay();
+            
+            try {
+                const h5pContent = await analyzeH5PFile(file.file);
+                const compatibilityResult = performCompatibilityCheck(h5pContent);
+                
+                file.status = FILE_STATUS.ANALYZED;
+                file.analysisResult = h5pContent;
+                file.compatibilityData = compatibilityResult;
+                
+                updateDisplay();
+                
+            } catch (error) {
+                file.status = FILE_STATUS.ERROR;
+                file.error = error.message;
+                updateDisplay();
+            }
+        }
+
+        // Générer un fichier
+        async function generateFile(fileId) {
+// 📈 SUIVI MATOMO : Génération unitaire
+            if (window._paq) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Génération Unitaire']);
+            }
+            const file = selectedFiles.find(f => f.id === fileId);
+            if (!file || !file.analysisResult) return;
+            
+            file.status = FILE_STATUS.GENERATING;
+            file.error = null;
+            updateDisplay();
+            
+            try {
+                const convertedBlob = await convertH5PFile(file.file, file.analysisResult);
+                
+                file.status = FILE_STATUS.READY;
+                file.convertedBlob = convertedBlob;
+                
+                updateDisplay();
+                
+            } catch (error) {
+                file.status = FILE_STATUS.ERROR;
+                file.error = error.message;
+                updateDisplay();
+            }
+        }
+
+        // Télécharger un fichier
+        function downloadFile(fileId) {
+            const file = selectedFiles.find(f => f.id === fileId);
+            if (!file || !file.convertedBlob) return;
+            
+            const url = URL.createObjectURL(file.convertedBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name.replace('.h5p', '_converted.h5p');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            file.status = FILE_STATUS.DOWNLOADED;
+            updateDisplay();
+        }
+
+        // Supprimer un fichier
+        function removeFile(fileId) {
+            selectedFiles = selectedFiles.filter(f => f.id !== fileId);
+            
+            if (selectedFiles.length === 0) {
+                document.getElementById('globalSection').style.display = 'none';
+                document.getElementById('filesSection').style.display = 'none';
+            }
+            
+            updateDisplay();
+        }
+
+        // Actions globales
+        async function analyzeAllFiles() {
+            const pendingFiles = selectedFiles.filter(f => f.status === FILE_STATUS.PENDING);
+
+// 📈 SUIVI MATOMO : Analyse globale
+            if (window._paq && pendingFiles.length > 0) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Analyse Globale', pendingFiles.length + ' fichiers']);
+            }
+
+            for (const file of pendingFiles) {
+                await analyzeFile(file.id);
+            }
+        }
+
+        async function generateAllReady() {
+            const analyzedFiles = selectedFiles.filter(f => 
+                f.status === FILE_STATUS.ANALYZED && 
+                f.compatibilityData && 
+                (f.compatibilityData.incompatible > 0 || f.compatibilityData.missing > 0)
+            );
+            
+// 📈 SUIVI MATOMO : Génération globale
+            if (window._paq && analyzedFiles.length > 0) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Génération Globale', analyzedFiles.length + ' fichiers']);
+            }
+			
+            for (const file of analyzedFiles) {
+                await generateFile(file.id);
+            }
+        }
+
+        function downloadAllReady() {
+            const readyFiles = selectedFiles.filter(f => f.status === FILE_STATUS.READY);
+            
+            readyFiles.forEach((file, index) => {
+                setTimeout(() => downloadFile(file.id), index * 100);
+            });
+        }
+
+        function clearAll() {
+// 📈 SUIVI MATOMO : Effacement
+            if (window._paq && selectedFiles.length > 0) {
+                window._paq.push(['trackEvent', 'HAPI - Convertisseur', 'Effacement Tout']);
+            }
+            selectedFiles = [];
+            document.getElementById('globalSection').style.display = 'none';
+            document.getElementById('filesSection').style.display = 'none';
+            document.getElementById('h5pFiles').value = '';
+        }
+
+        // Fonctions utilitaires H5P (reprises de votre version fonctionnelle)
+        async function analyzeH5PFile(file) {
+            const zip = new JSZip();
+            const zipContent = await zip.loadAsync(file);
+            
+            const h5pJsonFile = zipContent.file('h5p.json');
+            if (!h5pJsonFile) {
+                throw new Error('Fichier h5p.json non trouvé');
+            }
+            
+            const h5pJsonContent = await h5pJsonFile.async('text');
+            return JSON.parse(h5pJsonContent);
+        }
+
+        function performCompatibilityCheck(h5pContent) {
+            const results = {
+                compatible: 0,
+                incompatible: 0,
+                missing: 0,
+                details: []
+            };
+
+            // Vérifier la bibliothèque principale
+            if (h5pContent.mainLibrary) {
+                const mainLib = h5pContent.mainLibrary;
+                const result = checkLibrary(mainLib, 'Bibliothèque principale');
+                results.details.push(result);
+                updateStats(results, result.status);
+            }
+
+            // Vérifier les dépendances
+            if (h5pContent.preloadedDependencies) {
+                h5pContent.preloadedDependencies.forEach(dep => {
+                    const result = checkLibrary(dep, 'Dépendance');
+                    results.details.push(result);
+                    updateStats(results, result.status);
+                });
+            }
+
+            // Vérifier les dépendances dynamiques
+            if (h5pContent.dynamicDependencies) {
+                h5pContent.dynamicDependencies.forEach(dep => {
+                    const result = checkLibrary(dep, 'Dépendance dynamique');
+                    results.details.push(result);
+                    updateStats(results, result.status);
+                });
+            }
+
+            return results;
+        }
+
+        function checkLibrary(library, type) {
+            const libName = library.machineName;
+            const requiredVersion = `${library.majorVersion}.${library.minorVersion}.${library.patchVersion}`;
+            const availableVersion = moodleLibraries[libName];
+            
+            let status, message;
+            
+            if (!availableVersion) {
+                status = 'missing';
+                message = 'Bibliothèque non trouvée sur Moodle';
+            } else if (compareVersions(availableVersion, requiredVersion) >= 0) {
+                status = 'compatible';
+                message = 'Version compatible';
+            } else {
+                status = 'incompatible';
+                message = 'Version trop ancienne';
+            }
+
+            return {
+                name: libName,
+                type: type,
+                requiredVersion: requiredVersion,
+                availableVersion: availableVersion || 'Non installée',
+                status: status,
+                message: message
+            };
+        }
+
+        function compareVersions(v1, v2) {
+            const parts1 = v1.split('.').map(Number);
+            const parts2 = v2.split('.').map(Number);
+            
+            for (let i = 0; i < Math.max(parts1.length, parts2.length); i++) {
+                const part1 = parts1[i] || 0;
+                const part2 = parts2[i] || 0;
+                
+                if (part1 > part2) return 1;
+                if (part1 < part2) return -1;
+            }
+            
+            return 0;
+        }
+
+        function updateStats(results, status) {
+            results[status]++;
+        }
+
+        // Fonction de conversion H5P (reprend exactement votre logique fonctionnelle)
+        async function convertH5PFile(originalFile, h5pContent) {
+            try {
+                // Lire le fichier original
+                const zip = new JSZip();
+                const zipContent = await zip.loadAsync(originalFile);
+                
+                // Créer un nouveau ZIP avec les options exactes de "zip -r -D -X"
+                const terminalZip = new JSZip();
+                
+                logMessage(`🔄 Conversion de ${originalFile.name} avec méthode terminal...`);
+                
+                // Copier tous les fichiers avec filtrage strict (méthode terminal)
+                for (const relativePath in zipContent.files) {
+                    const file = zipContent.files[relativePath];
+                    
+                    // Filtrage strict : ignorer dossiers, fichiers système et manifestes à modifier
+                    if (file.dir || 
+                        relativePath.endsWith('/') || 
+                        relativePath === 'h5p.json' || 
+                        relativePath === 'content/content.json' ||
+                        relativePath.includes('__MACOSX') ||
+                        relativePath.includes('.DS_Store') ||
+                        relativePath.startsWith('.')) {
+                        continue;
+                    }
+                    
+                    // Ajouter le fichier avec les options terminal
+                    const fileData = await file.async('uint8array');
+                    if (fileData.length > 0) {
+                        // Simulation de l'option -D : pas de timestamp
+                        // Simulation de l'option -X : pas d'attributs étendus
+                        terminalZip.file(relativePath, fileData, {
+                            date: new Date(1980, 0, 1), // Date fixe pour -D
+                            createFolders: false,
+                            unixPermissions: 0o644 // Permissions Unix standard
+                        });
+                    }
+                }
+                
+                // Modifier h5p.json avec les versions compatibles
+                const modifiedH5pJson = await createCompatibleH5pJson(h5pContent);
+                const h5pJsonString = JSON.stringify(modifiedH5pJson, null, 2);
+                terminalZip.file("h5p.json", h5pJsonString, {
+                    date: new Date(1980, 0, 1),
+                    createFolders: false,
+                    unixPermissions: 0o644
+                });
+                
+                // Modifier content/content.json si il existe
+                const contentJsonFile = zipContent.file('content/content.json');
+                if (contentJsonFile) {
+                    const contentJsonText = await contentJsonFile.async('text');
+                    const contentJson = JSON.parse(contentJsonText);
+                    const modifiedContentJson = await createCompatibleContentJson(contentJson, h5pContent);
+                    const contentJsonString = JSON.stringify(modifiedContentJson, null, 2);
+                    terminalZip.file("content/content.json", contentJsonString, {
+                        date: new Date(1980, 0, 1),
+                        createFolders: false,
+                        unixPermissions: 0o644
+                    });
+                }
+                
+                // Générer le fichier final avec les options exactes de "zip -r -D -X"
+                logMessage("📦 Compression avec options terminal (-r -D -X)...");
+                
+                const newH5pBlob = await terminalZip.generateAsync({ 
+                    type: "blob", 
+                    compression: "DEFLATE",
+                    compressionOptions: {
+                        level: 6 // Niveau de compression par défaut de zip
+                    },
+                    // Options qui simulent "zip -r -D -X"
+                    platform: "UNIX",           // -r : récursif Unix
+                    createFolders: false,       // Pas de dossiers vides
+                    streamFiles: true,
+                    mimeType: "application/zip"
+                });
+                
+                logMessage(`✅ Conversion terminée`);
+                
+                return newH5pBlob;
+                
+            } catch (error) {
+                console.error('Erreur lors de la conversion:', error);
+                throw new Error(`Erreur de conversion: ${error.message}`);
+            }
+        }
+
+        // Créer un h5p.json compatible (reprend exactement votre logique)
+        async function createCompatibleH5pJson(originalH5pContent) {
+            const modifiedContent = JSON.parse(JSON.stringify(originalH5pContent));
+            
+            // Modifier la bibliothèque principale
+            if (modifiedContent.mainLibrary) {
+                modifiedContent.mainLibrary = updateLibraryVersion(modifiedContent.mainLibrary);
+            }
+            
+            // Modifier les dépendances préchargées
+            if (modifiedContent.preloadedDependencies) {
+                modifiedContent.preloadedDependencies = modifiedContent.preloadedDependencies.map(dep => 
+                    updateLibraryVersion(dep)
+                );
+            }
+            
+            // Modifier les dépendances dynamiques
+            if (modifiedContent.dynamicDependencies) {
+                modifiedContent.dynamicDependencies = modifiedContent.dynamicDependencies.map(dep => 
+                    updateLibraryVersion(dep)
+                );
+            }
+            
+            // Modifier les dépendances d'éditeur si elles existent
+            if (modifiedContent.editorDependencies) {
+                modifiedContent.editorDependencies = modifiedContent.editorDependencies.map(dep => 
+                    updateLibraryVersion(dep)
+                );
+            }
+            
+            return modifiedContent;
+        }
+
+        // Créer un content.json compatible (reprend exactement votre logique)
+        async function createCompatibleContentJson(originalContentJson, h5pContent) {
+            const modifiedContent = JSON.parse(JSON.stringify(originalContentJson));
+            
+            // Mettre à jour les références de bibliothèques dans le contenu
+            updateLibraryReferencesInContent(modifiedContent);
+            
+            // Ajouter des métadonnées de conversion
+            if (!modifiedContent.metadata) {
+                modifiedContent.metadata = {};
+            }
+            
+            modifiedContent.metadata.convertedBy = 'H5P Converter Tool';
+            modifiedContent.metadata.conversionDate = new Date().toISOString();
+            modifiedContent.metadata.originalMainLibrary = `${h5pContent.mainLibrary.machineName} ${h5pContent.mainLibrary.majorVersion}.${h5pContent.mainLibrary.minorVersion}.${h5pContent.mainLibrary.patchVersion}`;
+            
+            return modifiedContent;
+        }
+
+        // Fonction récursive pour mettre à jour les références de bibliothèques dans le contenu
+        function updateLibraryReferencesInContent(obj) {
+            if (typeof obj !== 'object' || obj === null) {
+                return;
+            }
+            
+            // Si c'est un tableau, traiter chaque élément
+            if (Array.isArray(obj)) {
+                obj.forEach(item => updateLibraryReferencesInContent(item));
+                return;
+            }
+            
+            // Chercher les propriétés 'library' qui contiennent des références de bibliothèques
+            for (const key in obj) {
+                if (key === 'library' && typeof obj[key] === 'string') {
+                    // Format typique: "H5P.Column 1.18" ou "H5P.Text 1.1"
+                    const libraryMatch = obj[key].match(/^(H5P\.\w+)\s+(\d+)\.(\d+)(?:\.(\d+))?$/);
+                    if (libraryMatch) {
+                        const [, machineName, major, minor, patch] = libraryMatch;
+                        const availableVersion = moodleLibraries[machineName];
+                        
+                        if (availableVersion) {
+                            const versionParts = availableVersion.split('.').map(Number);
+                            const newMajor = versionParts[0] || parseInt(major);
+                            const newMinor = versionParts[1] || parseInt(minor);
+                            const newPatch = versionParts[2] || parseInt(patch || '0');
+                            
+                            // Mettre à jour la référence de bibliothèque
+                            obj[key] = `${machineName} ${newMajor}.${newMinor}`;
+                            
+                            logMessage(`  -> Mise à jour référence: ${machineName} ${major}.${minor} → ${newMajor}.${newMinor}`);
+                        }
+                    }
+                } else if (key === 'action' && obj[key] && typeof obj[key] === 'object') {
+                    // Cas spécial pour les actions H5P qui peuvent contenir des références de bibliothèques
+                    if (obj[key].library && typeof obj[key].library === 'string') {
+                        const libraryMatch = obj[key].library.match(/^(H5P\.\w+)\s+(\d+)\.(\d+)(?:\.(\d+))?$/);
+                        if (libraryMatch) {
+                            const [, machineName, major, minor, patch] = libraryMatch;
+                            const availableVersion = moodleLibraries[machineName];
+                            
+                            if (availableVersion) {
+                                const versionParts = availableVersion.split('.').map(Number);
+                                const newMajor = versionParts[0] || parseInt(major);
+                                const newMinor = versionParts[1] || parseInt(minor);
+                                
+                                obj[key].library = `${machineName} ${newMajor}.${newMinor}`;
+                                logMessage(`  -> Mise à jour action: ${machineName} ${major}.${minor} → ${newMajor}.${newMinor}`);
+                            }
+                        }
+                    }
+                    // Continuer la recherche récursive dans l'action
+                    updateLibraryReferencesInContent(obj[key]);
+                } else if (typeof obj[key] === 'object') {
+                    // Recherche récursive dans les objets imbriqués
+                    updateLibraryReferencesInContent(obj[key]);
+                }
+            }
+        }
+
+        // Mettre à jour la version d'une bibliothèque
+        function updateLibraryVersion(library) {
+            const libName = library.machineName;
+            const availableVersion = moodleLibraries[libName];
+            
+            if (availableVersion) {
+                const versionParts = availableVersion.split('.').map(Number);
+                return {
+                    ...library,
+                    majorVersion: versionParts[0] || library.majorVersion,
+                    minorVersion: versionParts[1] || library.minorVersion,
+                    patchVersion: versionParts[2] || library.patchVersion
+                };
+            }
+            
+            // Si la bibliothèque n'est pas disponible, on garde la version originale
+            return library;
+        }
+
+        // Fonctions pour le tableau des bibliothèques
+        function toggleLibraryDetails(fileId) {
+            const tableContainer = document.getElementById(`libraryTable-${fileId}`);
+            const toggleBtn = document.getElementById(`toggleBtn-${fileId}`);
+            
+            if (tableContainer.style.display === 'none') {
+                tableContainer.style.display = 'block';
+                toggleBtn.innerHTML = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Masquer les détails des bibliothèques';
+            } else {
+                tableContainer.style.display = 'none';
+                toggleBtn.innerHTML = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg> Voir les détails des bibliothèques';
+            }
+        }
+
+        function getLibraryStatusIcon(status) {
+            switch (status) {
+                case 'compatible': return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> ';
+                case 'missing': return '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"/><path d="M12 9v4M12 17h.01"/></svg> ';
+                case 'incompatible': return '✕ ';
+                default: return '? ';
+            }
+        }
+
+        function getLibraryStatusText(status) {
+            switch (status) {
+                case 'compatible': return 'Compatible';
+                case 'missing': return 'Manquante';
+                case 'incompatible': return 'Incompatible';
+                default: return 'Inconnu';
+            }
+        }
+
+        // Fonction de log pour la conversion
+        function logMessage(msg) {
+            console.log(`[${new Date().toLocaleTimeString()}] ${msg}`);
+        }
+    </script>
+<script src="../js/tracking-static.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

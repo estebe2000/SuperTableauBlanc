@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "discipline": "Sciences de la vie et de la Terre",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme de SVT du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer des démarches scientifiques (observer, questionner, formuler des hypothèses, expérimenter)",
+    "Concevoir, créer, réaliser des productions scientifiques",
+    "Utiliser des outils et mobiliser des méthodes pour apprendre",
+    "Pratiquer des langages scientifiques (schémas, tableaux, graphiques)",
+    "Utiliser des outils numériques",
+    "Adopter un comportement éthique et responsable"
+  ],
+  "domaines": [
+    {
+      "nom": "La planète Terre, l'environnement et l'action humaine",
+      "description": "Comprendre le fonctionnement de la Terre, les risques naturels, les enjeux environnementaux et climatiques.",
+      "competences": [
+        {
+          "intitule": "Explorer et expliquer certains phénomènes géologiques liés au fonctionnement de la Terre",
+          "exemples_themes": ["La structure interne de la Terre", "Les plaques tectoniques et la dérive des continents", "Volcans : éruptions effusives et explosives", "Séismes : ondes sismiques et prévention des risques"]
+        },
+        {
+          "intitule": "Explorer et expliquer certains éléments de météorologie et de climatologie",
+          "exemples_themes": ["Météo vs climat", "L'effet de serre naturel et renforcé", "Le changement climatique : causes et conséquences", "Les phénomènes météorologiques extrêmes"]
+        },
+        {
+          "intitule": "Identifier les principaux impacts de l'action humaine sur l'environnement",
+          "exemples_themes": ["La biodiversité menacée", "La déforestation et ses conséquences", "La pollution des eaux et de l'air", "Les écosystèmes et leur fragilité", "Les actions pour préserver l'environnement"]
+        }
+      ]
+    },
+    {
+      "nom": "Le vivant et son évolution",
+      "description": "Comprendre la nutrition, la reproduction, la diversité et l'évolution du vivant.",
+      "competences": [
+        {
+          "intitule": "Expliquer l'organisation du monde vivant, sa structure et son dynamisme à différentes échelles",
+          "exemples_themes": ["La cellule : unité du vivant (observation au microscope)", "Cellule animale vs cellule végétale", "Les niveaux d'organisation (cellule, tissu, organe, organisme)", "ADN et information génétique (3e)"]
+        },
+        {
+          "intitule": "Mettre en relation différents faits et établir des relations de causalité pour expliquer la nutrition des organismes",
+          "exemples_themes": ["La photosynthèse et la nutrition des végétaux", "La respiration cellulaire", "La digestion et l'absorption intestinale", "La circulation sanguine et les échanges"]
+        },
+        {
+          "intitule": "Mettre en relation différents faits pour expliquer la reproduction et le peuplement des milieux",
+          "exemples_themes": ["Reproduction sexuée et brassage génétique", "Reproduction asexuée (bouturage, clonage naturel)", "Les stratégies de reproduction (r/K)", "Puberté, reproduction humaine et contraception (4e)"]
+        },
+        {
+          "intitule": "Relier l'étude des relations de parenté entre les êtres vivants et l'évolution",
+          "exemples_themes": ["L'arbre phylogénétique", "Les fossiles comme témoins de l'évolution", "Sélection naturelle et adaptation", "L'origine commune des espèces", "Biodiversité passée et actuelle"]
+        }
+      ]
+    },
+    {
+      "nom": "Le corps humain et la santé",
+      "description": "Comprendre le fonctionnement de l'organisme, les comportements de santé, la reproduction.",
+      "competences": [
+        {
+          "intitule": "Expliquer le fonctionnement du système nerveux et ses perturbations",
+          "exemples_themes": ["Le neurone et la transmission du message nerveux", "Les récepteurs sensoriels", "Les effets des drogues sur le système nerveux", "Le cerveau et les comportements à risque"]
+        },
+        {
+          "intitule": "Relier le fonctionnement des appareils digestif, respiratoire et circulatoire aux besoins de l'organisme",
+          "exemples_themes": ["Les besoins en nutriments et en dioxygène", "L'effort physique et l'adaptation de l'organisme", "Le cœur et la double circulation", "Alimentation et santé (obésité, carences)"]
+        },
+        {
+          "intitule": "Expliquer le fonctionnement du système immunitaire",
+          "exemples_themes": ["Les barrières naturelles (peau, muqueuses)", "Les globules blancs et la réaction immunitaire", "La vaccination : principe et enjeux", "Antibiotiques et résistance bactérienne"]
+        },
+        {
+          "intitule": "Relier la connaissance de la reproduction et du comportement responsable",
+          "exemples_themes": ["La puberté et les transformations du corps", "La fécondation et le développement de l'embryon", "La contraception et la PMA", "Les infections sexuellement transmissibles (IST)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de SVT du cycle 4 s'organise en trois thèmes : la planète Terre et l'action humaine (géologie, climat, environnement), le vivant et son évolution (cellule, nutrition, reproduction, évolution), le corps humain et la santé (système nerveux, immunitaire, reproduction). La démarche d'investigation est au cœur de l'enseignement : les élèves formulent des hypothèses, réalisent des expériences, observent au microscope, analysent des données. Le programme développe l'esprit critique et la responsabilité face aux enjeux de santé et d'environnement."
+}

@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "discipline": "Sciences de la vie et de la Terre (SVT)",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019, B.O. spécial n°8 du 25 juillet 2019 — Programme de SVT 2nde + spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Pratiquer des démarches scientifiques (observer, questionner, expérimenter)",
+    "Comprendre les mécanismes du vivant à différentes échelles",
+    "Appréhender les enjeux de santé et d'environnement",
+    "Utiliser des outils numériques pour traiter des données biologiques",
+    "Argumenter sur des questions scientifiques socialement vives"
+  ],
+  "domaines": [
+    {
+      "nom": "La Terre, la vie et l'organisation du vivant",
+      "description": "Génétique, évolution, biodiversité.",
+      "competences": [
+        {
+          "intitule": "La cellule, unité du vivant : organisation et métabolisme (2nde)",
+          "exemples_themes": ["Observation microscopique de cellules animales et végétales", "La photosynthèse : expérience de Hill", "La respiration cellulaire et la fermentation", "Cellule procaryote vs eucaryote (comparaison)"]
+        },
+        {
+          "intitule": "L'ADN, support de l'information génétique : réplication, expression (1ère)",
+          "exemples_themes": ["Extraction d'ADN (TP banane ou oignon)", "Transcription et traduction : du gène à la protéine", "Les mutations et leur rôle dans l'évolution", "Utilisation d'un logiciel de bioinformatique (Anagène, Géniegen)"]
+        },
+        {
+          "intitule": "Génétique et évolution (Terminale)",
+          "exemples_themes": ["Le brassage génétique lors de la méiose (drosophiles)", "La sélection naturelle et la dérive génétique", "La spéciation : mécanismes et exemples", "Les arbres phylogénétiques : construction et interprétation"]
+        },
+        {
+          "intitule": "La biodiversité et son évolution",
+          "exemples_themes": ["Inventaire de la biodiversité locale (sortie terrain)", "Les crises biologiques (extinction des dinosaures)", "La biodiversité à différentes échelles (gène, espèce, écosystème)", "Les mécanismes de l'évolution (fossiles, horloge moléculaire)"]
+        }
+      ]
+    },
+    {
+      "nom": "Enjeux contemporains de la planète",
+      "description": "Géologie, climatologie, écosystèmes.",
+      "competences": [
+        {
+          "intitule": "La dynamique interne de la Terre : tectonique des plaques (2nde-1ère)",
+          "exemples_themes": ["La répartition des séismes et des volcans (carte mondiale)", "Les mouvements des plaques lithosphériques (GPS, paléomagnétisme)", "La formation des chaînes de montagnes (Alpes, Himalaya)", "Un risque géologique local (séisme, volcanisme)"]
+        },
+        {
+          "intitule": "Les écosystèmes : dynamiques, interactions, perturbations (2nde)",
+          "exemples_themes": ["L'étude d'un écosystème local (mare, forêt, prairie)", "Les réseaux trophiques et les flux de matière", "L'impact des activités humaines sur un écosystème", "La notion de service écosystémique"]
+        },
+        {
+          "intitule": "Le climat : passé, présent, futur (Terminale)",
+          "exemples_themes": ["Les indices paléoclimatiques (carottes glaciaires, pollens)", "L'effet de serre et le cycle du carbone", "Les modèles climatiques et les scénarios du GIEC", "Les conséquences du changement climatique sur la biodiversité"]
+        }
+      ]
+    },
+    {
+      "nom": "Corps humain et santé",
+      "description": "Physiologie, immunologie, santé publique.",
+      "competences": [
+        {
+          "intitule": "Le système immunitaire et la vaccination (1ère-Terminale)",
+          "exemples_themes": ["L'immunité innée : la réaction inflammatoire (observation lame)", "L'immunité adaptative : lymphocytes, anticorps", "Le principe de la vaccination et la mémoire immunitaire", "Un cas d'étude : le VIH ou la Covid-19"]
+        },
+        {
+          "intitule": "La communication nerveuse et hormonale (1ère)",
+          "exemples_themes": ["Le réflexe myotatique (TP : enregistrement)", "La transmission synaptique (schéma et modélisation)", "Les perturbateurs endocriniens : un enjeu de santé publique", "Le stress et la réponse hormonale (axe hypothalamo-hypophysaire)"]
+        },
+        {
+          "intitule": "La reproduction et le contrôle hormonal (2nde)",
+          "exemples_themes": ["Le cycle menstruel et sa régulation hormonale", "La contraception : modes d'action et choix", "La procréation médicalement assistée (PMA)", "Les IST : prévention et dépistage"]
+        },
+        {
+          "intitule": "Comportement, mouvement et système nerveux (Terminale)",
+          "exemples_themes": ["Les aires cérébrales et la plasticité du cerveau (IRM fonctionnelle)", "Le circuit de la récompense et les addictions", "Les effets des substances psychoactives sur le cerveau", "L'apprentissage et la mémoire (bases neurobiologiques)"]
+        }
+      ]
+    },
+    {
+      "nom": "Démarche expérimentale et outils numériques",
+      "description": "Compétences transversales de la pratique scientifique.",
+      "competences": [
+        {
+          "intitule": "Concevoir et mettre en œuvre une démarche expérimentale en biologie ou géologie",
+          "exemples_themes": ["ExAO : enregistrement de la consommation d'O₂", "Protocole de mise en évidence d'une enzyme", "Modélisation analogique (convection, subduction)", "Utilisation du microscope et réalisation de préparations"]
+        },
+        {
+          "intitule": "Utiliser des outils numériques en SVT",
+          "exemples_themes": ["Logiciel de phylogénie (Phylogène)", "SIG pour l'analyse de données géologiques ou écologiques", "Python pour modéliser une dynamique de population", "Base de données génétiques en ligne (NCBI)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de SVT au lycée GT couvre la 2nde (tronc commun) puis la spécialité en 1ère et Terminale. Il s'organise en trois thèmes : la Terre, la vie et l'organisation du vivant (génétique, évolution, biodiversité), les enjeux contemporains de la planète (géologie, climat, écosystèmes), le corps humain et la santé (immunologie, neurologie, reproduction). La démarche expérimentale et l'utilisation d'outils numériques sont centrales."
+}

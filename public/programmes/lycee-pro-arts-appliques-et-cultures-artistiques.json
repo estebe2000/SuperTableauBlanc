@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "discipline": "Arts appliqués et cultures artistiques",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'arts appliqués et cultures artistiques CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Développer une démarche de création en design appliqué au métier",
+    "Analyser des productions de design et d'arts appliqués",
+    "Maîtriser les outils de représentation et de communication visuelle",
+    "Situer les productions dans leur contexte culturel et professionnel",
+    "Expérimenter des matériaux et des processus créatifs"
+  ],
+  "domaines": [
+    {
+      "nom": "Design d'objet et de produit",
+      "description": "L'objet conçu : fonction, forme, usage.",
+      "competences": [
+        {
+          "intitule": "Analyser un objet de design en intégrant fonction, forme et usage",
+          "exemples_themes": ["Analyse d'un outil professionnel (ergonomie, matériau, esthétique)", "Comparaison de deux objets remplissant la même fonction (ancien/moderne)", "Le croquis de recherche et la planche de références", "Un designer de référence en lien avec le secteur professionnel"]
+        }
+      ]
+    },
+    {
+      "nom": "Design d'espace",
+      "description": "L'aménagement de l'espace professionnel.",
+      "competences": [
+        {
+          "intitule": "Analyser et proposer un aménagement d'espace",
+          "exemples_themes": ["Aménagement d'un poste de travail (ergonomie et esthétique)", "Réaménagement d'un espace d'accueil ou d'une vitrine", "La signalétique dans un espace professionnel", "La maquette d'un espace à l'échelle"]
+        }
+      ]
+    },
+    {
+      "nom": "Design de communication",
+      "description": "La communication visuelle au service du métier.",
+      "competences": [
+        {
+          "intitule": "Concevoir des supports de communication visuelle adaptés au métier",
+          "exemples_themes": ["Création d'une carte de visite ou d'un flyer professionnel", "Conception d'une affiche pour un événement du lycée", "Mise en page d'un menu, d'un catalogue ou d'un livret", "Le choix typographique et la composition graphique"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture des arts appliqués",
+      "description": "Situer les arts appliqués dans leur contexte historique et professionnel.",
+      "competences": [
+        {
+          "intitule": "Situer les productions d'arts appliqués dans leur contexte culturel",
+          "exemples_themes": ["L'évolution d'un objet professionnel à travers les époques", "Le mouvement Arts and Crafts et le lien art/artisanat", "Les métiers d'art : tradition et innovation", "Le design durable et l'écoconception dans le secteur professionnel"]
+        }
+      ]
+    },
+    {
+      "nom": "Démarche de projet créatif",
+      "description": "La conduite d'un projet en arts appliqués.",
+      "competences": [
+        {
+          "intitule": "Mener un projet créatif de la recherche à la réalisation",
+          "exemples_themes": ["Le cahier de recherches : croquis, références, expérimentations", "La planche de présentation du projet (rough, mise en page)", "La réalisation d'un prototype ou d'une maquette", "La soutenance orale du projet devant la classe"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts appliqués et cultures artistiques en lycée professionnel développe la créativité en lien direct avec le secteur professionnel : design d'objet, d'espace et de communication. Les élèves analysent des productions de design, expérimentent des matériaux et conduisent des projets créatifs. La culture des arts appliqués et la démarche de projet complètent la formation."
+}

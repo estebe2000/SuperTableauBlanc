@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "discipline": "Sciences de l'Ingénieur (SI)",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de sciences de l'ingénieur spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Analyser un système technique réel et le modéliser",
+    "Concevoir et dimensionner une solution technique",
+    "Réaliser un prototype et valider ses performances",
+    "Communiquer sur une démarche d'ingénierie",
+    "Mener un projet d'ingénierie en équipe"
+  ],
+  "domaines": [
+    {
+      "nom": "Analyser un système",
+      "description": "Comprendre le fonctionnement d'un système technique pluritechnologique.",
+      "competences": [
+        {
+          "intitule": "Analyser le besoin, les fonctions et la structure d'un système technique",
+          "exemples_themes": ["Analyse fonctionnelle d'un drone (diagramme SysML)", "Cahier des charges d'un robot mobile", "Diagramme de cas d'utilisation d'un système domotique", "Analyse d'un vélo à assistance électrique (chaîne d'énergie et d'information)"]
+        },
+        {
+          "intitule": "Identifier les flux d'énergie et d'information dans un système",
+          "exemples_themes": ["Chaîne d'énergie d'une voiture électrique", "Chaîne d'information d'un système d'alarme", "Bilan énergétique d'un panneau solaire", "Capteurs et actionneurs dans un système automatisé"]
+        }
+      ]
+    },
+    {
+      "nom": "Modéliser et simuler",
+      "description": "Utiliser des modèles pour prédire le comportement d'un système.",
+      "competences": [
+        {
+          "intitule": "Modéliser un système mécanique, électrique ou informatique",
+          "exemples_themes": ["Modélisation 3D d'une pièce mécanique (SolidWorks, Onshape)", "Simulation du mouvement d'un mécanisme (cinématique)", "Modélisation d'un circuit électrique (résistance, condensateur)", "Simulation d'un algorithme de régulation (Python)"]
+        },
+        {
+          "intitule": "Valider un modèle par l'expérimentation",
+          "exemples_themes": ["Comparaison simulation/mesure sur un moteur électrique", "Test de résistance d'une structure (essai de flexion)", "Mesure de la consommation d'un système embarqué", "Validation d'un programme sur microcontrôleur (Arduino, micro:bit)"]
+        }
+      ]
+    },
+    {
+      "nom": "Concevoir et réaliser",
+      "description": "Imaginer et prototyper des solutions techniques.",
+      "competences": [
+        {
+          "intitule": "Concevoir une solution technique répondant à un cahier des charges",
+          "exemples_themes": ["Conception d'un support imprimé en 3D", "Programmation d'un robot suiveur de ligne", "Conception d'une interface utilisateur pour un système connecté", "Dimensionnement d'un réducteur de vitesse"]
+        }
+      ]
+    },
+    {
+      "nom": "Énergie et développement durable",
+      "description": "Les enjeux énergétiques et environnementaux de l'ingénierie.",
+      "competences": [
+        {
+          "intitule": "Analyser les enjeux énergétiques et environnementaux d'un système technique",
+          "exemples_themes": ["Bilan carbone d'un produit (cycle de vie)", "Comparaison de sources d'énergie (fossiles, renouvelables, nucléaire)", "L'écoconception : matériaux recyclables et efficacité énergétique", "Un système de récupération d'énergie (freinage régénératif)"]
+        }
+      ]
+    },
+    {
+      "nom": "Informatique et programmation",
+      "description": "La programmation au service des systèmes techniques.",
+      "competences": [
+        {
+          "intitule": "Programmer un système embarqué ou un algorithme de commande",
+          "exemples_themes": ["Programmation Arduino : capteur + actionneur", "Algorithme de régulation PID (température, vitesse)", "Communication entre objets connectés (MQTT, Bluetooth)", "Traitement d'images pour la robotique (OpenCV)"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet d'ingénierie",
+      "description": "Mener un projet technique en équipe sur l'année.",
+      "competences": [
+        {
+          "intitule": "Conduire un projet d'ingénierie de la conception à la présentation",
+          "exemples_themes": ["Projet de robot autonome (concours robotique)", "Conception d'un objet connecté utile (station météo, arrosage automatique)", "Projet de maquette de maison passive (énergie)", "Présentation orale et poster du projet pour le Grand Oral"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La spécialité Sciences de l'Ingénieur forme les élèves à l'analyse, la modélisation, la conception et la réalisation de systèmes techniques pluritechnologiques. Le programme couvre la mécanique, l'électricité, l'informatique embarquée, l'énergie et le développement durable. Un projet d'ingénierie en équipe, préparé en vue du Grand Oral, constitue le fil conducteur de la Terminale."
+}

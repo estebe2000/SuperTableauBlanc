@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+    <script src="../js/export-marianne.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'activités interactives - Activité chronologique</title>
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="../css/styles.css">
+
+	<link rel="icon" type="image/png" href="../images/favicon.ico">
+    <link rel="shortcut icon" type="image/png" href="../images/favicon.ico">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+    <script src="../vendor/jszip/jszip.min.js"></script>
+    <style>
+        /* --- STYLES GLOBAUX --- */
+        .tabs { display: flex; background: var(--page-bg); border-bottom: 1px solid var(--border); flex-wrap: wrap; border-radius: 8px 8px 0 0; margin-top: 20px; }
+        .tab { flex: 1; padding: 1rem; background: none; border: none; cursor: pointer; font-size: 1.0em; font-weight: 600; color: var(--text-muted); transition: all 0.3s ease; min-width: 120px; }
+        .tab.active { background: var(--surface); color: var(--hapi-accent-text); border-bottom: 3px solid var(--hapi-green); }
+        .tab:hover { background: var(--page-bg); }
+        .tab-content { display: none; padding: 2rem 0; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: .8rem; font-weight: 600; color: var(--text); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease; box-sizing: border-box; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--hapi-green); outline: none; }
+        
+        .items-section { background: var(--page-bg); padding: 20px; margin: 1rem 0; border-radius: 12px; }
+        .section-title { font-size: 1.4rem; color: var(--text); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+
+        /* --- GRILLE DE L'EDITEUR --- */
+        .items-list-header { display: grid; gap: .5rem; align-items: center; padding: .5rem 1rem; margin-bottom: 1.5rem; background: var(--page-bg); font-weight: 600; color: var(--text); border-bottom: 2px solid var(--border); grid-template-columns: 40px 1fr 120px 110px 110px 110px 50px; border-radius: 8px; }
+        .items-list-header > div { text-align: center; font-size: 0.9em; padding: 5px 0; display: flex; align-items: center; justify-content: center; }
+        .items-list-header > div:nth-child(2) { text-align: left; justify-content: flex-start; padding-left: 5px; }
+
+        .item-form { display: grid; gap: 10px; align-items: flex-start; padding: .5rem 1rem; background: var(--surface); grid-template-columns: 40px 1fr 120px 110px 110px 110px 50px; border-bottom: 1px solid var(--border); transition: background-color 0.2s; }
+        .item-form:hover{ background-color: var(--page-bg); }
+        .drag-handle { cursor: grab; font-size: 1.5em; color: var(--text-muted); display: flex; align-items: center; justify-content: center; user-select: none; }
+        .drag-handle:active { cursor: grabbing; color: var(--hapi-accent-text); }
+        .item-form.dragging { opacity: 0.5; background-color: var(--border); }
+        .item-form.drag-over { border-top: 3px solid var(--hapi-green); }
+
+        .btn { padding: 10px 20px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); color: white; margin-top:8px; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(var(--hapi-green-rgb), 0.4); }
+        .btn-secondary { background: var(--page-bg); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--border); }
+        .btn-success { background: var(--hapi-green-dark); color: white; }
+        .btn-success:hover { background: var(--hapi-green-deep); transform: translateY(-2px); box-shadow: 0 5px 15px rgba(var(--hapi-green-rgb), 0.4); }
+        .btn-danger { background: #b91c1c; color: white; }
+        .btn-danger:hover { background: #991b1b; }
+        .btn-small { padding: 8px 16px; font-size: 0.9rem; margin-top:0; }
+        .btn-icon-remove { background-color: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.15); transition: 0.2s; cursor: pointer; }
+        .btn-icon-remove:hover { background-color: var(--border); transform: translateY(-1px) scale(1.05); }
+        .btn-icon-remove svg { width: 16px; height: 16px; }
+
+		.controls { text-align:center; }
+		
+        /* --- EXPORT SECTION --- */
+        .generate-section { text-align: center; padding: 50px 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .generate-title { font-size: 1.4rem; margin-top: 0; margin-bottom: 20px; color: var(--text); }
+        .stats { display: flex; justify-content: center; gap: 30px; margin-bottom: 40px; flex-wrap: wrap; }
+        .stat { text-align: center; background: var(--page-bg); padding: 25px 30px; border-radius: 12px; min-width: 180px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .stat-value { font-size: 3.2rem; font-weight: 800; color: var(--hapi-accent-text); margin-bottom: 5px; line-height: 1; }
+        .stat-label { font-size: 1.05rem; color: var(--text-muted); font-weight: 600; }
+        
+        /* Checkboxes UI */
+        .checkbox-custom-label { display: inline-flex; align-items: center; justify-content: center; position: relative; cursor: pointer; user-select: none; font-weight: normal; color: var(--text); margin-bottom: 0; min-height: 24px; }
+        .checkbox-custom-label input[type="checkbox"] { opacity: 0; position: absolute; width: 1px; height: 1px; }
+        .checkbox-custom-label .custom-checkbox-ui { position: relative; display: inline-block; width: 20px; height: 20px; background-color: var(--surface); border: 2px solid var(--border); border-radius: 5px; transition: 0.2s; flex-shrink: 0; }
+        .checkbox-custom-label .checkbox-text { margin-left: 5px; font-size: inherit; font-weight: normal; white-space: nowrap; }
+        .checkbox-custom-label input[type="checkbox"]:checked + .custom-checkbox-ui { background-color: var(--hapi-green); border-color: var(--hapi-green); }
+        .checkbox-custom-label .custom-checkbox-ui::after { content: ""; position: absolute; display: none; left: 6px; top: 2px; width: 5px; height: 10px; border: solid white; border-width: 0 3px 3px 0; transform: rotate(45deg); }
+        .checkbox-custom-label input[type="checkbox"]:checked + .custom-checkbox-ui::after { display: block; }
+        
+        /* SOUS-ONGLETS TEXTE/IMAGE */
+        .add-tabs { display: flex; gap: 5px; margin-bottom: 15px; background: var(--page-bg); padding: 5px; border-radius: 8px; border: none; }
+        .tab-sub-btn { flex: 1; padding: 8px 16px; cursor: pointer; background: transparent; border: none; border-radius: 6px; font-weight: 600; color: var(--text-muted); transition: 0.2s; font-size: 0.9rem; margin: 0; }
+        .tab-sub-btn.active { background: var(--surface); color: var(--hapi-accent-text); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .tab-sub-content { display: none; padding-top: 5px; }
+        .tab-sub-content.active { display: block; animation: fadeIn 0.3s; }
+        
+		input[type="file"] { padding: 10px; background: var(--page-bg); border: 2px dashed var(--border); border-radius: 8px; cursor: pointer; color: var(--text-muted); width: 100%; box-sizing: border-box; }
+		input[type="file"]::file-selector-button { padding: 8px 16px; border: none; border-radius: 6px; background-color: var(--hapi-green-dark); background-image: linear-gradient(135deg, var(--hapi-grad-a) 0%, var(--hapi-green-dark) 100%); color: white; font-weight: 600; cursor: pointer; margin-right: 15px; transition: all 0.3s ease; }
+		input[type="file"]::file-selector-button:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb), 0.3); }
+		.zoom-btn { transition: transform 0.2s; }
+		.zoom-btn:hover { transform: scale(1.2); }
+        
+        .wiki-results { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; max-height: 200px; overflow-y: auto; padding: 5px; background: var(--page-bg); border: 1px solid var(--border); border-radius: 6px; }
+        .wiki-thumb { height: 70px; cursor: pointer; border-radius: 4px; overflow: hidden; border: 2px solid transparent; position: relative; }
+        .wiki-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .wiki-thumb:hover { border-color: var(--hapi-green); }
+
+        .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); z-index: 3000; align-items: center; justify-content: center; }
+        .lightbox-content { background: var(--surface); padding: 20px; border-radius: 12px; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .lightbox-content img { max-width: 100%; max-height: 65vh; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+
+        .inline-edit-input { width: 100%; padding: 8px; border: 2px solid var(--hapi-green); border-radius: 4px; font-family: inherit; font-size: 1em; outline: none; }
+        .edit-icon { cursor: pointer; font-size: 1em; opacity: 0.5; transition: 0.2s; margin-right: 8px; display:flex;}
+        .edit-icon:hover { opacity: 1; transform: scale(1.1); }
+
+        .preview-section { background: var(--page-bg); padding: 1rem; margin: 1rem 0; border-radius: 12px; border: 1px solid var(--border); }
+        .preview-item { background: var(--surface); padding: 1rem; margin: .5rem 0; border-left: 4px solid var(--hapi-green-light); display: flex; justify-content: space-between; align-items: center; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+        .item-text { font-weight: 600; color: var(--text); display: flex; align-items: center; gap: 8px;}
+        .item-date { background: var(--hapi-green-light); color: #000; padding: .25rem .75rem; border-radius: 1rem; font-size: 0.95em; font-weight: bold; }
+        
+        .loading { display: none; text-align: center; padding: 20px; }
+        .spinner { border: 4px solid var(--border); border-top: 4px solid var(--hapi-green); border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Modals natives de l'éditeur */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .modal-overlay.visible { opacity: 1; pointer-events: auto; }
+        .modal-content { background: var(--surface); padding: 25px; border-radius: 10px; width: 90%; max-width: 500px; transform: translateY(-20px) scale(0.95); transition: transform 0.3s; opacity: 0; }
+        .modal-overlay.visible .modal-content { transform: translateY(0) scale(1); opacity: 1; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 15px; }
+        .modal-title { margin: 0; font-size: 1.5em; color: var(--text); }
+        .modal-close-btn { background: none; border: none; font-size: 1.8em; cursor: pointer; color: var(--text-muted); line-height: 1; }
+        .modal-body { margin-bottom: 20px; line-height: 1.6; color: var(--text-muted); max-height: 60vh; overflow-y: auto; }
+        .modal-footer { text-align: right; border-top: 1px solid var(--border); padding-top: 15px; }
+        
+        @media (max-width: 768px) {
+            .items-list-header, .item-form { grid-template-columns: 30px 1fr minmax(80px, auto) 40px; gap: 5px; }
+            .items-list-header > div:nth-child(4), .items-list-header > div:nth-child(5), .items-list-header > div:nth-child(6), .item-form .item-show-date-checkbox-container, .item-form .item-pre-placed-checkbox-container, .item-form .item-intruder-checkbox-container { display: none !important; }
+        }
+    </style>
+</head>
+<body class="page-without-ia page-ordre-dates-scorm">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="../index.html" title="Retour à l'accueil">
+                    <img src="../images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+            <div class="hapi">
+                <a href="../index.html" title="Retour à l'accueil"><h1>HAPI</h1></a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="../hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="../images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="../images/marianne.svg" alt="académie de Normandie">
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="../index.html" title="Retour à l'accueil">Accueil</a>
+            <span></span><a href="./">Générateur d'activités sans assistance de l'IA</a>
+            <span>Activités chronologiques</span>
+        </div>
+        
+		<div class="content" id="contenu" role="main">
+            <h1><svg class="gen-title-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg> Générateur d'activités chronologiques</h1>
+            <p>Construire des frises chronologiques interactives. Les élèves placent des événements sur la frise dans l'ordre chronologique en utilisant les dates.</p>
+            
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('config')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg> Configuration</button>
+                <button class="tab" onclick="switchTab('items')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg> Éléments</button>
+                <button class="tab" onclick="switchTab('preview')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Aperçu</button>
+                <button class="tab" onclick="switchTab('import-export')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Import / Export</button>
+                <button class="tab" onclick="switchTab('export')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Export SCORM</button>
+            </div>
+
+            <div id="config" class="tab-content active">
+                <div class="section">
+                    <h2 class="section-title">Configuration de l'activité</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <div class="form-group"><label for="activity-title">Titre de l'activité :</label><input type="text" id="activity-title" placeholder="Ex: Les grandes découvertes scientifiques" value="Mon activité chronologique" oninput="updatePreview()"></div>
+                            <div class="form-group"><label for="activity-description">Instructions / Consigne :</label><textarea id="activity-description" rows="3" placeholder="Description de l'activité..." oninput="updatePreview()">Glissez et déposez les événements dans l'ordre chronologique...</textarea></div>
+                            <div class="form-group">
+                                <label for="timeline-orientation">Orientation de la frise :</label>
+                                <select id="timeline-orientation">
+                                    <option value="vertical-td" selected>Verticale (haut vers bas) - Le plus ancien en haut</option>
+                                    <option value="vertical-bu">Verticale (bas vers haut) - Le plus ancien en bas</option>
+                                    <option value="horizontal-lr">Horizontale (gauche vers droite) - Le plus ancien à gauche</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group"><label for="theme-color">Couleur du thème :</label><select id="theme-color"><option value="blue" selected>Bleu / Vert</option><option value="green">Vert / Vert foncé</option><option value="purple">Violet / Rose</option><option value="orange">Orange / Jaune</option><option value="red">Rouge / Orange</option></select></div>
+                            <div class="form-group"><label for="success-threshold">Seuil de réussite (%) :</label><input type="number" id="success-threshold" min="0" max="100" value="100"></div>
+                            <div class="form-group"><label for="feedback-success">Feedback si réussite :</label><textarea id="feedback-success" rows="3">Bravo ! Vous avez correctement ordonné les événements.</textarea></div>
+                            <div class="form-group"><label for="feedback-failure">Feedback si échec :</label><textarea id="feedback-failure" rows="3">Certains événements ne sont pas à la bonne place. Essayez encore !</textarea></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="items" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Liste des événements à classer</h2>
+                    <p style="color:var(--text-muted); margin-bottom: 20px;">Créez vos événements ci-dessous. Le tri sur la frise se basera automatiquement sur l'année que vous saisirez.</p>
+                    
+                    <div style="background:var(--surface); padding:20px; border-radius:12px; border:2px dashed var(--border); margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+                        <h3 style="margin-top:0; color:var(--hapi-accent-text); font-size:1.2rem; margin-bottom:20px; display:flex; align-items:center; gap:8px;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg> Ajouter un événement</h3>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <label style="font-weight: bold; color: var(--text); font-size: 0.95rem; margin-bottom: 12px; display:block;">1. Contenu de l'événement</label>
+                                <div class="add-tabs">
+                                    <button class="tab-sub-btn active" onclick="switchSubTab('text')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg> Texte</button>
+                                    <button class="tab-sub-btn" onclick="switchSubTab('wiki')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg> Image Web</button>
+                                    <button class="tab-sub-btn" onclick="switchSubTab('local')"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg> Image Locale</button>
+                                </div>
+
+                                <div id="subtab-text" class="tab-sub-content active">
+                                    <input type="text" id="newItemTextInput" placeholder="Saisir le texte de l'événement..." style="width: 100%; padding:12px; border:2px solid var(--border); border-radius:8px; outline:none; box-sizing: border-box; font-size:1rem;" onkeypress="if(event.key==='Enter') addItem()">
+                                </div>
+
+                                <div id="subtab-wiki" class="tab-sub-content">
+                                    <div style="display: flex; gap: 10px;">
+                                        <input type="text" id="wikiSearchInput" placeholder="Mot-clé (ex: Révolution)..." onkeypress="if(event.key==='Enter') searchImages()" style="flex:1; padding:12px; border:2px solid var(--border); border-radius:8px; outline:none; box-sizing:border-box;">
+                                        <button class="btn btn-secondary" onclick="searchImages()" style="margin:0; padding:0 20px;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+                                    </div>
+                                    <div id="wikiResults" class="wiki-results" style="display:none; margin-top:10px;"></div>
+                                    <div id="wikiSelectedPreview" style="display:none; margin-top:15px; text-align:center; padding:10px; background:var(--page-bg); border-radius:8px; border:1px solid var(--border);">
+                                        <img id="wikiSelectedImg" src="" style="max-height:80px; border-radius:6px; border:2px solid var(--hapi-green); box-shadow:0 2px 5px rgba(0,0,0,0.1);">
+                                        <p style="font-size:0.85rem; color:var(--hapi-accent-text); margin-top:5px; font-weight:bold; margin-bottom:0;">Image sélectionnée et prête à être ajoutée</p>
+                                    </div>
+                                </div>
+
+                                <div id="subtab-local" class="tab-sub-content">
+                                    <input type="file" id="localFileInput" accept="image/*" style="width:100%; box-sizing:border-box; border-color:var(--border);">
+                                    <input type="text" id="localAltInput" placeholder="Légende de l'image (optionnelle)" style="margin-top:10px; width:100%; box-sizing:border-box; padding:12px; border:2px solid var(--border); border-radius:8px; outline:none;">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label style="font-weight: bold; color: var(--text); font-size: 0.95rem; margin-bottom: 12px; display:block;">2. Date & Audio</label>
+                                
+                                <div style="margin-bottom: 15px;">
+                                    <input type="text" id="newItemDateInput" placeholder="Date (ex: 1789, 14 Juillet 1789) - Requis pour le tri" style="width: 100%; padding:12px; border:2px solid var(--border); border-radius:8px; outline:none; box-sizing: border-box; font-size:1rem; font-weight:600; color:var(--hapi-accent-text);" onkeypress="if(event.key==='Enter') addItem()">
+                                </div>
+
+                                <div style="background: var(--page-bg); padding: 15px; border-radius: 8px; border: 1px solid var(--border);">
+                                    <label style="font-weight: bold; color: var(--text); font-size: 0.85rem; margin-bottom: 8px; display:block;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg> Son (optionnel)</label>
+                                    <select id="newItemAudioMode" onchange="handleNewItemAudioMode(this.value)" style="width:100%; padding:10px; font-size:0.9rem; border:2px solid var(--border); border-radius:6px; margin-bottom:10px; background:var(--surface);">
+                                        <option value="none">Aucun son</option>
+                                        <option value="tts">Synthèse vocale</option>
+                                        <option value="upload">Fichier audio</option>
+                                        <option value="record">Enregistrer au micro</option>
+                                    </select>
+                                    <div id="newItemAudioControls" style="margin-top:0;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="text-align: center; margin-top: 25px; border-top: 1px solid var(--border); padding-top: 20px;">
+                            <button class="btn btn-primary" onclick="addItem()" style="margin:0; font-size: 1.1rem; padding: 14px 40px; box-shadow: 0 4px 15px rgba(var(--hapi-green-rgb), 0.3);"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg> Créer l'événement</button>
+                        </div>
+                    </div>
+                    
+                    <div class="controls" style="margin: 0 0 15px 0; text-align:right;">
+                        <button class="btn btn-secondary btn-small" onclick="clearAllItems()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m2 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M10 11v6M14 11v6"/></svg> Tout effacer</button>
+                    </div>
+
+                    <div id="items-list-header"></div>
+                    <div id="items-list"></div>
+                </div>
+            </div>
+
+            <div id="preview" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Aperçu</h2>
+                    <div class="preview-section">
+                        <h3 id="preview-title" style="color: var(--hapi-accent-text); font-size: 1.4rem; margin-top:0;"></h3>
+                        <p id="preview-description" style="color:var(--text-muted);"></p>
+                        <h4 id="preview-main-title" style="margin-top: 25px; border-bottom: 2px solid var(--border); padding-bottom: 5px; color:var(--text);">Solution chronologique finale :</h4>
+                        <div id="preview-items" style="margin-top: 15px;"></div>
+                    </div>
+                    <div class="controls">
+                        <button class="btn btn-secondary" onclick="previewInNewTab()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg> Tester l'activité interactive</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="import-export" class="tab-content">
+                <div class="section">
+                    <h2 class="section-title">Sauvegarde et restauration</h2>
+                    <p style="margin-bottom: 20px; color: var(--text-muted);">Sauvegardez votre travail en cours pour le reprendre plus tard, ou partagez votre configuration avec des collègues.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div style="background: var(--page-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column;">
+                            <h3 style="margin-bottom: 15px; color: var(--text); margin-top: 0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg> Exporter (Télécharger)</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Sauvegarde toutes vos catégories, éléments, images et paramètres audio dans un fichier sur votre ordinateur.</p>
+                            <button class="btn btn-primary" onclick="exportConfiguration()" style="width: 100%; justify-content: center; margin-top: auto;"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg></span> Télécharger le fichier .json</button>
+                        </div>
+                        <div style="background: var(--page-bg); padding: 25px; border-radius: 8px; border: 1px solid var(--border); text-align: center; display: flex; flex-direction: column;">
+                            <h3 style="margin-bottom: 15px; color: var(--text); margin-top: 0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> Importer (Ouvrir)</h3>
+                            <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">Restaure une activité depuis un fichier .json. <strong>Attention, cela remplacera votre travail actuel.</strong></p>
+                            <button class="btn btn-success" onclick="importConfiguration()" style="width: 100%; justify-content: center; margin-top: auto;"><span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9l-.83-1.2A2 2 0 0 0 7.9 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"/></svg></span> Ouvrir un fichier .json</button>
+                            <input type="file" id="fileInput" style="display: none;" accept=".json" onchange="handleFileImport(event)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="export" class="tab-content">
+                <div class="generate-section">
+                    <h2 class="generate-title">Prêt à générer votre module ?</h2>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-value" id="statItemsCount">0</div>
+                            <div class="stat-label" id="statItemsLabel">Élément dans la séquence</div>
+                        </div>
+                    </div>
+                    <div class="loading" id="loading" style="display: none; margin-bottom: 20px;">
+                        <div class="spinner"></div>
+                        <p>Génération du package...</p>
+                    </div>
+                    <button class="btn btn-primary" style="font-size: 1.2rem; padding: 15px 30px;" onclick="generateSCORMPackage()"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg> Générer le package SCORM 1.2 (.zip)</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <div class="lightbox-title" id="lightboxTitle"></div>
+            <img id="lightboxImg" src="" alt="">
+            <div style="display:flex; gap:10px;">
+                <button class="btn btn-primary" onclick="validateWikiImage()">✓ Choisir cette image</button>
+                <button class="btn btn-secondary" onclick="closeLightbox()">✕ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lightbox" id="zoomLightbox" onclick="this.style.display='none'" style="cursor:zoom-out; z-index:4000;">
+        <div class="lightbox-content" style="background:transparent; box-shadow:none;">
+            <img id="zoomLightboxImg" src="" style="max-height:85vh; max-width:90vw; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.5); object-fit:contain;">
+        </div>
+    </div>
+
+    <div id="customModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="customModalTitle">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="customModalTitle" class="modal-title">Notification</h3>
+                <button class="modal-close-btn" onclick="closeCustomModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="customModalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="customModalCancel" class="btn btn-secondary" style="display:none;" onclick="handleCustomModalCancel()">Annuler</button>
+                <button id="customModalOk" class="btn btn-primary" onclick="handleCustomModalOk()">OK</button>
+            </div>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="../index.html">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="../mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="../cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="../images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+
+
+
+
+    <script>
+        // ==========================================
+        // VARIABLES GLOBALES
+        // ==========================================
+        let currentItems = [];
+        let itemCounter = 0;
+        let customModalConfirmCallback = null;
+        let editingItemId = null;
+        let draggedItemIndex = null;
+        let tempWikiImage = null;
+        let tempNewItemAudioData = null;
+        let tempMediaRecorder = {};
+        let currentActiveSubTab = 'text';
+
+		function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            const currentTabContent = document.getElementById(tabName);
+            if (currentTabContent) currentTabContent.classList.add('active');
+            const activeTabButton = Array.from(document.querySelectorAll('.tab')).find(tab => tab.getAttribute('onclick').includes(`'${tabName}'`));
+            if (activeTabButton) activeTabButton.classList.add('active');
+    
+            // Mise à jour de l'aperçu et du compteur d'éléments
+            if (tabName === 'preview' || tabName === 'export') {
+                updatePreview();
+                const statCount = document.getElementById('statItemsCount');
+                if (statCount) statCount.textContent = currentItems.length;
+                const statLabel = document.getElementById('statItemsLabel');
+                if (statLabel) statLabel.textContent = currentItems.length > 1 ? 'Éléments dans la séquence' : 'Élément dans la séquence';
+            }
+        }
+        
+        // ==========================================
+        // SOUS-ONGLETS TEXTE / IMAGE DE CREATION
+        // ==========================================
+        function switchSubTab(name) {
+            currentActiveSubTab = name;
+            document.querySelectorAll('.tab-sub-content').forEach(d => d.classList.remove('active'));
+            document.getElementById('subtab-' + name).classList.add('active');
+            
+            document.querySelectorAll('.tab-sub-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            const map = { 'text': 0, 'wiki': 1, 'local': 2 };
+            const activeBtn = document.querySelectorAll('.tab-sub-btn')[map[name]];
+            activeBtn.classList.add('active');
+        }
+
+        // ==========================================
+        // RECHERCHE WIKIMEDIA
+        // ==========================================
+        async function searchImages() {
+            document.getElementById('wikiSelectedPreview').style.display = 'none';
+            tempWikiImage = null;
+            
+            const q = document.getElementById('wikiSearchInput').value.trim();
+            if (!q) return;
+            const resDiv = document.getElementById('wikiResults');
+            resDiv.style.display = 'grid';
+            resDiv.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Chargement...</p>';
+
+            const url = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrnamespace=6&gsrsearch=${encodeURIComponent(q)}%20filetype:bitmap&gsrlimit=20&prop=imageinfo&iiprop=url&iiurlwidth=400&format=json&origin=*`;
+
+            try {
+                const r = await fetch(url);
+                const d = await r.json();
+                resDiv.innerHTML = '';
+                if (!d.query) { resDiv.innerHTML = '<p style="grid-column:1/-1; text-align:center;">Aucun résultat</p>'; return; }
+
+                Object.values(d.query.pages).forEach(p => {
+                    if (!p.imageinfo) return;
+                    const info = p.imageinfo[0];
+                    const thumb = info.thumburl || info.url;
+                    const fullUrl = info.url;
+                    const title = p.title.replace("File:", "");
+
+                    const img = document.createElement('div');
+                    img.className = 'wiki-thumb';
+                    img.innerHTML = `<img src="${escapeHTML(thumb)}" alt="${escapeHTML(title)}">`;
+                    img.onclick = () => openLightbox(fullUrl, thumb, title);
+                    resDiv.appendChild(img);
+                });
+            } catch (e) { resDiv.innerHTML = '<p style="grid-column:1/-1; text-align:center; color:red;">Erreur réseau</p>'; }
+        }
+
+        function openLightbox(fullUrl, thumbUrl, title) {
+            document.getElementById('lightboxImg').src = fullUrl;
+            document.getElementById('lightboxTitle').innerText = title;
+            document.getElementById('lightbox').style.display = 'flex';
+            tempWikiImage = { url: thumbUrl, alt: title, fullUrl: fullUrl };
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+
+        function validateWikiImage() {
+            if (tempWikiImage) {
+                document.getElementById('wikiResults').style.display = 'none';
+                document.getElementById('wikiSelectedImg').src = tempWikiImage.url;
+                document.getElementById('wikiSelectedPreview').style.display = 'block';
+                closeLightbox();
+            }
+        }
+
+        // ==========================================
+        // GESTION AUDIO DANS LE FORMULAIRE D'AJOUT
+        // ==========================================
+        function handleNewItemAudioMode(mode) {
+            const controls = document.getElementById('newItemAudioControls');
+            controls.innerHTML = '';
+            tempNewItemAudioData = null;
+
+            if (mode === 'tts') {
+                controls.innerHTML = `<select id="newItemTtsLang" style="width:100%; padding:10px; border-radius:6px; border:2px solid var(--border); font-size:0.9rem; background:var(--surface);">
+                                        <option value="fr-FR">🇫🇷 Français</option>
+                                        <option value="en-GB">🇬🇧 Anglais (UK)</option>
+                                        <option value="es-ES">🇪🇸 Espagnol</option>
+                                        <option value="de-DE">🇩🇪 Allemand</option>
+                                        <option value="it-IT">🇮🇹 Italien</option>
+                                      </select>`;
+            } else if (mode === 'upload') {
+                controls.innerHTML = `<input type="file" accept="audio/*" onchange="handleNewItemAudioUpload(this.files[0])" style="font-size: 0.9em; padding: 8px; width:100%; box-sizing:border-box; border-color:var(--border);">
+                                      <div id="newItemAudioPreviewContainer"></div>`;
+            } else if (mode === 'record') {
+                controls.innerHTML = `<div style="display:flex; gap:10px; margin-bottom:5px;">
+                                        <button class="btn btn-secondary btn-small" type="button" onclick="startNewItemRecording()" id="record-btn-new" style="margin:0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3"/></svg> Enregistrer</button>
+                                        <button class="btn btn-secondary btn-small" type="button" onclick="stopNewItemRecording()" id="stop-btn-new" disabled style="margin:0;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/></svg> Arrêter</button>
+                                      </div>
+                                      <p id="record-status-new" style="font-size:0.8em; color:var(--text-muted); margin:0;"></p>
+                                      <div id="newItemAudioPreviewContainer"></div>`;
+            }
+        }
+
+        function handleNewItemAudioUpload(file) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                tempNewItemAudioData = e.target.result;
+                document.getElementById('newItemAudioPreviewContainer').innerHTML = `<audio src="${tempNewItemAudioData}" controls style="width:100%; height:35px; margin-top:10px;"></audio>`;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        let tempNewItemMediaRecorder = null;
+        async function startNewItemRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                const recordBtn = document.getElementById('record-btn-new');
+                const stopBtn = document.getElementById('stop-btn-new');
+                const statusEl = document.getElementById('record-status-new');
+
+                recordBtn.disabled = true; stopBtn.disabled = false;
+                recordBtn.style.backgroundColor = '#b91c1c';
+                recordBtn.style.color = 'white';
+                statusEl.textContent = "Enregistrement en cours...";
+
+                tempNewItemMediaRecorder = new MediaRecorder(stream);
+                let audioChunks = [];
+                tempNewItemMediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                tempNewItemMediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        tempNewItemAudioData = e.target.result;
+                        document.getElementById('newItemAudioPreviewContainer').innerHTML = `<audio src="${tempNewItemAudioData}" controls style="width:100%; height:35px; margin-top:10px;"></audio>`;
+                    };
+                    reader.readAsDataURL(audioBlob);
+
+                    recordBtn.disabled = false; stopBtn.disabled = true;
+                    recordBtn.style.backgroundColor = '';
+                    statusEl.textContent = "Enregistrement terminé.";
+                    stream.getTracks().forEach(track => track.stop());
+                };
+                tempNewItemMediaRecorder.start();
+            } catch (err) {
+                alert("Impossible d'accéder au microphone.");
+            }
+        }
+
+        function stopNewItemRecording() {
+            if (tempNewItemMediaRecorder && tempNewItemMediaRecorder.state === "recording") tempNewItemMediaRecorder.stop();
+        }
+
+        function resetNewItemAudio() {
+            document.getElementById('newItemAudioMode').value = 'none';
+            handleNewItemAudioMode('none');
+        }
+
+        // ==========================================
+        // CREATION ET EDITION DES ELEMENTS
+        // ==========================================
+        function addItem() {
+            const dateInput = document.getElementById('newItemDateInput');
+            const dateVal = dateInput.value.trim();
+            if (!dateVal) { showCustomAlert("Veuillez saisir une date ou une année pour permettre le tri sur la frise.", 'warning', 'Date manquante'); return; }
+
+            const audioMode = document.getElementById('newItemAudioMode').value;
+            const audioData = tempNewItemAudioData;
+            const ttsLang = audioMode === 'tts' ? document.getElementById('newItemTtsLang').value : 'fr-FR';
+
+            let newItem = {
+                id: String(++itemCounter),
+                type: 'text', text: '', alt: '', content: null, file: null, source: null,
+                date: dateVal, year: parseYear(dateVal),
+                showDate: true, isPrePlaced: false, isIntruder: false,
+                audioMode: audioMode, audioData: audioData, ttsLang: ttsLang
+            };
+
+            if (currentActiveSubTab === 'wiki') {
+                if (!tempWikiImage) { showCustomAlert("Veuillez d'abord chercher et choisir une image Web.", 'warning'); return; }
+                newItem.type = 'image';
+                newItem.source = 'wiki';
+                newItem.content = tempWikiImage.url;
+                newItem.alt = tempWikiImage.alt;
+                
+                tempWikiImage = null;
+                document.getElementById('wikiSearchInput').value = '';
+                document.getElementById('wikiSelectedPreview').style.display = 'none';
+            } else if (currentActiveSubTab === 'local') {
+                const fileIn = document.getElementById('localFileInput');
+                const altIn = document.getElementById('localAltInput');
+                if (!fileIn.files[0]) { showCustomAlert("Veuillez sélectionner un fichier image sur votre ordinateur.", 'warning'); return; }
+                newItem.type = 'image';
+                newItem.source = 'local';
+                newItem.file = fileIn.files[0];
+                newItem.alt = altIn.value.trim();
+                fileIn.value = ''; altIn.value = '';
+            } else {
+                const textInput = document.getElementById('newItemTextInput');
+                const t = textInput.value.trim();
+                if (!t) { showCustomAlert("Le texte de l'événement ne peut pas être vide.", 'warning'); return; }
+                newItem.text = t;
+                textInput.value = '';
+            }
+
+            dateInput.value = '';
+            resetNewItemAudio();
+
+            currentItems.push(newItem);
+            renderItemsList();
+            updatePreview();
+            
+            showCustomAlert("L'événement a bien été ajouté à la liste ci-dessous !", 'success', 'Ajout réussi');
+        }
+
+        function createOrUpdateItemsListHeader() {
+            let headerDiv = document.getElementById('items-list-header');
+            if (!headerDiv) return;
+            headerDiv.className = 'items-list-header'; 
+            headerDiv.innerHTML = `
+                <div></div>
+                <div>Élément (Image / Texte)</div><div>Date/Année</div>
+                <div><label class="checkbox-custom-label" title="Afficher date"><input type="checkbox" id="select-all-show-date" onchange="toggleAllShowDate(this)"><span class="custom-checkbox-ui"></span><span class="checkbox-text">Aff. date</span></label></div>
+                <div><label class="checkbox-custom-label" title="Déjà placé"><input type="checkbox" id="select-all-pre-placed" onchange="toggleAllPrePlaced(this)"><span class="custom-checkbox-ui"></span><span class="checkbox-text">Déjà placé</span></label></div>
+                <div><label class="checkbox-custom-label" title="Marquer comme intrus"><input type="checkbox" id="select-all-intruders" onchange="toggleAllIntruders(this)"><span class="custom-checkbox-ui"></span><span class="checkbox-text">Intrus</span></label></div>
+                <div>Action</div>`;
+        }
+
+        function renderItemsList() {
+            const list = document.getElementById('items-list');
+            list.innerHTML = '';
+            
+            if (currentItems.length === 0) {
+                list.innerHTML = '<div style="text-align:center; padding:2rem; color:var(--text-muted); font-style:italic;">Aucun élément. Utilisez le formulaire ci-dessus pour en ajouter.</div>';
+                return;
+            }
+
+			currentItems.forEach((item, index) => {
+			    const itemDiv = document.createElement('div');
+			    itemDiv.className = 'item-form';
+			    itemDiv.setAttribute('data-id', item.id);
+			    itemDiv.draggable = false; 
+			    itemDiv.dataset.index = index;
+                
+                const isEditing = editingItemId === item.id;
+                let contentHtml = '';
+                let imgHtml = '';
+                
+                if (item.type === 'image') {
+                    let src = item.source === 'local' && item.file ? URL.createObjectURL(item.file) : item.content;
+                    imgHtml = `
+                    <div style="position:relative; display:inline-flex; flex-shrink:0; margin: 0 6px 0 0;">
+                        <img src="${escapeHTML(src)}" style="max-width: 40px; max-height: 40px; object-fit: contain; border-radius: 4px; display: block; pointer-events: none;">
+                        <div class="zoom-btn" onclick="document.getElementById('zoomLightboxImg').src=this.previousElementSibling.src; document.getElementById('zoomLightbox').style.display='flex';" style="position:absolute; bottom:-6px; right:-6px; background:white; color:#333; border-radius:50%; width:18px; height:18px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.3); font-size:10px; cursor:zoom-in; z-index:10; pointer-events:auto;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+                    </div>`;
+                }
+
+                const audioIndicator = (item.audioMode && item.audioMode !== 'none') ? '<span title="Son attaché" style="margin-left:6px; font-size:1.1rem; cursor:help;"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg></span>' : '';
+
+                if (isEditing) {
+                    const textValue = item.type === 'text' ? item.text : item.alt;
+                    contentHtml = `
+                        ${imgHtml}
+                        <input type="text" class="inline-edit-input" value="${escapeHTML(textValue)}" 
+                            onblur="saveEdit('${item.id}', this.value)" 
+                            onkeydown="if(event.key==='Enter'){saveEdit('${item.id}', this.value)} else if(event.key==='Escape'){cancelEdit()}" autofocus style="flex-grow:1; margin-left:${item.type === 'image' ? '10px' : '0'};">
+                    `;
+                } else {
+                    const textValue = item.type === 'text' ? item.text : item.alt;
+                    const textDisplay = textValue ? `<span style="font-weight:500; font-size:0.95em; white-space:normal; word-break:break-word;">${escapeHTML(textValue)}</span>` : '';
+                    contentHtml = `
+                        ${imgHtml}
+                        <div style="display:flex; align-items:center; gap:8px; margin-left:${item.type === 'image' ? '10px' : '0'};">
+                            <span class="edit-icon" onclick="startEdit('${item.id}')" title="Modifier le texte"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg></span>
+                            ${textDisplay}${audioIndicator}
+                        </div>
+                    `;
+                }
+
+                itemDiv.innerHTML = `
+                    <div class="drag-handle" title="Glisser pour réorganiser" style="height: 40px;"
+                         onmousedown="this.closest('.item-form').draggable=true" 
+                         onmouseup="this.closest('.item-form').draggable=false" 
+                         onmouseleave="this.closest('.item-form').draggable=false" 
+                         ontouchstart="this.closest('.item-form').draggable=true" 
+                         ontouchend="this.closest('.item-form').draggable=false">☰</div>
+                    <div style="display:flex; flex-direction:row; align-items:center; width:100%; min-height:40px;">${contentHtml}</div>
+                    <div class="form-group date-input-group" style="margin:0; height: 40px; display: flex; align-items: center;">
+                        <input type="text" class="item-date-input" placeholder="Date/Année" value="${escapeHTML(item.date)}" onchange="updateItemDate('${item.id}', this.value)" style="margin:0; padding:8px; border:1px solid var(--border);">
+                    </div>
+                    <div class="form-group item-show-date-checkbox-container" style="margin:0; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <label class="checkbox-custom-label" title="Afficher la date"><input type="checkbox" class="item-show-date-checkbox" ${item.showDate ? 'checked' : ''} onchange="toggleItemProp('${item.id}', 'showDate', this.checked)"><span class="custom-checkbox-ui"></span></label>
+                    </div>
+                    <div class="form-group item-pre-placed-checkbox-container" style="margin:0; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <label class="checkbox-custom-label" title="Déjà placé"><input type="checkbox" class="item-pre-placed-checkbox" ${item.isPrePlaced ? 'checked' : ''} onchange="toggleItemProp('${item.id}', 'isPrePlaced', this.checked)"><span class="custom-checkbox-ui"></span></label>
+                    </div>
+                    <div class="form-group item-intruder-checkbox-container" style="margin:0; height: 60px; display: flex; align-items: center; justify-content: center;">
+                        <label class="checkbox-custom-label" title="Intrus"><input type="checkbox" class="item-intruder-checkbox" ${item.isIntruder ? 'checked' : ''} onchange="toggleItemProp('${item.id}', 'isIntruder', this.checked)"><span class="custom-checkbox-ui"></span></label>
+                    </div>
+                    <div style="height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <button class="btn-icon-remove" onclick="removeItem('${item.id}')" title="Supprimer l'élément"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"><path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0 -1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5m-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5M4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06m3 0l-.5 8.5a.5.5 0 1 0 .998-.06l.5-8.5a.5.5 0 1 0-.998.06m2.5 0l-.5 8.5a.5.5 0 1 0 .998-.06l.5-8.5a.5.5 0 1 0-.998.06"/></svg></button>
+                    </div>
+                `;
+
+                itemDiv.addEventListener('dragstart', handleEditorDragStart);
+                itemDiv.addEventListener('dragover', handleEditorDragOver);
+                itemDiv.addEventListener('dragenter', handleEditorDragEnter);
+                itemDiv.addEventListener('dragleave', handleEditorDragLeave);
+                itemDiv.addEventListener('drop', handleEditorDrop);
+                itemDiv.addEventListener('dragend', handleEditorDragEnd);
+
+                list.appendChild(itemDiv);
+
+                if (isEditing) {
+                    const inp = itemDiv.querySelector('.inline-edit-input');
+                    if (inp) { inp.focus(); const val = inp.value; inp.value = ''; inp.value = val; }
+                }
+            });
+            updateGlobalCheckboxesState();
+        }
+
+        // ==========================================
+        // CHECKBOXES ET DRAG&DROP LISTE EDITEUR
+        // ==========================================
+        function toggleAllShowDate(sourceCheckbox) { document.querySelectorAll('.item-show-date-checkbox').forEach(c => c.checked = sourceCheckbox.checked); updateCurrentItems(); }
+        function toggleAllPrePlaced(sourceCheckbox) { document.querySelectorAll('.item-pre-placed-checkbox').forEach(c => c.checked = sourceCheckbox.checked); updateCurrentItems(); }
+        function toggleAllIntruders(sourceCheckbox) { document.querySelectorAll('.item-intruder-checkbox').forEach(c => c.checked = sourceCheckbox.checked); updateCurrentItems(); }
+
+        function updateGlobalCheckboxesState() {
+            const allShowDate = Array.from(document.querySelectorAll('.item-show-date-checkbox'));
+            const allPrePlaced = Array.from(document.querySelectorAll('.item-pre-placed-checkbox'));
+            const allIntruders = Array.from(document.querySelectorAll('.item-intruder-checkbox'));
+            const selectAllShowDate = document.getElementById('select-all-show-date');
+            const selectAllPrePlaced = document.getElementById('select-all-pre-placed');
+            const selectAllIntruders = document.getElementById('select-all-intruders');
+
+            if(selectAllShowDate) selectAllShowDate.checked = allShowDate.length > 0 && allShowDate.every(cb => cb.checked);
+            if(selectAllPrePlaced) selectAllPrePlaced.checked = allPrePlaced.length > 0 && allPrePlaced.every(cb => cb.checked);
+            if(selectAllIntruders) selectAllIntruders.checked = allIntruders.length > 0 && allIntruders.every(cb => cb.checked);
+        }
+
+        function updateCurrentItems() { updateGlobalCheckboxesState(); updatePreview(); }
+
+        function startEdit(id) { editingItemId = id; renderItemsList(); }
+        function cancelEdit() { editingItemId = null; renderItemsList(); }
+        function saveEdit(id, newValue) {
+            const val = newValue.trim();
+            const item = currentItems.find(i => i.id === id);
+            if (item) {
+                if (item.type === 'text') {
+                    if (!val) { cancelEdit(); return; }
+                    item.text = val;
+                } else {
+                    item.alt = val;
+                }
+            }
+            editingItemId = null;
+            renderItemsList();
+            updatePreview();
+        }
+        function updateItemContent(id, field, value) { const item = currentItems.find(i => i.id === id); if (item) { item[field] = value; updatePreview(); } }
+        function updateItemDate(id, value) { const item = currentItems.find(i => i.id === id); if (item) { item.date = value.trim(); item.year = parseYear(item.date); } updatePreview(); }
+        function toggleItemProp(id, prop, value) { const item = currentItems.find(i => i.id === id); if (item) { item[prop] = value; } updateGlobalCheckboxesState(); updatePreview(); }
+
+        function handleEditorDragStart(e) {
+            if(e.target.tagName.toLowerCase() === 'input' || e.target.tagName.toLowerCase() === 'select') { e.preventDefault(); return; } 
+            draggedItemIndex = parseInt(this.dataset.index);
+            e.dataTransfer.effectAllowed = 'move'; e.dataTransfer.setData('text/plain', draggedItemIndex);
+            setTimeout(() => this.classList.add('dragging'), 0);
+        }
+        function handleEditorDragOver(e) { e.preventDefault(); e.dataTransfer.dropEffect = 'move'; return false; }
+        function handleEditorDragEnter(e) { e.preventDefault(); if (this.dataset.index != draggedItemIndex) this.classList.add('drag-over'); }
+        function handleEditorDragLeave(e) { this.classList.remove('drag-over'); }
+        function handleEditorDrop(e) {
+            e.stopPropagation(); this.classList.remove('drag-over'); const dropIndex = parseInt(this.dataset.index);
+            if (draggedItemIndex !== null && draggedItemIndex !== dropIndex) {
+                const itemToMove = currentItems.splice(draggedItemIndex, 1)[0];
+                currentItems.splice(dropIndex, 0, itemToMove); renderItemsList(); updatePreview();
+            }
+            return false;
+        }
+		function handleEditorDragEnd(e) { this.classList.remove('dragging'); document.querySelectorAll('.item-form').forEach(el => el.classList.remove('drag-over')); draggedItemIndex = null; this.draggable = false; }
+        function removeItem(id) { currentItems = currentItems.filter(i => i.id !== id); renderItemsList(); updatePreview(); }
+
+        function clearAllItems() {
+            showCustomConfirm('Êtes-vous sûr de vouloir effacer tous les éléments ?', (confirmed) => {
+                if (confirmed) {
+                    currentItems = []; itemCounter = 0; renderItemsList(); updatePreview();
+                    showCustomAlert('Tous les éléments ont été effacés.', 'info', 'Effacement Terminé');
+                }
+            }, 'Confirmation d\'Effacement');
+        }
+        
+        function parseYear(dateStr) {
+            if (!dateStr) return NaN;
+            const m = dateStr.match(/\b\d{4}\b/);
+            return m ? parseInt(m[0], 10) : parseInt(dateStr, 10) || NaN;
+        }
+
+        // ==========================================
+        // APERCU STATIQUE ET MODALES
+        // ==========================================
+        function getEntityLabel(item) {
+            if (item.type === 'text') return item.text || "N/A";
+            return `[Image] ${item.alt || ''}`;
+        }
+
+        function escapeHTML(str) { return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+		function getPreviewHtmlForItem(item) {
+		            let audioHtml = (item.audioMode && item.audioMode !== 'none') ? '<div class="preview-speak-btn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg></div>' : '';
+            
+		            if (item.type === 'image') {
+		                let src = item.content;
+		                if (item.source === 'local' && item.file) src = URL.createObjectURL(item.file);
+		                if (!src) return `<div class="preview-content-wrapper" style="min-width:0;"><i>Image manquante</i></div>`;
+		                return `
+		                    <div class="preview-content-wrapper" style="min-width:0;">
+		                        <div class="preview-img-box" style="flex-shrink:0;">
+		                            <img src="${escapeHTML(src)}" class="preview-img">
+		                            <div class="preview-img-zoom"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+		                        </div>
+		                        <span style="font-size:1em; font-weight:600; white-space:normal; word-break:break-word;">${escapeHTML(item.alt || '')}</span>
+		                    </div>
+		                    ${audioHtml}
+		                `;
+		            }
+		            return `
+		                <div class="preview-content-wrapper" style="min-width:0;">
+		                    <span style="white-space:normal; word-break:break-word;">${escapeHTML(item.content || '(Vide)')}</span>
+		                </div>
+		                ${audioHtml}
+		            `;
+		        }
+
+        function updatePreview() {
+            document.getElementById('preview-title').textContent = document.getElementById('activity-title').value || 'Titre';
+            document.getElementById('preview-description').textContent = document.getElementById('activity-description').value || 'Description';
+            const container = document.getElementById('preview-items');
+            const mainTitle = document.getElementById('preview-main-title');
+
+            const validItems = currentItems.filter(item => !item.isIntruder && ((item.type === 'text' && item.text) || item.type === 'image'));
+            const intruderItems = currentItems.filter(item => item.isIntruder && ((item.type === 'text' && item.text) || item.type === 'image'));
+
+            const sortedValidItems = validItems.sort((a, b) => (a.year || 0) - (b.year || 0));
+            
+            let html = '';
+
+            if (sortedValidItems.length > 0) {
+                mainTitle.style.display = 'block';
+                html += sortedValidItems.map(item => {
+                    let tags = [];
+                    if (item.isPrePlaced) tags.push("Pré-placé");
+                    const tagString = tags.length > 0 ? ` (${tags.join(', ')})` : "";
+                    const audioIcon = (item.audioMode && item.audioMode !== 'none') ? '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg> ' : '';
+                    
+                    return `<div class="preview-item">
+                                <span class="item-text">${audioIcon}${escapeHTML(getEntityLabel(item))}${tagString}</span> 
+                                ${item.showDate ? `<span class="item-date">${escapeHTML(item.date || "N/A")}</span>` : ""}
+                            </div>`;
+                }).join('');
+            } else {
+                mainTitle.style.display = 'none';
+            }
+
+            if (intruderItems.length > 0) {
+                html += `<h4 style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 15px;">Éléments intrus :</h4>`;
+                html += intruderItems.map(item => {
+                    const audioIcon = (item.audioMode && item.audioMode !== 'none') ? '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M19 5a9 9 0 0 1 0 14"/></svg> ' : '';
+                    return `<div class="preview-item" style="border-left-color: #dc3545;">
+                                <span class="item-text">${audioIcon}${escapeHTML(getEntityLabel(item))} (Intrus)</span>
+                            </div>`;
+                }).join('');
+            }
+
+            if (currentItems.length === 0) {
+                container.innerHTML = '<p style="font-style:italic;color:var(--text-muted);">Aucun élément à afficher.</p>';
+                mainTitle.style.display = 'block';
+            } else {
+                container.innerHTML = html;
+            }
+        }
+
+        function showCustomModal(title, message, type = 'info', showCancelButton = false) {
+            const modal = document.getElementById('customModal');
+            document.getElementById('customModalTitle').textContent = title;
+            document.getElementById('customModalMessage').innerHTML = message.replace(/\n/g, '<br>');
+            document.getElementById('customModalCancel').style.display = showCancelButton ? 'inline-block' : 'none';
+            modal.classList.add('visible');
+        }
+
+        function closeCustomModal() { document.getElementById('customModal').classList.remove('visible'); if (customModalConfirmCallback) customModalConfirmCallback = null; }
+        function handleCustomModalOk() { if (customModalConfirmCallback) customModalConfirmCallback(true); closeCustomModal(); }
+        function handleCustomModalCancel() { if (customModalConfirmCallback) customModalConfirmCallback(false); closeCustomModal(); }
+        function showCustomAlert(message, type = 'info', title = 'Notification') { customModalConfirmCallback = null; showCustomModal(title, message, type, false); }
+        function showCustomConfirm(message, callback, title = 'Confirmation', type = 'warning') { customModalConfirmCallback = callback; showCustomModal(title, message, type, true); }
+
+		function addDirectItem(type, content, date, isIntruder = false, audioMode = 'none', ttsLang = 'fr-FR') {
+		            itemCounter++;
+		            currentItems.push({
+		                id: String(itemCounter),
+		                type: type, text: content, alt: '', content: null, file: null, source: null,
+		                date: date, year: parseYear(date),
+		                showDate: true, isPrePlaced: false, isIntruder: isIntruder,
+		                audioMode: audioMode, audioData: null, ttsLang: ttsLang
+		            });
+		        }
+
+		function resetGeneratorForm() {
+		            document.getElementById('activity-title').value = "Mon activité chronologique";
+		            document.getElementById('activity-description').value = "Glissez et déposez les événements dans l'ordre chronologique...";
+		            document.getElementById('theme-color').value = "blue";
+		            document.getElementById('timeline-orientation').value = "vertical-td";
+		            document.getElementById('success-threshold').value = "100";
+		            document.getElementById('feedback-success').value = "Bravo ! Vous avez correctement ordonné les événements.";
+		            document.getElementById('feedback-failure').value = "Certains événements ne sont pas à la bonne place. Essayez encore !";
+		            currentItems = []; itemCounter = 0;
+		            addDirectItem("text", "Découverte de l'Amérique", "1492", false, "tts", "fr-FR");
+		            addDirectItem("text", "Révolution française", "1789", false, "tts", "fr-FR");
+		            addDirectItem("text", "Premier pas sur la Lune", "1969", false, "tts", "fr-FR");
+		            addDirectItem("text", "Invention de Moodle", "2002", true, "tts", "fr-FR"); // Intrus
+		        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            resetGeneratorForm();
+            createOrUpdateItemsListHeader(); 
+            renderItemsList();
+            updatePreview();
+        });
+
+        // ==========================================
+        // SCORM EXPORT ET GENERATION
+        // ==========================================
+        function validateActivity() {
+            const errors = [];
+            if (!document.getElementById('activity-title').value.trim()) errors.push('Le titre de l\'activité est obligatoire.');
+            const validItems = currentItems.filter(item => !item.isIntruder && ((item.type === 'text' && item.text) || item.type === 'image'));
+            if (validItems.length < 2) errors.push('Au moins 2 éléments non-intrus sont nécessaires.');
+            validItems.forEach((item, i) => { if (!item.date || isNaN(item.year)) { errors.push(`La date pour l'élément "${getEntityLabel(item)}" est invalide.`); } });
+            return errors;
+        }
+
+		async function exportConfiguration() {
+            const activityTitle = document.getElementById('activity-title').value.trim();
+            const activityDescription = document.getElementById('activity-description').value.trim();
+            const themeColor = document.getElementById('theme-color').value;
+            const successThreshold = document.getElementById('success-threshold').value;
+            const feedbackSuccess = document.getElementById('feedback-success').value;
+            const feedbackFailure = document.getElementById('feedback-failure').value;
+            const orientation = document.getElementById('timeline-orientation').value;
+
+            if (!activityTitle && currentItems.length === 0) { showCustomAlert('Aucune configuration à exporter.', 'error', 'Export impossible'); return; }
+            document.getElementById('loading').style.display = 'block';
+
+            try {
+                const itemsToExport = [];
+                for (let item of currentItems) {
+                    let exportItem = { ...item };
+                    if (item.type === 'image' && item.source === 'local' && item.file) { exportItem.content = await blobToBase64(item.file); delete exportItem.file; }
+                    else if (item.file === null || item.file === undefined) { delete exportItem.file; }
+                    itemsToExport.push(exportItem);
+                }
+                const config = { version: "1.5", type: "ordre-dates-scorm", exportDate: new Date().toISOString(), config: { title: activityTitle, description: activityDescription, theme: themeColor, orientation: orientation, successThreshold: successThreshold, feedbackSuccess: feedbackSuccess, feedbackFailure: feedbackFailure, items: itemsToExport } };
+                const jsonString = JSON.stringify(config, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url;
+                const safeTitle = (activityTitle || 'chronologie').normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-]/gi, '').replace(/\s+/g, '_').substring(0, 50);
+                a.download = `${safeTitle}_chronologie_config.json`; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+                showCustomAlert('Configuration exportée avec succès !', 'success', 'Export réussi');
+            } catch (error) { showCustomAlert('Erreur lors de l\'export.', 'error', 'Erreur d\'export'); } finally { document.getElementById('loading').style.display = 'none'; }
+        }
+
+        function importConfiguration() { document.getElementById('fileInput').click(); }
+        function handleFileImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const importedData = JSON.parse(e.target.result);
+                    if (!importedData.config) throw new Error('Structure de fichier invalide');
+                    const config = importedData.config;
+                    showCustomConfirm(`Importer la configuration ? Cela remplacera la vôtre.`, (confirmed) => {
+                        if (confirmed) {
+                            document.getElementById('activity-title').value = config.title || '';
+                            document.getElementById('activity-description').value = config.description || '';
+                            document.getElementById('theme-color').value = config.theme || 'blue';
+                            document.getElementById('timeline-orientation').value = config.orientation || 'vertical-td';
+                            document.getElementById('success-threshold').value = config.successThreshold || '100';
+                            document.getElementById('feedback-success').value = config.feedbackSuccess || '';
+                            document.getElementById('feedback-failure').value = config.feedbackFailure || '';
+                            currentItems = []; itemCounter = 0;
+                            if (config.items && Array.isArray(config.items)) {
+                                config.items.forEach(item => {
+                                    itemCounter++;
+                                    currentItems.push({
+                                        id: String(itemCounter),
+                                        type: item.type || 'text', text: item.text || '', alt: item.alt || '', source: item.source || null, content: item.content || null,
+                                        date: item.date || '', year: parseYear(item.date || ''), showDate: item.showDate !== undefined ? item.showDate : true,
+                                        isPrePlaced: item.isPrePlaced !== undefined ? item.isPrePlaced : false, isIntruder: item.isIntruder !== undefined ? item.isIntruder : false,
+                                        audioMode: item.audioMode || 'none', audioData: item.audioData || null, ttsLang: item.ttsLang || 'fr-FR'
+                                    });
+                                });
+                            }
+                            renderItemsList(); updatePreview(); showCustomAlert('Configuration importée !', 'success', 'Import réussi');
+                        }
+                    }, 'Confirmer l\'import', 'warning');
+                } catch (error) { showCustomAlert('Erreur d\'import du fichier.', 'error', 'Erreur d\'import'); }
+            };
+            reader.readAsText(file); event.target.value = '';
+        }
+
+        const fetchBlob = async u => (await fetch(u)).blob();
+        const blobToBase64 = b => new Promise(r => { const rd = new FileReader(); rd.onloadend = () => r(rd.result); rd.readAsDataURL(b); });
+
+        async function prepareItemsForScorm(mode) {
+            let preparedItems = []; let assets = [];
+            const validItems = currentItems.filter(item => (item.type === 'text' && item.text.trim() !== '') || item.type === 'image');
+
+            for (let i = 0; i < validItems.length; i++) {
+                const it = validItems[i];
+                let obj = { id: it.id, type: it.type, date: it.date, year: it.year, showDate: it.showDate, isPrePlaced: it.isPrePlaced, isIntruder: it.isIntruder, audioMode: it.audioMode, ttsLang: it.ttsLang, audioPath: null };
+
+                if ((it.audioMode === 'upload' || it.audioMode === 'record') && it.audioData) {
+                    if (mode === 'zip') {
+                        const audioBlob = await (await fetch(it.audioData)).blob();
+                        const ext = it.audioData.match(/audio\/([a-zA-Z0-9]+);/)?.[1] || 'wav';
+                        const fileName = `audio_${it.id}.${ext}`;
+                        assets.push({name: fileName, blob: audioBlob});
+                        obj.audioPath = `assets/${fileName}`;
+                    } else { obj.audioPath = it.audioData; }
+                }
+
+				if (it.type === 'image') {
+                    let b = it.file;
+                    if (it.source === 'wiki') { b = await fetchBlob(it.content); } 
+                    else if (it.source === 'local' && !it.file && it.content && it.content.startsWith('data:image')) { b = await fetchBlob(it.content); }
+                    if (b) {
+                        if (mode === 'zip') {
+                            const ext = b.type.split('/')[1] || 'jpg';
+                            const fileName = `img_${it.id}.${ext}`;
+                            assets.push({ name: fileName, blob: b });
+                            obj.content = `assets/${fileName}|${it.alt || ''}`;
+                        } else { const b64 = await blobToBase64(b); obj.content = `${b64}|${it.alt || ''}`; }
+                    } else { obj.type = 'text'; obj.text = `[Image: ${it.alt || ''}]`; }
+                    obj.text = `[Image] ${it.alt || ''}`; 
+                } else { obj.content = it.text; obj.text = it.text; }
+                preparedItems.push(obj);
+            }
+            return { preparedItems, assets };
+        }
+
+        function getThemeColors(theme) {
+            const themes = {
+                blue: { primary: '#667eea', success: '#50c878', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', headerGradient: 'linear-gradient(45deg, #667eea, #007aff)', buttonGradient: 'linear-gradient(135deg, #667eea 0%, #007aff 100%)', buttonShadow: 'rgba(74, 144, 226, 0.4)' },
+                green: { primary: '#50c878', success: '#28a745', background: 'linear-gradient(135deg, #a8e063 0%, #56ab2f 100%)', headerGradient: 'linear-gradient(45deg, #50c878, #28a745)', buttonGradient: 'linear-gradient(135deg, #50c878 0%, #28a745 100%)', buttonShadow: 'rgba(80, 200, 120, 0.4)' },
+                purple: { primary: '#6f42c1', success: '#e83e8c', background: 'linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)', headerGradient: 'linear-gradient(45deg, #6f42c1, #e83e8c)', buttonGradient: 'linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%)', buttonShadow: 'rgba(111, 66, 193, 0.4)' },
+                orange: { primary: '#fd7e14', success: '#ffc107', background: 'linear-gradient(135deg, #f6d365 0%, #fda085 100%)', headerGradient: 'linear-gradient(45deg, #fd7e14, #ffc107)', buttonGradient: 'linear-gradient(135deg, #fd7e14 0%, #ffc107 100%)', buttonShadow: 'rgba(253, 126, 20, 0.4)' },
+                red: { primary: '#dc3545', success: '#fd7e14', background: 'linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%)', headerGradient: 'linear-gradient(45deg, #dc3545, #fd7e14)', buttonGradient: 'linear-gradient(135deg, #dc3545 0%, #fd7e14 100%)', buttonShadow: 'rgba(220, 53, 69, 0.4)' }
+            };
+            return themes[theme] || themes.blue;
+        }
+
+        function getScormActivityModalBoilerplate() {
+            const modalHTML = '<div id="activityModal" class="modal-overlay-scorm" style="display:none;"><div class="modal-content-scorm"><div class="modal-header-scorm"><h3 id="activityModalTitle" class="modal-title-scorm">Solution<\/h3><button class="modal-close-btn-scorm" onclick="closeActivityModal()">&times;<\/button><\/div><div class="modal-body-scorm"><p id="activityModalMessage"><\/p><\/div><div class="modal-footer-scorm"><button class="btn-scorm btn-primary-scorm" onclick="closeActivityModal()">OK<\/button><\/div><\/div><\/div>';
+            const modalCSS = '.modal-overlay-scorm{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:flex;justify-content:center;align-items:center;z-index:1001;opacity:0;transition:opacity .2s ease-in-out;pointer-events:none}.modal-overlay-scorm.visible-scorm{opacity:1;pointer-events:auto}.modal-content-scorm{background:#fff;padding:25px;border-radius:12px;box-shadow:0 15px 30px rgba(0,0,0,.2);width:90%;max-width:400px;text-align:center;transform:scale(.95);transition:transform .2s ease-in-out;border-top:8px solid #667eea;}.modal-overlay-scorm.visible-scorm .modal-content-scorm{transform:scale(1)}.modal-header-scorm{display:none;}.modal-body-scorm{margin-bottom:20px;line-height:1.5;color:#444;white-space:pre-wrap;max-height:70vh;overflow-y:auto;font-size:1.1rem;}.modal-footer-scorm{text-align:center;}.btn-scorm{padding:12px 30px;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;transition:background-color .2s ease}.btn-primary-scorm{background-color:#667eea;color:#fff}.btn-primary-scorm:hover{background-color:#007aff}';
+            const modalJS = 'function showActivityModal(t,o="Information", isSuccess=true){const e=document.getElementById("activityModal");e&&(document.querySelector(".modal-content-scorm").style.borderColor=isSuccess?"#10b981":"#ef4444",document.getElementById("activityModalMessage").innerHTML=`<h2 style="margin-top:0; margin-bottom:15px;">${o}</h2>${t}`,e.style.display="flex",setTimeout(()=>e.classList.add("visible-scorm"),10))}function closeActivityModal(){const t=document.getElementById("activityModal");t&&(t.classList.remove("visible-scorm"),setTimeout(()=>{t.style.display="none"},200))}';
+            return { html: modalHTML, css: modalCSS, js: modalJS };
+        }
+
+		function getScormActivityFullscreenBoilerplate() {
+		    const fullscreenHTML = '<button id="scormToggleFullscreenBtn" class="btn-fullscreen-scorm" title="Plein écran">⛶<\/button>';
+		    const fullscreenCSS = '.btn-fullscreen-scorm{position:absolute;top:15px;right:15px;z-index:1005;padding:8px 10px;background-color:#fff;color:#667eea;border:1px solid #667eea;border-radius:8px;cursor:pointer;font-size:1.1rem;line-height:1;font-weight:bold;transition:all 0.3s ease;}.btn-fullscreen-scorm:hover{background-color:#f0f0f0; color:#007aff; border-color:#007aff;}';
+		    const fullscreenJS = 'const scormToggleFullscreenBtn=document.getElementById("scormToggleFullscreenBtn"),scormDocEl=document.documentElement;function toggleScormFullscreen(){document.fullscreenElement?document.exitFullscreen&&document.exitFullscreen():scormDocEl.requestFullscreen&&scormDocEl.requestFullscreen()}scormToggleFullscreenBtn&&scormToggleFullscreenBtn.addEventListener("click",toggleScormFullscreen),document.addEventListener("fullscreenchange",()=>{scormToggleFullscreenBtn&&(scormToggleFullscreenBtn.innerHTML=document.fullscreenElement?"↘↖":"⛶")});';
+		    return { html: fullscreenHTML, css: fullscreenCSS, js: fullscreenJS };
+		}
+
+		function generateChronologicalActivityHTML(config) {
+		    const themeColors = getThemeColors(config.theme);
+		    const itemsJson = JSON.stringify(config.items).replace(/<\//g, '<\\/');
+		    const orientation = config.orientation || 'vertical-td';
+		    const feedbackSuccessJS = (config.feedbackSuccess || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+		    const feedbackFailureJS = (config.feedbackFailure || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+		    const modalBoilerplate = getScormActivityModalBoilerplate();
+		    const fullscreenBoilerplate = getScormActivityFullscreenBoilerplate();
+		    const timelineItems = config.items.filter(item => !item.isIntruder);
+		    const itemEntryVerticalSpace = 120;
+		    const timelineTopPadding = 40;
+            
+		    let html = `<!DOCTYPE html><html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${escapeHTML(config.title)}<\/title><script src="scorm_api_wrapper.js"><\/script><style>
+		        ${fullscreenBoilerplate.css} ${modalBoilerplate.css}
+		        .modal-overlay-instructions{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:flex;justify-content:center;align-items:center;z-index:1002;opacity:0;transition:opacity .2s ease-in-out;pointer-events:none;backdrop-filter:blur(2px);}.modal-overlay-instructions.visible-scorm{opacity:1;pointer-events:auto}.modal-content-instructions{background:#fff;padding:35px 30px;border-radius:12px;box-shadow:0 15px 30px rgba(0,0,0,.2);width:90%;max-width:400px;text-align:center;border-top:8px solid #667eea;transform:scale(.95);transition:transform .2s ease-in-out}.modal-overlay-instructions.visible-scorm .modal-content-instructions{transform:scale(1)}.modal-header-instructions{display:none;}.modal-body-instructions{margin-bottom:20px;line-height:1.5;color:#555;max-height:70vh;overflow-y:auto;text-align:left;white-space:pre-wrap;}.modal-footer-instructions{text-align:center;}
+		        *{margin:0;padding:0;box-sizing:border-box}
+		        ${window.HAPI_MARIANNE_CSS||''}body{font-family:'Marianne','Segoe UI',sans-serif;background:${themeColors.background};min-height:100vh;padding:5vh 20px 20px 20px; color: #333; display: flex; align-items: flex-start; justify-content: center;}
+		        .scorm-activity-container{position: relative; max-width:900px; width: 100%; margin:0 auto; background:white; border-radius:20px; box-shadow:0 20px 40px rgba(0,0,0,.1); overflow:hidden;}
+		        .header{background:${themeColors.headerGradient};color:white;padding:25px;text-align:center;position:relative;}
+		        .header h1{font-size:24px;margin-bottom:0;padding:0 40px;} .header p{font-size:1rem; opacity:.9; margin-top:10px;} .main-content{padding:30px; overflow-x:hidden;}
+		        .score{text-align:center;font-size:1.2rem;font-weight:600;color:${themeColors.primary};margin-top:0;margin-bottom:20px}
+		        .items-pool-container{margin-bottom:30px;padding:20px;background:#f1f5f9;border-radius:12px; user-select:none;}
+		        .items-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:15px;margin-top:10px; min-height: 80px;}
+		        .items-grid .item { width: 220px; }
+		        .item{position:relative;background:white;padding:15px;border-radius:8px;border:2px solid #cbd5e1;cursor:grab!important;transition:all .2s;box-shadow:0 2px 5px rgba(0,0,0,.05);user-select:none;word-wrap:break-word;white-space:normal;text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:50px; width: 100%; font-weight:500;}
+		        .item:hover { border-color: ${themeColors.primary}; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+                .item.dragging{opacity:.5;cursor:grabbing; transform:scale(1.05); z-index:1000; box-shadow: 0 10px 20px rgba(0,0,0,0.2);} .item.not-draggable{cursor:default!important; background:#e6fffa; border-color:#50e3c2;}
+		        .item-content{width:100%;margin-bottom:0}
+		        .item-date-lozenge{position:absolute;top:-10px;right:-10px;font-size:.8em;color:#fff;background-color:${themeColors.primary};padding:4px 8px;border-radius:12px;font-weight:bold;box-shadow:0 2px 4px rgba(0,0,0,.2);z-index:5}
+		        .controls{text-align:center;margin-top:30px;display:flex;gap:15px;justify-content:center;flex-wrap:wrap}
+		        .btn{padding:12px 30px;border:none;border-radius:8px;font-size:16px;font-weight:bold;cursor:pointer;transition:all .3s ease;}
+		        .btn-primary{background:${themeColors.buttonGradient};color:white}.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 10px ${themeColors.buttonShadow}}
+		        .btn-secondary{background:#f8f9fa;color:#333;border:1px solid #cbd5e1}.btn-secondary:hover{background:#e2e8f0; color:#333;}
+		        .drop-zone.dragover { border-color: ${themeColors.primary}; background: #f0f4ff; }
+		        .drop-zone.fixed-zone { border-color: #50e3c2; background-color: #e6fffa; cursor: default; }
+		        .placeholder-text{font-size:1rem;color:#94a3b8;font-weight:bold;}
+		        .ghost-style{position:absolute;top:0;left:0;z-index:1001;opacity:.8;pointer-events:none;transition:none;transform:rotate(2deg)}
+
+		        /* --- Zoom et Audio --- */
+		        .scorm-image-zoom-overlay { display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; cursor:zoom-out;}
+		        .scorm-image-zoom-overlay img { max-width:90vw; max-height:90vh; border-radius:8px; box-shadow:0 10px 25px rgba(0,0,0,0.5); object-fit:contain; }
+		        .zoom-btn { transition: transform 0.2s; }
+		        .zoom-btn:hover { transform: scale(1.2); }
+                .speak-btn { cursor:pointer; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; transition: 0.2s; background: rgba(240,244,248,1); border: 1px solid #cbd5e1; font-size:14px; margin-left: 10px; pointer-events:auto;}
+                .speak-btn:hover { background: #e2e8f0; transform: scale(1.1); }
+
+		        /* --- Vertical Timeline Styles --- */
+		        .timeline-container-vertical {position: relative;width: 100%;max-width: 800px;margin: 30px auto;padding-top: ${timelineTopPadding}px;padding-bottom: 60px;}
+		        .timeline-vertical-line {position: absolute;left: 50%;top: 0;width: 4px;background: #cbd5e1;transform: translateX(-50%);z-index: 1;border-radius: 2px;}
+		        .vertical-td .timeline-vertical-line::after {content: ''; position: absolute; left: 50%; bottom: -10px;transform: translateX(-50%); width: 0; height: 0;border-left: 10px solid transparent; border-right: 10px solid transparent;border-top: 15px solid #cbd5e1;}
+		        .vertical-bu .timeline-vertical-line::after {content: ''; position: absolute; left: 50%; top: -10px;transform: translateX(-50%); width: 0; height: 0;border-left: 10px solid transparent; border-right: 10px solid transparent;border-bottom: 15px solid #cbd5e1;}
+		        .timeline-event-entry {position: absolute;width: 100%;height: ${itemEntryVerticalSpace - 30}px;margin-bottom:30px;}
+		        .timeline-marker {position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 22px;height: 22px;background: white;border: 4px solid ${themeColors.primary};border-radius: 50%;z-index: 4;box-shadow: 0 0 0 4px #fff;}
+		        .timeline-container-vertical .drop-zone {width: calc(40% - 30px);min-height: 90px;padding: 10px;border: 2px dashed #cbd5e1;border-radius: 8px;background: #f8fafc;display: flex;align-items: center;justify-content: center;position: absolute;top: 50%;transform: translateY(-50%);z-index: 3;transition: all .3s ease;}
+		        .timeline-event-entry.left .drop-zone {left: 2%;} .timeline-event-entry.right .drop-zone {right: 2%;}
+		        .timeline-event-entry .drop-zone::before {content: '';position: absolute;top: 50%;height: 2px;background-color: #cbd5e1;transform: translateY(-50%);z-index: 2;width: calc(8% + 80px);}
+		        .timeline-event-entry.left .drop-zone::before {left: 100%;} .timeline-event-entry.right .drop-zone::before {right: 100%;}
+		        @media (max-width:768px){ .timeline-container-vertical{padding-left:15px;padding-right:15px} .timeline-container-vertical .drop-zone{width:calc(100% - 60px)} .timeline-event-entry.left .drop-zone{left:45px;margin-left:0} .timeline-event-entry.right .drop-zone{left:auto;right:0} .timeline-vertical-line,.timeline-marker{left:15px} .timeline-event-entry.left .drop-zone::before,.timeline-event-entry.right .drop-zone::before{display:none} }
+        
+		        /* --- Horizontal Timeline Styles --- */
+		        .timeline-container-horizontal {display: flex;position: relative;align-items: stretch;margin: 50px auto;min-height: 220px;padding: 0 20px;}
+		        .timeline-horizontal-line {position: absolute;top: 50%;left: 0;width: 100%;height: 4px;background: #cbd5e1;transform: translateY(-50%);z-index: 1;}
+		        .horizontal-lr .timeline-horizontal-line::after {content: ''; position: absolute; right: -10px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 15px solid #cbd5e1;}
+		        .timeline-station {flex: 1;display: flex;flex-direction: column;align-items: center;position: relative;z-index: 2;}
+		        .timeline-station:nth-child(odd) {justify-content: flex-start;}
+		        .timeline-station:nth-child(even) {justify-content: flex-end;}
+		        .timeline-station .timeline-marker {width:22px; height:22px; background:white; border:4px solid ${themeColors.primary}; border-radius:50%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:4;box-shadow: 0 0 0 4px #fff;}
+		        .timeline-station .drop-zone {width: 150px;min-height: 90px;border: 2px dashed #cbd5e1; border-radius:8px; background:#f8fafc; display:flex; align-items:center; justify-content:center; position:relative;transition:all .3s ease;}
+		        .timeline-station:nth-child(odd) .drop-zone {margin-bottom: 30px;}
+		        .timeline-station:nth-child(even) .drop-zone {margin-top: 30px;}
+		        .timeline-station .drop-zone::before {content: ''; position: absolute; left: 50%; width: 2px; height: 20px; background-color: #cbd5e1; transform: translateX(-50%);}
+		        .timeline-station:nth-child(odd) .drop-zone::before {bottom: -22px;}
+		        .timeline-station:nth-child(even) .drop-zone::before {top: -22px;}
+		        @media (max-width: 768px) { .timeline-container-horizontal {flex-direction: column;min-height:auto;margin: 20px auto;padding: 20px 0;} .timeline-horizontal-line{display:none;} .timeline-station,.timeline-station:nth-child(odd),.timeline-station:nth-child(even){flex-direction:row;justify-content:flex-start;width:100%;margin-bottom:10px;} .timeline-station .drop-zone{margin:0 0 0 30px;width:calc(100% - 30px);}.timeline-station .drop-zone::before,.timeline-station .timeline-marker{display:none;} }
+
+		    <\/style><\/head><body><div class="scorm-activity-container">${fullscreenBoilerplate.html}<div class="header"><h1>📅 ${escapeHTML(config.title)}<\/h1><p>${escapeHTML(config.description)}<\/p><\/div><div class="main-content"><div class="score" style="display:none;">Score: <span id="score">0<\/span>\/${timelineItems.length}<\/div><div class="items-pool-container"><h3>🧩 Éléments à placer<\/h3><div class="items-grid" id="items-grid"><\/div><\/div><div id="timeline-container"><\/div><div class="controls"><button class="btn btn-secondary" onclick="showInstructionsModal()">Instructions</button><button class="btn btn-primary" id="checkBtn" onclick="checkAnswer()">Vérifier l'ordre</button><button class="btn btn-secondary" id="resetBtn" onclick="resetActivity()" style="display:none;">Recommencer</button>
+				<\/div><\/div><\/div>
+                
+                <div class="scorm-image-zoom-overlay" id="zoomOverlay" onclick="this.style.display='none'">
+                    <img id="zoomOverlayImg" src="">
+                </div>
+                
+                ${modalBoilerplate.html}<div id="instructionsModal" class="modal-overlay-instructions" style="display:none;"><div class="modal-content-instructions"><div class="modal-header-instructions"><h3 id="instructionsModalTitle" class="modal-title-instructions">📝 Instructions<\/h3><button class="modal-close-btn-instructions" onclick="closeInstructionsModal()">&times;<\/button><\/div><div class="modal-body-instructions"><h2>Instructions</h2><p>Glissez et déposez les événements sur la frise chronologique dans le bon ordre. Attention, des intrus peuvent s'être glissés dans la liste !<\/p><\/div><div class="modal-footer-instructions"><button class="btn btn-primary" style="background:${themeColors.buttonGradient};color:white;" onclick="closeInstructionsModal()">Compris !</button><\/div><\/div><\/div><script>
+		        ${modalBoilerplate.js} ${fullscreenBoilerplate.js}
+		        function showInstructionsModal(){const t=document.getElementById("instructionsModal");t&&(t.style.display="flex",setTimeout(()=>t.classList.add("visible-scorm"),10))}function closeInstructionsModal(){const t=document.getElementById("instructionsModal");t&&(t.classList.remove("visible-scorm"),setTimeout(()=>{t.style.display="none"},200))}
+		        const activityConfig = { items: ${itemsJson}, orientation: "${orientation}", successThreshold: ${config.successThreshold}, feedbackSuccess: "${feedbackSuccessJS}", feedbackFailure: "${feedbackFailureJS}" };
+		        let scorm_activityStartTime = null, draggedItemElement = null, currentScore = 0; let actionLog = [];
+		        
+                const formatCMITimespan = ms => { if (ms < 0) ms = 0; let h = Math.floor(ms / 36e5), m = Math.floor((ms % 36e5) / 6e4), s = Math.floor((ms % 6e4) / 1e3); return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0'); };
+                function cleanTextForReport(text) { return String(text).replace(/[|;\\\\n\\\\r]/g, '').trim(); }
+                function escapeHTML(str) { return String(str).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
+                if ('speechSynthesis' in window) { window.speechSynthesis.getVoices(); }
+                window.speakText = function(text, lang='fr-FR') { 
+                    if ('speechSynthesis' in window) { 
+                        window.speechSynthesis.cancel(); 
+                        const u = new SpeechSynthesisUtterance(text); u.lang = lang; 
+                        const voices = window.speechSynthesis.getVoices();
+                        if (voices.length > 0) {
+                            let matched = voices.filter(v => v.lang === lang || v.lang.replace('_', '-') === lang);
+                            if (matched.length > 0) {
+                                matched.sort((a, b) => {
+                                    const scoreA = (a.name.includes('Google') || a.name.includes('Premium') || a.name.includes('Natural')) ? 1 : 0;
+                                    const scoreB = (b.name.includes('Google') || b.name.includes('Premium') || b.name.includes('Natural')) ? 1 : 0;
+                                    return scoreB - scoreA;
+                                });
+                                u.voice = matched[0]; 
+                            }
+                        }
+                        window.speechSynthesis.speak(u); 
+                    } 
+                };
+                window.playAudio = function(id) { const audio = document.getElementById('audio-' + id); if(audio) { audio.currentTime=0; audio.play(); } };
+
+                function getEntityHTML(e) {
+                    let audioHtml = '';
+                    if (e.audioMode === 'tts') {
+                        const textToSpeak = (e.type === 'text' ? e.content : (e.content.split('|')[1] || '')).replace(/'/g, "\\\\\\'").replace(/"/g, '&quot;');
+                        audioHtml = '<div class="speak-btn" onclick="event.stopPropagation(); window.speakText(\\''+textToSpeak+'\\', \\''+(e.ttsLang||'fr-FR')+'\\')" title="Écouter">🔊</div>';
+                    } else if ((e.audioMode === 'upload' || e.audioMode === 'record') && e.audioPath) {
+                        audioHtml = '<div class="speak-btn" onclick="event.stopPropagation(); window.playAudio(\\''+e.id+'\\')" title="Écouter">🔊</div>';
+                        const audioContainer = document.getElementById('audio-players') || (function(){ const div = document.createElement('div'); div.id='audio-players'; div.style.display='none'; document.body.appendChild(div); return div; })();
+                        if (!document.getElementById('audio-'+e.id)) audioContainer.innerHTML += '<audio id="audio-'+e.id+'" src="'+e.audioPath+'"></audio>';
+                    }
+
+                    if (e.type === 'image') {
+                        var p = e.content.split('|');
+                        var src = p[0], alt = p[1] || '';
+                        var img = '<div style="position:relative; display:inline-block; margin-bottom:5px;">' +
+                                  '<img src="' + escapeHTML(src) + '" alt="' + escapeHTML(alt) + '" style="max-width:100%; max-height:80px; object-fit:contain; border-radius:4px; pointer-events:none; display:block; margin:0 auto;">' +
+                                  '<div class="zoom-btn" onclick="openZoom(event, this.previousElementSibling.src)" style="position:absolute; bottom:-5px; right:-10px; background:white; color:#333; border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 5px rgba(0,0,0,0.3); font-size:12px; cursor:zoom-in; pointer-events:auto;">🔍</div>' +
+                                  '</div>';
+                        var txt = alt ? '<span style="font-size:0.9em; font-weight:600; margin-top:5px; display:block;">' + escapeHTML(alt) + '</span>' : '';
+                        return img + txt + audioHtml;
+                    }
+                    return '<div style="display:flex; align-items:center; justify-content:center; gap:5px;"><span style="font-weight:500;">' + escapeHTML(e.content || e.text) + '</span>' + audioHtml + '</div>';
+                }
+                
+                function getEntityReportText(item) {
+                    if(item.type === 'image') return '[Image] ' + (item.alt || '');
+                    return item.text || item.content || '';
+                }
+
+                function openZoom(ev, src) {
+                    ev.stopPropagation(); 
+                    document.getElementById('zoomOverlayImg').src = src;
+                    document.getElementById('zoomOverlay').style.display = 'flex';
+                }
+
+		        document.addEventListener('DOMContentLoaded', () => {
+		            document.body.className = activityConfig.orientation;
+		            scorm_activityStartTime = new Date();
+		            
+		            generateTimeline();
+		            generateItemsPool();
+		            updateScoreDisplay();
+		            
+		            if(typeof pipwerks !== 'undefined') {
+		                pipwerks.SCORM.version = "1.2"; 
+		                if(pipwerks.SCORM.init()) {
+		                    pipwerks.SCORM.set('cmi.core.lesson_status', 'incomplete');
+		                    pipwerks.SCORM.set('cmi.core.score.raw', '0');
+		                    pipwerks.SCORM.set('cmi.comments','');
+		                    pipwerks.SCORM.set('cmi.suspend_data', '');
+		                    pipwerks.SCORM.save('');
+		                }
+		            }
+		    
+		            showInstructionsModal();
+		        });
+        
+		        window.addEventListener('beforeunload', () => { if (typeof pipwerks !== 'undefined' && pipwerks.SCORM.connection.isActive) { pipwerks.SCORM.set('cmi.core.session_time', formatCMITimespan(new Date() - scorm_activityStartTime)); pipwerks.SCORM.quit(); } });
+
+		        const addDragDropListeners = (element) => {
+		            element.setAttribute("draggable", "true");
+		            element.addEventListener("dragstart", e => { 
+                        if(e.target.closest('.zoom-btn') || e.target.closest('.speak-btn') || document.getElementById('checkBtn').disabled) { e.preventDefault(); return; }
+                        draggedItemElement = e.target; e.target.classList.add("dragging"); 
+                    });
+		            element.addEventListener("dragend", e => { e.target.classList.remove("dragging"); });
+
+		            let ghostElement = null, lastDropTarget = null, offsetX = 0, offsetY = 0;
+            
+		            element.addEventListener('touchstart', (e) => {
+		                if (element.classList.contains('not-draggable') || e.target.closest('.zoom-btn') || e.target.closest('.speak-btn') || document.getElementById('checkBtn').disabled) return;
+		                draggedItemElement = element;
+		                ghostElement = element.cloneNode(true);
+		                const rect = element.getBoundingClientRect();
+		                const touch = e.touches[0];
+		                offsetX = touch.clientX - rect.left;
+		                offsetY = touch.clientY - rect.top;
+                
+		                ghostElement.style.width = \`\${rect.width}px\`;
+		                ghostElement.style.height = \`\${rect.height}px\`;
+		                ghostElement.classList.add('ghost-style');
+		                element.classList.add('dragging');
+
+		                ghostElement.style.left = \`\${touch.pageX - offsetX}px\`;
+		                ghostElement.style.top = \`\${touch.pageY - offsetY}px\`;
+		                document.body.appendChild(ghostElement);
+                        e.preventDefault();
+		            }, { passive: false });
+
+		            element.addEventListener('touchmove', (e) => {
+		                if (!ghostElement) return;
+                        e.preventDefault();
+		                const touch = e.touches[0];
+		                ghostElement.style.left = \`\${touch.pageX - offsetX}px\`;
+		                ghostElement.style.top = \`\${touch.pageY - offsetY}px\`;
+                
+		                ghostElement.style.display = 'none';
+		                const elementUnderTouch = document.elementFromPoint(touch.clientX, touch.clientY);
+		                ghostElement.style.display = '';
+
+		                const currentDropTarget = elementUnderTouch ? elementUnderTouch.closest(".drop-zone, .items-grid") : null;
+		                if (lastDropTarget && lastDropTarget !== currentDropTarget) {
+		                    lastDropTarget.classList.remove('dragover');
+		                }
+		                if (currentDropTarget) {
+		                    currentDropTarget.classList.add('dragover');
+		                    lastDropTarget = currentDropTarget;
+		                } else {
+		                    lastDropTarget = null;
+		                }
+		            }, { passive: false });
+
+		            element.addEventListener('touchend', (e) => {
+		                if (!ghostElement) return;
+		                element.classList.remove('dragging');
+		                if (lastDropTarget) {
+		                    lastDropTarget.classList.remove('dragover');
+		                    handleDrop({ preventDefault: () => {}, target: lastDropTarget });
+		                }
+		                ghostElement.remove();
+		                ghostElement = null;
+		                draggedItemElement = null;
+		                lastDropTarget = null;
+		            });
+		        };
+        
+		        const createDraggableItem = (item, draggable = true) => { 
+		            const el = document.createElement('div');
+		            el.className = 'item';
+		            if(!draggable) el.classList.add('not-draggable');
+		            el.dataset.id = item.id;
+		            el.innerHTML = \`<div class="item-content">\${getEntityHTML(item)}<\/div>\`;
+		            if(item.showDate && item.date) el.innerHTML += \`<div class="item-date-lozenge">\${item.date}<\/div>\`;
+		            if(draggable) {
+		                addDragDropListeners(el);
+		            }
+		            return el;
+		        };
+        
+		        const generateTimeline = () => { const c=document.getElementById('timeline-container'), o=activityConfig.orientation, tI=activityConfig.items.filter(i=>!i.isIntruder); const allDropTargets = [document.getElementById('items-grid')]; if(o.startsWith('vertical')) { c.className='timeline-container-vertical'; c.innerHTML='<div class="timeline-vertical-line" id="timeline"><\/div>'; const l=document.getElementById('timeline'), i=tI.length; l.style.height=(i*${itemEntryVerticalSpace})+40+'px'; c.style.minHeight=(parseFloat(l.style.height)+60)+'px'; const sI=o==='vertical-td'?[...tI].sort((a,b)=>(a.year||0)-(b.year||0)):[...tI].sort((a,b)=>(b.year||0)-(a.year||0)); for(let j=0;j<i;j++){const item=sI[j],e=document.createElement('div');e.className=\`timeline-event-entry \${j%2===0?'left':'right'}\`;e.style.top=(${timelineTopPadding}+(j*${itemEntryVerticalSpace}))+'px';e.innerHTML='<div class="timeline-marker"><\/div>';const dZ=document.createElement('div');dZ.className='drop-zone';dZ.id=\`dropzone-\${j}\`;dZ.dataset.expectedPosition=j;if(item&&item.isPrePlaced){dZ.appendChild(createDraggableItem(item,false));dZ.classList.add("fixed-zone")}else{dZ.innerHTML='<span class="placeholder-text">Évènement '+(j+1)+'<\/span>'}e.appendChild(dZ);allDropTargets.push(dZ);c.appendChild(e)} } else { c.className='timeline-container-horizontal'; c.innerHTML='<div class="timeline-horizontal-line"><\/div>'; const sI=[...tI].sort((a,b)=>(a.year||0)-(b.year||0)); sI.forEach((item,j)=>{ const s=document.createElement('div'); s.className='timeline-station'; s.innerHTML='<div class="timeline-marker"><\/div>'; const dZ=document.createElement('div');dZ.className='drop-zone';dZ.id=\`dropzone-\${j}\`;dZ.dataset.expectedPosition=j;if(item&&item.isPrePlaced){dZ.appendChild(createDraggableItem(item,false));dZ.classList.add("fixed-zone")}else{dZ.innerHTML='<span class="placeholder-text">Évènement '+(j+1)+'<\/span>'}s.appendChild(dZ);allDropTargets.push(dZ);c.appendChild(s);}); } allDropTargets.forEach(target => { target.addEventListener('dragover', e => {if(!document.getElementById('checkBtn').disabled)e.preventDefault()}); target.addEventListener('drop', handleDrop); }); };
+		        const generateItemsPool=()=>{const g=document.getElementById('items-grid');g.innerHTML='';[...activityConfig.items].filter(i=>!i.isPrePlaced).sort(()=>Math.random()-.5).forEach(i=>g.appendChild(createDraggableItem(i)))};
+		        const handleDrop=e=>{e.preventDefault();if(!draggedItemElement || document.getElementById('checkBtn').disabled)return;const tZ=e.target.closest('.drop-zone'),iG=document.getElementById('items-grid'),sP=draggedItemElement.parentElement;if(!tZ&&e.target!==iG&&!e.target.closest('#items-grid'))return;const d=activityConfig.items.find(i=>String(i.id)===draggedItemElement.dataset.id),t=d?\`(\${d.date||'N/A'}) \${getEntityReportText(d)}\`:'Inconnu';let sL="la réserve";sP.classList.contains('drop-zone')&&(sL=\`l\\'évènement \${parseInt(sP.dataset.expectedPosition,10)+1}\`);let dL="la réserve";tZ&&(dL=\`l\\'évènement \${parseInt(tZ.dataset.expectedPosition,10)+1}\`);actionLog.push(\`[\${formatCMITimespan(new Date-scorm_activityStartTime)}] Déplacement: "\${t}" de \${sL} vers \${dL}.\`);if(tZ&&!tZ.classList.contains('fixed-zone')){const eI=tZ.querySelector('.item');eI&&iG.appendChild(eI);tZ.innerHTML='';tZ.appendChild(draggedItemElement)}else iG.appendChild(draggedItemElement);if(sP&&sP.classList.contains('drop-zone')&&sP!==tZ)sP.innerHTML='<span class="placeholder-text">Évènement '+(parseInt(sP.dataset.expectedPosition,10)+1)+'<\/span>'};
+		        
+                const checkAnswer=()=>{let c=0;const o=activityConfig.orientation;const tI=activityConfig.items.filter(i=>!i.isIntruder);let sI;if(o==='vertical-bu'){sI=[...tI].sort((a,b)=>(b.year||0)-(a.year||0))}else{sI=[...tI].sort((a,b)=>(a.year||0)-(b.year||0))}document.querySelectorAll('.drop-zone:not(.fixed-zone)').forEach((z,i)=>{const itemEl=z.querySelector('.item');z.style.borderColor='';if(itemEl){const pI=activityConfig.items.find(item=>String(item.id)===itemEl.dataset.id);const expectedItem=sI[parseInt(z.dataset.expectedPosition)];if(pI.isIntruder){z.style.borderColor='#ef4444'}else if(expectedItem&&pI.id==expectedItem.id){c++;z.style.borderColor='#10b981'}else{z.style.borderColor='#ef4444'}}});currentScore=c;updateScoreDisplay();const mS=tI.length;const p=mS>0?c/mS*100:100;let s;if(p>=activityConfig.successThreshold){s='passed';showActivityModal(activityConfig.feedbackSuccess,'Félicitations !', true)}else{s='failed';showActivityModal(activityConfig.feedbackFailure,'Résultat', false)}document.getElementById('checkBtn').disabled=true;document.getElementById('checkBtn').style.display='none';document.getElementById('resetBtn').style.display='inline-block';document.querySelectorAll('.item').forEach(el=>el.draggable=false);if(typeof pipwerks!='undefined'&&pipwerks.SCORM.connection.isActive){const sTF=formatCMITimespan(new Date-scorm_activityStartTime);let dR=\`[RÉSULTATS GLOBAUX]\\nType d'activité: Remise en ordre chronologique\\nScore final: \${Math.round(p)}%\\nÉléments correctement placés: \${c} / \${mS}\\nStatut de la leçon: \${s.toUpperCase()}\\n\\n[SOLUTION ATTENDUE (ORDRE CORRECT)]\\n\`;sI.forEach((item,idx)=>{dR+=\`\${idx+1}. (\${item.date||'N/A'}) \${cleanTextForReport(getEntityReportText(item))}\\n\`});dR+=\`\\n[ANALYSE DES PLACEMENTS UTILISATEUR]\\n\`;document.querySelectorAll('.drop-zone').forEach(zone=>{const eP=parseInt(zone.dataset.expectedPosition,10);if(isNaN(eP))return;const pIE=zone.querySelector('.item');const eI=sI[eP];const pI=pIE?activityConfig.items.find(i=>String(i.id)===pIE.dataset.id):null;if(eI){dR+=\`Position \${eP+1}:\\n   Attendu: (\${eI.date||'N/A'}) \${cleanTextForReport(getEntityReportText(eI))}\\n   Placé: \${pI?\`(\${pI.date||'N/A'}) \${cleanTextForReport(getEntityReportText(pI))}\`:'Vide'}\\n   Correct?: \${pI&&pI.id===eI.id?'Oui':'Non'}\\n\\n\`}});dR+=\`[STATISTIQUES TEMPORELLES]\\nTemps total de session (au moment du test): \${sTF} (HH:MM:SS)\\n\\n[CHRONOLOGIE DES ACTIONS]\\n\${actionLog.length>0?actionLog.join('\\n'):'Aucune action enregistrée.'}\`;let sC=\`Résultat: \${c}/\${mS}. Score: \${Math.round(p)}%.\`;pipwerks.SCORM.set("cmi.core.score.raw",Math.round(p).toString());pipwerks.SCORM.set("cmi.core.score.min","0");pipwerks.SCORM.set("cmi.core.score.max","100");pipwerks.SCORM.set("cmi.core.lesson_status",s);pipwerks.SCORM.set("cmi.comments",sC.substring(0,4096));pipwerks.SCORM.set("cmi.suspend_data",dR.substring(0,4096));pipwerks.SCORM.save("")}};
+		        const resetActivity=()=>{window.location.reload()};
+		        const updateScoreDisplay=()=>document.getElementById('score').textContent=currentScore;
+		    <\/script><\/body><\/html>`;
+		    return html;
+		}
+
+        async function previewInNewTab() {
+            const errors = validateActivity();
+            if (errors.length > 0) { showCustomAlert('Erreurs de validation:\n' + errors.join('\n'), 'error', 'Validation Échouée'); return; }
+            document.getElementById('loading').style.display = 'block';
+            try {
+                const data = await prepareItemsForScorm('preview');
+                const config = { title: document.getElementById('activity-title').value, description: document.getElementById('activity-description').value, items: data.preparedItems, theme: document.getElementById('theme-color').value, orientation: document.getElementById('timeline-orientation').value, successThreshold: document.getElementById('success-threshold').value || 100, feedbackSuccess: document.getElementById('feedback-success').value, feedbackFailure: document.getElementById('feedback-failure').value };
+                const finalHtml = generateChronologicalActivityHTML(config);
+                if (finalHtml) { const blob = new Blob([finalHtml], { type: 'text/html' }); const url = URL.createObjectURL(blob); window.open(url, '_blank'); }
+            } catch(e) { console.error(e); showCustomAlert("Erreur de prévisualisation.", 'error'); } finally { document.getElementById('loading').style.display = 'none'; }
+        }
+		
+		async function generateSCORMPackage() { 
+		    const errors = validateActivity();
+		    if (errors.length > 0) { showCustomAlert('Erreurs de validation:\n' + errors.join('\n'), 'error', 'Validation Échouée'); return; }
+			
+// 📈 SUIVI MATOMO : Génération SCORM (Sans IA)
+            if (window._paq) {
+                window._paq.push(['trackEvent', 'HAPI - Export Sans IA', 'SCORM', 'chronologie']);
+            }
+			
+		    document.getElementById('loading').style.display = 'block';
+		    const activityTitle = document.getElementById('activity-title').value || 'activite_chronologique';
+            try {
+                const data = await prepareItemsForScorm('zip');
+                const config = { title: activityTitle, description: document.getElementById('activity-description').value, items: data.preparedItems, scormId: 'chrono_activity_' + Date.now(), version: '1.0', theme: document.getElementById('theme-color').value || 'blue', orientation: document.getElementById('timeline-orientation').value || 'vertical-td', successThreshold: document.getElementById('success-threshold').value || 100, feedbackSuccess: document.getElementById('feedback-success').value, feedbackFailure: document.getElementById('feedback-failure').value, zipFilename: `${sanitizeFilename(activityTitle)}_chrono.zip` };
+                const files = { 'index.html': generateChronologicalActivityHTML(config), 'imsmanifest.xml': generateManifest(config), 'scorm_api_wrapper.js': generateScormAPIWrapper(), 'adlcp_rootv1p2.xsd': getScormSchema() };
+                const zip = new JSZip();
+                Object.entries(files).forEach(([filename, content]) => zip.file(filename, content));
+                const assetsFolder = zip.folder("assets");
+                data.assets.forEach(asset => assetsFolder.file(asset.name, asset.blob));
+                const zipBlob = await zip.generateAsync({ type: "blob", compression: "DEFLATE", compressionOptions: { level: 9 } });
+                const link = document.createElement('a'); link.href = URL.createObjectURL(zipBlob); link.download = config.zipFilename; document.body.appendChild(link); link.click(); document.body.removeChild(link); URL.revokeObjectURL(link.href); 
+                showCustomAlert(`Package SCORM "${config.zipFilename}" téléchargé !`, 'success', 'Téléchargement Réussi');
+            } catch (error) { console.error(error); showCustomAlert("Erreur lors de la génération du fichier ZIP.", 'error', 'Erreur ZIP'); } finally { document.getElementById('loading').style.display = 'none'; }
+		}
+
+		function sanitizeFilename(name) { const normalizedName = name.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); return normalizedName.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9_\-.]/g, ''); }
+        function generateManifest(config) { const escapeXml = (unsafe) => String(unsafe).replace(/[<>&'"]/g, c => ({'<':'&lt;','>':'&gt;','&':'&amp;','\'':'&apos;','"':'&quot;'}[c])); return `<?xml version="1.0" encoding="UTF-8"?><manifest identifier="${escapeXml(config.scormId)}" version="${escapeXml(config.version)}" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd"><metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata><organizations default="org1"><organization identifier="org1"><title>${escapeXml(config.title)}</title><item identifier="item1" identifierref="resource1"><title>${escapeXml(config.title)}</title></item></organization></organizations><resources><resource identifier="resource1" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/><file href="scorm_api_wrapper.js"/><file href="adlcp_rootv1p2.xsd"/></resource></resources></manifest>`; }
+        function generateScormAPIWrapper() { return `var pipwerks={};pipwerks.UTILS={},pipwerks.debug={isActive:!0},pipwerks.SCORM={version:null,API:{handle:null,isFound:!1},connection:{isActive:!1},data:{completionStatus:null,exitStatus:null},funcs:{clearSCORMError:function(e){return pipwerks.debug.isActive&&pipwerks.SCORM.debug.getCode(e,!0),!0}},debug:{}},pipwerks.SCORM.API.find=function(e){for(var r=null,i=0;!e.API&&e.parent&&e.parent!=e&&i<=500;)i++,e=e.parent;return r=e.API},pipwerks.SCORM.API.get=function(){var e=null,r=window;return(e=pipwerks.SCORM.API.find(r))||!r.opener||void 0===r.opener||(e=pipwerks.SCORM.API.find(r.opener)),e?pipwerks.SCORM.API.isFound=!0:pipwerks.debug.isActive&&console.log("SCORM API not found."),e},pipwerks.SCORM.API.getHandle=function(){var e=pipwerks.SCORM.API.get();return e||(pipwerks.debug.isActive&&console.log("SCORM API not found. Could not get handle.")),pipwerks.SCORM.API.handle=e},pipwerks.SCORM.init=function(){var e=!1,r=pipwerks.SCORM,i=r.API.getHandle(),t=0;return i?("1.2"==r.version?e="true"==i.LMSInitialize(""): "2004"==r.version&&(e="true"==i.Initialize("")),e?(r.connection.isActive=!0,0!=(t=r.debug.getCode())&&r.debug.getCode(t,!0)):(t=r.debug.getCode(),r.debug.getCode(t,!0))):pipwerks.debug.isActive&&console.log("SCORM connection failed: API is null."),e},pipwerks.SCORM.set=function(e,r){var i=!1,t=pipwerks.SCORM,o=t.API.handle,n=0;return t.connection.isActive?("1.2"==t.version?i="true"==o.LMSSetValue(e,r):"2004"==t.version&&(i="true"==o.SetValue(e,r)),i||(n=t.debug.getCode(),t.debug.getCode(n,!0))):pipwerks.debug.isActive&&console.log("SCORM connection not active. Cannot set value."),i},pipwerks.SCORM.get=function(e){var r=null,i=pipwerks.SCORM,t=i.API.handle,o=0;return i.connection.isActive?("1.2"==i.version?r=t.LMSGetValue(e):"2004"==i.version&&(r=t.GetValue(e)),0!=(o=i.debug.getCode())&&""===r&&i.debug.getCode(o,!0)):pipwerks.debug.isActive&&console.log("SCORM connection not active. Cannot get value."),r},pipwerks.SCORM.save=function(){var e=!1,r=pipwerks.SCORM,i=r.API.handle,t=0;return r.connection.isActive?("1.2"==r.version?e="true"==i.LMSCommit(""): "2004"==r.version&&(e="true"==i.Commit("")),e||(t=r.debug.getCode(),r.debug.getCode(t,!0))):pipwerks.debug.isActive&&console.log("SCORM connection not active. Cannot save."),e},pipwerks.SCORM.quit=function(){var e=!1,r=pipwerks.SCORM,i=r.API.handle;return r.connection.isActive?(r.set("cmi.core.exit",r.data.exitStatus || "suspend"),"1.2"==r.version?e="true"==i.LMSFinish(""): "2004"==r.version&&(e="true"==i.Terminate("")),e?r.connection.isActive=!1:r.debug.getCode(r.debug.getCode(),!0)):pipwerks.debug.isActive&&console.log("SCORM connection not active. Cannot quit."),e},pipwerks.SCORM.debug.getCode=function(e,r){var i,t,o=pipwerks.SCORM,n=o.API.handle,s="",c={"0":"No Error","101":"General Exception","102":"General Initialization Failure","103":"Already Initialized","104":"Content Instance Terminated","111":"General Termination Failure","112":"Termination Before Initialization","113":"Termination After Termination","122":"Retrieve Data Before Initialization","123":"Retrieve Data After Termination","132":"Store Data Before Initialization","133":"Store Data After Termination","142":"Commit Before Initialization","143":"Commit After Termination","201":"General Argument Error","301":"General Get Failure","351":"General Set Failure","391":"General Commit Failure","401":"Undefined Data Model Element","402":"Unimplemented Data Model Element","403":"Data Model Element Value Not Initialized","404":"Data Model Element Is Read Only","405":"Data Model Element Is Write Only","406":"Data Model Element Type Mismatch","407":"Data Model Element Value Out Of Range","408":"Data Model Dependency Not Established"};return e||("1.2"==o.version?e=parseInt(n.LMSGetLastError(),10):"2004"==o.version&&(e=parseInt(n.GetLastError(),10))),s=c[e.toString()]||"Unknown",r?pipwerks.debug.isActive&&console.log("SCORM Info: "+e+" | "+s):(pipwerks.debug.isActive&&("1.2"==o.version?i=n.LMSGetErrorString(e.toString()):"2004"==o.version&&(i=n.GetErrorString(e.toString())),console.log("SCORM Error: "+e+" | "+s+" | "+i))),e},pipwerks.UTILS.StringToBoolean=function(e){var r;switch(e.toLowerCase()){case"true":case"yes":case"1":r=!0;break;case"false":case"no":case"0":case null:r=!1;break;default:r=Boolean(e)}return r};`; }
+        function getScormSchema() { return `<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns="http://www.adlnet.org/xsd/adlcp_rootv1p2" elementFormDefault="qualified" attributeFormDefault="unqualified"><xs:element name="location" type="xs:string"/><xs:element name="maxtimeallowed" type="xs:string"/><xs:element name="timelimitaction" type="xs:string"/><xs:element name="datafromlms" type="xs:string"/><xs:element name="masteryscore" type="xs:string"/><xs:attribute name="scormtype"><xs:simpleType><xs:restriction base="xs:string"><xs:enumeration value="sco"/><xs:enumeration value="asset"/></xs:restriction></xs:simpleType></xs:attribute></xs:schema>`; }
+        
+    </script>
+		
+<script src="../js/tracking-static.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

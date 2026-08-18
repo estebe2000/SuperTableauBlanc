@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "discipline": "Éducation musicale",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'éducation musicale du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des projets musicaux d'interprétation ou de création",
+    "Écouter, comparer, construire une culture musicale commune",
+    "Explorer, imaginer, créer et produire",
+    "Échanger, partager, argumenter et débattre"
+  ],
+  "domaines": [
+    {
+      "nom": "Réaliser des projets musicaux d'interprétation ou de création",
+      "description": "Interpréter un répertoire, créer des productions musicales.",
+      "competences": [
+        {
+          "intitule": "Interpréter une chanson ou une pièce instrumentale en mobilisant des techniques vocales ou instrumentales",
+          "exemples_themes": ["Bohemian Rhapsody de Queen (polyphonie et nuances)", "Le Chant des Partisans (chant engagé, lien HG 3e)", "Un gospel : Oh Happy Day (chorale à voix multiples)", "Un chant en langue étrangère (Bella Ciao en italien, Amazing Grace en anglais)", "Accompagnement au ukulélé ou aux percussions d'un morceau pop"]
+        },
+        {
+          "intitule": "Créer une production musicale originale",
+          "exemples_themes": ["Composer un morceau de rap ou de slam sur un thème de classe", "Écrire et enregistrer un jingle radio pour le collège", "Créer une bande-son pour un court-métrage réalisé en classe", "Remixer un morceau classique avec un logiciel (GarageBand, Audacity)", "Composer un paysage sonore radiophonique (reportage fictif)"]
+        }
+      ]
+    },
+    {
+      "nom": "Écouter, comparer, construire une culture musicale commune",
+      "description": "Développer l'écoute critique et construire des repères culturels.",
+      "competences": [
+        {
+          "intitule": "Analyser des œuvres musicales en mobilisant un vocabulaire précis",
+          "exemples_themes": ["La 5e Symphonie de Beethoven (motif rythmique, développement)", "Summertime de Gershwin (le blues, le swing, l'improvisation jazz)", "Thriller de Michael Jackson (clip vidéo, mise en scène sonore)", "Un extrait d'opéra : Carmen de Bizet (la Habanera)", "Different Trains de Steve Reich (musique répétitive, mémoire de la Shoah)"]
+        },
+        {
+          "intitule": "Situer et comparer des musiques de styles, d'époques et de cultures différents",
+          "exemples_themes": ["Du chant grégorien au rock progressif (évolution de la musique occidentale)", "Le blues du Delta et ses descendants (rock, soul, hip-hop)", "La musique de film : de Bernard Herrmann (Psychose) à Hans Zimmer (Inception)", "Musique savante vs musique populaire : Mozart et Stromae", "Musiques du monde : gamelan balinais, raga indien, flamenco"]
+        },
+        {
+          "intitule": "Porter un regard critique sur une production musicale",
+          "exemples_themes": ["Débat : cette musique est-elle de l'art ? (John Cage, 4'33'')", "Comparer deux interprétations d'un même morceau (classique vs cover)", "Analyser un clip vidéo (rapport image-musique-message)", "Critique argumentée d'un concert ou d'un album (écrite ou orale)", "Les musiques de publicité : pourquoi ça marche ?"]
+        }
+      ]
+    },
+    {
+      "nom": "Explorer, imaginer, créer et produire",
+      "description": "Expérimenter des procédés de création sonore et musicale.",
+      "competences": [
+        {
+          "intitule": "Explorer des procédés musicaux et les utiliser dans une production",
+          "exemples_themes": ["Le sample et le remix (transformer un extrait existant)", "L'improvisation au clavier ou aux percussions (sur une grille de blues)", "Le beatbox et les techniques vocales contemporaines", "La musique électroacoustique : enregistrer, transformer, mixer des sons du quotidien", "Créer un podcast musical thématique (choix des musiques, commentaires, montage)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'éducation musicale du cycle 4 articule pratique musicale (chant, instrument, création), écoute analytique et culture musicale. Les élèves interprètent un répertoire diversifié, créent des productions originales (compositions, arrangements, montages sonores) et développent une écoute critique fondée sur un vocabulaire précis. La culture musicale couvre les grandes périodes de la musique occidentale et s'ouvre aux musiques du monde, aux musiques actuelles et aux musiques de film. Les outils numériques (logiciels de MAO, enregistrement) sont mobilisés pour la création."
+}

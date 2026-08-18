@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qu'est ce que HAPI ? Comment cela fonctionne ?</title>
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="css/styles.css">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+
+</head>
+<body class="page-hapi">
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="./" title="Retour à l'accueil">
+                    <img src="images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="./" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="./hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="./images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="./images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+    
+    <div class="container">
+
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="./" title="Retour à l'accueil">Accueil</a>
+            <span>À propos du site</span>
+        </div>
+
+        <div class="content" id="contenu" role="main">
+            <h1>HAPI : Hub d'Assistance Pédagogique Interactif</h1>
+            <h2>1. Qu'est-ce que HAPI ?</h2>
+            <p>
+                <strong>HAPI</strong> est une plateforme destinée aux enseignants et aux élèves, en lien avec le cadre d’usage de l’intelligence artificielle en éducation (DNE). 
+            </p>
+            <p>
+                C’est un générateur de contenus pédagogiques conçu pour faciliter la tâche des enseignants. Ces contenus sont directement intégrables dans <strong>Éléa</strong> (Moodle).
+            </p>
+            <h2>2. L’approche « HAPI avec IA » : comment ça marche ?</h2>
+            <p>
+                HAPI permet de concevoir, grâce à l’IA, des activités interactives sur la base d’un ensemble de ressources (cours, documents, notions) préalablement sélectionnées par l’utilisateur.
+                <br>HAPI fonctionne comme un « assistant augmenté » qui permet à l’enseignant d’optimiser le temps de conception des supports pédagogiques, <strong>tout en gardant la maîtrise</strong> des contenus générés par l'intelligence artificielle. 
+                <br>Le processus se déroule en 4 étapes pédagogiques :
+            </p>
+            <ol>
+                <li><strong>préparation du corpus</strong> : l’utilisateur fournit ses documents ou textes sources dans l'interface HAPI.</li>
+                <li><strong>ingénierie du prompt</strong> : HAPI construit un "prompt" (une consigne complexe et structurée). Le prompt peut être visualisé et édité.</li>
+                <li><strong>génération par l'IA</strong> : le prompt doit être copié et soumis à l'IA grand public de son choix, sans création de compte obligatoire (Mistral, ChatGPT, Perplexity).</li>
+                <li><strong>finalisation dans HAPI</strong> : la réponse renvoyée par l'IA doit être collée dans HAPI. L'outil interprète les éléments formatés, ce qui permet à l’utilisateur, si besoin, d’ajuster et de paramétrer les derniers réglages, de tester l'activité immédiatement et de télécharger le fichier final pour une intégration dans un parcours Éléa.</li>
+            </ol>
+			<h2>L’approche « HAPI sans IA » : qu’est-ce que c’est ?</h2>
+            <p>
+                HAPI propose également de concevoir différentes activités interactives sans avoir recours à l’IA. Ce qui permet à des élèves, avant la classe de 4è (niveau requis pour utiliser des IA génératives), d’élaborer des exercices interactifs, intégrables dans la plateforme d’apprentissage d’Éléa.
+			</p>
+            <h2>4. Une conception innovante</h2>
+            <p>
+                HAPI est une illustration d’application dont le code a été développé avec l'intelligence artificielle. L'intégralité de la plateforme (HTML5, CSS, Javascript) a été initialement écrite avec l'aide des IA Gemini et Claude.
+            </p>
+            <p>
+                C'est une application web légère et respectueuse des standards, utilisant des librairies libres pour fonctionner directement dans votre navigateur (JSZip pour les archives, PDF.js pour la lecture de documents, H5P-standalone pour la prévisualisation, KaTeX pour les mathématiques, etc.).
+            </p>
+            <h2>5. Aide et communauté</h2>
+            <p>
+                Besoin d'accompagnement pour créer votre première activité ?
+            </p>
+            <ul>
+                <li><strong>Documentation</strong> : retrouvez les guides pas à pas sur le site dédié (lien à venir).</li>
+                <li><strong>Support</strong> : rejoignez la communauté sur le <a class="out" target="_blank" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr">salon Tchap HAPI</a> pour échanger, poser vos questions et suivre les évolutions de l'outil.</li>
+            </ul>        
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="./">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+<script src="js/tracking-static.js"></script>
+<script src="js/theme-switcher.js"></script>
+</body>
+</html>

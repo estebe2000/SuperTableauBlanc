@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "discipline": "Arts plastiques",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'arts plastiques du cycle 3",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Expérimenter, produire, créer des productions plastiques de natures diverses",
+    "Mettre en œuvre un projet artistique individuel ou collectif",
+    "S'exprimer, analyser sa pratique et celle de ses pairs",
+    "Se repérer dans les domaines liés aux arts plastiques et situer des œuvres"
+  ],
+  "domaines": [
+    {
+      "nom": "La représentation plastique et les dispositifs de présentation",
+      "description": "Représenter le monde, utiliser différents médiums, questionner la ressemblance et l'écart.",
+      "competences": [
+        {
+          "intitule": "Représenter le monde environnant ou donner forme à son imaginaire en explorant divers domaines",
+          "exemples_themes": ["Le portrait : autoportrait au pastel gras", "Le paysage vu de ma fenêtre (aquarelle ou collage)", "Un animal fantastique (dessin d'imagination)", "La nature morte aux fruits (observation directe)", "Ma ville rêvée (dessin, collage, assemblage)", "L'illustration d'un conte lu en classe"]
+        },
+        {
+          "intitule": "Exploiter les possibilités offertes par les outils, les matériaux, les supports",
+          "exemples_themes": ["La peinture au couteau (matière, épaisseur)", "L'encre de Chine soufflée à la paille (le hasard)", "Le fusain sur grand format (le geste et le trait)", "Le monotype (technique d'impression)", "Le collage de papiers déchirés (à la manière de Matisse)", "La gravure sur polystyrène (estampe)"]
+        }
+      ]
+    },
+    {
+      "nom": "Les fabrications et la relation entre l'objet et l'espace",
+      "description": "Réaliser des productions en volume, interroger la sculpture, l'installation, l'architecture.",
+      "competences": [
+        {
+          "intitule": "Réaliser des productions plastiques en volume (sculpture, assemblage, installation)",
+          "exemples_themes": ["La sculpture en fil de fer (Calder)", "L'assemblage d'objets de récupération (robot, personnage)", "La maquette architecturale en carton (ma maison idéale)", "Le totem collectif en matériaux recyclés", "Le mobile en équilibre (Calder, à la manière de)", "L'installation éphémère dans la cour (land art)"]
+        },
+        {
+          "intitule": "Mettre en œuvre un projet artistique individuel ou collectif",
+          "exemples_themes": ["La fresque murale collective (peindre ensemble un grand format)", "L'exposition de classe (choisir, accrocher, cartel)", "La création d'un livre d'artiste (texte + images)", "Le parcours artistique dans l'école (installation in situ)", "L'affiche du spectacle de fin d'année", "Le cabinet de curiosités de la classe"]
+        }
+      ]
+    },
+    {
+      "nom": "La matérialité de la production plastique et la sensibilité aux constituants de l'œuvre",
+      "description": "Comprendre les effets de la couleur, de la matière, du geste, de la composition.",
+      "competences": [
+        {
+          "intitule": "Comprendre les effets plastiques de ses choix (couleur, matière, composition, lumière)",
+          "exemples_themes": ["Le cercle chromatique (couleurs primaires, secondaires, complémentaires)", "Les nuances de gris (dégradé au crayon)", "Chaud / froid : peindre un paysage en deux versions", "La symétrie et l'asymétrie dans une composition", "Le cadrage photographique (gros plan, plan large, plongée)", "Les contrastes : clair/obscur à la manière de Georges de La Tour"]
+        }
+      ]
+    },
+    {
+      "nom": "Se repérer dans les domaines liés aux arts plastiques",
+      "description": "Connaître des œuvres et des artistes, situer dans le temps et l'espace.",
+      "competences": [
+        {
+          "intitule": "Identifier et situer des œuvres d'art de différentes époques et cultures",
+          "exemples_themes": ["Les peintures rupestres de Lascaux (Préhistoire, lien HG)", "La Joconde de Léonard de Vinci (Renaissance)", "Les Nymphéas de Claude Monet (impressionnisme)", "Les papiers découpés de Henri Matisse", "Le street art de Banksy (art contemporain et engagement)", "Un masque africain (arts premiers et diversité culturelle)"]
+        },
+        {
+          "intitule": "Exprimer un ressenti et un avis devant une œuvre, argumenter",
+          "exemples_themes": ["La visite virtuelle d'un musée (Louvre, Orsay, Centre Pompidou)", "Comparer deux portraits de deux époques différentes", "Le carnet de visite d'exposition (croquis + impressions)", "Le débat : cette œuvre est-elle belle ? qu'exprime-t-elle ?", "L'œuvre de la semaine (affichée et commentée)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts plastiques du cycle 3 développe la pratique artistique, la culture artistique et la capacité à s'exprimer sur les œuvres. Les élèves explorent des techniques variées (dessin, peinture, collage, sculpture, photographie, numérique), réalisent des projets individuels et collectifs, et découvrent des œuvres du patrimoine et de l'art contemporain. L'accent est mis sur l'expérimentation, le choix des matériaux, la composition, et la capacité à formuler un jugement argumenté devant une œuvre."
+}

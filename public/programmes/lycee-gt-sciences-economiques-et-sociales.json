@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "discipline": "Sciences Économiques et Sociales (SES)",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019, B.O. spécial n°8 du 25 juillet 2019 — Programme de SES 2nde + spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Mobiliser des concepts économiques, sociologiques et politiques",
+    "Interpréter des données statistiques et des documents variés",
+    "Construire une argumentation structurée (dissertation, épreuve composée)",
+    "Développer un regard critique sur les enjeux économiques et sociaux",
+    "Comprendre les mécanismes fondamentaux de l'économie et de la société"
+  ],
+  "domaines": [
+    {
+      "nom": "Science économique",
+      "description": "Les mécanismes économiques fondamentaux : marché, croissance, monnaie.",
+      "competences": [
+        {
+          "intitule": "Comment un marché concurrentiel fonctionne-t-il ? (1ère)",
+          "exemples_themes": ["Les courbes d'offre et de demande (graphique)", "La fixation du prix d'équilibre (simulation)", "Un marché concret : le marché du pétrole ou des céréales", "Les effets d'une taxe ou d'un prix plafond"]
+        },
+        {
+          "intitule": "Comment les marchés imparfaitement concurrentiels fonctionnent-ils ? (1ère)",
+          "exemples_themes": ["Le monopole et l'oligopole : exemples concrets (GAFAM)", "La stratégie de prix d'une entreprise (Apple, Ryanair)", "Les défaillances du marché : asymétries d'information", "Le rôle de l'État dans la régulation de la concurrence"]
+        },
+        {
+          "intitule": "Quelles sont les sources et les défis de la croissance économique ? (Terminale)",
+          "exemples_themes": ["Le PIB : mesure et limites (données INSEE/Banque mondiale)", "Le progrès technique et la croissance (modèle de Solow)", "L'innovation et la destruction créatrice (Schumpeter)", "Croissance et soutenabilité environnementale"]
+        },
+        {
+          "intitule": "Quels sont les fondements du commerce international ? (Terminale)",
+          "exemples_themes": ["Les avantages comparatifs (Ricardo)", "La mondialisation des échanges (carte des flux)", "Le protectionnisme vs le libre-échange (débat)", "Les firmes multinationales et les chaînes de valeur mondiales"]
+        },
+        {
+          "intitule": "Comment lutter contre le chômage ? (Terminale)",
+          "exemples_themes": ["Les statistiques du chômage en France (données Pôle emploi/INSEE)", "Chômage structurel vs conjoncturel", "Les politiques de l'emploi (formation, flexisécurité)", "Le marché du travail et le salaire minimum (SMIC)"]
+        }
+      ]
+    },
+    {
+      "nom": "Sociologie et science politique",
+      "description": "Les mécanismes sociaux : socialisation, stratification, opinion, vote.",
+      "competences": [
+        {
+          "intitule": "Comment la socialisation contribue-t-elle à expliquer les différences de comportement ? (1ère)",
+          "exemples_themes": ["La socialisation primaire et secondaire (exemples concrets)", "Les stéréotypes de genre dans les jouets et les médias", "La reproduction sociale (Bourdieu) : données sur la mobilité", "L'influence de la famille et de l'école sur les parcours"]
+        },
+        {
+          "intitule": "Comment se construisent et évoluent les liens sociaux ? (1ère)",
+          "exemples_themes": ["Les différentes formes de solidarité (Durkheim)", "L'évolution de la famille en France (données démographiques)", "Les réseaux sociaux numériques et le lien social", "L'isolement social et la précarité relationnelle"]
+        },
+        {
+          "intitule": "Comment est structurée la société française actuelle ? (Terminale)",
+          "exemples_themes": ["Les PCS de l'INSEE : principes et limites", "Les inégalités de revenus et de patrimoine (données INSEE)", "La mobilité sociale intergénérationnelle (tables de mobilité)", "Les théories des classes sociales (Marx, Weber, Bourdieu)"]
+        },
+        {
+          "intitule": "Quelle est l'action de l'école sur les destins individuels et les inégalités ? (Terminale)",
+          "exemples_themes": ["Les inégalités scolaires en France (données PISA, DEPP)", "La massification scolaire et ses effets", "Le rôle du capital culturel (Bourdieu)", "Les politiques éducatives (ZEP, REP, Parcoursup)"]
+        },
+        {
+          "intitule": "Voter : une affaire individuelle ou collective ? (1ère)",
+          "exemples_themes": ["L'abstention électorale (données par âge, CSP)", "Les variables sociologiques du vote (modèle de Columbia)", "Le vote sur enjeux et la volatilité électorale", "Les sondages d'opinion et leurs limites"]
+        }
+      ]
+    },
+    {
+      "nom": "Regards croisés",
+      "description": "Croiser les approches économiques, sociologiques et politiques.",
+      "competences": [
+        {
+          "intitule": "Comment l'assurance et la protection sociale contribuent-elles à la gestion des risques ? (1ère)",
+          "exemples_themes": ["Le système de protection sociale en France (schéma)", "L'assurance et la mutualisation des risques", "Le financement de la Sécurité sociale (cotisations, CSG)", "Les débats sur l'avenir de la protection sociale"]
+        },
+        {
+          "intitule": "L'action publique pour l'environnement (Terminale)",
+          "exemples_themes": ["La taxe carbone : principe et débat", "Le marché des droits à polluer (EU ETS)", "Les accords de Paris (2015) et leur mise en œuvre", "La tragédie des communs (Hardin) et les biens communs (Ostrom)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de SES au lycée GT aborde en 2nde les fondamentaux (ménages, entreprises, marché, socialisation), puis en spécialité 1ère/Terminale approfondit la science économique (marchés, croissance, commerce international, chômage), la sociologie et science politique (socialisation, stratification, école, vote), et les regards croisés (protection sociale, environnement). L'accent est mis sur la rigueur argumentative et l'exploitation de données statistiques."
+}

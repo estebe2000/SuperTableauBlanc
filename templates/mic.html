@@ -1,0 +1,73 @@
+<!-- SMARTPHONE REMOTE MICROPHONE VIEW -->
+<div class="mic-mobile-container" id="micMobileContainer">
+    <div class="mic-mobile-header">
+        <div class="mic-brand">
+            <span class="pulse-red-dot" id="micLiveDot" style="display: none;"></span>
+            <h3>🎙️ <span class="brand-ai">A</span>ll' <span class="brand-ai">I</span>nclusive Mobile</h3>
+        </div>
+        <div class="mic-session-status">
+            Session : <strong id="micSessionDisplay">------</strong>
+        </div>
+    </div>
+
+    <!-- Connection Card if not connected -->
+    <div class="mic-auth-card" id="micAuthCard" style="display: none;">
+        <div class="mic-icon-large">📱</div>
+        <h2>Microphone Enseignant</h2>
+        <p>Entrez le code de session du tableau pour connecter votre téléphone.</p>
+        <div class="form-group" style="margin-top: 1rem;">
+            <input type="text" id="micSessionInput" placeholder="Ex: 123456" maxlength="7" style="text-align: center; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; width: 100%;">
+        </div>
+        <button class="btn btn-primary" id="micConnectBtn" style="width: 100%; margin-top: 1rem; padding: 12px; font-size: 1.1rem;">
+            Se connecter au Tableau 🚀
+        </button>
+    </div>
+
+    <!-- Active Microphone Controls Screen -->
+    <div class="mic-active-screen" id="micActiveScreen">
+        <!-- Live Audio VU-Meter wave bars -->
+        <div class="mic-vumeter-container" id="micVuMeter">
+            <div class="vu-bar"></div>
+            <div class="vu-bar"></div>
+            <div class="vu-bar"></div>
+            <div class="vu-bar"></div>
+            <div class="vu-bar"></div>
+        </div>
+
+        <!-- Big Touch Control Button -->
+        <div class="mic-touch-wrapper">
+            <button class="mic-main-touch-btn" id="micToggleBtn">
+                <span class="mic-touch-icon" id="micTouchIcon">🎙️</span>
+                <span class="mic-touch-text" id="micTouchText">Toucher pour Parler</span>
+            </button>
+        </div>
+
+        <div class="mic-timer-box" id="micTimerBox">
+            Durée : <span id="micTimer">00:00</span>
+        </div>
+
+        <!-- Real-time transcript preview on mobile -->
+        <div class="mic-preview-box">
+            <div class="preview-header">
+                <span>Transcription en cours :</span>
+                <button class="btn btn-secondary btn-sm" id="micClearPreviewBtn" style="padding: 2px 6px; font-size: 0.7rem;">Effacer</button>
+            </div>
+            <div class="preview-content" id="micPreviewContent">
+                Appuyez sur le micro et parlez...
+            </div>
+        </div>
+
+        <!-- Fast Actions for Teacher -->
+        <div class="mic-quick-actions">
+            <button class="btn btn-secondary btn-sm" id="micPingBoardBtn" title="Attirer l'attention des élèves">
+                🎯 Ping Tableau
+            </button>
+            <button class="btn btn-secondary btn-sm" id="micPauseBtn">
+                ⏸️ Pause
+            </button>
+            <button class="btn btn-danger btn-sm" id="micDisconnectBtn">
+                Déconnecter
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "discipline": "Histoire-Géographie",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'histoire-géographie CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Se repérer dans le temps et dans l'espace",
+    "Contextualiser des faits historiques et des situations géographiques",
+    "Analyser des documents de nature variée",
+    "Construire une argumentation historique ou géographique",
+    "Exercer un regard critique sur les sources"
+  ],
+  "domaines": [
+    {
+      "nom": "Histoire — La France depuis 1789 : de la Révolution à la Ve République",
+      "description": "Les grandes étapes de l'histoire politique et sociale française.",
+      "competences": [
+        {
+          "intitule": "Comprendre les héritages de la Révolution française et de la République",
+          "exemples_themes": ["La Déclaration des droits de l'homme et du citoyen (analyse)", "Les symboles de la République (Marianne, devise, drapeau)", "La conquête du suffrage universel (frise chronologique)", "Un discours républicain fondateur (Gambetta, Jaurès, de Gaulle)"]
+        },
+        {
+          "intitule": "Comprendre les deux guerres mondiales et leurs conséquences",
+          "exemples_themes": ["Une lettre de poilu (Première Guerre mondiale)", "L'appel du 18 Juin 1940 (analyse du document)", "La Résistance et la Libération (témoignage, photographie)", "La construction européenne après 1945 (frise et carte)"]
+        },
+        {
+          "intitule": "Comprendre la France de la Ve République à nos jours",
+          "exemples_themes": ["Les institutions de la Ve République (organigramme simplifié)", "Les Trente Glorieuses et la société de consommation (publicités d'époque)", "La décolonisation et l'immigration (témoignages)", "Mai 68 et les transformations sociales (photographies, affiches)"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — La France et le monde contemporain",
+      "description": "Les territoires français et les dynamiques mondiales.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'organisation du territoire français et ses dynamiques",
+          "exemples_themes": ["Ma région : activités économiques et aménagement du territoire", "Les espaces productifs français (agriculture, industrie, services)", "Les mobilités en France (carte des réseaux de transport)", "Les inégalités territoriales (métropoles vs espaces ruraux)"]
+        },
+        {
+          "intitule": "Comprendre les enjeux de la mondialisation et du développement durable",
+          "exemples_themes": ["La mondialisation des échanges (une entreprise et sa chaîne de production)", "Les migrations internationales (carte des flux, témoignage)", "Le changement climatique et ses effets locaux", "Un écoquartier ou une initiative de développement durable local"]
+        },
+        {
+          "intitule": "Habiter la ville : les défis urbains contemporains",
+          "exemples_themes": ["Comparaison d'une ville française et d'une ville en développement", "Les transports urbains et la mobilité durable", "L'habitat social et la politique de la ville", "Un projet d'urbanisme local (PLU, consultation citoyenne)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'histoire-géographie en lycée professionnel couvre les grandes étapes de l'histoire française depuis 1789, l'organisation du territoire français et les enjeux de la mondialisation. L'approche privilégie des documents concrets (témoignages, photographies, cartes, affiches) et des liens avec le vécu des élèves et leur environnement professionnel."
+}

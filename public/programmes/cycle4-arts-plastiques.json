@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "discipline": "Arts plastiques",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'arts plastiques du cycle 4",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Expérimenter, produire, créer",
+    "Mettre en œuvre un projet artistique",
+    "S'exprimer, analyser sa pratique, celle de ses pairs ; établir une relation avec celle des artistes, s'ouvrir à l'altérité",
+    "Se repérer dans les domaines liés aux arts plastiques, être sensible aux questions de l'art"
+  ],
+  "domaines": [
+    {
+      "nom": "La représentation ; images, réalité et fiction",
+      "description": "Questionner la ressemblance, l'écart, la narration visuelle, le statut de l'image.",
+      "competences": [
+        {
+          "intitule": "Questionner le rapport au réel et à la fiction dans les images et les œuvres",
+          "exemples_themes": ["Le trompe-l'œil (anamorphose dans la cour du collège)", "Le photomontage (détourner une image de presse)", "Le portrait déformé (à la manière de Francis Bacon)", "La bande dessinée : créer une planche narrative (encrage, case, phylactère)", "Le selfie artistique : autoportrait mis en scène (référence Cindy Sherman)", "Le réalisme vs l'abstraction : peindre le même paysage de deux manières"]
+        },
+        {
+          "intitule": "Comprendre les dispositifs de représentation, la narration visuelle et la mise en scène",
+          "exemples_themes": ["Le story-board d'une scène de film (cadrage, angle, mouvement)", "La photographie de rue (Henri Cartier-Bresson, l'instant décisif)", "L'affiche engagée (Mai 68, Shepard Fairey — Hope)", "Le roman-photo (créer une histoire en images avec légendes)", "La mise en scène d'un objet du quotidien (ready-made, Duchamp)"]
+        }
+      ]
+    },
+    {
+      "nom": "La matérialité de l'œuvre ; l'objet et l'œuvre",
+      "description": "Explorer les qualités physiques des matériaux, questionner le statut de l'objet.",
+      "competences": [
+        {
+          "intitule": "Tirer parti des qualités physiques des matériaux et de leurs effets sensibles",
+          "exemples_themes": ["Sculpture en matériaux de récupération (assemblage, détournement)", "La peinture matière (épaisseurs, empâtements, à la manière de Soulages)", "Le collage monumental (papiers, tissus, objets, à la manière de Rauschenberg)", "Land art éphémère dans la cour (Andy Goldsworthy)", "L'installation in situ : transformer un espace du collège"]
+        },
+        {
+          "intitule": "Questionner le statut de l'objet comme œuvre d'art",
+          "exemples_themes": ["Le ready-made de Duchamp (Fontaine, 1917 — débat)", "Le détournement d'objet (Picasso : Tête de taureau avec selle et guidon)", "Accumuler, compresser, empaqueter (Arman, César, Christo)", "L'objet dans le Pop Art (Warhol, Oldenburg)", "Créer une œuvre à partir d'objets trouvés (cabinet de curiosités revisité)"]
+        }
+      ]
+    },
+    {
+      "nom": "L'œuvre, l'espace, l'auteur, le spectateur",
+      "description": "Explorer la relation entre l'œuvre et son contexte de présentation, le rôle du spectateur.",
+      "competences": [
+        {
+          "intitule": "Explorer la relation entre l'œuvre, l'espace et le spectateur",
+          "exemples_themes": ["L'installation immersive (Yayoi Kusama, Infinity Rooms)", "Le street art et l'espace urbain (Banksy, JR, Invader)", "L'art in situ : créer une œuvre pour un lieu spécifique du collège", "La scénographie d'exposition (accrocher, éclairer, parcours du visiteur)", "L'art numérique interactif (TeamLab, œuvres réactives au mouvement)"]
+        },
+        {
+          "intitule": "Analyser une œuvre et argumenter son interprétation",
+          "exemples_themes": ["Guernica de Picasso (analyse formelle et historique, lien HG 3e)", "Les Ménines de Vélasquez (mise en abyme, regard du spectateur)", "La Persistance de la mémoire de Dalí (surréalisme et inconscient)", "Un graffiti local : art ou vandalisme ? (débat argumenté)", "Comparer une œuvre classique et sa relecture contemporaine"]
+        }
+      ]
+    },
+    {
+      "nom": "L'art et les nouvelles technologies",
+      "description": "Explorer les arts numériques, la photographie, la vidéo comme moyens d'expression.",
+      "competences": [
+        {
+          "intitule": "Utiliser les outils numériques comme moyens de création artistique",
+          "exemples_themes": ["Le stop-motion (créer un court film d'animation)", "Le pixel art (composition numérique, lien maths/géométrie)", "La retouche photo créative (Photopea, GIMP — détournement)", "Le light painting (photographie en pose longue avec lampes)", "La vidéo d'art : filmer et monter un court-métrage expérimental"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts plastiques du cycle 4 approfondit la pratique et la culture artistique autour de quatre questionnements : la représentation (images, réalité, fiction), la matérialité de l'œuvre (matériaux, objet, statut), la relation œuvre-espace-spectateur (installation, in situ, scénographie), et les nouvelles technologies (photo, vidéo, numérique). Les élèves développent un regard critique et argumenté sur les œuvres, du patrimoine à l'art contemporain. La démarche de projet, l'expérimentation et la prise de risque sont valorisées."
+}

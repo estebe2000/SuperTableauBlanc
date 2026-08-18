@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Lycée GT",
+    "classes": ["Première"],
+    "programme": "Première générale — mathématiques intégrées à l'enseignement scientifique (2026)",
+    "source": "B.O. 2026 — Programme de mathématiques intégré à l'enseignement scientifique en classe de première générale",
+    "mise_a_jour": "2026-04-02"
+  },
+  "attendus_fin_cycle": [
+    "Consolider la culture mathématique de tous les élèves de première générale (hors spécialité)",
+    "Analyser l'information chiffrée et étudier des données bivariées",
+    "Modéliser des phénomènes aléatoires (probabilités conditionnelles, indépendance)",
+    "Modéliser des phénomènes d'évolution par des suites et des fonctions",
+    "Reconnaître et exploiter des modèles linéaire, quadratique et exponentiel"
+  ],
+  "domaines": [
+    {
+      "nom": "Automatismes (transversal)",
+      "description": "Entretenir, par un entraînement régulier, des habiletés en calcul, information chiffrée et représentations graphiques, en complément des automatismes de seconde.",
+      "competences": [
+        {"intitule": "Évolutions, calcul et représentations", "exemples_themes": ["Appliquer un taux d'évolution (valeur finale ou initiale)", "Calculer un taux d'évolution, l'exprimer en pourcentage, taux successifs et réciproque", "Équation produit nul, signe d'une expression du premier degré ou factorisée du second", "Développer, factoriser, réduire une expression", "Lire et exploiter graphiques, histogrammes, diagrammes ; tracer une droite", "Calculer des probabilités conditionnelles (tableau croisé, arbre pondéré) ; distinguer P(A∩B), PA(B), PB(A)"]}
+      ]
+    },
+    {
+      "nom": "Analyse de l'information chiffrée",
+      "description": "Analyser l'information chiffrée portant sur des problématiques d'actualité (climat, biodiversité, santé, démographie, économie) et s'initier à l'analyse statistique bivariée.",
+      "competences": [
+        {"intitule": "Analyser le croisement de deux caractères", "exemples_themes": ["Analyse de deux caractères qualitatifs, tableau croisé d'effectifs", "Représentations graphiques (diagrammes en barres, circulaires)", "Données réelles (Insee, Ined, data.gouv, rapports du Giec)", "Utiliser un tableur pour représenter des données"]},
+        {"intitule": "Réaliser un ajustement affine", "exemples_themes": ["Nuage de points pour deux caractères quantitatifs", "Point moyen et ajustement affine", "Interpolation et extrapolation de valeurs inconnues", "Ajustements proposés (au jugé, droite de Mayer, moindres carrés) sans connaissance théorique exigée", "Données chronologiques (évolution d'une population)"]}
+      ]
+    },
+    {
+      "nom": "Phénomènes aléatoires",
+      "description": "Introduire l'indépendance à partir de la probabilité conditionnelle et la répétition d'épreuves de Bernoulli identiques et indépendantes.",
+      "competences": [
+        {"intitule": "Probabilités conditionnelles et indépendance", "exemples_themes": ["Probabilité conditionnelle ; indépendance de deux événements", "Calculer des probabilités conditionnelles (tableau croisé, arbre pondéré)", "Tests médicaux : faux positifs et faux négatifs", "Justifier ou utiliser l'indépendance de deux événements"]},
+        {"intitule": "Répétition d'épreuves de Bernoulli", "exemples_themes": ["Arbre de probabilités pour n épreuves identiques et indépendantes (n ⩽ 4)", "Modélisation et simulation de jeux : pile ou face, pierre-feuille-ciseaux", "Jeu de Monty Hall, problème des partis (Fermat-Pascal)", "Simulation d'une succession de tirages indépendants (loi des grands nombres)"]}
+      ]
+    },
+    {
+      "nom": "Phénomènes d'évolution, modélisation par des fonctions",
+      "description": "Modéliser des phénomènes en évolution par des suites (évolution discrète) et des fonctions (évolution continue), selon trois modèles classiques : linéaire, quadratique et exponentiel.",
+      "competences": [
+        {"intitule": "Variation linéaire (suites arithmétiques et fonctions affines)", "exemples_themes": ["Suite arithmétique : récurrence, terme de rang n, sens de variation, représentation", "Fonctions affines : représentation, sens de variation, coefficient directeur", "Placement à intérêts simples, croissance d'un poste budgétaire", "Degrés Celsius/Fahrenheit, offre et demande, barème de l'impôt", "Modèle linéaire de l'évolution du niveau des océans", "Résoudre un problème de seuil"]},
+        {"intitule": "Modélisation quadratique", "exemples_themes": ["Fonction polynôme de degré 2 : allure, axe de symétrie, sommet, variations", "Racines et signe d'un polynôme donné sous forme factorisée (sans discriminant)", "Associer une parabole à a x², a x² + c, a(x − x1)(x − x2)", "Mouvement parabolique, pont suspendu, arche d'un viaduc", "Évolution d'un chiffre d'affaires selon le prix unitaire"]},
+        {"intitule": "Variation exponentielle (suites géométriques et fonctions exponentielles)", "exemples_themes": ["Suite géométrique à termes positifs : récurrence, terme de rang n, variation, représentation", "Fonction exponentielle x ↦ aˣ (a > 0) : propriétés admises, variations, représentation", "Intérêts composés, emprunt, gestion d'une dette", "Décroissance radioactive, carbone 14, élimination d'une substance dans le sang", "Taux de reproduction R0 d'un virus, modèle de Malthus", "Taux d'évolution moyen, problème de seuil"]}
+      ]
+    }
+  ],
+  "programme_resume": "Ce module de mathématiques, intégré à l'enseignement scientifique de la classe de première générale (applicable à la rentrée 2026), s'adresse à tous les élèves de la voie générale, indépendamment du choix de la spécialité mathématiques. Il vise à consolider une culture mathématique commune et à réconcilier les élèves avec la discipline. Il est structuré en trois parties thématiques — analyse de l'information chiffrée (statistique bivariée, ajustement affine), phénomènes aléatoires (probabilités conditionnelles, indépendance, épreuves de Bernoulli), phénomènes d'évolution (suites et fonctions : modèles linéaire, quadratique, exponentiel) — et une partie transversale d'automatismes. L'enseignement privilégie la résolution de problèmes issus des autres disciplines et de la vie citoyenne, autour du triptyque manipuler-verbaliser-abstraire, avec un recours fréquent au tableur et aux outils numériques. Seuls les contenus mathématiques (et non les situations) sont exigibles."
+}

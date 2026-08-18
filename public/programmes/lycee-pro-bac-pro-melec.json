@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "discipline": "Bac Pro MELEC",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro MELEC — Métiers de l'Électricité et de ses Environnements Connectés",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des installations électriques conformes aux normes",
+    "Mettre en service et maintenir des installations",
+    "Communiquer avec les clients et l'équipe de travail",
+    "Respecter les règles de sécurité électrique (habilitation)",
+    "Intégrer les solutions connectées et communicantes"
+  ],
+  "domaines": [
+    {
+      "nom": "Préparation et organisation d'un chantier",
+      "description": "La planification et la préparation d'une intervention électrique.",
+      "competences": [
+        {
+          "intitule": "Analyser un dossier technique et préparer une intervention",
+          "exemples_themes": ["Lecture d'un schéma électrique unifilaire et multifilaire", "Le CCTP et le cahier des charges d'une installation", "Le repérage sur plan architectural (symboles, cotations)", "La liste de matériel et le bon de commande"]
+        },
+        {
+          "intitule": "Organiser son poste de travail et respecter les règles de sécurité",
+          "exemples_themes": ["Les EPI de l'électricien (gants isolants, lunettes, casque)", "La consignation et la déconsignation (procédure)", "L'habilitation électrique : niveaux B1V, B2V, BR, BC", "Le balisage et la signalisation de chantier"]
+        }
+      ]
+    },
+    {
+      "nom": "Réalisation d'installations électriques",
+      "description": "Le câblage, le raccordement et l'installation des équipements.",
+      "competences": [
+        {
+          "intitule": "Réaliser le câblage et le raccordement d'une installation résidentielle ou tertiaire",
+          "exemples_themes": ["Le tableau électrique : disjoncteurs, interrupteurs différentiels", "Le câblage d'un circuit d'éclairage (simple allumage, va-et-vient, télérupteur)", "Le câblage d'un circuit de prises et de circuits spécialisés", "La norme NF C 15-100 : les règles essentielles"]
+        },
+        {
+          "intitule": "Installer des équipements communicants et connectés",
+          "exemples_themes": ["L'installation d'un système domotique (KNX, Legrand)", "Le câblage réseau VDI (RJ45, baie de brassage)", "L'installation d'un système d'alarme intrusion", "La vidéosurveillance : caméras IP et enregistreur"]
+        }
+      ]
+    },
+    {
+      "nom": "Installations industrielles",
+      "description": "Les installations de puissance et les automatismes.",
+      "competences": [
+        {
+          "intitule": "Réaliser le câblage et la mise en service d'équipements industriels",
+          "exemples_themes": ["Le démarrage d'un moteur asynchrone (étoile-triangle, variateur)", "Le câblage d'une armoire électrique industrielle", "Les automates programmables : câblage et programmation de base", "Les capteurs et actionneurs dans un système automatisé"]
+        }
+      ]
+    },
+    {
+      "nom": "Mise en service et maintenance",
+      "description": "Les essais, la mise en service et le dépannage.",
+      "competences": [
+        {
+          "intitule": "Mettre en service une installation et réaliser la maintenance",
+          "exemples_themes": ["Les mesures électriques : tension, intensité, résistance, isolement", "Les essais de conformité d'une installation (rapport de vérification)", "Le diagnostic de panne : méthodologie et outils", "La maintenance préventive d'une installation électrique"]
+        }
+      ]
+    },
+    {
+      "nom": "Efficacité énergétique et développement durable",
+      "description": "Les enjeux énergétiques dans les installations électriques.",
+      "competences": [
+        {
+          "intitule": "Intégrer les solutions d'efficacité énergétique dans les installations",
+          "exemples_themes": ["L'éclairage LED et la gestion de l'éclairage (détecteurs, minuteries)", "Les panneaux photovoltaïques : raccordement et mise en service", "La borne de recharge pour véhicule électrique (IRVE)", "Le bilan énergétique d'un bâtiment (compteur communicant Linky)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro MELEC forme aux métiers de l'électricité : installations résidentielles, tertiaires et industrielles. Il couvre la réalisation, la mise en service et la maintenance des installations, les systèmes connectés (domotique, VDI, alarme), les automatismes industriels et l'efficacité énergétique (photovoltaïque, IRVE). La sécurité électrique et l'habilitation sont centrales."
+}

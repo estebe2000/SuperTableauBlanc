@@ -1,0 +1,1531 @@
+/* css/accueil.css */
+
+/* ==========================================================================
+   POLICE MARIANNE — typographie officielle de l'État (libre & gratuite)
+   --------------------------------------------------------------------------
+   Déposer les fichiers .woff2 dans  css/fonts/  (voir css/fonts/README.txt).
+   Tant qu'ils sont absents : font-display:swap → repli propre sur Segoe UI,
+   aucune casse. Une fois présents, TOUS les thèmes utilisent Marianne.
+   ========================================================================== */
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Light.woff2') format('woff2');
+    font-weight: 300; font-style: normal; font-display: swap;
+}
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Regular.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Regular_Italic.woff2') format('woff2');
+    font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Medium.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Bold.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+    font-family: 'Marianne';
+    src: url('fonts/Marianne-Bold_Italic.woff2') format('woff2');
+    font-weight: 700; font-style: italic; font-display: swap;
+}
+
+/* ==========================================================================
+   PALETTE HAPI — SYSTÈME DE THÈMES (color switcher) — SOURCE UNIQUE
+   --------------------------------------------------------------------------
+   Défini ici car styles.css est chargé par TOUTES les pages (accueil + ia/…).
+   Le thème par défaut reste le vert du logo. Les variables gardent le préfixe
+   historique --hapi-green-* (ce ne sont que des NOMS internes : "dark" =
+   couleur forte/texte/boutons, "deep" = accent très foncé, "pale/mist" = fonds
+   clairs). Chaque thème ne fait que REDÉFINIR ces variables ; tout le CSS les
+   consomme via var(...). On bascule en posant data-theme="..." sur <html>.
+   ⚠️ Contraste RGAA : "dark" sert de fond aux boutons à texte blanc → ≥ 4,5:1.
+   ========================================================================== */
+:root,
+[data-theme="vert"] {        /* 🌿 Vert HAPI (défaut) */
+    --hapi-green-dark:  #1f7a43;
+    --hapi-green:       #2f8f4e;
+    --hapi-green-light: #5cba6f;
+    --hapi-green-lime:  #84cc16;
+    --hapi-green-olive: #547a3d;
+    --hapi-green-deep:  #14532d;
+    --hapi-green-pale:  #eaf6ee;
+    --hapi-green-mist:  #f3faf5;
+    --hapi-green-rgb:   47, 143, 78;
+    --hapi-grad-a:      #268044;   /* départ du dégradé bouton */
+}
+
+[data-theme="ocean"] {       /* 🌊 Océan */
+    --hapi-green-dark:  #155e96;
+    --hapi-green:       #1f78c0;
+    --hapi-green-light: #5aa9e0;
+    --hapi-green-lime:  #38bdf8;
+    --hapi-green-olive: #3d6a8a;
+    --hapi-green-deep:  #0c3d63;
+    --hapi-green-pale:  #e8f2fb;
+    --hapi-green-mist:  #f3f8fd;
+    --hapi-green-rgb:   31, 120, 192;
+    --hapi-grad-a:      #1f78c0;
+}
+
+[data-theme="violet"] {      /* 🪻 Violet */
+    --hapi-green-dark:  #5e3a96;
+    --hapi-green:       #7b52c0;
+    --hapi-green-light: #a78bdb;
+    --hapi-green-lime:  #c084fc;
+    --hapi-green-olive: #6a5a8a;
+    --hapi-green-deep:  #3f2768;
+    --hapi-green-pale:  #f1ecfa;
+    --hapi-green-mist:  #f8f5fd;
+    --hapi-green-rgb:   123, 82, 192;
+    --hapi-grad-a:      #7b52c0;
+}
+
+[data-theme="terracotta"] {  /* 🌅 Terracotta */
+    --hapi-green-dark:  #9c3f1f;
+    --hapi-green:       #c0552f;
+    --hapi-green-light: #e08a6a;
+    --hapi-green-lime:  #fb923c;
+    --hapi-green-olive: #8a5a3d;
+    --hapi-green-deep:  #6b2a13;
+    --hapi-green-pale:  #fbeee8;
+    --hapi-green-mist:  #fdf6f3;
+    --hapi-green-rgb:   192, 85, 47;
+    --hapi-grad-a:      #c0552f;
+}
+
+[data-theme="indigo"] {      /* 🫐 Ardoise / Indigo */
+    --hapi-green-dark:  #34418c;
+    --hapi-green:       #4754b8;
+    --hapi-green-light: #818cdb;
+    --hapi-green-lime:  #818cf8;
+    --hapi-green-olive: #5a608a;
+    --hapi-green-deep:  #232c63;
+    --hapi-green-pale:  #ecedfa;
+    --hapi-green-mist:  #f5f6fd;
+    --hapi-green-rgb:   71, 84, 184;
+    --hapi-grad-a:      #4754b8;
+}
+
+[data-theme="framboise"] {   /* 🌸 Framboise */
+    --hapi-green-dark:  #8c2848;
+    --hapi-green:       #b83a60;
+    --hapi-green-light: #db7593;
+    --hapi-green-lime:  #f472b6;
+    --hapi-green-olive: #8a3d55;
+    --hapi-green-deep:  #5e1830;
+    --hapi-green-pale:  #faecf0;
+    --hapi-green-mist:  #fdf3f6;
+    --hapi-green-rgb:   184, 58, 96;
+    --hapi-grad-a:      #b83a60;
+}
+
+[data-theme="institutionnel"] {  /* 🇫🇷 Design institutionnel (bleu France) */
+    --hapi-green-dark:  #000091;  /* bleu France (texte/boutons, ~16:1 sur blanc) */
+    --hapi-green:       #000091;
+    --hapi-green-light: #6a6af4;  /* bleu clair accent */
+    --hapi-green-lime:  #6a6af4;
+    --hapi-green-olive: #3a3a8c;
+    --hapi-green-deep:  #00006b;
+    --hapi-green-pale:  #e3e3fd;  /* bleu très clair (fonds) */
+    --hapi-green-mist:  #f5f5fe;
+    --hapi-green-rgb:   0, 0, 145;
+    --hapi-grad-a:      #000091;  /* boutons PLATS (pas de dégradé) */
+}
+
+/* Dérivés communs — résolus à l'usage, donc suivent le thème actif */
+:root {
+    --hapi-gradient:      linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+    --hapi-gradient-soft: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+}
+
+/* ==========================================================================
+   NEUTRES — AXE CLAIR / SOMBRE (indépendant de l'accent ci-dessus)
+   --------------------------------------------------------------------------
+   Surfaces, textes et bordures. Le mode clair est le défaut ; on bascule en
+   posant data-mode="dark" sur <html>. Les accents (--hapi-green-*) ne bougent
+   pas — seuls ces neutres + les fonds "pâles" des accents sont redéfinis en
+   sombre. Tout le CSS consomme ces variables via var(...).
+   ⚠️ Contraste RGAA : --text sur --surface ≥ 4,5:1 dans les deux modes.
+   ========================================================================== */
+:root {
+    color-scheme: light;                  /* contrôles natifs (select, scrollbar) clairs */
+    --surface:    #ffffff;                /* cartes, contenu plein */
+    --surface-2:  rgba(255, 255, 255, 0.72); /* header/footer translucides */
+    --page-bg:    #f8f9fa;                /* fond de page */
+    --field-bg:   #ffffff;                /* champs de saisie (input/textarea/select) */
+    --text:       #2d3748;                /* texte principal */
+    --text-muted: #5b6470;                /* texte secondaire / gris */
+    --border:     rgba(0, 0, 0, 0.08);    /* séparateurs subtils (décoratif) */
+    --border-strong: rgba(0, 0, 0, 0.65); /* limites de composants (onglets, zones) ≥ 3:1 (WCAG 1.4.11) */
+    /* Accent EN TANT QUE TEXTE. En clair = accent foncé (inchangé). En sombre il
+       passe à l'accent CLAIR car l'accent foncé sur fond sombre tombe sous 3:1.
+       N'affecte QUE les `color:` ; les fonds/bordures gardent --hapi-green-dark. */
+    --hapi-accent-text: var(--hapi-green-deep);   /* accent foncé "deep" → texte accent ≥ 4,5:1 même sur fonds teintés (vert-pâle) */
+    --danger-text: #991b1b;               /* rouge texte/icône (boutons ✕, erreurs) ≥ 4,5:1 sur --surface */
+    --warning-text: #b45309;              /* orange texte (avertissements, intrus) ≥ 4,5:1 sur --surface */
+}
+[data-mode="dark"] {
+    color-scheme: dark;                   /* → select, textarea, scrollbars, cases natives en sombre */
+    --hapi-accent-text: var(--hapi-green-light);  /* lisible sur fond sombre (≥ 4:1 pour les 7 thèmes) */
+    --surface:    #1e2530;
+    --surface-2:  rgba(30, 37, 48, 0.82);
+    --page-bg:    #141a22;
+    --field-bg:   #161c25;                /* légèrement plus sombre que --surface (effet "enfoncé") */
+    --text:       #e6e9ee;
+    --text-muted: #aeb7c3;                /* éclairci pour le contraste (RGAA) du texte secondaire */
+    --border:     rgba(255, 255, 255, 0.14);
+    --border-strong: rgba(255, 255, 255, 0.42); /* limites de composants ≥ 3:1 en sombre */
+    --danger-text: #f8717a;               /* rouge éclairci, lisible sur --surface sombre */
+    --warning-text: #fbbf24;              /* orange éclairci, lisible sur --surface sombre */
+    /* Fonds "pâles" des accents → teinte translucide lisible sur sombre.
+       Marche pour les 7 couleurs grâce à --hapi-green-rgb (déjà défini). */
+    --hapi-green-pale: rgba(var(--hapi-green-rgb), 0.18);
+    --hapi-green-mist: rgba(var(--hapi-green-rgb), 0.10);
+}
+/* Cas particulier INSTITUTIONNEL (bleu France) : son accent clair #6a6af4 reste
+   ~4:1 sur fond sombre — sous l'AA pour le texte normal, et ses icônes
+   (SVG stroke=currentColor = accent-texte) sont peu visibles. On utilise le
+   TOKEN OFFICIEL DSFR « Bleu France 625 » (--blue-france-sun-113-625 en thème
+   sombre) = #8585f6 (~5:1, AA). Corrige liens header/footer + icônes d'un coup. */
+[data-mode="dark"][data-theme="institutionnel"] {
+    --hapi-accent-text: #8585f6;   /* DSFR Bleu France 625 (thème sombre) */
+}
+
+/* ==========================================================================
+   AJUSTEMENTS MODE SOMBRE — contrôles de formulaire & logos institutionnels
+   ========================================================================== */
+/* Champs de saisie : fond/texte/bordure suivent le thème (color-scheme gère le natif,
+   ceci force les champs au style explicite + l'aspect "enfoncé"). */
+[data-mode="dark"] input[type="text"],
+[data-mode="dark"] input[type="number"],
+[data-mode="dark"] input[type="search"],
+[data-mode="dark"] input[type="url"],
+[data-mode="dark"] input[type="email"],
+[data-mode="dark"] input[type="password"],
+[data-mode="dark"] textarea,
+[data-mode="dark"] select {
+    background-color: var(--field-bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+[data-mode="dark"] input::placeholder,
+[data-mode="dark"] textarea::placeholder { color: var(--text-muted); }
+
+/* Logos officiels (Académie / Marianne) : couleurs de charte intouchables →
+   plaque blanche en sombre pour garantir lisibilité et respect du logo. */
+[data-mode="dark"] header .institution .logo-acnormandie,
+[data-mode="dark"] header .institution .logo-marianne {
+    background: #fff;
+    padding: 8px 12px;
+    border-radius: 10px;
+    box-sizing: content-box;
+}
+
+/* Icône d'info-bulle (ℹ️ RAG) : opacité 0.7 trop terne en sombre → pleine opacité. */
+[data-mode="dark"] .hapi-info-tooltip { opacity: 1; }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Marianne', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--page-bg);
+    min-height: 100vh;
+    color: var(--text);
+}
+/* Les contrôles de formulaire héritent de Marianne (sinon police système par défaut) */
+button, input, select, textarea {
+    font-family: inherit;
+}
+
+h2 {
+    color: var(--text);
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 1rem;
+}
+/* Style des liens */
+a {
+    color: var(--hapi-accent-text);
+    text-decoration: none;
+    transition: color 0.6s ease;
+}
+a:hover, a:active {
+    text-decoration: underline;
+    color: var(--hapi-accent-text);
+}
+a.out::after{
+    content:'⬈';
+    padding-left: 5px;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem ;
+    position: relative;
+}
+
+header {
+    background: var(--surface-2);
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+header .container{
+    display: grid;
+    /* 4e colonne en `auto` (et non 60px fixe) : en mode sombre les logos
+       institutionnels portent une plaque blanche (padding 8px 12px, content-box)
+       qui les porte à ~84px → avec une piste fixe de 60px, ils débordaient la
+       grille de ~24px (scroll horizontal jusqu'à ~768px). `auto` laisse la piste
+       s'ajuster ; en mode clair (logo sans plaque) elle vaut toujours 60px. */
+    grid-template-columns: .3fr 3fr 2fr auto;
+    gap: 1.5rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: .25rem 1rem;
+}
+.page-home header .container{
+    grid-template-columns: .5fr 3fr 1.5fr auto;
+    padding: 1rem;
+}
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: .8rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+header .hapi a{ color: var(--text);}
+header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--text-muted);
+}
+header .hapi-aides{
+    display: flex;
+    align-items: center;
+}
+.page-home header .hapi-aides{
+    display: grid;
+    grid-template-areas: "a a" "b c" ;
+    gap: .5rem;
+    justify-items: center;
+}
+header .hapi-aides :nth-child(1) { grid-area: a;}
+header .hapi-aides :nth-child(2) { grid-area: b;}
+header .hapi-aides :nth-child(3) { grid-area: c;}
+
+header .hapi-aides div{
+    text-align: center;
+}
+header .hapi-aides a{
+    display: block;
+    margin: auto;
+    padding: .5rem 1rem;
+}
+header .institution .logo-marianne{
+    display: block;
+    width: 60px;
+    margin: 1rem auto;
+}
+.page-home header .institution .logo-marianne{
+    display: none;
+}
+header .institution .logo-acnormandie{
+    display: none;
+}
+.page-home header .institution .logo-acnormandie{
+    display: block;
+    width: 100px;
+    margin: 1.5rem auto 0 auto;
+}
+
+
+/* --- BADGE ET LOGO (DIMENSIONS CORRIGÉES) --- */
+header .hapi-badge {
+    background: linear-gradient(135deg, #F8F8F8, #E0E0E0);
+    border: 2px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    width: 55px; 
+    height: 55px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    padding: 0px; 
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.page-home header .hapi-badge {
+    width: 110px; 
+    height: 110px;
+}
+header .hapi-badge:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    background: rgba(255, 255, 255, 1);
+}
+.page-home header .hapi-badge:hover {
+    transform: none;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    background: linear-gradient(135deg, #F8F8F8, #E0E0E0);
+}
+header .hapi-logo {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    object-fit: cover; 
+    border-radius: 50%; 
+    margin-bottom: 0; 
+}
+.page-home header .hapi-logo {
+    width: 100px;
+    height: 100px;
+}
+header .hapi h1{
+    padding-top: .5rem;
+}
+.page-home header .hapi h1{
+    padding-top: inherit;
+}
+header .hapi p{
+    display: none;
+}
+.page-home header .hapi p{
+    display: inherit;
+}
+.breadcrumb{
+    margin-top: -1.8rem;
+    padding: 0 1rem 1rem 1rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.breadcrumb a,.breadcrumb span{
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+.breadcrumb a:hover{ text-decoration: underline;}
+.breadcrumb span::before{
+    content: '>';
+    padding: 0 .5rem;
+}
+
+
+.content {
+    position: relative;
+    background: var(--surface);
+    padding: 1rem 2rem;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+    line-height: 1.8;
+}
+.content h1{
+    font-size: 1.8rem;
+    padding-right: 4.5rem;
+}
+
+.content .btn-raz a {
+    color: var(--text-muted);
+    position: absolute; 
+    right: 1rem; 
+    top: 1rem;
+    padding: 6px 14px;
+    font-size: 0.85em;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    background: linear-gradient(135deg, rgb(240, 231, 240), #d4cfdf);
+}
+
+.content .btn-raz a:hover {
+    color: #EEE;
+    text-decoration: none;
+    background: linear-gradient(105deg, rgb(240, 231, 240),#565558 );
+}
+/* En sombre, le dégradé lavande clair fixe + texte clair = illisible →
+   pastille neutre sombre avec texte lisible, hover en accent. */
+[data-mode="dark"] .content .btn-raz a {
+    background: var(--field-bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+[data-mode="dark"] .content .btn-raz a:hover {
+    background: var(--hapi-green-dark);
+    color: #fff;
+    border-color: var(--hapi-green-dark);
+}
+.content .consigne{margin-bottom: 20px; font-style: italic; color: var(--text-muted);}
+
+.content p {
+    margin-bottom: 15px;
+    color: var(--text-muted);
+}
+
+/* GRILLE ET CARTES */
+.platforms-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.4rem;
+    margin-bottom: 30px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-items: center;
+}
+
+.platform-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 1.3rem ;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    display: grid;
+    align-items: center;
+    padding-bottom: 1.5rem;
+}
+
+.platform-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+}
+
+.platform-card:hover {
+    box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+}
+.platform-card h2 {
+    font-size: 1.5rem; 
+    margin-bottom: .5rem; 
+    color: var(--text);
+    border-bottom: none;
+}
+.platform-card p {
+    color: var(--text-muted);
+    margin-bottom: 1rem; 
+    line-height: 1.4;
+}
+.platform-card a:hover{
+    text-decoration: none;
+}
+.h5p::before {
+    background: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+}
+
+.scorm::before {
+    background: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+}
+
+.outils:before {
+    background: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+}
+
+.categorisation::before {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.appariements::before {
+    background: linear-gradient(135deg, #04EEFE, #5dade2);
+}
+
+.remise-ordre::before {
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+}
+
+.chronologie::before {
+    background: linear-gradient(135deg, #F8BD18, #e67e22);
+}
+
+.legende::before {
+    background: linear-gradient(135deg, #ad7f95,#5b3c11);
+}
+
+.image_reactive::before {
+    background: linear-gradient(135deg, #17a2b8, #0d5f73);
+}
+
+.card-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.card-icon:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.h5p .card-icon,
+.scorm .card-icon,
+.outils .card-icon {
+    background: var(--hapi-green-pale);
+    color: var(--hapi-accent-text);
+    box-shadow: inset 0 0 0 2px rgba(var(--hapi-green-rgb),0.18);
+}
+
+.page-without-ia .card-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2.5rem;
+}
+
+.categorisation .card-icon {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+    color: white;
+}
+
+.appariements .card-icon {
+    background: linear-gradient(135deg, #04EEFE, #5dade2);
+    color: white;
+}
+
+.remise-ordre .card-icon {
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+    color: white;
+}
+
+.chronologie .card-icon {
+    background: linear-gradient(135deg, #F8BD18, #e67e22);
+    color: white;
+}
+
+.legende .card-icon {
+    background: linear-gradient(135deg, #ad7f95,#5b3c11 );
+    color: white;
+}
+
+.image_reactive .card-icon {
+    background: linear-gradient(135deg, #17a2b8, #0d5f73);
+    color: white;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.categorisation .card-title {
+    color: #8e44ad;
+}
+
+.appariements .card-title {
+    color: #5dade2;
+}
+
+.remise-ordre .card-title {
+    color: #2980b9;
+}
+
+.chronologie .card-title {
+    color: #F8BD18;
+}
+
+.legende .card-title {
+    color: #5b3c11;
+}
+
+.image_reactive .card-title {
+    color: #0d5f73;
+}
+
+.card-description {
+    text-align: center;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.card-description {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 25px;
+    text-align: center;
+    max-width: 100%;
+}
+
+.card-features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin-bottom: 25px;
+    width: 100%;
+    list-style: none;
+}
+
+.feature-tag {
+    background: var(--surface);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: var(--text);
+    border: 1px solid rgba(var(--hapi-green-rgb),0.25);
+}
+
+.card-button {
+    display: block;
+    padding: .6rem 1.2rem;
+    border: none;
+    border-radius: 1.5rem;
+    font-weight: 600;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+    margin: auto;
+}
+
+.card-button:hover {
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.h5p .card-button,
+.scorm .card-button,
+.outils .card-button {
+    /* background-color SOLIDE = lu par les outils WCAG (un dégradé seul laisse
+       background-color à transparent → faux « contraste 1 » texte blanc/blanc).
+       Le dégradé reste via background-image, par-dessus le fond solide. */
+    background-color: var(--hapi-green-dark);
+    background-image: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark));
+}
+
+.h5p .card-button:hover,
+.scorm .card-button:hover,
+.outils .card-button:hover {
+    /* Voile sombre (couche de background-image) → fond nettement assombri pour
+       TOUS les thèmes, y compris institutionnel (bleu plat). Le texte « Accéder »,
+       en avant-plan, reste BLANC pur (contrairement à filter:brightness). */
+    background-color: var(--hapi-green-deep);
+    background-image: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
+                      linear-gradient(135deg, var(--hapi-green-dark), var(--hapi-green-deep));
+}
+
+/* Style specifiques de la page no-ia */
+
+.categorisation .card-button {
+    background: linear-gradient(135deg, #9b59b6, #8e44ad);
+}
+
+.categorisation .card-button:hover {
+    background: linear-gradient(135deg, #8e44ad, #7d3c98);
+}
+
+.appariements .card-button {
+    background: linear-gradient(135deg, #04EEFE, #5dade2);
+}
+
+.appariements .card-button:hover {
+    background: linear-gradient(135deg, #5dade2, #3498db);
+}
+
+.remise-ordre .card-button {
+    background: linear-gradient(135deg, #3498db, #2ecc71);
+}
+
+.remise-ordre .card-button:hover {
+    background: linear-gradient(135deg, #2980b9, #27ae60);
+}
+
+.chronologie .card-button {
+    background: linear-gradient(135deg, #F8BD18, #e67e22);
+}
+
+.chronologie .card-button:hover {
+    background: linear-gradient(135deg, #e67e22, #d35400);
+}   
+
+.legende .card-button {
+    background: linear-gradient(135deg, #ad7f95,#5b3c11);
+}
+
+.legende .card-button:hover {
+    background: linear-gradient(135deg, #764c60,#5b3c11);
+}
+
+.image_reactive .card-button {
+    background: linear-gradient(135deg, #17a2b8, #0d5f73);
+}
+
+.image_reactive .card-button:hover {
+    background: linear-gradient(135deg, #0d5f73, #064450);
+}
+
+/* Style specifiques de la page outils */
+.page-outils .content{
+    margin-bottom: 1rem;
+}
+
+.page-outils .generator::before {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+}
+
+.page-outils .merger::before {
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+}
+
+.page-outils .converter::before {
+    background: linear-gradient(135deg, #defdd8 0%, #00a685 100%);
+}
+
+.page-outils  .card-icon{ 
+    font-size: 2rem;
+    width: 5rem;
+    height: 5rem;
+}
+.page-outils .generator .card-icon {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+}
+
+.page-outils .merger .card-icon {
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+}
+
+.page-outils .converter .card-icon {
+    background: linear-gradient(135deg, #defdd8 0%, #00a685 100%);
+}
+
+.page-outils .generator .card-button {
+    background: linear-gradient(45deg, #4e54c8, #8f94fb);
+}
+
+.page-outils .merger .card-button {
+    background: linear-gradient(135deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+}
+
+.page-outils .converter .card-button {
+    background: linear-gradient(135deg, #defdd8 0%, #00a685 100%);
+}
+
+/* ==========================================================================
+   UNIFORMISATION — toutes les cartes d'activité suivent la couleur du thème
+   (override des couleurs par catégorie : no-ia + outils). !important pour
+   gagner sur les multiples spécificités des règles par catégorie ci-dessus.
+   ========================================================================== */
+.categorisation::before, .appariements::before, .remise-ordre::before,
+.chronologie::before, .legende::before, .image_reactive::before,
+.page-outils .generator::before, .page-outils .merger::before, .page-outils .converter::before {
+    background: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark)) !important;
+}
+.categorisation .card-icon, .appariements .card-icon, .remise-ordre .card-icon,
+.chronologie .card-icon, .legende .card-icon, .image_reactive .card-icon,
+.page-outils .generator .card-icon, .page-outils .merger .card-icon, .page-outils .converter .card-icon {
+    /* Même style que les cartes de l'accueil HAPI (.h5p/.scorm/.outils) :
+       fond teinté accent + icône et anneau en accent-texte. */
+    background: var(--hapi-green-pale) !important;
+    color: var(--hapi-accent-text) !important;
+    box-shadow: inset 0 0 0 2px rgba(var(--hapi-green-rgb), 0.18);
+}
+.categorisation .card-title, .appariements .card-title, .remise-ordre .card-title,
+.chronologie .card-title, .legende .card-title, .image_reactive .card-title {
+    color: var(--hapi-accent-text) !important;
+}
+.categorisation .card-button, .appariements .card-button, .remise-ordre .card-button,
+.chronologie .card-button, .legende .card-button, .image_reactive .card-button,
+.page-outils .generator .card-button, .page-outils .merger .card-button, .page-outils .converter .card-button {
+    /* background-color SOLIDE = lu par les outils WCAG (le shorthand background:
+       dégradé laisse background-color à transparent → faux « contraste 1 »). */
+    background-color: var(--hapi-green-dark) !important;
+    background-image: linear-gradient(135deg, var(--hapi-grad-a), var(--hapi-green-dark)) !important;
+}
+.categorisation .card-button:hover, .appariements .card-button:hover, .remise-ordre .card-button:hover,
+.chronologie .card-button:hover, .legende .card-button:hover, .image_reactive .card-button:hover,
+.page-outils .generator .card-button:hover, .page-outils .merger .card-button:hover, .page-outils .converter .card-button:hover {
+    background-color: var(--hapi-green-deep) !important;
+    background-image: linear-gradient(135deg, var(--hapi-green-dark), var(--hapi-green-deep)) !important;
+}
+
+/* ==========================================================================
+   FOOTER — masqué dans les applis (outils), conservé sur les pages d'accueil
+   Accueils (footer visible) : page-home, page-without-ia (seul).
+   Applis (footer masqué) : page-with-ia + générateurs SCORM (classe *-scorm).
+   ========================================================================== */
+body.page-with-ia .footer,
+body[class*="-scorm"] .footer {
+    display: none;
+}
+
+/* ==========================================================================
+   ICÔNES SVG — cartes Sans IA (sur cercle thémé, trait blanc) + titres dédiés
+   ========================================================================== */
+.page-without-ia .card-icon svg,
+.page-outils .card-icon svg {
+    width: 44px;
+    height: 44px;
+    stroke: var(--hapi-accent-text);  /* trait accent sur fond teinté, comme l'accueil */
+    fill: none;
+    display: block;
+}
+/* Le lien intermédiaire (absent sur l'accueil) doit centrer le SVG et
+   couvrir tout le cercle (zone cliquable complète). */
+.page-without-ia .card-icon a,
+.page-outils .card-icon a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+/* Icône SVG dans le titre <h1> des pages générateur (suit la couleur du titre) */
+h1 .gen-title-icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.14em;
+    margin-right: 0.2em;
+    stroke: currentColor;
+    fill: none;
+    flex-shrink: 0;
+}
+
+
+/* FEATURES SECTION */
+.features {
+    background: var(--surface-2);
+    backdrop-filter: blur(15px);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    color: var(--text);
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.features h2 {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.feature-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--hapi-green-pale);
+    box-shadow: inset 0 0 0 2px var(--hapi-accent-text);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--hapi-accent-text);
+}
+
+.feature-title {
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+
+.feature-description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+.page-hapi ul, .page-hapi ol{
+    margin: .5rem 3rem 1.5rem 5rem;
+}
+/* --- PIED DE PAGE & ICONE GIA --- */
+footer {
+    margin-top: 1.5rem;
+    padding: 2rem ;
+    text-align: center;
+    background: var(--surface-2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+footer .footer-links {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+footer .footer-links > a,footer .footer-links > span,footer .footer-links > div{
+    display: inline-block;
+}
+footer .footer-separator {
+    margin: 1.5rem .25rem .5rem .25rem;
+    color: var(--text-muted);   /* #cbd5e0 → ~1,5:1 ; suit le thème (≥ 5:1 clair & sombre) */
+}
+
+/* CONTENEUR POUR L'ICÔNE GIA */
+footer .footer-gia-container {
+    margin-top: 25px; /* Espace au-dessus de l'icône */
+    text-align: center; /* Centre l'image */
+    width: 100%;
+}
+
+/* Style spécifique modifié pour l'icône GIA */
+footer .gia-icon {
+    height: 80px; /* BEAUCOUP PLUS GROS (au lieu de 35px) */
+    width: auto;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    display: inline-block; /* Permet le centrage via text-align */
+}
+
+footer .gia-icon:hover {
+    opacity: 1;
+    transform: scale(1.05); /* Léger zoom au survol */
+}
+
+/* Responsive design pour 3x2x1 layout */
+@media (max-width: 1136px) {
+    .platforms-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+}
+@media (max-width: 900px) {
+    .platforms-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 980px) {
+    .page-home header .hapi-aides {
+        grid-template-areas:"a" "b" "c";
+    }
+}
+@media (max-width: 768px) {
+    .platforms-grid {
+        grid-template-columns: 1fr;
+    }
+    .platform-card{
+        max-width: 90%;
+    }
+}
+
+/* ==========================================================================
+   PAGE D'ACCUEIL — déclinaison verte de la charte HAPI (logo DRANE Normandie)
+   ========================================================================== */
+
+/* Pastille = le lien parent (porte le fond vert pâle, NON filtré) */
+.page-home .platform-card > a:not(.card-button) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: var(--hapi-green-pale);
+    box-shadow: inset 0 0 0 2px var(--hapi-accent-text), 0 0 0 6px rgba(var(--hapi-green-rgb),0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.page-home .platform-card > a:not(.card-button):hover {
+    transform: scale(1.06);
+    box-shadow: inset 0 0 0 2px var(--hapi-accent-text), 0 0 0 8px rgba(var(--hapi-green-rgb),0.22);
+}
+/* Icônes au trait : pourtour vert foncé du logo, intérieur clair (fill:none) */
+.page-home .platform-card .card-icon {
+    width: auto;
+    height: auto;
+    margin: 0;
+    background: transparent;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--hapi-accent-text);
+}
+.page-home .platform-card .card-icon svg {
+    width: 58px;
+    height: 58px;
+    stroke: var(--hapi-accent-text);
+}
+
+/* Titres des cartes en vert foncé + petit séparateur (comme la maquette) */
+.page-home .platform-card h2,
+.page-home .platform-card .card-title {
+    color: var(--text);
+    border-bottom: none;
+    position: relative;
+    padding-bottom: 14px;
+}
+.page-home .platform-card h2::after,
+.page-home .platform-card .card-title::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--hapi-green-light);
+}
+
+/* Icônes de la barre « Pourquoi choisir ces outils ? » : même style au trait */
+.page-home .feature-icon svg {
+    width: 26px;
+    height: 26px;
+    stroke: var(--hapi-accent-text);
+}
+
+/* ==========================================================================
+   RGAA — Lien d'évitement (« Aller au contenu »)
+   Premier élément focusable, hors écran tant qu'il n'a pas le focus,
+   visible et contrasté au focus (blanc sur var(--hapi-green-dark) = 5,35:1).
+   ========================================================================== */
+.skip-link {
+    position: fixed;
+    top: -120px;
+    left: 8px;
+    z-index: 3000;
+    background: var(--hapi-green-dark);
+    color: #fff;
+    padding: .6rem 1.1rem;
+    border-radius: 0 0 8px 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: top 0.15s ease;
+}
+.skip-link:focus {
+    top: 0;
+    outline: 3px solid var(--hapi-green-deep);
+    outline-offset: 2px;
+}
+/* La cible reçoit le focus par programme : pas de gros contour disgracieux */
+#contenu:focus { outline: none; }
+
+/* ==========================================================================
+   RGAA 10.7 — Indicateur de focus CLAVIER visible et homogène.
+   :focus-visible ne s'active qu'au clavier (pas au clic souris) ; le !important
+   surclasse les nombreux « outline:none » du projet sans casser le visuel souris.
+   Vert foncé var(--hapi-green-dark) (≥ 3:1 sur fonds clairs), décalé pour rester lisible
+   même sur les boutons verts (l'anneau se pose sur le fond clair autour).
+   ========================================================================== */
+:focus-visible {
+    outline: 3px solid var(--hapi-green-dark) !important;
+    outline-offset: 2px !important;
+}
+/* Exception : la cible du lien d'évitement (focus programmatique) reste discrète */
+#contenu:focus-visible { outline: none !important; }
+
+/* RGAA — contenu réservé aux lecteurs d'écran (régions live, libellés cachés) */
+.sr-only {
+    position: absolute !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+
+/* ==========================================================================
+   COLOR SWITCHER — sélecteur de thème (en-tête, accueil HAPI)
+   ========================================================================== */
+.hapi-theme-switcher {
+    display: flex;
+    align-items: center;
+}
+/* Bouton-pastille déclencheur (état replié = juste 🎨 Thème) */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.78em;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    padding: 2px 4px;
+    border-radius: 999px;
+    line-height: 1;
+}
+.theme-toggle:focus-visible {
+    outline: 3px solid #1e293b;
+    outline-offset: 2px;
+}
+/* Conteneur repliable des gommettes — se déplie horizontalement vers la gauche */
+/* Zone repliable : contient le segment Clair/Sombre PUIS les pastilles couleur.
+   Se déplie horizontalement vers la gauche au clic sur « 🎨 Thème ». */
+.theme-panel {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    max-width: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    box-sizing: border-box;  /* sans ça le padding 0 7px déborde du max-width:0 → pilule +14px repliée */
+    /* Replié : AUCUN padding — une boîte ne peut pas être plus étroite que ses
+       paddings (même en border-box), ils gonflaient la pilule de 14px. Le padding
+       (place pour les anneaux de focus des gommettes) n'existe qu'à l'état ouvert. */
+    padding: 0;
+    margin-right: 0;
+    /* Replié : visibility:hidden INSTANTANÉ (pas de transition sur visibility) →
+       retire les boutons de l'arbre d'accessibilité ET des outils de contraste.
+       Sans ça, opacity:0 + visible laissait une fenêtre « blanc sur blanc » que
+       les checkers captaient au repli. Le conteneur continue de glisser (max-width). */
+    visibility: hidden;
+    transition: max-width 0.4s ease, max-height 0.3s ease, opacity 0.25s ease, margin-right 0.4s ease, padding 0.4s ease;
+}
+.hapi-theme-switcher[data-open="true"] .theme-panel {
+    max-width: 460px;
+    max-height: 40px;
+    opacity: 1;
+    margin-right: 6px;
+    padding: 0 7px;
+    visibility: visible;
+}
+
+/* Icônes SVG du switcher (remplacent les emojis ☀️🌙🎨 : vraie couleur de
+   texte unique = currentColor, donc pas de faux « contraste 1 » sur les pixels
+   clairs d'un emoji multicolore). Décoratives (aria-hidden). */
+.switcher-ico {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    flex-shrink: 0;
+}
+
+/* Icône SVG générique remplaçant un emoji (même classe que dans ia.css). */
+.ico { width: 1em; height: 1em; vertical-align: -0.15em; flex-shrink: 0; display: inline-block; }
+
+/* Segment Clair / Sombre (axe « mode ») */
+.mode-seg {
+    display: inline-flex;
+    background: var(--border);
+    border-radius: 999px;
+    padding: 2px;
+    gap: 2px;
+    flex-shrink: 0;
+}
+.mode-seg button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.72em;
+    font-weight: 600;
+    color: var(--text-muted);
+    padding: 3px 9px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    line-height: 1;
+    white-space: nowrap;
+}
+.mode-seg button[aria-pressed="true"] {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.mode-seg button:focus-visible {
+    outline: 3px solid #1e293b;
+    outline-offset: 2px;
+}
+/* Séparateur fin entre le segment de mode et les pastilles */
+.theme-panel .sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+    flex-shrink: 0;
+}
+
+.theme-dots {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+.theme-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.theme-dot:hover { transform: scale(1.15); }
+.theme-dot:focus-visible {
+    outline: 3px solid #1e293b;
+    outline-offset: 2px;
+}
+.theme-dot[aria-pressed="true"] {
+    transform: scale(1.1);
+    /* Anneau actif via --dot (et non currentColor) → le `color` du bouton n'a plus
+       besoin d'égaler le fond (ce qui faisait un faux « contraste 1 » sur ces
+       boutons sans texte dans les checkers WCAG). */
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--dot);
+}
+/* Couleur de chaque pastille = couleur primaire du thème (--dot = swatch + anneau).
+   Pas de `color:` → le texte (inexistant) n'égale plus le fond. */
+.theme-dot[data-set-theme="vert"]       { background: #1f7a43; --dot: #1f7a43; }
+.theme-dot[data-set-theme="ocean"]      { background: #155e96; --dot: #155e96; }
+.theme-dot[data-set-theme="violet"]     { background: #5e3a96; --dot: #5e3a96; }
+.theme-dot[data-set-theme="terracotta"] { background: #9c3f1f; --dot: #9c3f1f; }
+.theme-dot[data-set-theme="indigo"]     { background: #34418c; --dot: #34418c; }
+.theme-dot[data-set-theme="framboise"]  { background: #8c2848; --dot: #8c2848; }
+/* Institutionnel : gommette = favicon edugouv local (repli bleu France si l'image manque) */
+.theme-dot[data-set-theme="institutionnel"] {
+    background: #000091 url('../images/favicon.png') center/cover no-repeat;
+    --dot: #000091; /* couleur de l'anneau quand actif */
+}
+
+/* Variante EN FLUX : switcher injecté dans la barre « Accès rapide » (.hapi-aides)
+   de toutes les pages via js/theme-switcher.js (slot #hapi-theme-slot). */
+.hapi-aides .hapi-theme-switcher.inline {
+    display: inline-flex;
+    background: var(--surface-2);
+    padding: 4px 10px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--hapi-green);  /* liseré à la couleur courante du thème */
+    vertical-align: middle;
+}
+[data-mode="dark"] .hapi-aides .hapi-theme-switcher.inline {
+    background: #232a35;               /* solide, comme la variante header-corner */
+    border-color: var(--hapi-green-light);  /* liseré thème, version claire lisible en sombre */
+}
+/* ACCUEIL uniquement : panneau déplié = dropdown flottant AU-DESSUS de la
+   pilule, CENTRÉ sur elle (un dépliage horizontal poussait la grille et faisait
+   passer le sous-titre HAPI sur deux lignes : il a besoin de toute sa colonne).
+   Les pages à bandeau réduit gardent le dépliage horizontal en flux (règles de
+   base .theme-panel), qui s'étend vers la gauche de la pilule. */
+.page-home .hapi-aides .hapi-theme-switcher.inline { position: relative; }
+.page-home .hapi-aides .hapi-theme-switcher.inline .theme-panel {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    z-index: 60;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    padding: 10px 14px;
+    width: max-content;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    transform: translate(-50%, 6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.page-home .hapi-aides .hapi-theme-switcher.inline[data-open="true"] .theme-panel {
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    transform: translate(-50%, 0);
+}
+
+/* Switcher dans une bande propre en haut de l'en-tête (ne chevauche pas la grille) */
+header { position: relative; }
+header .hapi-theme-switcher.header-corner {
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    z-index: 5;
+    background: var(--surface-2);
+    padding: 4px 10px;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 2px solid var(--hapi-green);  /* liseré à la couleur courante du thème */
+    backdrop-filter: blur(6px);
+}
+
+/* ── Mode sombre : le switcher restait trop terne (texte gris + pilule sombre
+   qui se fond dans le header, segment actif sans relief). On éclaircit. ── */
+[data-mode="dark"] header .hapi-theme-switcher.header-corner {
+    background: #232a35;                      /* SOLIDE (pas de rgba → contraste calculable) */
+    border-color: var(--hapi-green-light);    /* liseré thème, version claire lisible en sombre */
+}
+[data-mode="dark"] .theme-toggle { color: var(--text); }            /* « Thème » lisible (~10:1) */
+[data-mode="dark"] .mode-seg { background: #11161d; }                /* « well » sombre solide */
+[data-mode="dark"] .mode-seg button { color: var(--text); }          /* inactif : texte clair (~12:1) */
+/* Sélectionné = puce ACCENT : écart ≥ 4:1 avec le well (non-texte 1.4.11),
+   et texte sombre lisible (≥ 4,5:1) dessus. Couleurs solides → outils WCAG OK. */
+[data-mode="dark"] .mode-seg button[aria-pressed="true"] {
+    background: var(--hapi-accent-text);
+    color: #11161d;
+    box-shadow: none;
+}
+/* Focus visible : l'outline #1e293b est invisible sur fond sombre → clair. */
+[data-mode="dark"] .theme-toggle:focus-visible,
+[data-mode="dark"] .mode-seg button:focus-visible,
+[data-mode="dark"] .theme-dot:focus-visible {
+    outline-color: #e6e9ee;
+}
+
+/* On réserve la bande supérieure pour que le switcher ne recouvre rien */
+.page-home header .container { padding-top: 2.6rem; }
+
+/* ==========================================================================
+   TEINTE DU LOGO HAPI selon le thème actif (la chouette se colore)
+   --------------------------------------------------------------------------
+   Calque masqué par la forme du logo, en mix-blend-mode:color → applique la
+   teinte du thème tout en conservant le modelé (clair/foncé) de la chouette.
+   Actif uniquement quand <html data-theme=...> (le vert HAPI = logo d'origine).
+   ========================================================================== */
+header .hapi-badge {
+    position: relative;
+    isolation: isolate;       /* confine le blend au badge */
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* centre le logo → le calque s'aligne dessus */
+}
+html[data-theme] header .hapi-badge::after {
+    content: "";
+    position: absolute;
+    inset: 0;                     /* couvre tout le badge → toute la chouette est teintée */
+    border-radius: 50%;
+    background: var(--hapi-green);
+    mix-blend-mode: color;        /* teinte en gardant le modelé (clair/foncé) */
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   THÈME INSTITUTIONNEL — boutons plus carrés (style officiel, coins ~4px)
+   --------------------------------------------------------------------------
+   Cible les boutons d'ACTION (classe .btn et variantes nommées) + « Accéder ».
+   Les boutons-icône RONDS ont des classes distinctes (.btn-delete-audio,
+   .btn-remove-option, .delete-btn…) → non touchés. !important pour battre les
+   border-radius en style inline de certains boutons.
+   ========================================================================== */
+html[data-theme="institutionnel"] .btn,
+html[data-theme="institutionnel"] .card-button,
+html[data-theme="institutionnel"] .btn-raz a,
+html[data-theme="institutionnel"] .btn-inline-add,
+html[data-theme="institutionnel"] .btn-parcourir,
+html[data-theme="institutionnel"] .btn-add-source,
+html[data-theme="institutionnel"] .btn-action-main,
+html[data-theme="institutionnel"] .btn-ia-link,
+html[data-theme="institutionnel"] .btn-export-action,
+html[data-theme="institutionnel"] .btn-distribute,
+html[data-theme="institutionnel"] .btn-generate-ai,
+html[data-theme="institutionnel"] .btn-generate-glb,
+html[data-theme="institutionnel"] .btn-download-formula,
+html[data-theme="institutionnel"] .btn-primary,
+html[data-theme="institutionnel"] .btn-secondary {
+    border-radius: 4px !important;
+}
+
+/* ==========================================================================
+   RESPONSIVE — EN-TÊTE SUR MOBILE (≤ 600px)
+   --------------------------------------------------------------------------
+   En l'état, « header .container » garde une grille à 4 colonnes fixes
+   (badge | texte | accès rapide | logo institution) dont le contenu impose
+   une largeur minimale d'environ 540-570px : sous cette largeur la page
+   déborde horizontalement (boutons « Thème / Plus d'infos / Tchap » coupés).
+   On réempile : badge + titre sur la 1re ligne, barre d'accès en pleine
+   largeur dessous, logo institution masqué (décoratif, alt conservé).
+   Placé en fin de feuille pour primer sur les règles de base à spécificité
+   égale, sur l'accueil (.page-home) comme sur les sous-pages.
+   ========================================================================== */
+@media (max-width: 600px) {
+    header .container,
+    .page-home header .container {
+        grid-template-columns: auto 1fr;
+        grid-template-areas: none;
+        column-gap: 1rem;
+        row-gap: .6rem;
+        align-items: center;
+        padding-top: 1rem;
+    }
+    header .hapi-aides,
+    .page-home header .hapi-aides {
+        grid-column: 1 / -1;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: .25rem .5rem;
+    }
+    header .hapi-aides a { padding: .4rem .6rem; }
+    header .institution,
+    .page-home header .institution { display: none; }
+    header h1,
+    .page-home header .hapi h1 { font-size: 1.5rem; }
+}
+
+/* ==========================================================================
+   IFRAME EMBED MODE — Masquage automatique du header/footer si inclus dans une iframe
+   ========================================================================== */
+html.is-embedded header,
+html.is-embedded footer,
+html.is-embedded .footer,
+html.is-embedded .skip-link {
+    display: none !important;
+}
+html.is-embedded body {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+html.is-embedded main {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+html.is-embedded .breadcrumb {
+    margin-top: 0 !important;
+}
+
+

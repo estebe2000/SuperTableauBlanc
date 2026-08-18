@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "discipline": "Cinéma-Audiovisuel",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de cinéma-audiovisuel option et spécialité lycée GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Analyser des œuvres cinématographiques et audiovisuelles",
+    "Réaliser des productions audiovisuelles (court-métrage, documentaire, essai)",
+    "Maîtriser les étapes de la création audiovisuelle (écriture, tournage, montage)",
+    "Situer les œuvres dans l'histoire du cinéma et des formes audiovisuelles",
+    "Développer un regard critique sur les images et les médias"
+  ],
+  "domaines": [
+    {
+      "nom": "Analyse filmique",
+      "description": "Les outils pour lire et interpréter les images en mouvement.",
+      "competences": [
+        {
+          "intitule": "Analyser une séquence filmique : plan, cadrage, montage, son",
+          "exemples_themes": ["Analyse d'une séquence de Psychose d'Hitchcock (la douche)", "Le plan-séquence dans Les Fils de l'homme de Cuarón", "Le montage parallèle dans Le Parrain de Coppola", "Le son au cinéma : musique, bruits, silence (analyse d'une scène)"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire du cinéma",
+      "description": "Les grands courants et les œuvres majeures du cinéma.",
+      "competences": [
+        {
+          "intitule": "Situer les œuvres dans l'histoire du cinéma et de l'audiovisuel",
+          "exemples_themes": ["Les frères Lumière et Méliès : naissance du cinéma", "Le cinéma muet et l'expressionnisme allemand (Nosferatu, Metropolis)", "La Nouvelle Vague française (Godard, Truffaut, Varda)", "Le cinéma contemporain mondial (Bong Joon-ho, Céline Sciamma)"]
+        }
+      ]
+    },
+    {
+      "nom": "Écriture et scénario",
+      "description": "La conception d'un projet audiovisuel de l'idée au scénario.",
+      "competences": [
+        {
+          "intitule": "Écrire un scénario, un découpage technique et un storyboard",
+          "exemples_themes": ["Écriture d'un synopsis et d'un traitement de court-métrage", "Le découpage technique : plan par plan", "Le storyboard : mise en image du scénario", "Analyse de la structure narrative d'un film (schéma actantiel)"]
+        }
+      ]
+    },
+    {
+      "nom": "Réalisation et technique",
+      "description": "Le tournage et la post-production.",
+      "competences": [
+        {
+          "intitule": "Réaliser un court-métrage ou un documentaire : tournage et montage",
+          "exemples_themes": ["Le cadrage et la lumière : exercices pratiques avec smartphone/caméra", "Le montage avec un logiciel (DaVinci Resolve, Premiere, iMovie)", "La prise de son et le mixage", "La direction d'acteurs et la mise en scène"]
+        }
+      ]
+    },
+    {
+      "nom": "Cinéma et société",
+      "description": "Les enjeux culturels, économiques et sociaux de l'audiovisuel.",
+      "competences": [
+        {
+          "intitule": "Réfléchir aux enjeux du cinéma et de l'audiovisuel dans la société",
+          "exemples_themes": ["Le cinéma documentaire et son rapport au réel", "L'économie du cinéma (production, distribution, exploitation)", "Les plateformes de streaming et la transformation de la cinéphilie", "Le cinéma engagé et la représentation des minorités"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de cinéma-audiovisuel au lycée GT (option et spécialité) articule analyse filmique, histoire du cinéma, écriture scénaristique et pratique de réalisation. Les élèves étudient des œuvres majeures, apprennent les techniques du tournage et du montage, et réalisent leurs propres productions audiovisuelles (court-métrage, documentaire, essai filmique)."
+}

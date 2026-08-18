@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DÉFIA + — Ton Défi IA Interactif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6C5CE7;
+            --accent5: #7c3aed;
+            --bg: #F8F9FE;
+            --surface: #FFFFFF;
+            --surface2: #F1F5F9;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #game-container {
+            background: var(--surface);
+            width: 100%;
+            max-width: 800px;
+            min-height: 500px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats { display: flex; gap: 20px; font-weight: 800; font-size: 1.2rem; }
+        .progress-track { flex: 1; height: 10px; background: var(--surface2); border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #3b82f6); width: 0%; transition: 0.3s; }
+
+        .question-card { animation: fadeIn 0.3s ease; }
+        .question-text { font-size: 1.5rem; font-weight: 700; margin-bottom: 30px; line-height: 1.4; }
+        
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        @media (min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+
+        .option-btn {
+            padding: 18px;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .option-btn:hover { border-color: var(--accent5); background: #f5f3ff; }
+        .option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #166534; }
+        .option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #991b1b; }
+
+        .feedback { margin-top: 20px; font-weight: 800; font-size: 1.2rem; text-align: center; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-primary {
+            background: var(--accent5);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div class="header">
+            <div class="stats">
+                <span>🏆 <span id="score">0</span></span>
+                <span>❤️ <span id="lives">3</span></span>
+            </div>
+            <div class="progress-track"><div id="progress" class="progress-fill"></div></div>
+        </div>
+        <div id="content">
+            <p>Chargement du défi...</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple standalone player that decodes data from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dataRaw = urlParams.get('d');
+        const mode = urlParams.get('m') || 'quiz';
+        
+        let questions = [];
+        let currentIndex = 0;
+        let score = 0;
+        let lives = 3;
+
+        if (dataRaw) {
+            try {
+                questions = JSON.parse(decodeURIComponent(escape(atob(dataRaw))));
+                renderQuestion();
+            } catch(e) {
+                document.getElementById('content').innerHTML = "Erreur de chargement des données.";
+            }
+        }
+
+        function renderQuestion() {
+            const q = questions[currentIndex];
+            const content = document.getElementById('content');
+            const progress = (currentIndex / questions.length) * 100;
+            document.getElementById('progress').style.width = progress + "%";
+
+            content.innerHTML = `
+                <div class="question-card">
+                    <p class="question-text">${q.question}</p>
+                    <div class="options-grid">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="check(${i}, this)">${opt}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback" class="feedback"></div>
+                </div>
+            `;
+        }
+
+        window.check = (index, btn) => {
+            const q = questions[currentIndex];
+            const feedback = document.getElementById('feedback');
+            const btns = document.querySelectorAll('.option-btn');
+            btns.forEach(b => b.disabled = true);
+
+            if (index === q.answer) {
+                btn.classList.add('correct');
+                score += 100;
+                document.getElementById('score').textContent = score;
+                feedback.innerHTML = "✅ BIEN JOUÉ !";
+                feedback.style.color = "#22c55e";
+            } else {
+                btn.classList.add('wrong');
+                btns[q.answer].classList.add('correct');
+                lives--;
+                document.getElementById('lives').textContent = lives;
+                feedback.innerHTML = "❌ MAUVAISE RÉPONSE";
+                feedback.style.color = "#ef4444";
+            }
+
+            setTimeout(() => {
+                if (lives <= 0) {
+                    content.innerHTML = "<h2>GAME OVER ! Score : " + score + "</h2><button class='btn-primary' onclick='location.reload()'>Réessayer</button>";
+                } else if (currentIndex >= questions.length - 1) {
+                    document.getElementById('progress').style.width = "100%";
+                    content.innerHTML = "<h2>DÉFI TERMINÉ ! 🏆 Score : " + score + "</h2>";
+                } else {
+                    currentIndex++;
+                    renderQuestion();
+                }
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

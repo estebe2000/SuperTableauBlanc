@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "discipline": "Arts appliqués et cultures artistiques",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'arts appliqués option lycée GT / série STD2A",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Développer une démarche de création en design et métiers d'art",
+    "Analyser des productions de design (objet, espace, graphisme, mode)",
+    "Maîtriser les outils de représentation et de communication visuelle",
+    "Situer les productions dans leur contexte culturel et historique",
+    "Expérimenter des matériaux, des techniques et des processus créatifs"
+  ],
+  "domaines": [
+    {
+      "nom": "Design d'objet et de produit",
+      "description": "La conception d'objets fonctionnels et esthétiques.",
+      "competences": [
+        {
+          "intitule": "Analyser et concevoir un objet de design en intégrant fonction, forme et usage",
+          "exemples_themes": ["Analyse d'un objet du quotidien (chaise, lampe, ustensile)", "Redesign d'un emballage (contraintes écologiques et ergonomiques)", "Un designer de référence (Starck, les Bouroullec, Charlotte Perriand)", "Croquis de recherche et planche tendance"]
+        }
+      ]
+    },
+    {
+      "nom": "Design d'espace",
+      "description": "L'aménagement et la scénographie des espaces.",
+      "competences": [
+        {
+          "intitule": "Analyser et concevoir un aménagement d'espace intérieur ou extérieur",
+          "exemples_themes": ["Réaménagement d'un espace du lycée (hall, CDI, cour)", "Analyse d'une scénographie d'exposition (muséographie)", "Un architecte d'intérieur de référence (Jean Nouvel, Zaha Hadid)", "Maquette et plan d'aménagement à l'échelle"]
+        }
+      ]
+    },
+    {
+      "nom": "Design graphique et communication visuelle",
+      "description": "La typographie, la mise en page, l'identité visuelle.",
+      "competences": [
+        {
+          "intitule": "Concevoir des supports de communication visuelle",
+          "exemples_themes": ["Création d'une affiche (typographie, composition, couleur)", "Conception d'un logo et d'une charte graphique", "Analyse d'une campagne publicitaire (sémiologie de l'image)", "Mise en page d'un magazine ou d'un livret (InDesign, Canva)"]
+        }
+      ]
+    },
+    {
+      "nom": "Design de mode et textile",
+      "description": "La création vestimentaire et textile.",
+      "competences": [
+        {
+          "intitule": "Explorer la création de mode et les cultures textiles",
+          "exemples_themes": ["Croquis de mode et figurine stylisée", "Analyse d'une collection de créateur (Chanel, Issey Miyake)", "Les matières textiles : propriétés, innovation, durabilité", "Le vêtement comme objet de design et de société"]
+        }
+      ]
+    },
+    {
+      "nom": "Culture du design et des arts appliqués",
+      "description": "L'histoire et les enjeux du design.",
+      "competences": [
+        {
+          "intitule": "Situer les productions de design dans leur contexte historique et culturel",
+          "exemples_themes": ["Le Bauhaus et les origines du design moderne", "Le design scandinave (Alvar Aalto, Arne Jacobsen)", "Le design italien (Memphis, Alessi, Olivetti)", "Le design numérique et l'UX design contemporain"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'arts appliqués au lycée GT (option en voie générale, enseignement de la série STD2A) couvre le design d'objet, d'espace, graphique et de mode. Les élèves développent une démarche de création intégrant analyse, expérimentation et culture du design. Les outils de représentation (croquis, maquette, numérique) et la culture des mouvements artistiques et du design sont au cœur de la formation."
+}

@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Anglais des affaires",
+    "cycle": "BUT TC",
+    "filiere": "but-tc",
+    "source": "Référentiel National BUT TC"
+  },
+  "competences": [
+    {
+      "intitule": "Communiquer en anglais dans un contexte professionnel",
+      "details": [
+        "Réaliser une présentation commerciale en anglais",
+        "Maîtriser le lexique du marketing et de la vente",
+        "Négocier avec des partenaires étrangers",
+        "Rédiger des emails et rapports professionnels"
+      ]
+    }
+  ]
+}

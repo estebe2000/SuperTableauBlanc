@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "discipline": "Histoire-Géographie",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme d'histoire-géographie du cycle 3",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Se repérer dans le temps et dans l'espace",
+    "Raisonner, justifier une démarche et les choix effectués",
+    "S'informer dans le monde du numérique",
+    "Comprendre un document",
+    "Pratiquer différents langages en histoire et en géographie",
+    "Coopérer et mutualiser"
+  ],
+  "domaines": [
+    {
+      "nom": "Histoire — CM1 : Et avant la France ?",
+      "description": "Les traces du passé de la Préhistoire aux fondations de la Gaule romaine.",
+      "competences": [
+        {
+          "intitule": "Les traces du passé : quelles traces d'une occupation ancienne du territoire français ?",
+          "exemples_themes": ["Les grottes de Lascaux et l'art pariétal", "Les mégalithes (dolmens, menhirs)", "Les premiers agriculteurs et villages", "Datation et frise chronologique"]
+        },
+        {
+          "intitule": "Celtes, Gaulois, Grecs et Romains : quels héritages ?",
+          "exemples_themes": ["La civilisation gauloise", "La romanisation de la Gaule", "Les monuments gallo-romains (arènes, aqueducs)", "La naissance du christianisme et son expansion"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — CM1 : Le temps des rois",
+      "description": "De Clovis à Louis XIV, la construction du pouvoir royal en France.",
+      "competences": [
+        {
+          "intitule": "Clovis et Charlemagne, mérovingiens et carolingiens dans la continuité de l'empire romain",
+          "exemples_themes": ["Le baptême de Clovis", "L'empire de Charlemagne", "L'école sous Charlemagne", "La naissance du royaume de France"]
+        },
+        {
+          "intitule": "Louis IX, le roi chrétien ; François Ier, un protecteur des Arts et des Lettres ; Henri IV et l'édit de Nantes",
+          "exemples_themes": ["Saint Louis et la justice", "La Renaissance et les châteaux de la Loire", "Les guerres de Religion", "L'édit de Nantes et la tolérance"]
+        },
+        {
+          "intitule": "Louis XIV, le roi Soleil à Versailles",
+          "exemples_themes": ["La monarchie absolue", "Le château de Versailles", "La vie quotidienne sous Louis XIV", "Colbert et le développement économique"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — CM2 : Le temps de la Révolution et de l'Empire",
+      "description": "De la Révolution française à Napoléon.",
+      "competences": [
+        {
+          "intitule": "De l'année 1789 à l'exécution du roi : la Révolution française",
+          "exemples_themes": ["La prise de la Bastille", "La Déclaration des droits de l'homme et du citoyen", "L'abolition des privilèges", "La République et la Terreur"]
+        },
+        {
+          "intitule": "Napoléon Bonaparte, du général à l'Empereur",
+          "exemples_themes": ["Le coup d'État du 18 Brumaire", "Le Code civil", "Les grandes batailles (Austerlitz, Waterloo)", "L'héritage napoléonien"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — CM2 : L'âge industriel en France / La France, des guerres mondiales à l'Union européenne",
+      "description": "XIXe et XXe siècles.",
+      "competences": [
+        {
+          "intitule": "Énergies et machines ; le travail à la mine, à l'usine, à l'atelier, au grand magasin",
+          "exemples_themes": ["La révolution industrielle", "Le travail des enfants", "L'exode rural et l'urbanisation", "Les grandes inventions (train, électricité)"]
+        },
+        {
+          "intitule": "Deux guerres mondiales au vingtième siècle",
+          "exemples_themes": ["La Première Guerre mondiale (tranchées, poilus)", "La Seconde Guerre mondiale (occupation, résistance, Shoah)", "Le rôle de la France dans les deux conflits", "Mémoire et commémoration"]
+        },
+        {
+          "intitule": "La construction européenne",
+          "exemples_themes": ["De la réconciliation franco-allemande à l'UE", "Les symboles de l'Europe", "La paix comme projet européen"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire — 6e : La longue histoire de l'humanité et des migrations / Récits fondateurs, croyances et citoyenneté",
+      "description": "Préhistoire, premières civilisations, Antiquité méditerranéenne.",
+      "competences": [
+        {
+          "intitule": "Les débuts de l'humanité ; la révolution néolithique ; premiers États, premières écritures",
+          "exemples_themes": ["L'Afrique, berceau de l'humanité", "La sédentarisation et l'agriculture", "Mésopotamie et Égypte antique", "L'invention de l'écriture (cunéiforme, hiéroglyphes)"]
+        },
+        {
+          "intitule": "Le monde des cités grecques ; Rome du mythe à l'histoire ; la naissance du monothéisme juif",
+          "exemples_themes": ["Athènes et la démocratie", "Les Jeux olympiques antiques", "La fondation de Rome (mythe et archéologie)", "Les textes fondateurs (Bible, Iliade, Odyssée)"]
+        },
+        {
+          "intitule": "L'empire romain dans le monde antique : conquêtes, paix romaine et romanisation",
+          "exemples_themes": ["L'expansion de l'empire romain", "La vie quotidienne à Rome (thermes, forum, amphithéâtre)", "Les débuts du christianisme", "Les relations entre Rome et le monde méditerranéen"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — CM1 : Découvrir les lieux où j'habite / Se loger, travailler, se cultiver, avoir des loisirs",
+      "description": "L'espace proche et les activités humaines.",
+      "competences": [
+        {
+          "intitule": "Identifier les caractéristiques de mon lieu de vie",
+          "exemples_themes": ["Ma commune : plan, quartiers, services", "Habiter en ville ou à la campagne", "Les activités économiques locales", "Comparaison avec d'autres lieux de vie en France"]
+        },
+        {
+          "intitule": "Se loger, travailler, se cultiver, avoir des loisirs en France",
+          "exemples_themes": ["Les différents types d'habitat", "Les zones d'activité et commerciales", "Les lieux de culture et de loisirs", "Les inégalités territoriales"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — CM2 : Se déplacer / Communiquer d'un bout à l'autre du monde / Mieux habiter",
+      "description": "Mobilités, réseaux numériques et développement durable.",
+      "competences": [
+        {
+          "intitule": "Se déplacer au quotidien en France et dans le monde",
+          "exemples_themes": ["Les transports du quotidien (bus, métro, vélo, voiture)", "Les grands axes de communication", "Se déplacer dans un pays pauvre vs un pays riche", "L'impact environnemental des déplacements"]
+        },
+        {
+          "intitule": "Mieux habiter : favoriser la place de la nature en ville, recycler, habiter un écoquartier",
+          "exemples_themes": ["Le développement durable au quotidien", "Les écoquartiers", "Le tri et le recyclage", "Les jardins partagés et la nature en ville"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie — 6e : Habiter une métropole / Habiter un espace de faible densité / Habiter les littoraux / Le monde habité",
+      "description": "Les différentes façons d'habiter le monde.",
+      "competences": [
+        {
+          "intitule": "Habiter une métropole : les métropoles et leurs habitants",
+          "exemples_themes": ["Une métropole d'un pays développé vs en développement", "L'étalement urbain", "Les quartiers et leurs fonctions", "Les défis des villes (pollution, logement, mobilité)"]
+        },
+        {
+          "intitule": "Habiter un espace de faible densité à vocation agricole ou touristique",
+          "exemples_themes": ["Un espace rural en France", "Un espace pastoral en Afrique", "Le tourisme en montagne ou sur le littoral", "Les contraintes naturelles et l'adaptation humaine"]
+        },
+        {
+          "intitule": "Le monde habité : la répartition de la population mondiale et ses dynamiques",
+          "exemples_themes": ["Les grands foyers de peuplement", "Les déserts humains", "Les migrations internationales", "Lire et interpréter des cartes de population"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'histoire-géographie du cycle 3 vise à donner aux élèves des repères temporels et spatiaux fondamentaux. En histoire, le programme est chronologique : Préhistoire et Antiquité en CM1-6e, Moyen Âge et Temps modernes en CM1, Révolution et époques contemporaines en CM2. En géographie, l'approche part de l'espace proche pour s'élargir au monde : habiter, se déplacer, communiquer, mieux habiter. Les élèves apprennent à lire des documents variés (cartes, frises, textes sources, images) et à raisonner en histoire et géographie."
+}

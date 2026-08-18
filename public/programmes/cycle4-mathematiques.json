@@ -1,0 +1,65 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. du 2 avril 2026 — Nouveau programme de mathématiques du cycle 4",
+    "mise_a_jour": "2026-04-02"
+  },
+  "attendus_fin_cycle": [
+    "Chercher, modéliser, représenter, calculer, raisonner et communiquer en mathématiques",
+    "Utiliser les nombres relatifs, les nombres rationnels, les puissances et la racine carrée ; mener un calcul littéral et algébrique",
+    "Mener des raisonnements et s'initier à la preuve et à la démonstration en géométrie",
+    "Organiser, représenter et interpréter des données ; modéliser des situations aléatoires par des probabilités",
+    "Traiter des situations de proportionnalité et découvrir la notion de fonction",
+    "Développer une pensée informatique par l'algorithmique et la programmation"
+  ],
+  "domaines": [
+    {
+      "nom": "Nombres et calculs",
+      "description": "Découvrir de nouvelles catégories de nombres (relatifs, rationnels, puissances, racine carrée), calculer avec eux et les mobiliser pour résoudre des problèmes. Développer le calcul littéral et la pensée algébrique.",
+      "competences": [
+        {"intitule": "Utiliser les nombres relatifs : opérations et résolution de problèmes", "exemples_themes": ["Représenter des grandeurs négatives (température, altitude, solde bancaire)", "Opposé et valeur absolue d'un nombre", "Additionner, soustraire (5e) puis multiplier et diviser (4e) des nombres relatifs", "Distributivité pour le produit de deux négatifs", "Enchaîner des opérations avec des relatifs"]},
+        {"intitule": "Utiliser les nombres rationnels et les fractions", "exemples_themes": ["Comparer, additionner et soustraire des fractions de dénominateurs quelconques", "Multiplier et diviser des fractions, inverse d'un nombre (4e)", "Fraction d'une fraction, d'une quantité", "Mettre une fraction sous forme irréductible (3e)", "Résoudre des problèmes avec les opérations sur les fractions"]},
+        {"intitule": "Utiliser les puissances et la racine carrée", "exemples_themes": ["Carré et cube d'un nombre (5e), carrés des entiers de 0 à 12", "Puissances d'exposant positif puis négatif (4e-3e), produit et quotient de puissances", "Notation scientifique et puissances de dix (préfixes nano à giga)", "Définition de la racine carrée, encadrement par deux entiers consécutifs", "Résoudre x² = a ; lien avec le théorème de Pythagore et l'aire d'un carré", "√2 est irrationnel (démonstration par l'absurde)"]},
+        {"intitule": "Multiples, diviseurs et arithmétique", "exemples_themes": ["Division euclidienne, quotient et reste", "Critères de divisibilité par 2, 3, 5, 9, 10", "Factoriser un entier (ex : 60 = 2² × 3 × 5), nombres premiers", "Trouver un dénominateur commun, simplifier une fraction", "Crible d'Ératosthène"]},
+        {"intitule": "Mener un calcul littéral et algébrique", "exemples_themes": ["Produire des formules (double, carré, périmètre, aire), calculer par substitution", "Développer et factoriser avec la distributivité simple puis double", "Les trois identités remarquables (3e)", "Résoudre des équations a x = c, x + b = c, a x + b = c, puis a x + b = c x + d", "Mettre un problème en équation, équation produit nul, inéquation du premier degré (3e)", "Démontrer une propriété générale par le calcul littéral ; contre-exemple", "Lien historique avec Al-Khwarizmi"]}
+      ]
+    },
+    {
+      "nom": "Espace et géométrie",
+      "description": "Passer progressivement d'une géométrie perceptive et instrumentée à une géométrie du raisonnement et de la preuve. Construire des figures, étudier transformations, triangles, théorèmes, repérage et vecteurs.",
+      "competences": [
+        {"intitule": "Se repérer sur une droite et dans le plan ; représenter l'espace", "exemples_themes": ["Lire et placer un point d'abscisse donnée (décimale puis relative)", "Coordonnées dans un repère orthogonal", "Perspective cavalière et patrons (pavé, prisme, cylindre, pyramide, cône)", "Volumes : cube, pavé, prisme, cylindre, pyramide, cône (4e), boule et sphère (3e)", "Sections planes de solides (3e)"]},
+        {"intitule": "Utiliser les transformations géométriques", "exemples_themes": ["Symétrie axiale et symétrie centrale (demi-tour) et leurs propriétés", "Translation : effet, propriétés de conservation (4e)", "Vecteurs, vecteurs égaux, somme de vecteurs, relation de Chasles (3e)", "Pavages et frises (Escher, Alhambra), rosaces"]},
+        {"intitule": "Étudier les triangles et démontrer", "exemples_themes": ["Somme des angles d'un triangle (et démonstration)", "Angles alternes-internes et correspondants, parallélisme", "Médiatrices, médianes, hauteurs, cercle circonscrit", "Théorème de Pythagore, sa réciproque et sa contraposée (4e)", "Théorème de Thalès et trigonométrie du triangle rectangle (sinus, cosinus, tangente) (3e)", "Droite des milieux ; repères historiques (Thalès, Pythagore)"]},
+        {"intitule": "Étudier les quadrilatères et les aires", "exemples_themes": ["Définition et propriétés caractéristiques du parallélogramme", "Rectangle, losange, carré : propriétés des diagonales et des côtés", "Calcul d'aires (triangle, parallélogramme, disque, figures complexes)", "Preuves utilisant les aires (théorème de Varignon, fil rouge des invariants)"]}
+      ]
+    },
+    {
+      "nom": "Organisation et gestion de données, probabilités",
+      "description": "Recueillir, organiser, représenter et interpréter des données statistiques ; développer l'esprit critique. Formaliser la notion de probabilité dans le cas fini et distinguer situation réelle et modèle.",
+      "competences": [
+        {"intitule": "Traiter et représenter des données statistiques", "exemples_themes": ["Effectifs, fréquences (décimale, fractionnaire, pourcentage)", "Tableaux, diagrammes en barres et circulaires, graphiques cartésiens", "Moyenne (5e), moyenne pondérée, médiane, étendue (4e)", "Quartiles, effectifs cumulés, boîtes à moustaches (3e)", "Comparer deux séries statistiques ; usage du tableur", "Présentations trompeuses et esprit critique (diagrammes de Florence Nightingale)"]},
+        {"intitule": "Modéliser des situations aléatoires par des probabilités", "exemples_themes": ["Vocabulaire : expérience aléatoire, issue, événement (5e)", "Échelle de probabilité ; équiprobabilité (lancer de dé, de pièce, tirage d'urne)", "Vocabulaire ensembliste : complémentaire, réunion, intersection, événement contraire (4e)", "Expériences à deux épreuves ; distributions fréquentielle et probabiliste", "Relation P(A∪B) + P(A∩B) = P(A) + P(B) (3e)", "Stabilisation des fréquences (loi des grands nombres), simulations"]}
+      ]
+    },
+    {
+      "nom": "Proportionnalité, fonctions",
+      "description": "Affermir les raisonnements liés à la proportionnalité (pourcentages, ratios, échelles) et introduire progressivement la notion de fonction comme dépendance entre deux grandeurs.",
+      "competences": [
+        {"intitule": "Traiter des situations de proportionnalité", "exemples_themes": ["Reconnaître une situation de proportionnalité (tableau, graphique, nuage de points)", "Coefficient de proportionnalité, retour à l'unité, propriétés de linéarité", "Pourcentages, augmentations et diminutions, coefficient multiplicateur (4e)", "Grandeurs quotients, rapports et ratios, quatrième proportionnelle", "Échelles, partages proportionnels ; lien avec le théorème de Thalès (3e)", "Recettes, prix, vitesses, distances sur une carte"]},
+        {"intitule": "Découvrir et utiliser la notion de fonction", "exemples_themes": ["Employer l'expression « en fonction de » (5e)", "Tableau de valeurs, représentation graphique, formule", "Programme de calcul à plusieurs étapes (4e)", "Vocabulaire : image, antécédent, notation f(x)", "Fonctions linéaires et lien avec la proportionnalité (3e)", "Fonctions affines, fonction carré ; lectures graphiques"]}
+      ]
+    },
+    {
+      "nom": "La pensée informatique",
+      "description": "Développer l'algorithmique et la programmation impérative par blocs, de manière progressive sur le cycle, en lien avec la technologie, pour aboutir à une autonomie d'écriture de programmes en fin de cycle.",
+      "competences": [
+        {"intitule": "Manipuler instructions, séquences et boucles", "exemples_themes": ["Séquencer des instructions simples (5e)", "Identifier les entrées et sorties d'un programme", "Traduire une formule en expression informatique (programmation par blocs)", "Boucle inconditionnelle (répéter n fois)", "Analyser et modifier les paramètres d'un programme donné"]},
+        {"intitule": "Utiliser variables, conditions et boucles conditionnelles", "exemples_themes": ["Introduire et manipuler une variable informatique (4e)", "Écrire des instructions conditionnelles, conditions simples puis composées", "Écrire un programme pour réaliser un objectif ou résoudre un problème", "Boucle conditionnelle (while) (3e)", "Structurer un programme vers l'autonomie d'écriture"]}
+      ]
+    }
+  ],
+  "programme_resume": "Le nouveau programme de mathématiques du cycle 4 (B.O. du 2 avril 2026, applicable aux 5e, 4e et 3e) s'organise en cinq domaines : nombres et calculs (relatifs, rationnels, puissances, racine carrée, calcul littéral), espace et géométrie (transformations, triangles, théorèmes de Pythagore et Thalès, trigonométrie, vecteurs), organisation et gestion de données et probabilités, proportionnalité et fonctions, et la pensée informatique (algorithmique et programmation par blocs). La résolution de problèmes est transversale et irrigue tous les domaines. Le programme insiste sur les six compétences (chercher, modéliser, représenter, calculer, raisonner, communiquer), sur la place du raisonnement et de la démonstration, sur la mémorisation et l'automatisation, l'usage raisonné de la calculatrice, la place de l'oral et des écrits, ainsi que sur l'égalité filles-garçons et la lutte contre les déterminismes. Des prolongements historiques et culturels enrichissent chaque domaine."
+}

@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°16 du 17 avril 2025 — Programme de mathématiques du cycle 3",
+    "mise_a_jour": "2025-04-17"
+  },
+  "attendus_fin_cycle": [
+    "Utiliser et représenter les nombres entiers, les fractions et les nombres décimaux",
+    "Calculer avec des nombres entiers et décimaux de manière exacte ou approchée",
+    "Résoudre des problèmes en mobilisant des connaissances sur les nombres, le calcul, les grandeurs et la géométrie",
+    "Reconnaître, nommer, décrire, reproduire et construire des figures et solides usuels",
+    "Prélever, organiser et représenter des données"
+  ],
+  "domaines": [
+    {
+      "nom": "Nombres et numération",
+      "description": "Consolider la connaissance des nombres entiers, approfondir les fractions et les nombres décimaux.",
+      "competences": [
+        {"intitule": "Utiliser et représenter les grands nombres entiers (jusqu'aux milliards)", "exemples_themes": ["Lire et écrire des grands nombres", "Décomposer un nombre (unités, dizaines, centaines...)", "Comparer et ranger des nombres", "Les ordres de grandeur (population, distances)", "Le nombre du jour (rituel de décomposition)"]},
+        {"intitule": "Utiliser et représenter des fractions simples et décimales", "exemples_themes": ["Partager une bande-unité en parts égales", "Placer des fractions sur une droite graduée", "Fractions et mesures de longueurs", "Encadrer une fraction entre deux entiers", "Additionner et soustraire des fractions de même dénominateur (6e)", "La pizza des fractions"]},
+        {"intitule": "Utiliser et représenter les nombres décimaux", "exemples_themes": ["Passer de la fraction décimale au nombre décimal", "Comparer et ranger des nombres décimaux", "Intercaler un décimal entre deux nombres", "Les décimaux dans la vie courante (prix, mesures)", "Tableau de numération avec partie décimale"]}
+      ]
+    },
+    {
+      "nom": "Calcul (mental, posé, instrumenté)",
+      "description": "Automatiser les faits numériques, maîtriser les algorithmes de calcul posé, développer le calcul mental.",
+      "competences": [
+        {"intitule": "Mémoriser des faits numériques et des procédures de calcul", "exemples_themes": ["Tables de multiplication : jeux de rapidité", "Compléments à 100, à 1000", "Calcul mental quotidien (5 min chrono)", "Le jeu du compte est bon", "Multiplier et diviser par 10, 100, 1000"]},
+        {"intitule": "Calculer avec des nombres entiers et décimaux (algorithmes posés)", "exemples_themes": ["Addition et soustraction posées avec décimaux", "Multiplication posée (2 chiffres au multiplicateur)", "Division euclidienne posée", "Division décimale (CM2-6e)", "Vérifier un résultat par l'ordre de grandeur"]},
+        {"intitule": "Utiliser les propriétés des opérations pour calculer astucieusement", "exemples_themes": ["Commutativité et associativité de l'addition", "Distributivité simple (7×12 = 7×10 + 7×2)", "Calculer un produit par décomposition", "Les astuces de calcul (arrondir puis ajuster)"]}
+      ]
+    },
+    {
+      "nom": "Résolution de problèmes",
+      "description": "Au moins 10 problèmes par semaine. Développer les compétences de modélisation, d'analyse et de résolution.",
+      "competences": [
+        {"intitule": "Résoudre des problèmes relevant des quatre opérations", "exemples_themes": ["Problèmes de la vie quotidienne (courses, recettes, trajets)", "Problèmes à plusieurs étapes", "Choisir la bonne opération", "Le schéma en barres pour modéliser", "Problèmes de comparaison (de plus, de moins, de fois plus)"]},
+        {"intitule": "Résoudre des problèmes de proportionnalité", "exemples_themes": ["Agrandir ou réduire une recette", "Prix, vitesse, échelle", "Le passage à l'unité", "Les pourcentages simples (6e)", "Tableaux de proportionnalité", "Reconnaître une situation proportionnelle"]},
+        {"intitule": "Résoudre des problèmes de grandeurs et de géométrie", "exemples_themes": ["Calculer un périmètre, une aire", "Problèmes de durées", "Problèmes de conversions d'unités", "Problèmes d'agencement et de pavage"]},
+        {"intitule": "Communiquer et justifier sa démarche de résolution", "exemples_themes": ["Expliquer oralement sa stratégie", "Rédiger une phrase-réponse", "Débat mathématique : comparer les méthodes", "Inventer un problème pour la classe"]}
+      ]
+    },
+    {
+      "nom": "Grandeurs et mesures",
+      "description": "Comparer, estimer, mesurer et calculer des grandeurs. Lien entre mesure et nombre décimal.",
+      "competences": [
+        {"intitule": "Comparer, estimer et mesurer des longueurs, masses, contenances et durées", "exemples_themes": ["Mesurer avec la règle graduée (mm, cm)", "Convertir avec le tableau de conversion", "Estimer un ordre de grandeur avant de mesurer", "Problèmes de durées (heures, minutes, secondes)"]},
+        {"intitule": "Calculer le périmètre et l'aire de figures simples", "exemples_themes": ["Le périmètre du rectangle et du carré", "L'aire par pavage puis par formule", "L'aire du triangle (6e)", "L'aire du disque (6e)", "Distinguer périmètre et aire", "Mesurer l'aire de la classe en m²"]},
+        {"intitule": "Résoudre des problèmes impliquant des grandeurs", "exemples_themes": ["Rendre la monnaie, calculer un prix avec remise", "Mesurer et comparer des angles (rapporteur en 6e)", "Problèmes de vitesse et distance (6e)"]}
+      ]
+    },
+    {
+      "nom": "Espace et géométrie",
+      "description": "Construire des figures planes et des solides. Développer le raisonnement géométrique.",
+      "competences": [
+        {"intitule": "Reconnaître et construire des figures planes", "exemples_themes": ["Construire un triangle avec règle et compas", "Les propriétés du rectangle, losange, carré, parallélogramme", "Tracer un cercle de rayon donné", "Programme de construction : rédiger et exécuter", "Propriétés des diagonales des quadrilatères (6e)"]},
+        {"intitule": "Reconnaître et utiliser la symétrie axiale", "exemples_themes": ["Tracer le symétrique d'une figure", "Identifier les axes de symétrie", "Symétrie dans l'art et l'architecture", "Construire un logo symétrique"]},
+        {"intitule": "Reconnaître, décrire et construire des solides", "exemples_themes": ["Patron du cube et du pavé droit", "Construire un solide à partir de son patron", "Décrire un solide (faces, arêtes, sommets)", "Calculer le volume du cube et du pavé droit (6e)", "Représentation en perspective cavalière"]},
+        {"intitule": "Se repérer et se déplacer en utilisant des coordonnées", "exemples_themes": ["Se repérer sur un plan avec coordonnées", "Programmer un déplacement (Scratch)", "Coordonnées dans un repère (6e)"]}
+      ]
+    },
+    {
+      "nom": "Organisation et gestion de données, probabilités",
+      "description": "Collecter, organiser et représenter des données. Première familiarisation avec le hasard.",
+      "competences": [
+        {"intitule": "Prélever, organiser et représenter des données", "exemples_themes": ["Construire un diagramme en barres", "Lire et interpréter un graphique", "Enquête statistique dans la classe", "Tableaux à double entrée", "Diagramme circulaire (6e)", "Moyenne d'une série de données (6e)"]},
+        {"intitule": "Se familiariser avec les notions de hasard et de probabilité", "exemples_themes": ["Lancer de dés : prévoir et observer", "Pile ou face : expériences aléatoires", "Événement certain, possible, impossible", "Comparer des probabilités simples (6e)"]}
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de mathématiques du cycle 3 (B.O. du 17 avril 2025) s'organise en 5 grands domaines : nombres et calcul, résolution de problèmes, grandeurs et mesures, espace et géométrie, données et probabilités. La résolution de problèmes est transversale (au moins 10 problèmes par semaine). Les fractions sont approfondies dès le CM1, les nombres décimaux consolidés, la proportionnalité introduite. En géométrie, les constructions avec instruments et le raisonnement sur les propriétés sont renforcés. Les probabilités font leur entrée au cycle 3."
+}

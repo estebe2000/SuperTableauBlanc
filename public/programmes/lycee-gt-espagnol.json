@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "discipline": "Espagnol",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de langues vivantes 2nde, 1ère, Terminale GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B2 en LVA / B1 en LVB du CECRL",
+    "Comprendre des documents authentiques en espagnol",
+    "S'exprimer à l'oral et à l'écrit de manière structurée",
+    "Acquérir une culture du monde hispanique (Espagne et Amérique latine)",
+    "Développer une réflexion interculturelle"
+  ],
+  "domaines": [
+    {
+      "nom": "Axe — Identités et échanges",
+      "description": "Les identités culturelles et les échanges dans le monde hispanique.",
+      "competences": [
+        {
+          "intitule": "Explorer les identités individuelles et collectives dans le monde hispanique",
+          "exemples_themes": ["La diversité culturelle en Amérique latine (carte des langues)", "L'immigration hispanique aux États-Unis (reportage)", "Un extrait de La casa de los espíritus d'Isabel Allende", "Les fêtes et traditions (Día de los Muertos, Semana Santa)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Espace privé et espace public",
+      "description": "Les frontières entre vie privée et vie publique dans le monde hispanophone.",
+      "competences": [
+        {
+          "intitule": "Réfléchir aux rapports entre espace privé et public dans les sociétés hispanophones",
+          "exemples_themes": ["Le rôle de la famille dans la société espagnole", "Les réseaux sociaux et la vie privée en Amérique latine", "Un extrait de Como agua para chocolate de Laura Esquivel", "L'urbanisme et la vie de quartier (un barrio de Madrid ou Buenos Aires)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Art et pouvoir",
+      "description": "Les relations entre création artistique et pouvoir dans le monde hispanique.",
+      "competences": [
+        {
+          "intitule": "Étudier le rôle de l'art face au pouvoir dans le monde hispanique",
+          "exemples_themes": ["Guernica de Picasso (analyse de l'œuvre)", "Le muralisme mexicain (Diego Rivera, Orozco)", "La chanson engagée latino-américaine (Violeta Parra, Calle 13)", "Le cinéma espagnol sous la dictature et après (Almodóvar)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Citoyenneté et mondes virtuels",
+      "description": "Les nouvelles formes de citoyenneté et le numérique.",
+      "competences": [
+        {
+          "intitule": "Analyser les enjeux citoyens et numériques dans le monde hispanique",
+          "exemples_themes": ["Les mouvements sociaux en ligne (15-M en Espagne, manifestations au Chili)", "L'accès au numérique en Amérique latine (fracture numérique)", "Un article de El País ou La Nación sur les réseaux sociaux", "Les fake news en espagnol : identifier et déconstruire"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Fictions et réalités",
+      "description": "Les rapports entre fiction et réalité dans la culture hispanique.",
+      "competences": [
+        {
+          "intitule": "Explorer la frontière entre fiction et réalité dans la littérature et les médias hispanophones",
+          "exemples_themes": ["Le réalisme magique (García Márquez, Cien años de soledad — extrait)", "Un extrait de Don Quijote de Cervantes", "Le cinéma de Guillermo del Toro (El laberinto del fauno)", "La chronique et le témoignage en Amérique latine"]
+        }
+      ]
+    },
+    {
+      "nom": "Compétences langagières",
+      "description": "Les cinq activités langagières au service de la communication.",
+      "competences": [
+        {
+          "intitule": "Comprendre un document oral ou écrit authentique en espagnol",
+          "exemples_themes": ["Un reportage de RTVE sur un sujet de société", "Un article de presse espagnol ou latino-américain", "Un podcast en espagnol sur l'actualité", "Un extrait de film ou de série en espagnol (sous-titres)"]
+        },
+        {
+          "intitule": "S'exprimer à l'oral et à l'écrit de manière argumentée",
+          "exemples_themes": ["Exposé oral sur une œuvre ou un sujet culturel", "Rédaction d'un essai argumenté en espagnol", "Débat en classe sur un enjeu de société hispanique", "Jeu de rôle : négociation ou interview en espagnol"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'espagnol au lycée GT vise le niveau B2 (LVA) ou B1 (LVB) du CECRL. Il s'organise autour des mêmes axes culturels que les autres langues vivantes, appliqués au monde hispanophone (Espagne et Amérique latine). Les cinq activités langagières sont travaillées à travers l'étude de documents authentiques : littérature, presse, cinéma, musique, art."
+}

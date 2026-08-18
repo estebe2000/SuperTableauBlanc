@@ -1,0 +1,1573 @@
+/* ==========================================================================
+   PALETTE HAPI — SYSTÈME DE THÈMES : défini désormais dans css/styles.css
+   (source unique, chargé par toutes les pages). Ce fichier ne fait que
+   CONSOMMER les variables --hapi-green-* / --hapi-gradient via var(...).
+   ========================================================================== */
+
+/* Icônes SVG en ligne (remplacent les emojis pour un rendu pro + zéro faux
+   positif de contraste : couleur unique = currentColor, taille = 1em). */
+.ico { width: 1em; height: 1em; vertical-align: -0.15em; flex-shrink: 0; display: inline-block; }
+
+/* --- Styles Drag & Drop & Layout --- */
+
+/* 1. Le conteneur parent aligne les boîtes blanches */
+.corpus-options-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: stretch; /* Les boîtes blanches ont la même hauteur */
+}
+
+/* 2. Les boîtes blanches (Structure Flex verticale) */
+.corpus-box {
+    flex: 1;
+    min-width: 300px;
+    background: var(--surface-2); /* Glassmorphism base */
+    backdrop-filter: blur(12px);          /* Flou d'arrière-plan */
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px; 
+    border-radius: 12px; 
+    box-shadow: 0 8px 32px rgba(var(--hapi-green-rgb), 0.08); /* Ombre douce HAPI */
+    border: 1px solid rgba(255, 255, 255, 0.5);     /* Bordure semi-transparente */
+    
+    /* Active le Flexbox vertical pour étirer le contenu interne */
+    display: flex;
+    flex-direction: column; 
+    margin: 0 !important;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.corpus-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(var(--hapi-green-rgb), 0.12);
+}
+
+/* 3. Uniformisation des Labels (pour qu'ils ne créent pas de décalage) */
+.corpus-box label {
+    margin-bottom: 15px; /* Marge identique pour les deux */
+    flex-shrink: 0;      /* Empêche le label de s'écraser */
+}
+
+/* 4. ALIGNEMENT MAGIQUE : Textarea ET Drop-zone */
+.corpus-box textarea, 
+.drop-zone {
+    flex-grow: 1;           /* Ils doivent tous deux remplir tout l'espace restant */
+    width: 100%;            /* Largeur totale */
+    min-height: 160px;      /* Hauteur minimale identique */
+    box-sizing: border-box; /* CRUCIAL : inclut les bordures dans le calcul de hauteur */
+    margin-bottom: 0;       /* Pas de marge basse parasite */
+}
+
+/* Styles spécifiques au textarea */
+.corpus-box textarea {
+    resize: none;
+    border: 2px solid #f1f3f5;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    /* On surcharge la hauteur par défaut du rows="5" */
+    height: auto !important; 
+}
+
+/* Styles spécifiques à la Drop Zone */
+.drop-zone {
+    border: 2px dashed rgba(var(--hapi-green-rgb), 0.4);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--hapi-green-rgb), 0.06); /* Teinte très pâle du thème */
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.drop-zone:hover {
+    border-color: var(--hapi-green);
+    background: rgba(var(--hapi-green-rgb), 0.1);
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(var(--hapi-green-rgb), 0.1);
+}
+
+.drop-zone.dragover {
+    border-color: var(--hapi-green-dark);
+    background: rgba(var(--hapi-green-rgb), 0.14);
+    transform: scale(1.04);
+    box-shadow: 0 0 0 4px rgba(var(--hapi-green-rgb), 0.2), 0 12px 25px rgba(var(--hapi-green-rgb), 0.15);
+}
+
+/* 5. Cacher le conteneur de prévisualisation s'il est vide */
+/* Cela évite qu'il prenne de la place (marges) quand il n'y a pas de fichiers */
+#preview-container:empty {
+    display: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Quand il n'est pas vide, on lui donne un peu d'espace */
+#preview-container {
+    flex-grow: 0; 
+    margin-top: 15px;
+    width: 100%;
+}
+
+.drop-message {
+    text-align: center;
+    pointer-events: none; /* Le clic passe au travers vers l'input */
+    color: var(--text);
+    font-weight: 600;
+}
+
+/* L'input file couvre toute la zone mais est invisible */
+#source-file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    display: block !important; /* Force l'affichage pour le clic */
+}
+
+/* ===========================================================
+   Corpus — sélecteur de source unifié (onglets + bouton unique)
+   =========================================================== */
+.corpus-tabbed-box {
+    background: var(--surface-2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(var(--hapi-green-rgb), 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+.corpus-source-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.corpus-source-tab {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 22px;
+    border: 1px solid var(--border-strong); background: var(--surface); color: var(--text-muted);
+    font-family: inherit; font-size: 0.95rem; font-weight: 600; cursor: pointer;
+    transition: background .18s, color .18s, border-color .18s, box-shadow .18s;
+}
+.corpus-source-tab .cst-ico { font-size: 1.1em; line-height: 1; }
+.corpus-source-tab:hover {
+    /* Hover net : fond pâle accent (plus marqué que mist) + texte accent-texte
+       (jamais green-dark en texte : illisible en sombre). */
+    border-color: var(--hapi-green, var(--hapi-green));
+    color: var(--hapi-accent-text);
+    background: var(--hapi-green-pale);
+}
+.corpus-source-tab.is-active {
+    background: var(--hapi-green-dark, var(--hapi-green-dark)); color: #fff;
+    border-color: var(--hapi-green-dark, var(--hapi-green-dark));
+    box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb), 0.22);
+}
+.corpus-source-tab:focus-visible { outline: 3px solid var(--hapi-green-dark); outline-offset: 2px; }
+
+.corpus-source-panel { display: none; }
+.corpus-source-panel.is-active { display: block; animation: corpusPanelIn .22s ease; }
+@keyframes corpusPanelIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+.corpus-source-panel textarea {
+    width: 100%; min-height: 160px; box-sizing: border-box; resize: vertical;
+    border: 2px dashed rgba(var(--hapi-green-rgb), 0.4); border-radius: 10px; padding: 12px;
+    font-family: inherit; font-size: 1em; color: var(--text);
+}
+.corpus-source-panel textarea:focus-visible { outline: none !important; border-color: var(--hapi-green-dark, var(--hapi-green-dark)); }
+.corpus-url-input {
+    width: 100%; box-sizing: border-box; padding: 14px 16px;
+    border: 2px dashed rgba(var(--hapi-green-rgb), 0.4); border-radius: 10px; font-size: 0.95em; color: var(--text);
+}
+.corpus-url-input:focus-visible { outline: none !important; border-color: var(--hapi-green-dark, var(--hapi-green-dark)); }
+.corpus-formats-hint { margin: 10px 0 0; font-size: 0.8em; color: var(--text-muted); font-style: italic; }
+
+.corpus-add-row { display: flex; justify-content: center; margin-top: 16px; }
+.corpus-add-row .corpus-add-btn { margin-top: 0; }
+
+/* --- Styles des miniatures de fichiers --- */
+
+.file-preview-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+    max-height: 200px;
+    overflow-y: auto; /* Scroll si trop de fichiers */
+}
+
+.file-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px;
+    width: calc(50% - 5px); /* 2 par ligne */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.file-card:hover {
+    border-color: var(--hapi-green);
+    box-shadow: 0 4px 8px rgba(var(--hapi-green-rgb), 0.15);
+}
+
+.file-icon {
+    font-size: 1.5em;
+    flex-shrink: 0;
+}
+
+.file-info {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.file-name {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.file-size {
+    font-size: 0.75em;
+    color: var(--text-muted);
+}
+
+.btn-remove-preview {
+    /* Convention corbeilles/croix : gris neutre, jamais rouge. */
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+
+.btn-remove-preview:hover {
+    background: var(--border);
+}
+
+.section {
+    background: var(--surface-2);
+    backdrop-filter: blur(10px);
+    padding: 1.5rem 1.75rem;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.section h2{ margin: 0 0 .5rem 0; color: var(--hapi-green-olive);}
+/* En mode sombre, l'accent olive est trop foncé sur fond sombre (RGAA 3.2) :
+   on bascule vers l'accent clair lisible du thème. */
+[data-mode="dark"] .section h2 { color: var(--hapi-accent-text); }
+.input-group { margin: 10px 0; }
+.input-group label { display: block; font-weight: bold; margin-bottom: 5px; color: var(--text); }
+.input-group textarea, .input-group select, .input-group input[type="text"], .input-group input[type="number"] { width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px; font-size: 14px; transition: border-color 0.3s ease; }
+.input-group input[type="file"] { display: none; }
+.input-group textarea:focus, .input-group select:focus, .input-group input:focus { outline: none; border-color: var(--hapi-green); box-shadow: 0 0 0 3px rgba(var(--hapi-green-rgb),0.1); }
+.btn { background-color: var(--hapi-green-dark); background-image: linear-gradient(45deg, var(--hapi-grad-a), var(--hapi-green-dark)); color: white; border: none; padding: 12px 45px; border-radius: 25px; cursor: pointer; font-size: 16px; font-weight: bold; transition: all 0.3s ease; margin: 10px 5px; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(var(--hapi-green-rgb),0.4); }
+.btn:disabled { background-color: var(--border); background-image: none; color: var(--text-muted); cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-success { background-color: var(--hapi-green-deep); background-image: linear-gradient(45deg, var(--hapi-green-dark), var(--hapi-green-deep)); }
+.btn-danger { background-color: #c82333; background-image: linear-gradient(45deg, #dc3545, #c82333); }
+.btn-warning { background: linear-gradient(135deg, #d69e2e, #f6e05e); color: #2d3748; box-shadow: 0 4px 15px rgba(214,158,46,0.3); }
+.btn-info { background-color: var(--hapi-green-dark); background-image: linear-gradient(45deg, var(--hapi-green-dark), var(--hapi-grad-a)); }
+.log-area { background: #212529; color: #28a745; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 12px; max-height: 300px; overflow-y: auto; margin: 15px 0; }
+.card { position: relative; background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--hapi-green-dark); border-radius: 8px; padding: 20px; margin-top: 15px; }
+.ia-launcher-group { margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.ia-launcher-group .btn { flex-grow: 1; }
+.delete-btn { position: absolute; top: 10px; right: 10px; background: var(--page-bg); border: 1px solid var(--border); color: var(--text); width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 16px; line-height: 30px; text-align: center; }
+.delete-btn:hover { background: var(--border); color: var(--text); }
+/* État désactivé : DÉSATURATION (préserve les ratios de contraste) + très légère
+   atténuation, au lieu d'opacity:0.5 qui faisait tomber tout le texte sous 3:1. */
+.disabled-workflow { filter: grayscale(0.9); opacity: 0.9; pointer-events: none; transition: filter 0.4s ease-in-out, opacity 0.4s ease-in-out; }
+.disabled-workflow.enabled {
+    filter: none;
+    opacity: 1;
+    pointer-events: auto; 
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+#corpus-list { list-style-type: none; padding: 0; margin-top: 15px;}
+/* Cible les vrais items (.corpus-item) et non le <li> d'état vide, qui a son
+   propre style centré inline (sinon flex + space-between collait l'icône et le
+   texte « Votre corpus est vide. » aux deux extrémités). */
+#corpus-list li.corpus-item { display: flex; justify-content: space-between; align-items: center; background-color: var(--hapi-green-pale); padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; font-size: 14px; border-left: 4px solid var(--hapi-green); }
+#corpus-list li.corpus-item .source-name { font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 10px; }
+.btn-remove-source {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            color: var(--text);
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            line-height: 25px;
+            padding: 0;
+            z-index: 2; /* S'assure qu'il est au-dessus */
+        }
+.btn-add-source { background-color: var(--hapi-green-dark); background-image: linear-gradient(45deg, var(--hapi-green-dark), var(--hapi-grad-a)); }
+
+.btn-inline-add {
+    background: var(--hapi-green-pale);
+    color: var(--hapi-accent-text);
+    border: 1px solid var(--hapi-green-light);
+    padding: 8px 16px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+}
+.btn-inline-add:hover {
+    /* green-dark (pas green) : blanc sur green = 4,07 < 4,5 ; sur green-dark ≥ 5,3 (charte) */
+    background: var(--hapi-green-dark);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(var(--hapi-green-rgb),0.15);
+}
+/* En sombre, le texte accent foncé sur fond vert-pâle translucide manque de contraste
+   → on bascule sur l'accent CLAIR + bordure accent plus marquée. */
+[data-mode="dark"] .btn-inline-add {
+    /* accent-text (≥ green-light) : pour institutionnel, #8585f6 au lieu de
+       #6a6af4 qui plafonnait à ~4:1 même sur fond très sombre. */
+    color: var(--hapi-accent-text);
+    /* Fond peu teinté → proche du fond de page sombre → contraste ≥ 4,5 (RGAA 3.2) */
+    background: rgba(var(--hapi-green-rgb), 0.05);
+    border-color: rgba(var(--hapi-green-rgb), 0.55);
+}
+[data-mode="dark"] .btn-inline-add:hover {
+    color: white;
+}
+.custom-file-upload-container { display: flex; align-items: center; gap: 15px; }
+.btn-parcourir {
+    background: rgba(var(--hapi-green-rgb), 0.08);
+    color: var(--hapi-accent-text);
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(var(--hapi-green-rgb), 0.55);
+    margin: 8px;
+}
+.btn-parcourir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb), 0.3);
+}
+.file-names-display { font-style: italic; color: var(--text-muted); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right:5px; flex-grow: 1; }
+.seuil-suggestions, .feedback-suggestions { margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pastille { background-color: var(--border); color: var(--text); padding: 4px 12px; border-radius: 16px; font-size: 13px; cursor: pointer; transition: background-color 0.2s; border: 1px solid var(--border); }
+.pastille:hover { background-color: var(--border); }
+.feedback-suggestions .btn-suggestion { background-color: #dff2e4; color: var(--hapi-accent-text); padding: 5px 10px; border-radius: 16px; font-size: 12px; cursor: pointer; transition: background-color 0.2s; border: 1px solid #bfe3c8; font-weight: 500; margin: 0;}
+.feedback-suggestions .btn-suggestion:hover { background-color: #bfe3c8; }
+
+.merge-item { display: flex; align-items: center; justify-content: space-between; background-color: var(--surface); padding: 12px 15px; border-radius: 8px; margin-bottom: 10px; border: 1px solid var(--border); cursor: grab; border-left: 4px solid #fd7e14; }
+.merge-item:active { cursor: grabbing; background-color: #dff2e4; }
+.merge-item .main-content { display: flex; align-items: center; gap: 10px; overflow: hidden; }
+.merge-item-title { font-weight: bold; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.merge-item-type { background-color: var(--text-muted); color: white; padding: 3px 8px; font-size: 12px; border-radius: 10px; flex-shrink: 0; }
+.drag-handle { font-size: 1.2em; color: var(--text-muted); margin-right: 15px; }
+.sortable-ghost { opacity: 0.4; background: #bfe3c8; }
+.merge-item .delete-btn { position: static; background: #f1f5f9; color: var(--text); border-radius: 50%; width: 28px; height: 28px; font-size: 14px; line-height: 28px; padding: 0; }
+.merge-item .delete-btn:hover { background: var(--border); }
+
+.dictation-option { display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 10px; min-height: 120px; }
+.audio-preview-container { display: flex; align-items: center; gap: 10px; margin-top: 10px; width: 100%; }
+.audio-preview-container audio { flex-grow: 1; height: 40px; }
+.btn-delete-audio { background: var(--page-bg); color: var(--text); border: 1px solid var(--border); border-radius: 50%; width: 35px; height: 35px; padding: 0; font-size: 16px; line-height: 35px; text-align: center; cursor: pointer; transition: all 0.2s; margin: 0; flex-shrink: 0; }
+.btn-delete-audio:hover { background: var(--border); color: var(--text); }
+.recorder-controls { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; min-height: 50px; }
+.recorder-controls .btn { font-size: 14px !important; font-weight: bold !important; padding: 10px 20px !important; min-height: 40px; display: inline-flex; align-items: center; gap: 5px; }
+.recorder-status { font-style: italic; color: var(--text-muted); display: inline-block; margin-top: 5px; }
+
+.btn-generate-ai { font-size: 14px !important; font-weight: bold !important; padding: 10px 20px !important; min-height: 40px; display: inline-flex; align-items: center; gap: 5px; }
+
+
+
+
+/* Grille des cartes d'activités : 5 colonnes de carrés */
+.activity-grid { 
+    display: grid; 
+    width: 100%;
+    grid-template-columns: repeat(5, minmax(0, 1fr)); 
+    gap: 1.5rem 1rem; 
+    margin-top: 1rem;
+}
+.activity-option-label {
+    position: relative;
+    cursor: pointer;
+    padding: 0.8rem 0.8rem 0.7rem;
+    border: 1px solid rgba(var(--hapi-green-rgb), 0.15);
+    border-radius: 16px;
+    background: var(--surface-2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    overflow: visible;
+
+    /* Cartes plus plates que larges (réduit la hauteur ; 1/1 = carré auparavant) */
+    aspect-ratio: 1 / 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* Mode sombre : la bordure au repos (vert thème à 0.15) se fondait dans le fond
+   sombre → cartes non sélectionnées à peine délimitées. On monte l'opacité de la
+   teinte du thème pour bien détourer chaque carte, en restant sous les états
+   survol (--hapi-green-light) et sélection. Placé AVANT :hover/.selected pour
+   qu'ils gardent la priorité (spécificité égale → l'ordre source tranche). */
+[data-mode="dark"] .activity-option-label {
+    border-color: rgba(var(--hapi-green-rgb), 0.45);
+}
+.activity-option-label:hover {
+     border-color: var(--hapi-green-light);
+     transform: translateY(-5px);
+     box-shadow: 0 12px 30px rgba(var(--hapi-green-rgb), 0.12);
+}
+.activity-option-label.selected {
+    border-color: var(--hapi-green);
+    background-color: var(--hapi-green-pale);
+    transform: translateY(-5px);
+    box-shadow: 0 0 0 3px rgba(var(--hapi-green-rgb),0.2), 0 15px 35px rgba(var(--hapi-green-rgb), 0.15);
+}
+.activity-icon { font-size: 2.2em; margin-bottom: 8px; display: block; }
+.activity-title { font-size: 0.95em; font-weight: 600; color: var(--text); margin-bottom: 5px; line-height: 1.2; }
+.activity-description { font-size: 0.75em; color: var(--text-muted); line-height: 1.2; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.math-badge {
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    background: linear-gradient(135deg, #9f7aea, #8a2be2);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+.mq-editable-field { 
+    border: 2px solid var(--border) !important; 
+    border-radius: 12px !important; 
+    padding: 16px !important; 
+    min-height: 60px !important; 
+    font-size: 22px !important;
+    background: var(--surface) !important; 
+    transition: all 0.3s ease !important;
+
+    /* --- CORRECTIONS --- */
+    overflow-x: auto !important; /* Garde le défilement horizontal en cas de besoin */
+    white-space: normal !important; /* Permet au texte de revenir à la ligne */
+    word-break: break-word; /* Force la coupure des mots/formules trop longues */
+    
+}
+.mq-editable-field.mq-focused { border-color: var(--hapi-green) !important; box-shadow: 0 0 0 4px rgba(var(--hapi-green-rgb),0.1) !important; transform: translateY(-1px) !important; }
+.mq-math-mode .mq-root-block { color: #2d3748 !important; }
+.math-answers-grid > .input-group {
+    min-width: 0; /* Permet aux colonnes de la grille de se rétrécir si nécessaire */
+}
+.math-toolbar { margin-bottom: 15px; }
+.toolbar-nav {
+    overflow: hidden;
+    border-bottom: 2px solid #ccc;
+    margin-bottom: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.toolbar-tab-btn {
+    background-color: inherit; border: none; outline: none; cursor: pointer;
+    padding: 10px 16px; transition: 0.3s; font-size: 15px;
+    border-bottom: 3px solid transparent;
+}
+.toolbar-tab-btn:hover { background-color: #f1f1f1; }
+.toolbar-tab-btn.active {
+    border-bottom: 3px solid var(--hapi-green-dark);
+    color: var(--hapi-accent-text);
+    font-weight: 600;
+}
+.toolbar-tab-content { display: none; padding: 6px 0; }
+.toolbar-buttons-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+.toolbar-btn {
+    background-color: var(--page-bg); color: var(--text-muted); border: 1px solid var(--border);
+    padding: 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    min-width: 100px; text-align: center; line-height: 1.2;
+}
+.toolbar-btn:hover { background-color: var(--border); border-color: var(--text-muted); transform: translateY(-1px); }
+.latex-code {
+    font-family: 'Courier New', monospace; font-size: 13px; font-weight: 600;
+    color: var(--text); display: block;
+}
+.latex-desc {
+    font-family: 'Segoe UI', sans-serif; font-size: 11px; color: var(--text-muted);
+    display: block; margin-top: 3px;
+}
+
+.math-preview { 
+    background: linear-gradient(145deg, #f0f4f8, var(--border)); border: 2px solid #cbd5e0; border-radius: 12px; 
+    padding: 20px; margin-top: 15px; min-height: 60px; display: flex; align-items: center; justify-content: center;
+    overflow-x: auto;
+}
+.math-preview .katex-display { margin: 0 !important; }
+.katex { font-size: 1.2em !important; }
+.math-question-card {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 15px;
+    padding: 25px;
+    margin: 20px 0;
+    position: relative;
+    transition: all 0.3s ease;
+    overflow: hidden; /* <-- AJOUTEZ CETTE LIGNE */
+}
+.math-question-card:hover { border-color: var(--hapi-green); box-shadow: 0 8px 25px rgba(var(--hapi-green-rgb),0.1); }
+.math-controls { display: flex; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
+.math-controls .btn { font-size: 13px !important; padding: 8px 16px !important; margin: 0 !important; }
+
+/* --- STYLES POUR LA MODALE DE PRÉVISUALISATION --- */
+.modal-overlay {
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
+    justify-content: center; align-items: center; z-index: 1000;
+}
+.modal-content {
+    background: var(--surface); padding: 25px; border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+.modal-close {
+    position: absolute; top: 15px; right: 20px; font-size: 28px;
+    font-weight: bold; color: var(--text-muted); cursor: pointer;
+}
+.modal-close:hover { color: var(--text); }
+#preview-modal .modal-content {
+    width: 95%;
+    max-width: 1024px;
+    height: 95vh; 
+}
+#preview-title {
+    color: var(--hapi-accent-text); font-size: 1.4em; font-weight: bold;
+    text-align: center; padding-bottom: 15px; margin-bottom: 20px;
+    border-bottom: 2px solid var(--border);
+    flex-shrink: 0; 
+}
+#h5p-preview-container {
+    border: 1px solid var(--border); border-radius: 15px;
+    padding: 0; /* CHANGE: Enlever le padding ici pour que l'iframe colle aux bords */
+    background-color: #fdfdfd;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.06);
+    flex-grow: 1;
+    overflow: hidden; /* CHANGE: On laisse le scroll se faire DANS l'iframe (viewer.html) */
+    min-height: 0;
+    position: relative; /* Important pour le positionnement absolu de l'iframe */
+}
+
+/* AJOUT: Force l'iframe à remplir le conteneur */
+#h5p-preview-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+
+.answers-container { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.answer-option { display: flex; align-items: center; gap: 10px; }
+.answer-option input[type="text"] { flex-grow: 1; }
+.answer-option .btn-remove-option { background: #fbe2e3; color: #991b1b; border: 1px solid #f5c6cb; border-radius: 50%; width: 28px; height: 28px; cursor: pointer; font-weight: bold; }
+
+
+/* === STYLES POUR LA HIÉRARCHISATION DU CORPUS === */
+.corpus-item {
+    background: var(--surface);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    list-style: none;
+}
+
+.corpus-item:hover {
+    box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb),0.15);
+    border-color: #9fd3ac;
+}
+
+.corpus-item.dragging {
+    opacity: 0.5;
+    transform: scale(1.02);
+    box-shadow: 0 8px 20px rgba(var(--hapi-green-rgb),0.25);
+}
+
+.corpus-item-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding-right: 30px; /* Ajoute un espace pour ne pas que le texte aille sous le bouton */
+        }
+
+.drag-handle {
+    font-size: 1.3em;
+    color: var(--text-muted);
+    cursor: grab;
+    padding: 5px;
+    user-select: none;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.source-info {
+    flex-grow: 1;
+    min-width: 0;
+}
+
+.source-name {
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.05em;
+}
+
+.source-controls {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.source-controls label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9em;
+    color: var(--text-muted);
+}
+
+.priority-select {
+    padding: 5px 10px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 0.9em;
+    background: var(--surface);
+    cursor: pointer;
+}
+
+.priority-select option[value="3"] { background: #fef3c7; }
+.priority-select option[value="2"] { background: #dff2e4; }
+.priority-select option[value="1"] { background: #f1f5f9; }
+
+.question-count-input {
+    width: 55px;
+    padding: 5px 8px;
+    border: 1px solid #cbd5e0;
+    border-radius: 6px;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+.btn-tag {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: all 0.2s;
+}
+
+.btn-tag:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(251,191,36,0.4);
+}
+
+.priority-indicator {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.priority-high { background: #ef4444; }
+.priority-medium { background: #f59e0b; }
+.priority-low { background: #94a3b8; }
+
+.source-tags {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    background: linear-gradient(135deg, #dff2e4, #bfe3c8);
+    color: var(--hapi-accent-text);
+    padding: 4px 10px;
+    border-radius: 14px;
+    font-size: 0.85em;
+    font-weight: 500;
+    border: 1px solid #9fd3ac;
+}
+
+.corpus-stats {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border: 2px solid #7dd3fc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.corpus-stats h4 {
+    margin: 0 0 15px 0;
+    color: #0369a1;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+}
+
+.stat-item {
+    background: var(--surface);
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.stat-label {
+    font-size: 0.85em;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #1e40af;
+}
+
+.btn-distribute {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    margin-top: 10px;
+    transition: all 0.2s;
+}
+
+.btn-distribute:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(139,92,246,0.3);
+}
+
+/* === STYLES POUR LES PASTILLES D'ACTIVITÉ === */
+
+/* S'assure que le label parent peut positionner les pastilles */
+.activity-option-label {
+    position: relative;
+}
+
+/* Positionne le conteneur de pastilles */
+.activity-badge-container {
+    position: absolute;
+    top: -8px;
+    right: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
+}
+
+/* Style de base pour une pastille */
+.badge-item {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    line-height: 1.4;
+}
+
+/* Badges unifiés en vert foncé HAPI */
+.badge-latex {
+    background: var(--hapi-green-dark);   /* solide : blanc ≥ 5,3:1 (0.9 alpha donnait 3,47) */
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-xml {
+    background: var(--hapi-green-dark);   /* idem */
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Badge « Nouveau » : style inversé pour se démarquer (fond blanc, texte + bordure couleur) */
+.badge-nouveau {
+    background: var(--surface);
+    color: var(--hapi-accent-text);
+    border: 1.5px solid var(--hapi-green-dark);
+    box-shadow: 0 2px 6px rgba(var(--hapi-green-rgb), 0.25);
+}
+
+/* Pastille de validation « téléchargeable » (style DSFR : cercle plein thémé + coche blanche) */
+.status-ok-icon {
+    width: 1.15em;
+    height: 1.15em;
+    vertical-align: -0.22em;
+    flex-shrink: 0;
+}
+.status-ok-icon circle { fill: var(--hapi-green-dark); }
+.status-ok-icon path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ==========================================================================
+   STYLES MODULE H5P 3D (GLOBAL)
+   ========================================================================== */
+
+.h5p-3d-container {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    max-width: 100%;
+    margin: 0 auto;
+    color: var(--text);
+}
+
+/* --- Panneau Principal (Conteneur Blanc) --- */
+.config-panel {
+    background: var(--surface);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    padding: 25px;
+    margin-bottom: 30px;
+}
+
+.panel-header {
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 15px;
+}
+
+.panel-header h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.panel-description {
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-size: 0.95em;
+}
+
+/* ==========================================================================
+   STYLES PARTIE IA (VERTICAL - ETAPES 4.1 / 4.2)
+   ========================================================================== */
+
+/* Bloc pour chaque étape (fond gris léger) */
+.step-block {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--page-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.step-title {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--text);
+    margin-bottom: 15px;
+    display: block;
+    border-left: 4px solid var(--hapi-green);
+    padding-left: 10px;
+}
+
+/* Champs Texte (Textareas propres) */
+.styled-textarea {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+    background-color: var(--surface);
+    color: var(--text);
+    min-height: 120px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+    resize: vertical;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.styled-textarea:focus {
+    outline: none;
+    border-color: var(--hapi-green);
+    box-shadow: 0 0 0 3px rgba(var(--hapi-green-rgb), 0.1);
+}
+
+/* Bouton d'action Principal (Préparer / Importer) */
+.btn-action-main {
+    background-color: var(--hapi-green-dark); /* Violet/Bleu */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
+}
+
+.btn-action-main:hover {
+    background-color: var(--hapi-green-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+/* Ligne des boutons IA */
+.ai-buttons-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+/* Boutons liens IA (Verts) */
+.btn-ia-link {
+    flex: 1;
+    padding: 10px;
+    background-color: #15803d; /* Vert */
+    color: white;
+    border: none;
+    border-radius: 25px; /* Arrondi fort */
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    text-align: center;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+}
+
+.btn-ia-link:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   STYLES CARTES MOLÉCULES (SECTION 5)
+   ========================================================================== */
+
+.card.molecule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--hapi-green-dark); /* accent du thème (et non un vert figé) */
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card.molecule-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.molecule-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.molecule-input-group {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.molecule-input-group label {
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.85em;
+    text-transform: uppercase;
+}
+
+.molecule-input-group input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    background-color: #f9f9f9;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Bouton Générer .glb */
+.btn-generate-glb {
+    width: 100%;
+    min-width: 150px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: 1px solid var(--border);           /* tokens de thème (suit le color switcher) */
+    background-color: var(--surface-2);
+    color: var(--text);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    height: 40px;
+}
+
+.btn-generate-glb:hover {
+    background-color: var(--hapi-green-pale);
+    border-color: var(--hapi-green);
+    color: var(--hapi-accent-text);
+}
+
+/* État « Modèle prêt » : couleur PLEINE du thème (et non un vert figé) → s'aligne
+   sur la charte du color switcher tout en marquant nettement l'activité terminée. */
+.btn-generate-glb.success {
+    background-color: var(--hapi-green-dark);
+    border-color: var(--hapi-green-dark);
+    color: #fff;
+    cursor: default;
+}
+
+/* Zone Contenu (Formule + Export) */
+.molecule-content-row {
+    display: flex;
+    gap: 20px;
+    align-items: stretch;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* Cadre Formule */
+.formula-box {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    min-width: 220px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.formula-label {
+    font-size: 0.75em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.formula-content {
+    font-size: 1.8em;
+    font-weight: 800;
+    color: var(--text);
+    word-break: break-word;
+    font-style: italic;
+}
+
+.btn-download-formula {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 6px;
+    font-size: 12px;
+}
+
+/* Boutons d'export */
+.export-buttons-grid {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+}
+
+.export-row-top, .export-row-bottom {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-export-action {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.1s;
+}
+
+.btn-export-action:hover { transform: translateY(-2px); }
+
+/* Boutons export : actions principales en accent du thème, téléchargements en fantôme thémé */
+.btn-edit, .btn-preview { background-color: var(--hapi-green-dark); background-image: linear-gradient(45deg, var(--hapi-grad-a), var(--hapi-green-dark)); }
+.btn-glb, .btn-pdf, .btn-h5p, .btn-zip { background: rgba(var(--hapi-green-rgb), 0.08); color: var(--hapi-accent-text); border: 1px solid rgba(var(--hapi-green-rgb), 0.55); }
+
+
+/* ==========================================================================
+   STYLES MODALE (ÉDITEUR) - CORRIGÉ
+   ========================================================================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 0;
+    width: 95%;
+    max-width: 1300px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column; /* Empile Header, Body, Footer */
+    height: 90vh; /* Hauteur fixe : 90% de l'écran */
+    max-height: 90vh;
+}
+
+.modal-header {
+    flex: 0 0 auto; /* Ne grandit pas, ne rétrécit pas */
+    padding: 15px 20px;
+    background-color: var(--page-bg);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-body {
+    flex: 1 1 auto; /* Prend tout l'espace restant ! */
+    display: flex;
+    flex-direction: row;
+    min-height: 0; /* CRUCIAL : Empêche le débordement flex */
+    overflow: hidden;
+    position: relative;
+}
+
+/* Viewer 3D dans la modale */
+#annotation-viewer-container {
+    flex: 3; /* Prend 3/4 de la largeur */
+    background: var(--page-bg);
+    position: relative;
+    border-right: 1px solid var(--border);
+    height: 100%; /* Force la hauteur */
+    width: 100%;
+    overflow: hidden;
+}
+
+#annotation-canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    outline: none;
+}
+
+/* Info bulle dans le viewer */
+#annotation-viewer-info {
+    position: absolute;
+    top: 15px; left: 15px;
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 10px;
+    border-radius: 6px;
+    z-index: 10;
+    font-size: 0.9em;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    pointer-events: none;
+}
+
+/* Panneau latéral droit */
+#annotation-panel {
+    flex: 1; /* Prend 1/4 de la largeur */
+    min-width: 300px;
+    padding: 20px;
+    overflow-y: auto; /* Scroll si trop d'annotations */
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Pied de modale */
+.modal-footer {
+    flex: 0 0 auto; /* Ne grandit pas */
+    padding: 15px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: var(--surface);
+    border-radius: 0 0 12px 12px;
+}
+
+/* Responsive Mobile */
+@media (max-width: 900px) {
+    .modal-content { height: 95vh; }
+    .modal-body { flex-direction: column; }
+    #annotation-viewer-container { flex: 1; width: 100%; border-right: none; border-bottom: 1px solid var(--border); }
+    #annotation-panel { flex: 1; width: 100%; min-width: 0; }
+}
+
+/* Viewer 3D dans la modale */
+#annotation-viewer-container {
+    flex: 3;
+    background: var(--page-bg);
+    position: relative;
+    border-right: 1px solid var(--border);
+}
+
+#annotation-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Info bulle dans le viewer */
+#annotation-viewer-info {
+    position: absolute;
+    top: 15px; left: 15px;
+    background: var(--surface-2);
+    color: var(--text);
+    padding: 10px;
+    border-radius: 6px;
+    z-index: 10;
+    font-size: 0.9em;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    pointer-events: none; /* Pour cliquer au travers si besoin */
+}
+
+/* Panneau latéral droit */
+#annotation-panel {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    overflow-y: auto;
+    background: var(--surface);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Pied de modale */
+.modal-footer {
+    padding: 15px 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: var(--surface);
+    border-radius: 0 0 12px 12px;
+}
+
+.btn-primary { background-color: var(--hapi-green-dark); color: white; border:none; padding:10px; border-radius:5px; cursor:pointer;}
+.btn-secondary { background-color: var(--text-muted); color: white; border:none; padding:10px; border-radius:5px; cursor:pointer;}
+.btn-success { background-color: #15803d; color: white; border:none; padding:10px; border-radius:5px; cursor:pointer;}
+
+/* Bouton fermer (croix) */
+.close {
+    color: var(--text-muted);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover { color: var(--text); }
+
+/* ========================================= */
+/* NORMALISATION DES BOUTONS (Style Global) */
+/* ========================================= */
+
+/* 1. Boutons de l'Assistant IA (Préparer / Importer) */
+.btn-action-main {
+    background-color: var(--hapi-green-dark);
+    color: white;
+    border: none;
+    padding: 12px 25px;       /* Plus d'espace */
+    border-radius: 30px;      /* ✅ RADIUS STANDARDISÉ */
+    font-weight: 700;         /* Gras */
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-action-main:hover {
+    background-color: var(--hapi-green-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--hapi-green-rgb), 0.3);
+}
+
+/* 2. Boutons de la Modale (Enregistrer / Annuler / Ajouter) */
+.btn-primary, .btn-secondary, .btn-success {
+    padding: 10px 20px;
+    border-radius: 25px;      /* ✅ RADIUS STANDARDISÉ */
+    border: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Couleurs spécifiques */
+.btn-primary { 
+    background-color: var(--hapi-green-dark); 
+    color: white; 
+    box-shadow: 0 2px 5px rgba(var(--hapi-green-rgb), 0.2);
+}
+.btn-primary:hover { background-color: var(--hapi-green-dark); transform: translateY(-1px); }
+
+.btn-success { 
+    background-color: #00b894; 
+    color: white; 
+    box-shadow: 0 2px 5px rgba(0, 184, 148, 0.2);
+}
+.btn-success:hover { background-color: #00a383; transform: translateY(-1px); }
+
+.btn-secondary { 
+    background-color: #dfe6e9; 
+    color: var(--text-muted); 
+}
+.btn-secondary:hover { background-color: var(--text-muted); color: var(--text); }
+
+/* 3. Petit bouton de suppression (dans la liste des annotations) */
+.btn-del-anno {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;       /* ✅ RADIUS ROND PARFAIT */
+    background-color: #ff7675;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+.btn-del-anno:hover { background-color: #d63031; }
+
+/* 4. Input dans la liste des annotations */
+.anno-input {
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 20px;      /* ✅ RADIUS INPUT */
+    background: var(--surface);
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.anno-input:focus { border-color: var(--hapi-green); }
+
+
+/* --- Style spécifique pour la modale d'alerte H5P --- */
+#h5p-warning-modal .modal-content {
+    height: auto !important; /* Surcharge la hauteur de 90vh */
+    max-height: 80vh;
+    max-width: 600px; /* Plus étroit */
+    border-top: 5px solid #f39c12; /* Bordure orange pour l'avertissement */
+}
+
+#h5p-warning-modal .modal-body {
+    flex-direction: column;
+    padding: 30px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+.warning-icon {
+    font-size: 3em;
+    color: #b45309;
+    margin-bottom: 20px;
+    text-align: center;
+    display: block;
+}
+
+.h5p-info-list {
+    background: #fff3cd;
+    border-left: 4px solid #f39c12;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+/* --- Styles pour le sélecteur de langue et les paramètres --- */
+
+/* Mise en page en grille pour la ligne des paramètres (Langue | Niveau | Titre | Multi) */
+.quiz-params-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.5fr 1.5fr; /* Répartition de l'espace */
+    gap: 15px;
+    align-items: end; /* Aligne les champs en bas pour que les labels ne décalent pas tout */
+    margin-bottom: 15px;
+}
+
+/* Style spécifique pour le menu déroulant de langue 
+#quizLanguage {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background-color: var(--surface);
+    cursor: pointer;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}*/
+
+/* Petit effet au survol/focus */
+#quizLanguage:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Pour que les émojis drapeaux soient bien lisibles */
+#quizLanguage option {
+    padding: 5px;
+    font-size: 15px; /* Un tout petit peu plus grand pour les drapeaux */
+}
+
+/* --- Responsive : Sur mobile, on empile tout --- */
+@media (max-width: 768px) {
+    .quiz-params-grid {
+        grid-template-columns: 1fr; /* Une seule colonne sur petit écran */
+        gap: 10px;
+    }
+}
+
+/* --- Masque le footer pendant l'élaboration des activités avec l'IA ---
+   Scopé à la page du générateur (body.page-with-ia), donc sans impact sur les
+   autres pages ni sur le HTML (le code du footer reste en place). --- */
+body.page-with-ia .footer {
+    display: none;
+}
+
+/* --- Titre + actions projet (Importer un projet / RAZ) ---
+   Conteneur flex : le titre (flexible) et les boutons (taille fixe) cohabitent
+   sur une même rangée sans se chevaucher. Sur écran étroit le titre s'enroule
+   sur plusieurs lignes au lieu de passer SOUS les boutons (l'ancien position
+   absolu provoquait ce chevauchement). */
+.ia-content-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.ia-content-head h1 {
+    flex: 1 1 12rem;   /* prend la place dispo, peut rétrécir → le titre wrappe */
+    margin: 0;
+    padding-right: 0;  /* annule le padding-right:4.5rem global (inutile ici) */
+    min-width: 0;
+}
+.ia-project-actions { flex: 0 0 auto; }
+
+/* Mobile : actions AU-DESSUS du titre (rangée alignée à droite). */
+@media (max-width: 600px) {
+    .ia-content-head { flex-direction: column-reverse; }
+    .ia-project-actions {
+        align-self: stretch;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        margin-bottom: .25rem;
+    }
+}

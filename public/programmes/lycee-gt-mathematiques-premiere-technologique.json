@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Lycée GT",
+    "classes": ["Première"],
+    "programme": "Première de la voie technologique — tronc commun (2026)",
+    "source": "B.O. 2026 — Programme de mathématiques de la classe de première de la voie technologique (séries STMG, STI2D, STL, ST2S, STD2A, STHR, S2TMD)",
+    "mise_a_jour": "2026-04-02"
+  },
+  "attendus_fin_cycle": [
+    "Consolider et élargir les acquis du collège et de la seconde",
+    "Mettre en œuvre les six compétences mathématiques et développer l'aptitude à l'abstraction",
+    "Étudier suites, fonctions polynômes de degré 2 et dérivation pour modéliser des évolutions",
+    "Traiter des séries statistiques à deux variables et modéliser des phénomènes aléatoires",
+    "Pratiquer l'algorithmique et la programmation en Python (sauf série STD2A)"
+  ],
+  "domaines": [
+    {
+      "nom": "Vocabulaire ensembliste et logique (transversal)",
+      "description": "Apprentissage transversal des notations et du raisonnement logique, travaillé dans des contextes naturels puis explicité.",
+      "competences": [
+        {"intitule": "Notations ensemblistes et raisonnement logique", "exemples_themes": ["Symboles ∅, ∈, ⊂, ∩, ∪, intervalles, produit cartésien, Card(A)", "Connecteurs « et », « ou » ; statut d'une lettre (variable, inconnue, paramètre)", "Contre-exemple, réciproque, contraposée", "Conditions nécessaire et suffisante, équivalence logique", "Construire des conditions en algorithmique (ET, OU, NON) et des filtres"]}
+      ]
+    },
+    {
+      "nom": "Algorithmique et programmation (transversal, sauf STD2A)",
+      "description": "Poursuite de la pratique en Python : consolidation des variables, conditions, boucles et fonctions ; introduction des listes.",
+      "competences": [
+        {"intitule": "Variables, fonctions, listes et sélection de données", "exemples_themes": ["Générateur de nombres aléatoires pour simuler une loi de Bernoulli", "Compteur et accumulateur (somme, produit)", "Structurer un programme à l'aide de fonctions (programmation modulaire)", "Générer et manipuler une liste (extension, ajouts, compréhension), itérer", "Traiter un fichier de données réelles, réaliser un tableau croisé"]}
+      ]
+    },
+    {
+      "nom": "Activités géométriques (uniquement série STD2A)",
+      "description": "Entretenir une pratique et une vision géométriques en lien avec la spécialité « design et arts appliqués ».",
+      "competences": [
+        {"intitule": "Géométrie plane", "exemples_themes": ["Polygones réguliers à partir d'un motif et de transformations", "Distances, angles, aires et périmètres de polygones réguliers", "Créer une figure par répétition de transformations (frises, pavages, rosaces)", "Tangente à un cercle pour des raccordements"]},
+        {"intitule": "Géométrie dans l'espace", "exemples_themes": ["Coordonnées et distance dans un repère orthonormal de l'espace", "Perspective cavalière : propriétés conservées et non conservées", "Sections planes d'un cube et d'un cylindre (ellipses)", "Image perspective d'un cercle à partir d'un carré circonscrit"]}
+      ]
+    },
+    {
+      "nom": "Automatismes (transversal)",
+      "description": "Entretenir, par des rituels, des habiletés en calcul, information chiffrée et représentations graphiques (en complément de la seconde).",
+      "competences": [
+        {"intitule": "Évolutions, calcul, fonctions, statistiques et probabilités", "exemples_themes": ["Appliquer et calculer des taux d'évolution (successifs, réciproque)", "Équation produit nul, signe d'expressions du premier et du second degré factorisé", "Développer, factoriser, réduire ; résoudre graphiquement f(x) = k", "Lire et exploiter graphiques et indicateurs statistiques", "Probabilités conditionnelles (tableau croisé, arbre pondéré) ; distinguer P(A∩B), PA(B), PB(A)"]}
+      ]
+    },
+    {
+      "nom": "Analyse",
+      "description": "Modéliser des évolutions : suites numériques (évolutions discrètes), fonctions de la variable réelle (évolutions continues) et dérivation (évolution instantanée).",
+      "competences": [
+        {"intitule": "Suites numériques", "exemples_themes": ["Modes de génération d'une suite ; sens de variation ; nuage de points", "Suites arithmétiques (croissance linéaire) et géométriques (croissance exponentielle)", "Calculer un terme de rang donné (récurrence ou relation fonctionnelle)", "Démontrer qu'une suite est arithmétique ou géométrique", "Actualisation d'un capital, évolution d'une colonie bactérienne", "Problème de seuil par algorithme"]},
+        {"intitule": "Fonctions de la variable réelle", "exemples_themes": ["Notations y = f(x) et x ↦ f(x), taux de variation, monotonie", "Fonction polynôme de degré 2 : allure, sommet, axe de symétrie, variations", "Racines et signe d'un polynôme de degré 2 sous forme factorisée (sans discriminant)", "Associer une parabole à a x², a x² + c, a(x − x1)(x − x2)", "Résoudre graphiquement f(x) = k ; valeur approchée par balayage", "Situations réelles : impôts, marées, émissions de CO2"]},
+        {"intitule": "Dérivation", "exemples_themes": ["Sécantes, tangente comme position limite, nombre dérivé", "Équation réduite de la tangente en un point", "Fonction dérivée ; dérivées de x², x³, d'une somme, d'un polynôme de degré ≤ 3", "Lien entre signe de la dérivée et sens de variation, extrémums", "Interprétations : vitesse instantanée, coût marginal", "Visualisation avec un logiciel de géométrie dynamique"]}
+      ]
+    },
+    {
+      "nom": "Statistiques et probabilités",
+      "description": "Étudier des séries statistiques à deux variables quantitatives, l'indépendance, les expériences à plusieurs épreuves indépendantes et introduire les variables aléatoires.",
+      "competences": [
+        {"intitule": "Séries statistiques à deux variables quantitatives", "exemples_themes": ["Nuage de points, point moyen, ajustement affine", "Interpolation et extrapolation", "Méthode des moindres carrés (présentée, sans théorie exigée)", "Mesures expérimentales liées par une relation linéaire (physique-chimie, biotechnologies, SI)", "Esprit critique sur la pertinence d'un ajustement"]},
+        {"intitule": "Probabilités conditionnelles et indépendance", "exemples_themes": ["Indépendance de deux événements (symétrie)", "Formule des probabilités totales (cas simples)", "Justifier ou utiliser l'indépendance"]},
+        {"intitule": "Expériences à plusieurs épreuves et variables aléatoires", "exemples_themes": ["Répétition d'épreuves de Bernoulli identiques et indépendantes (arbre, n ⩽ 4)", "Variable aléatoire discrète : loi de probabilité, espérance", "Loi de Bernoulli de paramètre p, espérance", "Interpréter {X = a}, {X ⩽ a} et calculer P(X = a), P(X ⩽ a)", "Simuler N échantillons de taille n d'une loi de Bernoulli (fluctuation d'échantillonnage)", "Histogramme ou nuage de points des fréquences observées"]}
+      ]
+    }
+  ],
+  "programme_resume": "Le nouveau programme de mathématiques de la classe de première de la voie technologique (applicable à la rentrée 2026) est commun à toutes les séries technologiques (STMG, STI2D, STL, ST2S, STD2A, etc.). Il est organisé en deux parties thématiques — Analyse (suites, fonctions polynômes de degré 2, dérivation) et Statistiques et probabilités (séries à deux variables quantitatives, ajustement affine, indépendance, épreuves de Bernoulli, variables aléatoires) — et trois parties transversales : Vocabulaire ensembliste et logique, Algorithmique et programmation en Python, Automatismes. Pour la série STD2A, la partie algorithmique est remplacée par des activités géométriques (géométrie plane et dans l'espace) en lien avec le design. L'enseignement privilégie une démarche inductive (manipuler-verbaliser-abstraire), la contextualisation dans les disciplines de la série et l'usage des outils numériques (Python, tableur, géométrie dynamique). Le calcul des racines par le discriminant et le formalisme sur les variables aléatoires ne sont pas au programme."
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde"],
+    "programme": "Seconde générale et technologique (2026)",
+    "source": "B.O. 2026 — Programme de mathématiques de la classe de seconde générale et technologique",
+    "mise_a_jour": "2026-04-02"
+  },
+  "attendus_fin_cycle": [
+    "Chercher, modéliser, représenter, raisonner, calculer, communiquer",
+    "Consolider les acquis du collège et réussir la transition vers le lycée",
+    "Maîtriser le calcul numérique et algébrique et les nombres réels",
+    "Étudier les fonctions, leurs variations et leurs représentations",
+    "Mobiliser vecteurs et géométrie repérée ; mettre en œuvre des algorithmes en Python",
+    "Traiter l'information chiffrée, la statistique descriptive et les probabilités conditionnelles"
+  ],
+  "domaines": [
+    {
+      "nom": "Vocabulaire ensembliste et logique (transversal)",
+      "description": "Apprentissage transversal des notations mathématiques et de la logique, travaillé dans des contextes où elles apparaissent naturellement.",
+      "competences": [
+        {"intitule": "Utiliser le vocabulaire et les symboles ensemblistes", "exemples_themes": ["Élément, sous-ensemble, ensemble vide, appartenance, inclusion", "Réunion, intersection, complémentaire ; symboles ∅, ∈, ⊂, ∩, ∪", "Ensembles de nombres et intervalles ; couple et produit cartésien", "Cardinal Card(A) d'un ensemble fini"]},
+        {"intitule": "Raisonner et utiliser les connecteurs logiques", "exemples_themes": ["Propositions, connecteurs « et », « ou », négation d'une proposition simple", "Implication, équivalence, réciproque, contraposée", "Contre-exemple pour montrer qu'une proposition est fausse", "Raisonnement par disjonction des cas et par l'absurde", "Quantification universelle et existentielle (en langage naturel)"]}
+      ]
+    },
+    {
+      "nom": "Algorithmique et programmation (transversal)",
+      "description": "Consolidation des acquis du cycle 4 autour de la notion de fonction et de la programmation comme production d'un texte en langage Python.",
+      "competences": [
+        {"intitule": "Variables et instructions élémentaires", "exemples_themes": ["Variables de type entier, booléen, flottant, chaîne de caractères ; affectation", "Séquence d'instructions, instruction conditionnelle", "Boucle bornée (for) et boucle non bornée (while)", "Lire, comprendre, modifier ou compléter un algorithme ou un programme"]},
+        {"intitule": "Notion de fonction en programmation", "exemples_themes": ["Écrire, lire, modifier et appeler des fonctions à un ou plusieurs arguments", "Fonction renvoyant un nombre aléatoire ; série statistique par répétition", "Fonction renvoyant une moyenne, un écart type", "Simuler une expérience aléatoire et sa répétition"]}
+      ]
+    },
+    {
+      "nom": "Automatismes (transversal)",
+      "description": "Construire et entretenir des habiletés en calcul, information chiffrée et représentations graphiques, par un entraînement régulier privilégiant l'activité mentale.",
+      "competences": [
+        {"intitule": "Calcul numérique et algébrique", "exemples_themes": ["Comparer des nombres ; opérations sur fractions simples et puissances", "Passer d'une écriture à une autre (décimale, fractionnaire, pourcentage)", "Ordres de grandeur, vraisemblance d'un résultat, conversions d'unités", "Développer, factoriser, réduire ; identités remarquables", "Résoudre une équation x² = a, a x + b = c x + d, une inéquation du premier degré"]},
+        {"intitule": "Proportions, évolutions, fonctions et géométrie", "exemples_themes": ["Proportions et pourcentages ; partie/tout", "Passer d'une formulation additive à multiplicative (+5 % → ×1,05)", "Déterminer graphiquement images et antécédents ; reconnaître fonction affine/linéaire", "Périmètres, aires et volumes usuels ; Pythagore, Thalès, trigonométrie"]}
+      ]
+    },
+    {
+      "nom": "Nombres et calculs, algèbre",
+      "description": "Approfondir la connaissance des ensembles de nombres, développer le calcul numérique et algébrique, travailler les inégalités et résoudre des problèmes du premier degré.",
+      "competences": [
+        {"intitule": "Arithmétique", "exemples_themes": ["Notations ℕ et ℤ ; multiple, diviseur, nombre pair, nombre impair", "Modéliser et résoudre des problèmes de multiples et diviseurs", "Présenter une fraction sous forme irréductible", "Démontrer : la somme de deux multiples de a est multiple de a ; le carré d'un impair est impair"]},
+        {"intitule": "Nombres réels", "exemples_themes": ["Ensemble ℝ, droite numérique, intervalles et notations [a, +∞[, [a, b]", "Valeur absolue comme distance ; inéquation |x − a| ⩽ r", "Ensembles 𝔻 (décimaux) et ℚ (rationnels), nombres irrationnels (√2, π)", "Encadrement décimal, arrondi et chiffres significatifs", "1/3 n'est pas décimal ; √2 est irrationnel (démonstrations)"]},
+        {"intitule": "Algèbre", "exemples_themes": ["Calcul sur puissances entières relatives et racines carrées ; √a² = |a|", "Expressions fractionnaires ; somme et produit d'inégalités", "Équation a x + b = 0, inéquation a x + b > 0, équation produit nul", "Étude du signe d'un produit ou d'un quotient (tableau de signes)", "Isoler une variable dans une formule (U = RI, V = πr²h, etc.)"]}
+      ]
+    },
+    {
+      "nom": "Géométrie",
+      "description": "Consolider les configurations du collège, utiliser les vecteurs comme outil de démonstration et de modélisation, et étudier la géométrie repérée (équations de droites).",
+      "competences": [
+        {"intitule": "Vecteurs et problèmes de géométrie", "exemples_themes": ["Égalité de vecteurs, vecteur nul, représentants", "Produit d'un vecteur par un réel, colinéarité", "Coordonnées d'un vecteur, norme, coordonnées de AB", "Déterminant et critère de colinéarité ; alignement, parallélisme", "Distance entre deux points, milieu d'un segment", "Modéliser en physique (forces, déplacements)"]},
+        {"intitule": "Droites du plan", "exemples_themes": ["Vecteur directeur d'une droite", "Équation cartésienne et équation réduite ; pente (coefficient directeur)", "Déterminer une équation de droite (deux points, point et vecteur, point et pente)", "Établir l'alignement de trois points", "Droites parallèles ou sécantes ; point d'intersection"]}
+      ]
+    },
+    {
+      "nom": "Fonctions",
+      "description": "Consolider la notion de fonction, exploiter les registres algébrique et graphique, étendre les fonctions de référence et étudier variations et extrémums.",
+      "competences": [
+        {"intitule": "Représentation algébrique et graphique des fonctions", "exemples_themes": ["Fonction définie sur un intervalle ou une réunion d'intervalles, ensemble de définition", "Courbe d'équation y = f(x) : appartenance, calcul de coordonnées", "Fonctions de référence : valeur absolue, carré, inverse", "Résoudre f(x) = k, f(x) < k (graphiquement, algébriquement, logiciel)", "Tableau de signes d'un produit ou d'un quotient", "Modéliser des situations issues d'autres disciplines"]},
+        {"intitule": "Variations et extrémums d'une fonction", "exemples_themes": ["Croissance, décroissance, monotonie ; tableau de variations", "Maximum et minimum sur un intervalle", "Fonction affine f(x) = m x + p : m taux d'accroissement, p ordonnée à l'origine", "Variations des fonctions affine, carré, inverse (et démonstrations)", "Problèmes d'optimisation", "Algorithmes d'approximation d'un extrémum (balayage, dichotomie)"]}
+      ]
+    },
+    {
+      "nom": "Statistiques et probabilités",
+      "description": "Consolider l'information chiffrée et la statistique descriptive, étudier le croisement de deux variables qualitatives et introduire les probabilités conditionnelles et les arbres.",
+      "competences": [
+        {"intitule": "Information chiffrée et statistique descriptive", "exemples_themes": ["Proportions et pourcentage de pourcentage", "Évolution : variation absolue, coefficient multiplicateur, taux d'évolution", "Évolutions successives et réciproques", "Indicateurs : moyenne, médiane, quartiles, écart type", "Regroupement en classes : histogramme, moyenne pondérée, classe médiane", "Comparer des séries (moyenne-écart type / médiane-écart interquartile)"]},
+        {"intitule": "Croisement de deux variables qualitatives", "exemples_themes": ["Tableau croisé d'effectifs", "Fréquence conditionnelle et fréquence marginale", "Compléter un tableau croisé par raisonnements sur les effectifs", "Premier contact avec les bases de données (sécurité routière, démographie, économie)", "Filtrer un sous-ensemble d'individus (ET, OU, NON)"]},
+        {"intitule": "Probabilités", "exemples_themes": ["Loi de probabilité comme hypothèse du modèle ; équiprobabilité", "Version vulgarisée de la loi des grands nombres (simulation Python/tableur)", "Probabilité conditionnelle PA(B), arbres de probabilité", "Relation P(A) = Card(A)/Card(Ω)", "Tests diagnostiques : faux positifs, faux négatifs, distinguer PA(B) et PB(A)"]}
+      ]
+    }
+  ],
+  "programme_resume": "Le nouveau programme de mathématiques de seconde générale et technologique (applicable à la rentrée 2026) s'organise en quatre parties thématiques — Nombres et calculs/algèbre, Géométrie, Fonctions, Statistiques et probabilités — et trois parties transversales — Vocabulaire ensembliste et logique, Algorithmique et programmation (Python), Automatismes. Il consolide les acquis du collège et prépare le choix d'orientation (spécialité mathématiques ou série technologique). Les six compétences (chercher, modéliser, représenter, raisonner, calculer, communiquer) sont travaillées via la résolution de problèmes. Nouveautés notables : intervalles et valeur absolue, géométrie repérée et déterminant, tableaux de signes, croisement de variables qualitatives et probabilités conditionnelles avec arbres. L'enseignement adopte une approche en spirale et mobilise régulièrement les outils numériques (logiciel de géométrie dynamique, tableur, Python)."
+}

@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "discipline": "Numérique et Sciences Informatiques (NSI)",
+    "cycle": "Lycée GT",
+    "classes": ["Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019, B.O. spécial n°8 du 25 juillet 2019 — Programme NSI spécialité 1ère/Terminale",
+    "mise_a_jour": "2019-07-25"
+  },
+  "attendus_fin_cycle": [
+    "Concevoir et programmer des algorithmes et des applications",
+    "Comprendre l'architecture des machines et des réseaux",
+    "Maîtriser les structures de données fondamentales",
+    "Modéliser des problèmes et choisir des solutions adaptées",
+    "Travailler en équipe sur des projets informatiques"
+  ],
+  "domaines": [
+    {
+      "nom": "Représentation des données et programmation (1ère)",
+      "description": "Types de base, codage des données, programmation en Python.",
+      "competences": [
+        {
+          "intitule": "Représenter les données : types de base, codage binaire, flottants, texte",
+          "exemples_themes": ["Conversion décimal-binaire-hexadécimal (exercices)", "Le codage UTF-8 et les caractères spéciaux", "La représentation des flottants et ses limites (erreurs d'arrondi)", "Le codage des images en niveaux de gris et en couleur"]
+        },
+        {
+          "intitule": "Programmer en Python : structures de contrôle, fonctions, tests",
+          "exemples_themes": ["Écriture de fonctions avec préconditions et postconditions", "Jeu du pendu ou du morpion en mode texte", "Manipulation de chaînes de caractères (palindrome, César)", "Tests unitaires et débogage systématique"]
+        },
+        {
+          "intitule": "Tableaux et dictionnaires : structures de données de base",
+          "exemples_themes": ["Traitement d'un fichier CSV (notes, météo, sport)", "Recherche séquentielle dans un tableau", "Utilisation de dictionnaires pour un annuaire ou un inventaire", "Fusion et filtrage de données tabulaires"]
+        }
+      ]
+    },
+    {
+      "nom": "Algorithmique (1ère-Terminale)",
+      "description": "Conception, analyse et complexité des algorithmes.",
+      "competences": [
+        {
+          "intitule": "Trier et chercher : algorithmes fondamentaux (1ère)",
+          "exemples_themes": ["Tri par sélection et tri par insertion (visualisation)", "Recherche dichotomique dans un tableau trié", "Comparaison des complexités : O(n), O(n²), O(log n)", "Animation graphique des algorithmes de tri"]
+        },
+        {
+          "intitule": "Algorithmes avancés : récursivité, programmation dynamique, algorithmes gloutons (Terminale)",
+          "exemples_themes": ["Tours de Hanoï et fractales (récursivité)", "Le problème du rendu de monnaie (glouton)", "Le problème du sac à dos (programmation dynamique)", "Parcours de graphes : BFS et DFS"]
+        }
+      ]
+    },
+    {
+      "nom": "Architecture des machines et systèmes d'exploitation",
+      "description": "Le fonctionnement interne des ordinateurs.",
+      "competences": [
+        {
+          "intitule": "Comprendre l'architecture de von Neumann et le rôle du système d'exploitation (1ère)",
+          "exemples_themes": ["Le modèle de von Neumann : CPU, mémoire, bus (schéma)", "Les portes logiques et les circuits combinatoires", "Le rôle du système d'exploitation (gestion des processus, fichiers)", "Lignes de commande Linux (terminal)"]
+        },
+        {
+          "intitule": "Processus, ordonnancement et gestion de la mémoire (Terminale)",
+          "exemples_themes": ["Les processus et les threads (commande top/ps)", "L'ordonnancement : FIFO, tourniquet, priorités", "La pagination et la mémoire virtuelle", "Les systèmes sur puce (SoC) et l'embarqué"]
+        }
+      ]
+    },
+    {
+      "nom": "Réseaux et Web",
+      "description": "Protocoles réseau et développement web.",
+      "competences": [
+        {
+          "intitule": "Comprendre les protocoles réseau et développer une application web (1ère)",
+          "exemples_themes": ["Le modèle client-serveur et le protocole HTTP", "Création d'un site web dynamique avec Flask (Python)", "Les formulaires HTML et le traitement côté serveur", "Le protocole TCP et la fiabilité des échanges"]
+        },
+        {
+          "intitule": "Sécurité des communications et cryptographie (Terminale)",
+          "exemples_themes": ["Le chiffrement symétrique (César, XOR) et asymétrique (RSA simplifié)", "Les certificats et le protocole HTTPS", "Le hachage et la vérification d'intégrité", "Une attaque par force brute (simulation)"]
+        }
+      ]
+    },
+    {
+      "nom": "Structures de données avancées (Terminale)",
+      "description": "Listes chaînées, piles, files, arbres, graphes.",
+      "competences": [
+        {
+          "intitule": "Implémenter et utiliser des structures de données avancées",
+          "exemples_themes": ["Pile : vérification du parenthésage d'une expression", "File : simulation d'une file d'attente (guichet)", "Arbre binaire de recherche : insertion et parcours", "Graphe : modélisation d'un réseau social ou d'un plan de métro"]
+        }
+      ]
+    },
+    {
+      "nom": "Bases de données (Terminale)",
+      "description": "Modèle relationnel et langage SQL.",
+      "competences": [
+        {
+          "intitule": "Modéliser une base de données relationnelle et interroger en SQL",
+          "exemples_themes": ["Conception d'un schéma relationnel (bibliothèque, e-commerce)", "Requêtes SELECT, WHERE, JOIN, GROUP BY", "Création et modification de tables (CREATE, INSERT, UPDATE)", "Les contraintes d'intégrité (clé primaire, clé étrangère)"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet informatique",
+      "description": "Travail collaboratif sur un projet de développement.",
+      "competences": [
+        {
+          "intitule": "Mener un projet informatique en équipe",
+          "exemples_themes": ["Cahier des charges et planification (diagramme de Gantt)", "Utilisation de Git pour le travail collaboratif", "Développement d'un jeu vidéo en Python (Pygame)", "Présentation et démonstration du projet devant la classe"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La spécialité NSI forme les élèves à l'informatique en tant que science. En 1ère : représentation des données, programmation Python, algorithmique de base, architecture des machines, réseaux et Web. En Terminale : récursivité, structures de données avancées (piles, files, arbres, graphes), bases de données SQL, sécurité et cryptographie. Un projet informatique en équipe complète la formation."
+}

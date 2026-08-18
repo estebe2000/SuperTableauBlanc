@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "discipline": "Anglais",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de langues vivantes CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B1+ en LVA du CECRL",
+    "Communiquer dans des situations professionnelles simples en anglais",
+    "Comprendre des documents authentiques oraux et écrits liés au monde du travail",
+    "S'exprimer à l'oral en continu et en interaction",
+    "Rédiger des écrits simples en anglais"
+  ],
+  "domaines": [
+    {
+      "nom": "Communication professionnelle en anglais",
+      "description": "L'anglais au service du monde professionnel.",
+      "competences": [
+        {
+          "intitule": "Communiquer en anglais dans des situations professionnelles courantes",
+          "exemples_themes": ["Accueil d'un client anglophone (jeu de rôle)", "Prise de commande ou renseignement téléphonique en anglais", "Rédaction d'un mail professionnel simple en anglais", "Présentation de son métier ou de son entreprise en anglais"]
+        },
+        {
+          "intitule": "Comprendre des documents professionnels en anglais",
+          "exemples_themes": ["Lecture d'une fiche technique en anglais (mode d'emploi, notice)", "Compréhension d'une offre d'emploi en anglais", "Un tutoriel vidéo en anglais lié au secteur professionnel", "Un bon de commande ou un formulaire en anglais"]
+        }
+      ]
+    },
+    {
+      "nom": "Le monde du travail (World of Work)",
+      "description": "Découvrir le monde du travail dans les pays anglophones.",
+      "competences": [
+        {
+          "intitule": "Explorer le monde du travail dans les pays anglophones",
+          "exemples_themes": ["Comparaison des conditions de travail (France vs Royaume-Uni/USA)", "Un reportage sur un métier dans un pays anglophone", "Le CV et la lettre de motivation à l'anglaise", "Les stages et l'apprentissage à l'étranger (Erasmus+)"]
+        }
+      ]
+    },
+    {
+      "nom": "Échanges interculturels",
+      "description": "Les échanges entre cultures et la mobilité internationale.",
+      "competences": [
+        {
+          "intitule": "Comprendre et participer à des échanges interculturels",
+          "exemples_themes": ["Les coutumes et les codes sociaux dans les pays anglophones", "Un échange par visioconférence avec une classe anglophone", "Le voyage à l'étranger : se déplacer, se loger, s'orienter", "Les fêtes et traditions (Thanksgiving, Bonfire Night)"]
+        }
+      ]
+    },
+    {
+      "nom": "Compétences langagières",
+      "description": "Les activités langagières adaptées au niveau des élèves.",
+      "competences": [
+        {
+          "intitule": "Comprendre un document oral ou écrit simple en anglais",
+          "exemples_themes": ["Un dialogue courant (au restaurant, à l'hôtel, en magasin)", "Un court reportage BBC ou CNN avec sous-titres", "Un article court sur un sujet de société", "Les consignes de sécurité en anglais dans un environnement professionnel"]
+        },
+        {
+          "intitule": "S'exprimer à l'oral et à l'écrit dans des situations simples",
+          "exemples_themes": ["Se présenter et présenter son parcours en anglais", "Décrire une image ou une situation professionnelle", "Rédiger un message court (SMS, mail, post)", "Participer à une conversation simple sur un sujet familier"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'anglais en lycée professionnel vise le niveau B1+ du CECRL. Il privilégie la communication professionnelle : accueil, téléphone, mail, présentation du métier. Les élèves découvrent le monde du travail dans les pays anglophones et développent leurs compétences langagières à travers des situations concrètes liées à leur secteur professionnel et à la mobilité internationale."
+}

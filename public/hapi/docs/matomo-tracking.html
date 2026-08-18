@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAPI — Cartographie du marquage Matomo</title>
+<link rel="icon" type="image/png" href="../images/favicon.ico">
+<script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+<link rel="stylesheet" href="../css/styles.css">
+<style>
+  /* Alias mappés sur les tokens de thème HAPI (styles.css) → suivent le switcher
+     (couleur + mode clair/sombre via [data-theme] / [data-mode]). */
+  :root{
+    --bg:var(--page-bg); --card:var(--surface); --ink:var(--text); --muted:var(--text-muted);
+    --accent:var(--hapi-green-dark); --accent2:var(--hapi-green); --line:var(--border);
+    --ok:var(--hapi-accent-text); --warn:#b8860b; --code:var(--hapi-green-mist);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"Marianne","Segoe UI",system-ui,-apple-system,sans-serif;
+    line-height:1.55; padding:0 0 40px;
+  }
+  .wrap{max-width:1080px; margin:24px auto 0; padding:0 18px}
+  header.hero{
+    background:linear-gradient(135deg,var(--accent),var(--accent2));
+    color:#fff; border-radius:18px; padding:30px 34px; margin-bottom:28px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+  }
+  header.hero h1{margin:0 0 6px; font-size:1.7rem}
+  header.hero p{margin:0; color:#fff; opacity:.95}
+  .badges{margin-top:16px; display:flex; flex-wrap:wrap; gap:8px}
+  .badge{background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.35);
+    padding:5px 11px; border-radius:999px; font-size:.82rem; font-weight:600}
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin:22px 0 30px}
+  .stat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px 18px}
+  .stat .n{font-size:1.5rem; font-weight:800; color:var(--accent)}
+  .stat .l{font-size:.82rem; color:var(--muted)}
+  section{background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:22px 26px; margin-bottom:24px; box-shadow:0 3px 14px rgba(0,0,0,.04)}
+  section h2{margin:0 0 4px; font-size:1.25rem; display:flex; align-items:center; gap:9px}
+  section h2 .dot{width:11px; height:11px; border-radius:50%; background:var(--accent)}
+  section .sub{color:var(--muted); margin:0 0 18px; font-size:.92rem}
+  .mermaid{background:transparent; text-align:center; overflow-x:auto}
+  table{width:100%; border-collapse:collapse; margin-top:8px; font-size:.9rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--line); vertical-align:top}
+  th{color:var(--muted); font-weight:700; font-size:.8rem; text-transform:uppercase; letter-spacing:.03em}
+  code{background:var(--code); padding:2px 6px; border-radius:6px; font-size:.86em;
+    font-family:"SFMono-Regular",Consolas,monospace}
+  .ok{color:var(--ok); font-weight:700}
+  .pill{display:inline-block; background:var(--code); border:1px solid var(--line);
+    border-radius:8px; padding:2px 8px; font-size:.8rem; margin:2px 3px 2px 0; font-weight:600}
+  footer{color:var(--muted); font-size:.82rem; text-align:center; margin-top:18px}
+  .legend{display:flex; flex-wrap:wrap; gap:14px; font-size:.82rem; color:var(--muted); margin-top:10px}
+  .legend span{display:flex; align-items:center; gap:6px}
+  .sw{width:13px; height:13px; border-radius:4px; display:inline-block}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <h1><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-5px;margin-right:8px"><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></svg>Marquage Matomo — HAPI</h1>
+    <p>Cartographie complète des pages, scripts et événements de suivi — vérifiée en conditions réelles.</p>
+    <div class="badges">
+      <span class="badge">Instance : matomo.ac-normandie.fr/piwik/</span>
+      <span class="badge">Site ID : 32</span>
+      <span class="badge">RGPD : disableCookies</span>
+      <span class="badge">Statut : ✅ opérationnel</span>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="stat"><div class="n">20</div><div class="l">pages HTML instrumentées</div></div>
+    <div class="stat"><div class="n">3</div><div class="l">couches de marquage</div></div>
+    <div class="stat"><div class="n">11</div><div class="l">catégories d'événements</div></div>
+    <div class="stat"><div class="n">204</div><div class="l">réponse confirmée (succès)</div></div>
+  </div>
+
+  <!-- 1. ARCHITECTURE -->
+  <section>
+    <h2><span class="dot"></span>1. Architecture du flux de collecte</h2>
+    <p class="sub">Du clic utilisateur jusqu'au serveur Matomo, via la file <code>window._paq</code>.</p>
+    <div class="mermaid">
+flowchart TD
+    subgraph PAGES["🌐 20 pages HTML (snippet de base en &lt;head&gt;)"]
+      A1["Accueil • CGU • Mentions • hapi.html"]
+      A2["/ia — index • player • h5p-viewer"]
+      A3["/no-ia — 6 générateurs SCORM"]
+      A4["/outils — exporteur • convertisseur<br/>fusionneur • ateliers • plugin"]
+    end
+
+    SNIP["Snippet Matomo officiel<br/>disableCookies · trackPageView · enableLinkTracking<br/>setTrackerUrl · setSiteId('32')"]
+    PAQ(["window._paq<br/>(file de commandes)"])
+
+    subgraph SCRIPTS["🎯 Scripts d'événements"]
+      S1["js/tracking-static.js<br/>navigation (toutes pages)"]
+      S2["ia/app.js + ia/index.html<br/>activité · IA · export · corpus · config"]
+      S3["corpus-manager.js<br/>modération IA"]
+      S4["events inline no-ia + outils"]
+    end
+
+    JS["matomo.js (chargé async)"]
+    SRV[("matomo.php?idsite=32<br/>→ 204 No Response ✅")]
+
+    A1 & A2 & A3 & A4 --> SNIP
+    SNIP --> PAQ
+    S1 & S2 & S3 & S4 -- "push(['trackEvent', …])" --> PAQ
+    PAQ --> JS --> SRV
+
+    classDef page fill:#eaf4ef,stroke:#2f7d5b,color:#1b1f3b;
+    classDef script fill:#eef1fb,stroke:#3858a4,color:#1b1f3b;
+    classDef srv fill:#fff3d6,stroke:#b8860b,color:#1b1f3b;
+    class A1,A2,A3,A4 page;
+    class S1,S2,S3,S4 script;
+    class SRV srv;
+    </div>
+    <div class="legend">
+      <span><span class="sw" style="background:#2f7d5b"></span>Pages</span>
+      <span><span class="sw" style="background:#3858a4"></span>Scripts d'événements</span>
+      <span><span class="sw" style="background:#b8860b"></span>Serveur Matomo</span>
+    </div>
+  </section>
+
+  <!-- 2. TAXONOMIE -->
+  <section>
+    <h2><span class="dot"></span>2. Taxonomie des événements (catégorie → action)</h2>
+    <p class="sub">Les 11 catégories <code>e_c</code> envoyées et leurs principales actions <code>e_a</code>.</p>
+    <div class="mermaid">
+mindmap
+  root(("HAPI<br/>Matomo"))
+    ("HAPI - Navigation")
+      ["Clic Accueil"]
+      ["Clic Aide Header"]
+      ["Clic Footer"]
+    ("HAPI - Activité")
+      ["Sélection"]
+      ["Prévisualisation"]
+    ("HAPI - IA Albert")
+      ["Préparation Prompt"]
+      ["Génération IA"]
+      ["Modération - Avertissement"]
+      ["Modération - Blocage"]
+    ("HAPI - Corpus")
+      ["Ajout Source"]
+      ["Validation Globale"]
+    ("HAPI - Configuration IA")
+      ["Toggle RAG"]
+      ["Niveau Hors-RAG"]
+    ("HAPI - Export")
+      ["H5P / Moodle / GIFT"]
+      ["ODT / PDF / ZIP"]
+      ["Sauvegarde JSON"]
+    ("HAPI - Export Sans IA")
+      ["SCORM (6 types + carnet)"]
+    ("Outils")
+      ["Exporteur"]
+      ["Convertisseur"]
+      ["Fusionneur"]
+      ["Extension"]
+    </div>
+  </section>
+
+  <!-- 3. PARCOURS IA -->
+  <section>
+    <h2><span class="dot"></span>3. Parcours type « Création avec IA » (séquence)</h2>
+    <p class="sub">Chronologie des événements émis lors d'une création d'activité H5P assistée par IA.</p>
+    <div class="mermaid">
+sequenceDiagram
+    autonumber
+    actor U as Enseignant
+    participant P as Page /ia
+    participant Q as _paq
+    participant M as Matomo (site 32)
+
+    U->>P: Arrivée sur /ia
+    P->>Q: trackPageView
+    Q->>M: matomo.php (pageview) → 204
+    U->>P: Ajout d'une source au corpus
+    P->>Q: HAPI - Corpus / Ajout Source / Texte|URL|Fichier
+    U->>P: Validation du corpus
+    P->>Q: HAPI - Corpus / Validation Globale
+    U->>P: Sélection d'une activité
+    P->>Q: HAPI - Activité / Sélection / {type}
+    U->>P: Génération IA (Albert)
+    P->>Q: HAPI - IA Albert / Génération IA / {type}
+    U->>P: Prévisualisation
+    P->>Q: HAPI - Activité / Prévisualisation / {type}
+    U->>P: Téléchargement H5P
+    P->>Q: HAPI - Export / H5P / {type}
+    Q-->>M: chaque trackEvent → 204 ✅
+    </div>
+  </section>
+
+  <!-- 4. TABLEAU DETAILLE -->
+  <section>
+    <h2><span class="dot"></span>4. Référentiel détaillé des événements</h2>
+    <p class="sub">Source dans le code · catégorie (<code>e_c</code>) · action (<code>e_a</code>) · libellé (<code>e_n</code>).</p>
+    <table>
+      <thead><tr><th>Source</th><th>Catégorie</th><th>Action</th><th>Libellé</th></tr></thead>
+      <tbody>
+        <tr><td><code>tracking-static.js</code></td><td>HAPI - Navigation</td><td>Clic Accueil</td><td>Avec IA (H5P) · Sans IA (SCORM) · Outils</td></tr>
+        <tr><td><code>tracking-static.js</code></td><td>HAPI - Navigation</td><td>Clic Aide Header</td><td>libellé du lien</td></tr>
+        <tr><td><code>tracking-static.js</code></td><td>HAPI - Navigation</td><td>Clic Footer</td><td>libellé du lien</td></tr>
+        <tr><td><code>ia/app.js</code></td><td>HAPI - Activité</td><td>Sélection</td><td>type d'activité</td></tr>
+        <tr><td><code>ia/app.js</code></td><td>HAPI - Activité</td><td>Prévisualisation</td><td>type actif</td></tr>
+        <tr><td><code>ia/app.js</code></td><td>HAPI - IA Albert</td><td>Préparation Prompt · Génération IA</td><td>type actif</td></tr>
+        <tr><td><code>ia/app.js</code></td><td>HAPI - Export</td><td>H5P · XML Moodle · GIFT · ODT · PDF · ZIP Standalone</td><td>activité ciblée</td></tr>
+        <tr><td><code>ia/app.js</code></td><td>HAPI - Export</td><td>Lot complet ZIP globale · Sauvegarde Projet JSON</td><td>type actif</td></tr>
+        <tr><td><code>ia/index.html</code></td><td>HAPI - Corpus</td><td>Ajout Source · Validation Globale</td><td>Texte · URL · Fichier</td></tr>
+        <tr><td><code>ia/index.html</code></td><td>HAPI - Configuration IA</td><td>Toggle RAG · Niveau Hors-RAG</td><td>état / valeur</td></tr>
+        <tr><td><code>corpus-manager.js</code></td><td>HAPI - IA Albert</td><td>Modération - Avertissement · Blocage</td><td>contexte</td></tr>
+        <tr><td><code>no-ia/*.html</code></td><td>HAPI - Export Sans IA</td><td>SCORM</td><td>appariement · image-reactive · légende · chronologie · catégorisation · ordre-simple</td></tr>
+        <tr><td><code>outils/ateliers.html</code></td><td>HAPI - Export Sans IA</td><td>SCORM</td><td>carnet-de-bord</td></tr>
+        <tr><td><code>outils/exporteur.html</code></td><td>HAPI - Exporteur</td><td>Téléchargement Global / Individuel · Ajout Fichiers</td><td>nb fichiers</td></tr>
+        <tr><td><code>outils/convertisseur.html</code></td><td>HAPI - Convertisseur</td><td>Analyse / Génération (unitaire & globale) · Ajout · Effacement</td><td>nb fichiers</td></tr>
+        <tr><td><code>outils/fusionneur.html</code></td><td>HAPI - Fusionneur</td><td>Ajout Fichiers · Fusion Globale</td><td>format / nb sources</td></tr>
+        <tr><td><code>outils/plugin-chrome.html</code></td><td>HAPI - Extension</td><td>Clic Installation</td><td>type d'installation</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- 5. VERIFICATION -->
+  <section>
+    <h2><span class="dot"></span>5. Vérification runtime (18/06/2026)</h2>
+    <p class="sub">Test réel sur serveur local + inspection réseau.</p>
+    <p>
+      <span class="pill ok">✅ matomo.js → 200</span>
+      <span class="pill ok">✅ Pageview accueil → 204</span>
+      <span class="pill ok">✅ Pageview /ia → 204</span>
+      <span class="pill ok">✅ 3 trackEvent → 204</span>
+      <span class="pill">idsite=32</span>
+      <span class="pill">aucune erreur console</span>
+      <span class="pill">CSP/réseau OK</span>
+    </p>
+    <p style="color:var(--muted); font-size:.88rem; margin-top:6px">
+      <code>204 No Response</code> est la réponse de succès attendue d'un tracker Matomo : la requête est acceptée sans corps.
+    </p>
+  </section>
+
+  <p style="text-align:center;color:var(--muted);font-size:.8rem;margin-top:6px">Cartographie générée le 18/06/2026</p>
+
+</div>
+<!-- bandeau + sommaire + pied de page injectés par docs-chrome.js -->
+
+<script src="../vendor/mermaid/mermaid.min.js"></script>
+<script>
+  const dark = document.documentElement.getAttribute('data-mode') === 'dark'
+    || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'base',
+    themeVariables: {
+      primaryColor: dark ? '#1b1e2b' : '#eaf4ef',
+      primaryBorderColor: '#2f7d5b',
+      primaryTextColor: dark ? '#eef0f7' : '#1b1f3b',
+      lineColor: dark ? '#7d9be8' : '#3858a4',
+      fontFamily: 'Marianne, Segoe UI, system-ui, sans-serif'
+    },
+    flowchart: { curve: 'basis', htmlLabels: true },
+    securityLevel: 'loose'
+  });
+</script>
+<script src="../js/tracking-static.js"></script>
+<script src="docs-chrome.js"></script>
+<script src="../js/theme-switcher.js"></script>
+</body>
+</html>

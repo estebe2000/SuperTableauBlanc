@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "discipline": "Technologie",
+    "cycle": "Cycle 4",
+    "classes": ["5e", "4e", "3e"],
+    "source": "B.O. n°9 du 29 février 2024 — Programme de technologie du cycle 4",
+    "mise_a_jour": "2024-02-29"
+  },
+  "attendus_fin_cycle": [
+    "Décrire les liens entre usages et évolutions technologiques des objets et des systèmes techniques",
+    "Décrire les interactions entre un objet ou un système technique, son environnement et les utilisateurs",
+    "Caractériser et choisir un objet ou un système technique selon différents critères",
+    "Décrire et caractériser l'organisation interne d'un objet ou d'un système technique et ses échanges avec son environnement (énergies, données)",
+    "Identifier un dysfonctionnement d'un objet technique et y remédier",
+    "Comprendre et modifier un programme associé à une fonctionnalité d'un objet ou d'un système technique",
+    "Imaginer, concevoir et réaliser une ou des solutions en réponse à un besoin dans une démarche de créativité",
+    "Valider les solutions techniques par des simulations ou par des protocoles de tests",
+    "Concevoir, écrire, tester et mettre au point un programme"
+  ],
+  "domaines": [
+    {
+      "nom": "Les objets et les systèmes techniques : leurs usages et leurs interactions à découvrir et à analyser",
+      "description": "Approche socioculturelle (analyse externe) : étudier le cycle de vie, les usages et le fonctionnement global des objets et systèmes techniques (OST), en tenant compte du triptyque matière-énergie-information et du développement durable.",
+      "competences": [
+        {
+          "intitule": "Décrire les liens entre usages et évolutions technologiques des objets et des systèmes techniques",
+          "exemples_themes": ["L'évolution d'un OST (du fixe au smartphone, de l'automobile thermique à l'électrique)", "Famille et lignée d'objets techniques ; innovations de rupture et découvertes scientifiques associées", "Les grands types d'apprentissage des intelligences artificielles et leurs usages (géolocalisation, traduction, identification) ; biais et effets d'une IA", "Système d'information et stockage des données (fichiers, dossiers, arborescence, formats ; bit, octet et multiples)", "Bases de la cybersécurité, traces numériques, identité numérique, authentification, propriété intellectuelle", "Cyberviolence (usurpation d'identité, usage détourné) ; usage raisonné des objets communicants"]
+        },
+        {
+          "intitule": "Décrire les interactions entre un objet ou un système technique, son environnement et les utilisateurs",
+          "exemples_themes": ["Lister les interacteurs extérieurs d'un OST (usagers, données, autres objets, environnement)", "Décrire l'expérience utilisateur (ergonomie, ressenti, facilité d'usage)", "Modes de représentation : croquis, schéma, graphique, algorithme, modélisation", "Contraintes et exigences (normes, cahier des charges, labels, certifications)", "Choix de conception liés à la sécurité et au développement durable"]
+        },
+        {
+          "intitule": "Caractériser et choisir un objet ou un système technique selon différents critères",
+          "exemples_themes": ["Repérer matériaux, sources et formes d'énergie, traitement de l'information d'un OST", "Étapes du cycle de vie d'un OST et incidence environnementale", "Comparer plusieurs OST répondant à un même besoin (bilan carbone, efficacité énergétique)", "Indice énergétique et indice de réparabilité ; les trois piliers du développement durable", "Mesurer et comparer une performance d'un OST à partir d'un protocole"]
+        }
+      ]
+    },
+    {
+      "nom": "Structure, fonctionnement, comportement : des objets et des systèmes techniques à comprendre",
+      "description": "Approches scientifiques et techniques (analyse interne) : étudier la structure interne, les chaînes d'énergie et d'information, les matériaux et procédés, le comportement et le traitement des données des OST.",
+      "competences": [
+        {
+          "intitule": "Décrire et caractériser l'organisation interne d'un objet ou d'un système technique et ses échanges avec son environnement (énergies, données)",
+          "exemples_themes": ["Chaîne d'énergie : formes d'énergie (électrique, cinétique, thermique, lumineuse), conversions (moteur, lampe, vérin, génératrice), schéma bloc", "Mécanismes de transmission et de transformation de mouvement (engrenages, courroies, chaînes)", "Matériaux et procédés : propriétés des matériaux, mise en relation forme/procédé, justification au regard des contraintes", "Chaîne d'information : capteurs (température, présence, distance), microcontrôleur, IHM (boutons, afficheurs)", "Structuration et traitement des données : objet/descripteur/collection/type, le bit, code ASCII, calculs/filtre/tri dans un tableur", "Réseau informatique : terminaux, commutateur, routeur, serveur, adresse IP, tables de routage, circulation d'une information dans Internet"]
+        },
+        {
+          "intitule": "Identifier un dysfonctionnement d'un objet technique et y remédier",
+          "exemples_themes": ["Repérer visuellement une pièce défectueuse, réaliser une réparation selon un protocole", "Formuler des hypothèses expliquant un dysfonctionnement", "Proposer et mettre en œuvre un protocole de dépannage puis de réparation", "Procédés d'obtention (ajout/enlèvement de matière), de mise en forme (pliage, thermoformage), d'assemblage", "Moyens de production : découpe laser, centre d'usinage, fabrication additive (imprimante 3D)", "Réaliser une pièce sur mesure pour réparer un objet (Fablab, EPI, sécurité)"]
+        },
+        {
+          "intitule": "Comprendre et modifier un programme associé à une fonctionnalité d'un objet ou d'un système technique",
+          "exemples_themes": ["Identifier les données utilisées et produites par un programme", "Traduire en algorithme en langage naturel le programme associé à une fonctionnalité", "Notions d'algorithmique : affectation, variable (mot, nombre, booléen), opérateurs (ET, OU, NON)", "Instruction conditionnelle, instructions itératives, listes, séquences (blocs), événements", "Compléter, tester et valider une modification d'un programme (simulé ou réel)", "Programmation graphique par blocs et lien avec la programmation textuelle (fin de 3e)"]
+        }
+      ]
+    },
+    {
+      "nom": "Création, conception, réalisation, innovations : des objets à concevoir et à réaliser",
+      "description": "Démarche d'ingénierie : analyser un problème, imaginer, innover, concevoir, prototyper, simuler, fabriquer, programmer et valider des solutions techniques, de manière collaborative, en réponse à un besoin lié à un enjeu sociétal.",
+      "competences": [
+        {
+          "intitule": "Imaginer, concevoir et réaliser une ou des solutions en réponse à un besoin dans une démarche de créativité",
+          "exemples_themes": ["Comparer des solutions existantes ou des familles de produits", "Imaginer et formuler une solution associée à une fonction technique", "Mini-projets en 5e (planification, prototype : constituants, assemblage, programme)", "Ajouter une fonctionnalité à un OST existant (approche Matériaux-Énergies-Information) en 4e", "Projet de groupe en 3e en lien avec les objectifs de développement durable", "Phases de créativité individuelle et collective, dimension design"]
+        },
+        {
+          "intitule": "Valider les solutions techniques par des simulations ou par des protocoles de tests",
+          "exemples_themes": ["Vérifier, contrôler et valider une solution par simulation ou mesure", "Comparer résultats obtenus/simulés avec les exigences d'un cahier des charges", "Identifier les écarts, la précision, les erreurs de mesure", "S'appuyer sur les documentations techniques (constructeurs, fabricants)", "Proposer et réaliser un protocole de tests (essais, mesures)"]
+        },
+        {
+          "intitule": "Concevoir, écrire, tester et mettre au point un programme",
+          "exemples_themes": ["Analyser un problème et expliciter les fonctionnalités d'un programme à réaliser", "Concevoir un algorithme en langage naturel répondant au problème", "Traduire l'algorithme dans un langage informatique structuré (sous-programmes, fonctions)", "Tester et mettre au point un programme répondant aux besoins spécifiés", "Travail en équipe : partage et planification des fonctionnalités à programmer"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le nouveau programme de technologie du cycle 4 (B.O. n°9 du 29 février 2024) est structuré autour de trois thèmes et de neuf compétences acquises tout au long du cycle (5e, 4e, 3e), selon une logique spiralaire. Thème 1 (analyse externe) : usages, interactions et choix des objets et systèmes techniques (OST), impacts sociétaux du numérique, IA, cybersécurité, développement durable. Thème 2 (analyse interne) : organisation interne, chaînes d'énergie et d'information, matériaux et procédés, structuration et traitement des données, réseaux informatiques, dépannage et réparation, compréhension et modification de programmes. Thème 3 (démarche d'ingénierie) : concevoir, prototyper, simuler, fabriquer et valider des solutions, écrire et mettre au point des programmes. L'enseignement, fondé sur le triptyque matière-énergie-information (MEI) et la formule « faire pour apprendre et apprendre à faire », se déroule dans un laboratoire de technologie flexible et un atelier de fabrication collaboratif (Fablab). La pensée informatique est renforcée en lien avec les mathématiques (données, algorithmes, langages, machines)."
+}

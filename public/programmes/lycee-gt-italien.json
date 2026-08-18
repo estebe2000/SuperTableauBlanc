@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Italien",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de langues vivantes 2nde, 1ère, Terminale GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B2 en LVA / B1 en LVB du CECRL",
+    "Comprendre des documents authentiques en italien",
+    "S'exprimer à l'oral et à l'écrit de manière structurée",
+    "Acquérir une culture italienne riche et nuancée",
+    "Développer une réflexion interculturelle"
+  ],
+  "domaines": [
+    {
+      "nom": "Axe — Identités et échanges (Identità e scambi)",
+      "description": "Les identités culturelles et les échanges dans le monde italien.",
+      "competences": [
+        {
+          "intitule": "Explorer les identités et les échanges dans la culture italienne",
+          "exemples_themes": ["La diversité régionale italienne (Nord/Sud, dialectes)", "L'émigration italienne dans le monde (Ellis Island, Argentine)", "Un extrait de Cristo si è fermato a Eboli de Carlo Levi", "La diaspora italienne et le concept de italianità"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Art et pouvoir (Arte e potere)",
+      "description": "Les relations entre création artistique et pouvoir en Italie.",
+      "competences": [
+        {
+          "intitule": "Étudier le rôle de l'art face au pouvoir dans la culture italienne",
+          "exemples_themes": ["Michel-Ange et le mécénat des papes (chapelle Sixtine)", "Le néoréalisme italien (Roma città aperta de Rossellini)", "La musique d'opéra et l'identité nationale (Verdi, Nabucco)", "Le futurisme italien et ses ambiguïtés politiques"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Fictions et réalités (Finzione e realtà)",
+      "description": "Les rapports entre fiction et réalité dans la culture italienne.",
+      "competences": [
+        {
+          "intitule": "Explorer la frontière entre fiction et réalité dans la littérature et les médias italiens",
+          "exemples_themes": ["Un extrait de Se questo è un uomo de Primo Levi", "Le cinéma de Fellini (La dolce vita, Amarcord)", "Un extrait d'Il nome della rosa d'Umberto Eco", "Le cinéma de Roberto Benigni (La vita è bella)"]
+        }
+      ]
+    },
+    {
+      "nom": "Axe — Citoyenneté et société (Cittadinanza e società)",
+      "description": "Les enjeux citoyens dans l'Italie contemporaine.",
+      "competences": [
+        {
+          "intitule": "Analyser les enjeux citoyens et sociaux de l'Italie contemporaine",
+          "exemples_themes": ["La lutte antimafia (Falcone, Borsellino, Guiliana)", "L'immigration en Italie (Lampedusa, accueil des migrants)", "Un article de La Repubblica ou du Corriere della Sera", "La question de la mémoire du fascisme en Italie"]
+        }
+      ]
+    },
+    {
+      "nom": "Compétences langagières",
+      "description": "Les cinq activités langagières au service de la communication.",
+      "competences": [
+        {
+          "intitule": "Comprendre un document oral ou écrit authentique en italien",
+          "exemples_themes": ["Un reportage de la RAI sur un sujet de société", "Un article de presse italien (La Repubblica, Il Sole 24 Ore)", "Un extrait de film italien avec sous-titres", "Un podcast en italien sur la culture ou l'actualité"]
+        },
+        {
+          "intitule": "S'exprimer à l'oral et à l'écrit de manière argumentée",
+          "exemples_themes": ["Exposé oral sur un aspect de la culture italienne", "Rédaction d'un essai argumenté en italien", "Débat en classe sur un enjeu de société italien", "Présentation d'une ville ou d'une région italienne"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'italien au lycée GT vise le niveau B2 (LVA) ou B1 (LVB) du CECRL. Il s'organise autour d'axes culturels appliqués à l'Italie : identités, art et pouvoir, fictions et réalités, citoyenneté. Les élèves étudient des documents authentiques variés (littérature, cinéma, presse, art) et développent leurs compétences dans les cinq activités langagières."
+}

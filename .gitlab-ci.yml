@@ -1,0 +1,18 @@
+image: node:20-alpine
+
+pages:
+  stage: deploy
+  script:
+    - npm ci || npm install
+    - npm run build
+    - rm -rf public_prod
+    - mv dist public_prod
+    - rm -rf public
+    - mv public_prod public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == "main"
+    - if: $CI_COMMIT_BRANCH == "master"

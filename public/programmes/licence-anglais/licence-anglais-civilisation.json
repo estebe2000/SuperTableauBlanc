@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Civilisation",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Histoire et Institutions",
+      "details": [
+        "Connaître l'histoire du Royaume-Uni et des États-Unis",
+        "Comprendre les systèmes politiques anglophones",
+        "Analyser des documents iconographiques ou de presse",
+        "Étudier les enjeux sociétaux contemporains"
+      ]
+    }
+  ]
+}

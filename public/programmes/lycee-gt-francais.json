@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "discipline": "Français",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de français 2nde et 1ère GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Maîtriser la lecture analytique et le commentaire littéraire",
+    "Rédiger une dissertation littéraire argumentée",
+    "Construire une réflexion personnelle sur les œuvres et les textes",
+    "S'exprimer à l'oral avec clarté et conviction",
+    "Acquérir une culture littéraire et humaniste"
+  ],
+  "domaines": [
+    {
+      "nom": "La poésie du Moyen Âge au XVIIIe siècle (2nde) / La poésie du XIXe au XXIe siècle (1ère)",
+      "description": "Explorer les formes et les enjeux de l'écriture poétique à travers les siècles.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser un recueil ou une section de recueil poétique",
+          "exemples_themes": ["Les Fleurs du mal de Baudelaire (section « Spleen et Idéal »)", "Alcools d'Apollinaire", "Les Contemplations de Victor Hugo (livres I à IV)", "Cahier d'un retour au pays natal d'Aimé Césaire"]
+        },
+        {
+          "intitule": "Analyser les procédés poétiques : versification, images, rythme, sonorités",
+          "exemples_themes": ["Un sonnet de Ronsard ou Du Bellay", "Un poème en prose de Baudelaire", "Un calligramme d'Apollinaire", "Un poème en vers libres de René Char"]
+        },
+        {
+          "intitule": "Situer une œuvre poétique dans son contexte littéraire et historique",
+          "exemples_themes": ["La Pléiade et l'imitation des Anciens", "Le romantisme et le lyrisme hugolien", "Le symbolisme de Verlaine et Mallarmé", "Le surréalisme d'Éluard ou Breton"]
+        },
+        {
+          "intitule": "Rédiger un commentaire de texte poétique",
+          "exemples_themes": ["Commentaire d'un poème de Baudelaire", "Commentaire d'un poème de La Fontaine", "Plan dialectique sur une citation poétique"]
+        }
+      ]
+    },
+    {
+      "nom": "Le roman et le récit du Moyen Âge au XXIe siècle",
+      "description": "Comprendre l'évolution du genre romanesque et ses enjeux narratifs.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser une œuvre romanesque intégrale",
+          "exemples_themes": ["La Princesse de Clèves de Mme de La Fayette", "Le Rouge et le Noir de Stendhal", "Mémoires d'Hadrien de Marguerite Yourcenar", "L'Étranger d'Albert Camus"]
+        },
+        {
+          "intitule": "Analyser les techniques narratives : point de vue, temps, personnage",
+          "exemples_themes": ["Le monologue intérieur dans Mme Bovary", "La focalisation dans un extrait de Zola", "L'incipit d'un roman réaliste ou naturaliste", "Le dénouement d'un roman d'apprentissage"]
+        },
+        {
+          "intitule": "Étudier le personnage de roman et ses fonctions",
+          "exemples_themes": ["Le héros romanesque de Chrétien de Troyes à aujourd'hui", "L'anti-héros dans le roman du XXe siècle", "Le personnage féminin dans le roman classique", "Le portrait dans le roman balzacien"]
+        },
+        {
+          "intitule": "Rédiger une dissertation sur le roman",
+          "exemples_themes": ["Le roman doit-il représenter la réalité ?", "Le personnage de roman doit-il être exemplaire ?", "Un extrait d'essai critique sur le roman (Kundera, Sarraute)"]
+        }
+      ]
+    },
+    {
+      "nom": "Le théâtre du XVIIe au XXIe siècle",
+      "description": "Découvrir le texte théâtral et sa mise en scène.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser une pièce de théâtre intégrale",
+          "exemples_themes": ["Le Malade imaginaire de Molière", "Phèdre de Racine", "Le Mariage de Figaro de Beaumarchais", "Juste la fin du monde de Lagarce"]
+        },
+        {
+          "intitule": "Analyser les spécificités du texte théâtral : didascalies, double énonciation, conflit",
+          "exemples_themes": ["Une scène d'exposition de comédie classique", "Un monologue tragique de Racine", "Un dénouement de drame romantique (Hugo)", "Une scène du théâtre de l'absurde (Ionesco, Beckett)"]
+        },
+        {
+          "intitule": "Comparer texte et mise en scène",
+          "exemples_themes": ["Deux mises en scène du Misanthrope", "Captation vidéo d'une mise en scène contemporaine", "Photos de scénographie pour une pièce au programme", "Interview d'un metteur en scène"]
+        }
+      ]
+    },
+    {
+      "nom": "La littérature d'idées du XVIe au XVIIIe siècle (2nde) / La littérature d'idées du XVIe au XXIe siècle (1ère)",
+      "description": "Argumenter, convaincre, persuader : les formes de l'essai et de la pensée critique.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser un essai, un discours ou un texte argumentatif",
+          "exemples_themes": ["Les Essais de Montaigne (Des Cannibales, Des Coches)", "Les Lettres persanes de Montesquieu", "Déclaration des droits de la femme d'Olympe de Gouges", "Discours sur la servitude volontaire de La Boétie"]
+        },
+        {
+          "intitule": "Identifier les stratégies argumentatives : convaincre, persuader, délibérer",
+          "exemples_themes": ["Un article de l'Encyclopédie de Diderot", "Un conte philosophique de Voltaire (Candide, Zadig)", "Un pamphlet de Victor Hugo contre la peine de mort", "Un discours de Simone Veil"]
+        },
+        {
+          "intitule": "Rédiger une dissertation ou un essai argumenté",
+          "exemples_themes": ["La littérature peut-elle changer le monde ?", "L'ironie est-elle une arme efficace ?", "Faut-il rire de tout ?", "Citation de Montaigne ou Voltaire à discuter"]
+        }
+      ]
+    },
+    {
+      "nom": "Étude de la langue et expression écrite",
+      "description": "Consolider les compétences linguistiques au service de l'analyse et de la rédaction.",
+      "competences": [
+        {
+          "intitule": "Maîtriser la grammaire de la phrase complexe et les connecteurs logiques",
+          "exemples_themes": ["Analyse de phrases complexes extraites d'un texte au programme", "Les propositions subordonnées dans un texte de Proust", "Les connecteurs logiques dans un texte argumentatif"]
+        },
+        {
+          "intitule": "Enrichir le vocabulaire littéraire et stylistique",
+          "exemples_themes": ["Le champ lexical des passions dans Phèdre", "Le vocabulaire de la satire chez Molière", "Les figures de style dans un poème du programme", "L'étymologie et l'histoire des mots"]
+        },
+        {
+          "intitule": "Pratiquer l'écriture d'invention et l'écriture d'appropriation",
+          "exemples_themes": ["Rédiger un texte « à la manière de » (pastiche)", "Écrire la suite d'une scène de théâtre", "Transformer un passage narratif en scène théâtrale", "Rédiger un carnet de lecture"]
+        }
+      ]
+    },
+    {
+      "nom": "Expression orale",
+      "description": "Préparer les épreuves orales du baccalauréat et développer l'aisance à l'oral.",
+      "competences": [
+        {
+          "intitule": "Présenter une explication linéaire à l'oral",
+          "exemples_themes": ["Explication d'un extrait de 20 lignes du programme", "Lecture expressive d'un texte poétique", "Exposé oral structuré sur une œuvre"]
+        },
+        {
+          "intitule": "Défendre une interprétation personnelle dans un entretien",
+          "exemples_themes": ["Entretien sur le parcours associé d'une œuvre", "Justification orale de choix d'analyse", "Question de grammaire sur un extrait du programme"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de français au lycée GT couvre la 2nde et la 1ère, aboutissant aux EAF (Épreuves Anticipées de Français). Il s'organise autour de quatre objets d'étude : la poésie, le roman et le récit, le théâtre, la littérature d'idées. Les élèves étudient des œuvres intégrales et des parcours associés, pratiquent le commentaire, la dissertation et l'explication linéaire. L'étude de la langue et l'expression orale complètent la formation."
+}

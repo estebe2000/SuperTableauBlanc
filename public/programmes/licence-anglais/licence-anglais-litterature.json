@@ -1,0 +1,19 @@
+{
+  "meta": {
+    "discipline": "Littérature",
+    "cycle": "Licence Anglais",
+    "filiere": "licence-anglais",
+    "source": "Université de Caen - Maquette LCE"
+  },
+  "competences": [
+    {
+      "intitule": "Analyse littéraire",
+      "details": [
+        "Commenter un texte littéraire (poésie, théâtre, roman)",
+        "Identifier les courants littéraires (Romantisme, Modernisme, etc.)",
+        "Maîtriser les outils de la narratologie",
+        "Situer une œuvre dans son contexte historique"
+      ]
+    }
+  ]
+}

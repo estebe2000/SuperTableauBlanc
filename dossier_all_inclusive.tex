@@ -1,0 +1,595 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- PACKAGES DE BASE & TYPOGRAPHIE ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{tcolorbox}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, backgrounds}
+\usepackage{hyperref}
+
+% --- GÉOMÉTRIE & MARGES ---
+\geometry{
+    top=2.2cm,
+    bottom=2.4cm,
+    left=2.2cm,
+    right=2.2cm,
+    headheight=14pt
+}
+
+% --- PALETTE DE COULEURS INSTITUTIONNELLE & SOUVERAINE ---
+\definecolor{univBlue}{RGB}{20, 55, 115}      % Bleu Université Le Havre / Académique
+\definecolor{accentBlue}{RGB}{37, 99, 235}    % Bleu France 2030 / Dynamique
+\definecolor{primaryRed}{RGB}{220, 38, 38}    % Rouge CUA / IA (A.I.)
+\definecolor{softPurple}{RGB}{124, 58, 237}   % Violet Ingénierie & Cognition
+\definecolor{emeraldGreen}{RGB}{22, 163, 74}  % Vert Souveraineté & Validation
+\definecolor{amberOrange}{RGB}{234, 88, 12}   % Orange Pédagogie & Outils
+\definecolor{darkText}{RGB}{30, 41, 59}       % Texte Slate foncé
+\definecolor{bgGray}{RGB}{248, 250, 252}      % Fond clair
+\definecolor{borderGray}{RGB}{226, 232, 240}  % Bordure douce
+
+% --- MACROS TYPOGRAPHIQUES POUR LA MARQUE ---
+\newcommand{\AIBrand}{\textbf{\textcolor{primaryRed}{A}ll'\,\textcolor{primaryRed}{I}nclusive}}
+\newcommand{\AIFull}{\textbf{\textcolor{primaryRed}{A}ll'\,\textcolor{primaryRed}{I}nclusive (A.I.)}}
+
+% --- CONFIGURATION HYPERREF ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=univBlue,
+    citecolor=accentBlue,
+    urlcolor=accentBlue,
+    pdfauthor={Université Le Havre Normandie - IUT TC},
+    pdftitle={All' Inclusive (A.I.) - Dossier de Candidature AAP DGESIP / SGPI / Bpifrance 2026},
+    pdfsubject={Outillage IA Souverain pour l'Enseignement Supérieur Inclusif, CUA et Bureau Virtuel}
+}
+
+% --- FORMATAGE DES TITRES & GESTION DES SAUTS DE PAGE ---
+\titleformat{\section}
+  {\large\bfseries\color{univBlue}}
+  {\thesection.}{0.6em}{}[\vspace{-0.2em}\titlerule]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{accentBlue}}
+  {\thesubsection}{0.6em}{}
+
+\titleformat{\subsubsection}
+  {\small\bfseries\color{darkText}}
+  {\thesubsubsection}{0.6em}{}
+
+% --- EN-TÊTES ET PIEDS DE PAGE ---
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize\textcolor{univBlue}{\textbf{\textcolor{primaryRed}{A}ll'\,\textcolor{primaryRed}{I}nclusive (A.I.)}} \textcolor{gray}{| Dossier AAP DGESIP / Bpifrance}}
+\rhead{\footnotesize\textcolor{gray}{Université Le Havre Normandie}}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- TCOLORBOX STYLES ---
+\tcbuselibrary{skins, breakable}
+
+\newtcolorbox{calloutBox}[2][accentBlue]{
+    colback=bgGray,
+    colframe=#1,
+    fonttitle=\bfseries\color{white},
+    title={#2},
+    arc=4mm,
+    boxrule=1pt,
+    left=8pt,
+    right=8pt,
+    top=8pt,
+    bottom=8pt
+}
+
+\newtcolorbox{featureBox}[2][univBlue]{
+    colback=white,
+    colframe=#1!80!black,
+    fonttitle=\small\bfseries\color{white},
+    title={#2},
+    arc=3mm,
+    boxrule=0.8pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    boxsep=1pt,
+    before skip=6pt,
+    after skip=6pt
+}
+
+% ==============================================================================
+% DOCUMENT PRINCIPAL
+% ==============================================================================
+\begin{document}
+\pagenumbering{gobble}
+
+% ------------------------------------------------------------------------------
+% PAGE DE GARDE INSTITUTIONNELLE
+% ------------------------------------------------------------------------------
+\begin{titlepage}
+    \centering
+    \vspace*{-1cm}
+    
+    {\Large\bfseries\color{univBlue} UNIVERSITÉ LE HAVRE NORMANDIE}\\[0.2cm]
+    {\normalsize\bfseries Institut Universitaire de Technologie --- Département TC}\\[0.1cm]
+    {\small En lien avec le Laboratoire LITIS (EA 4108, pressenti)}\\[0.4cm]
+    \rule{\textwidth}{1.2pt}\\[0.5cm]
+
+    \begin{tcolorbox}[colback=accentBlue!8, colframe=accentBlue!80, arc=4mm, boxrule=1pt, width=0.92\textwidth]
+        \centering\small\bfseries\color{univBlue}
+        Appel à Projets National DGESIP / SGPI / Bpifrance (France 2030)\\[0.1cm]
+        \textit{Volet Démonstrateurs Numériques dans l'Enseignement Supérieur (DemoES) \& IA Souveraine}
+    \end{tcolorbox}
+
+    \vspace{0.7cm}
+
+    {\Huge\bfseries\textcolor{primaryRed}{A}ll'\,\textcolor{primaryRed}{I}nclusive \color{darkText}(A.I.)}\\[0.3cm]
+    {\Large\bfseries\color{univBlue} AAPC : Approche Adaptée \& Pédagogie par Compétences}\\[0.3cm]
+    {\large\bfseries\color{darkText} Outillage IA Souverain du Geste Enseignant, Conception Universelle\\des Apprentissages (CUA) et Bureau Virtuel pour l'Enseignement Supérieur}\\[0.4cm]
+    
+    \begin{tcolorbox}[colback=bgGray, colframe=softPurple, arc=3mm, boxrule=0.8pt, width=0.96\textwidth]
+        \centering\itshape\small\color{darkText}
+        « Du démonstrateur universitaire (\href{https://ebep.educ-ai.fr/}{ebep.educ-ai.fr}) à la plateforme académique industrialisée :\\
+        Ingénierie de cours CUA pour l'Enseignement Supérieur (BUT, Licences, Masters),\\
+        Bureau interactif d'amphi et de TD avec thermomètre de compréhension temps réel,\\
+        assistance cognitive EBEP/SHND et infrastructure souveraine fédérée SSO / LDAP / Keycloak propulsée par Albert et Mistral. »
+    \end{tcolorbox}
+
+    \vspace{0.6cm}
+
+    \begin{minipage}{0.92\textwidth}
+    \small
+    \begin{tabularx}{\textwidth}{l X}
+        \textbf{Établissement Porteur :} & Université Le Havre Normandie (IUT TC) \\
+        \textbf{Établissements Pilotes :} & Réseaux des IUT de Normandie \& Universités Partenaires \\
+        \textbf{Partenaire Scientifique :} & Laboratoire LITIS (EA 4108, pressenti) \\
+        \textbf{Conseiller Scientifique DGESIP :} & Luc Massou (Mission IA pour l'Enseignement Supérieur) \\
+        \textbf{Opérateur \& Financeur :} & Bpifrance / SGPI (Programme d'Investissement France 2030) \\
+        \textbf{Typologie de Projet :} & Consortium Structurant (Durée : 24 mois --- Enveloppe : 750\,000~€) \\
+        \textbf{Statut du Projet :} & Démonstrateur opérationnel $\rightarrow$ Déploiement pilote Rentrée 2026 \\
+        \textbf{Date Limite de Dépôt :} & 30 septembre 2026 \\
+    \end{tabularx}
+    \end{minipage}
+
+    \vfill
+    \rule{\textwidth}{0.6pt}\\[0.2cm]
+    {\footnotesize\color{gray} Dossier de Candidature Officiel destiné à la Présidence de l'Université, à la DGESIP et aux Jurys Bpifrance}
+\end{titlepage}
+
+% ------------------------------------------------------------------------------
+% TABLE DES MATIÈRES
+% ------------------------------------------------------------------------------
+\newpage
+\pagenumbering{arabic}
+\vspace*{0.5cm}
+\tableofcontents
+\thispagestyle{fancy}
+\vfill
+
+% ------------------------------------------------------------------------------
+% SECTION 1 : CONTEXTE INSTITUTIONNEL & ENJEUX SUPÉRIEUR
+% ------------------------------------------------------------------------------
+\newpage
+\section{Contexte Institutionnel \& Enjeux de l'Inclusion dans l'Enseignement Supérieur}
+
+\subsection{Cadre de l'Appel à Projets National DGESIP / SGPI / Bpifrance}
+Le présent projet s'inscrit en réponse directe à l'Appel à Projets (AAP) national copréparé par la Direction Générale de l'Enseignement Supérieur et de l'Insertion Professionnelle (\textbf{DGESIP - Mission IA}) et opéré par \textbf{Bpifrance} sous le financement du Secrétariat Général Pour l'Investissement (\textbf{SGPI} - France 2030).
+
+L'ambition nationale est d'outiller le geste enseignant dans les \textbf{Universités, IUT et établissements d'enseignement supérieur} en s'appuyant sur une \textbf{Intelligence Artificielle éthique, souveraine et frugale}, pour accompagner les enseignants-chercheurs, professeurs agrégés, certifiés et vacataires professionnels dans la conception, la différenciation pédagogique et l'animation de cours magistraux, de travaux dirigés et de situations d'apprentissage complexes (SAÉ).
+
+\subsection{L'Hétérogénéité des Publics Étudiants \& les Besoins Particuliers (EBEP / SHND)}
+La démocratisation de l'enseignement supérieur et l'augmentation continue du nombre d'étudiants en Situation de Handicap ou présentant des Troubles du Neuro-Développement (\textbf{SHND / EBEP}) confrontent l'Université à des défis pédagogiques majeurs :
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+    \item \textbf{Transition Bac-Université \& Choc de l'Autonomie :} En arrivant en première année de Licence ou de BUT, les étudiants doivent traiter des volumes massifs d'informations denses en autonomie, provoquant un taux d'échec ou d'abandon précoce chez les étudiants fragiles.
+    \item \textbf{Troubles Spécifiques des Apprentissages (DYS) :} Dyslexie, dyspraxie et dysgraphie constituent un obstacle majeur lors de la prise de notes rapide en amphithéâtre et de la lecture de polycopiés académiques.
+    \item \textbf{Troubles des Fonctions Exécutives (TDAH / TSA) :} Difficulté à planifier des projets étudiants à long terme (SAÉ, mémoires de stage, études de cas), à hiérarchiser les priorités et à décrypter les attentes implicites des enseignants.
+    \item \textbf{Étudiants Internationaux \& Allophones :} Nécessité d'accéder à des synthèses claires en Français Facile à Lire et à Comprendre (\textbf{FALC}) ou à des transcriptions synchrones multilingues pour ne pas pénaliser l'apprentissage des concepts disciplinaires.
+    \item \textbf{Surcharge du Corps Enseignant Universitaire :} Les enseignants du supérieur, confrontés à des effectifs pléthoriques (amphis de 100 à 400 étudiants, groupes de TD hétérogènes), manquent d'outils automatisés pour adapter leurs supports sans surcoût horaire prohibitif.
+\end{itemize}
+
+\subsection{Le Cadre Théorique de la Conception Universelle de l'Apprentissage (CUA / UDL)}
+Pour répondre à ces enjeux sans multiplier les aménagements individualisés stigmatisants, le projet \AIBrand\ adopte le cadre scientifique de la \textbf{Conception Universelle de l'Apprentissage} (\textit{Universal Design for Learning - CAST}), adapté aux exigences de l'enseignement supérieur selon 3 réseaux cognitifs fondamentaux :
+\begin{enumerate}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{Réseau de la Reconnaissance (Représentations multiples) :} Proposer les savoirs académiques sous des formats variés (texte synthétique, schéma logique Mermaid, métaphore concrète, transcription audio synchronisée).
+    \item \textbf{Réseau Stratégique (Modes multiples d'Action \& d'Expression) :} Fournir des échafaudages cognitifs pour découper les projets universitaires complexes et assister la rédaction académique.
+    \item \textbf{Réseau Affectif (Modes multiples d'Engagement) :} Maintenir l'attention en amphi et en TD grâce à des interactions formatives continues et à la régulation immédiate des incompréhensions.
+\end{enumerate}
+
+% ------------------------------------------------------------------------------
+% SECTION 2 : CODEBASE & INDUSTRIALISATION (SSO / LDAP)
+% ------------------------------------------------------------------------------
+\newpage
+\section{Revue Technique du Codebase \& Trajectoire d'Industrialisation}
+
+\subsection{Du Démonstrateur Universitaire (\href{https://ebep.educ-ai.fr/}{ebep.educ-ai.fr}) à la Plateforme Institutionnelle}
+L'Université Le Havre Normandie a développé une première maquette fonctionnelle et démonstratrice, accessible publiquement sur \href{https://ebep.educ-ai.fr/}{\texttt{https://ebep.educ-ai.fr/}}. Ce prototype constitue une preuve de concept technique validant le fonctionnement des briques logicielles, des moteurs d'assistance cognitive et des interfaces d'interaction IA.
+
+La plateforme n'a pas encore fait l'objet d'expérimentations sur le terrain auprès des étudiants et des enseignants : le présent Appel à Projets permettra précisément de financer et de conduire cette première phase pilote d'expérimentation en conditions réelles dès la rentrée de septembre 2026, tout en intégrant ce frontal dans une infrastructure académique unifiée et sécurisée par authentification SSO / LDAP / Keycloak, garantissant l'étanchéité des données, la gestion des groupes d'étudiants, la traçabilité des séances et la conformité RGPD.
+
+\begin{calloutBox}[univBlue]{Socle Technique \& Souveraineté de la Plateforme \AIBrand}
+\begin{itemize}[leftmargin=1.2em, itemsep=2pt]
+    \item \textbf{Frontend Réactif \& Accessible :} Interface légère (Vanilla JS, HTML5 Canvas, WebSockets temps réel, polices Opendyslexic, arrêt complet des animations et mode contraste élevé).
+    \item \textbf{Serveur \& API Core :} Node.js / Vite couplé à des micro-services FastAPI (Python 3.12).
+    \item \textbf{Fédération d'Identités SSO :} Keycloak 26+ compatible OpenID Connect, interfacé avec l'annuaire LDAP / Active Directory universitaire et la fédération d'identités nationale EduConnect / Shibboleth (RENATER).
+    \item \textbf{Inférence IA 100\,\% Souveraine \& RGPD :} Intégration native des LLM souverains français (\textbf{Albert} - DINUM), des modèles institutionnels (\textbf{Mistral AI}) et de serveurs GPU locaux conteneurisés (\textbf{Ollama}).
+\end{itemize}
+\end{calloutBox}
+
+% ------------------------------------------------------------------------------
+% SECTION 3 : SPÉCIFICATIONS FONCTIONNELLES DES MODULES
+% ------------------------------------------------------------------------------
+\newpage
+\section{Spécifications Détaillées des Modules \& Pertinence dans le Supérieur}
+
+La suite \AIBrand\ structure ses fonctionnalités en deux grands pôles opérationnels répondant aux besoins de l'enseignement supérieur.
+
+\subsection{Pôle Ingénierie Pédagogique \& Conception de Cours Universitaires}
+
+\begin{featureBox}[softPurple]{1. Studio Pédagogique CUA (Ingénierie de Cours Universitaires \& Différenciation)}
+\textbf{Description fonctionnelle :} Moteur d'ingénierie connecté aux référentiels nationaux de l'Enseignement Supérieur (Bachelor Universitaire de Technologie --- BUT TC, Licences et Masters). À partir d'une ressource ou d'un apprentissage critique ciblé, le Studio génère une fiche de mise en œuvre pour l'enseignant, des fiches de déroulement déclinées selon les 3 piliers CUA, des supports étudiants adaptés et des cartes conceptuelles Mermaid.\\
+\textbf{Pertinence Enseignement Supérieur :} Permet aux enseignants-chercheurs et vacataires de bâtir rapidement des TD et des SAÉ intégrant la différenciation cognitive sans surcoût temporel.
+\end{featureBox}
+
+\begin{featureBox}[accentBlue]{2. Clarificateur (Multi-Représentations de Concepts Académiques)}
+\textbf{Description fonctionnelle :} Module de médiation qui reformule des notions conceptuelles complexes selon 4 prismes : (1) Explication vulgarisée en langage clair (FALC), (2) Analogie métaphorique concrète, (3) Schéma logique et relationnel (diagramme Mermaid), ou (4) Glossaire des termes clés de la discipline.\\
+\textbf{Pertinence Enseignement Supérieur :} Permet aux étudiants d'amphi d'assimiler les théories abstraites en mobilisant leur modalité de compréhension préférentielle.
+\end{featureBox}
+
+\begin{featureBox}[amberOrange]{3. HAPI (Hub d'Activités Pédagogiques Interactives Universitaires)}
+\textbf{Description fonctionnelle :} Module de création d'activités interactives (H5P, quiz d'auto-positionnement, flashcards de mémorisation) directement exportables vers les plates-formes pédagogiques universitaires (Moodle, Chamilo) et les ENT.\\
+\textbf{Pertinence Enseignement Supérieur :} Dynamise les cours magistraux et favorise l'auto-évaluation formative des étudiants en travail personnel.
+\end{featureBox}
+
+\begin{featureBox}[emeraldGreen]{4. DÉFIA + (Ludification \& Révisions Adaptatives dans le Supérieur)}
+\textbf{Description fonctionnelle :} Générateur dynamique de défis pédagogiques : Quiz chrono d'amphi, Paires conceptuelles liées, Détection d'affirmations erronées, Flashcards de révision et tuteur virtuel d'interrogation bienveillant.\\
+\textbf{Pertinence Enseignement Supérieur :} Stimule la régularité du travail personnel et combat le décrochage lors des périodes de révision d'examens et partiels.
+\end{featureBox}
+
+\subsection{Pôle Facilitation d'Apprentissage \& Compensation Cognitive (EBEP / SHND)}
+
+\begin{featureBox}[amberOrange]{5. Pas-à-Pas (Décomposition de SAÉ, Projets \& Fonctions Exécutives)}
+\textbf{Description fonctionnelle :} Outil d'allègement de la charge cognitive qui découpe les consignes complexes de devoirs, d'études de cas ou de mémoires en micro-étapes séquencées, avec réglage de la granularité (de 1 à 5 « épices ») et décomposition récursive.\\
+\textbf{Pertinence Enseignement Supérieur :} Compense les déficits de planification chez les étudiants \textbf{TDAH / TSA} face aux Situations d'Apprentissage et d'Évaluation (SAÉ) ouvertes du BUT.
+\end{featureBox}
+
+\begin{featureBox}[emeraldGreen]{6. Reformulateur (Expression Académique, Nuances \& FALC)}
+\textbf{Description fonctionnelle :} Module de réécriture appliquant des tonalités ciblées : Français Facile à Lire et à Comprendre (FALC), style académique/professionnel, synthèse en puces, correction orthographique pure ou enrichissement lexical (thésaurus).\\
+\textbf{Pertinence Enseignement Supérieur :} Accompagne les étudiants \textbf{DYS} et internationaux dans la rédaction de rapports de stage, de synthèses de TD et d'écrits professionnels.
+\end{featureBox}
+
+\begin{featureBox}[univBlue]{7. Décrypteur d'Intention (Boussole Relationnelle \& Communication)}
+\textbf{Description fonctionnelle :} Analyseur de communication qui explicite le ton perçu d'un message reçu (consigne d'un tuteur, retour d'entreprise, mail d'enseignant), décrypte le sous-texte et formule 3 suggestions de réponses équilibrées (Professionnelle, Directe, Diplomatique).\\
+\textbf{Pertinence Enseignement Supérieur :} Outil fondamental d'auto-régulation pour les étudiants \textbf{TSA} lors des interactions avec les équipes pédagogiques ou les tuteurs de stage.
+\end{featureBox}
+
+\begin{featureBox}[primaryRed]{8. Vision \& Décripteur (Accessibilité Visuelle des Polycopiés \& Schémas)}
+\textbf{Description fonctionnelle :} Analyse visuelle par modèle multimodal souverain assurant la description audio/texte détaillée de figures complexes, l'OCR fidèle de transparents manuscrits et l'explication de graphiques scientifiques.\\
+\textbf{Pertinence Enseignement Supérieur :} Rend les supports de cours immédiatement accessibles aux étudiants malvoyants ou présentant une dyspraxie visuo-spatiale.
+\end{featureBox}
+
+\begin{featureBox}[softPurple]{9. Voice AI (Transcription Synchrone d'Amphi \& Formats Visuels)}
+\textbf{Description fonctionnelle :} Transcription audio haute fidélité de la parole enseignante en amphi/TD avec séparation des locuteurs (diarisation) et conversion automatique en 5 formats de synthèse (cartes mentales, tuiles CUA, fiches de révision, sketchnotes).\\
+\textbf{Pertinence Enseignement Supérieur :} Libère les étudiants dysgraphiques de la prise de notes manuelle et garantit l'accès à un cours complet et structuré.
+\end{featureBox}
+
+\begin{featureBox}[accentBlue]{10. Profilage d'Accessibilité CUA (Test en 10 Situations)}
+\textbf{Description fonctionnelle :} Positionnement interactif mesurant la vitesse de lecture, la tolérance aux contrastes, la taille de police idéale et la gestion des stimuli pour configurer l'interface.\\
+\textbf{Pertinence Enseignement Supérieur :} \textbf{Conformité absolue RGPD et secret médical} : aucune donnée de santé n'est enregistrée, uniquement des paramètres d'affichage et d'interaction.
+\end{featureBox}
+
+% ------------------------------------------------------------------------------
+% SECTION 4 : FOCUS MAJEUR SUR LE BUREAU VIRTUEL
+% ------------------------------------------------------------------------------
+\newpage
+\section{Focus Majeur : Le Bureau Virtuel Universitaire \& Espace Synchrone}
+
+Le \textbf{Bureau Virtuel} d'\AIBrand\ transforme l'amphithéâtre et la salle de TD en un espace d'apprentissage interactif et synchrone, reliant en temps réel le poste de projection de l'enseignant aux écrans des étudiants.
+
+\vspace{0.4cm}
+\begin{center}
+\begin{tikzpicture}[scale=0.88, every node/.style={transform shape}, node distance=2cm, auto, >=Latex,
+    boxTeacher/.style={rectangle, draw=univBlue, fill=univBlue!5, rounded corners=3mm, thick, align=center, text width=4.5cm, font=\small, minimum height=2.6cm},
+    boxStudent/.style={rectangle, draw=emeraldGreen, fill=emeraldGreen!5, rounded corners=3mm, thick, align=center, text width=4.5cm, font=\small, minimum height=2.6cm},
+    boxCore/.style={rectangle, draw=softPurple, fill=softPurple!10, rounded corners=3mm, thick, align=center, text width=4.2cm, font=\small\bfseries, minimum height=2.6cm},
+    boxThermo/.style={rectangle, draw=primaryRed, fill=primaryRed!5, rounded corners=3mm, dashed, thick, align=center, text width=4.8cm, font=\footnotesize, minimum height=2.2cm}
+]
+
+    % Nœuds principaux alignés horizontalement
+    \node[boxTeacher] (teacher) {
+        \textbf{\textcolor{univBlue}{Poste Enseignant (Amphi)}}\\
+        \rule{4cm}{0.4pt}\\
+        $\bullet$ TBI \& projection\\
+        $\bullet$ Instanciation IA\\
+        $\bullet$ Micro Mobile (QR)\\
+        $\bullet$ Playlist de cours \texttt{.stb}
+    };
+
+    \node[boxCore, right=2.2cm of teacher] (server) {
+        \textbf{\textcolor{softPurple}{Serveur Temps Réel}}\\
+        \textbf{\AIBrand\ Core}\\
+        \rule{3.8cm}{0.4pt}\\
+        WebSockets Sécurisés\\
+        Code session 6 chiffres\\
+        Inférence Albert / Mistral
+    };
+
+    \node[boxStudent, right=2.2cm of server] (student) {
+        \textbf{\textcolor{emeraldGreen}{Espace Étudiant}}\\
+        \rule{4cm}{0.4pt}\\
+        $\bullet$ Flux amphi en direct\\
+        $\bullet$ Traduction synchrone\\
+        $\bullet$ Bloc-notes CUA\\
+        $\bullet$ Profil d'accessibilité
+    };
+
+    % Nœud secondaire en dessous
+    \node[boxThermo, below=1.5cm of server] (thermo) {
+        \textbf{\textcolor{primaryRed}{Thermomètre d'Amphithéâtre}}\\
+        \rule{4cm}{0.4pt}\\
+        \textcolor{emeraldGreen}{$\bullet$} \textit{« Tout est clair »} (75\,\%)\\
+        \textcolor{amberOrange}{$\bullet$} \textit{« Besoin d'un exemple »} (20\,\%)\\
+        \textcolor{primaryRed}{$\bullet$} \textit{« Je suis perdu »} (5\,\%)
+    };
+
+    % Connexions avec bend pour éviter les superpositions
+    \draw[->, thick, univBlue] (teacher.20) to[bend left=15] node[above, font=\scriptsize] {Diffusion supports \& voix} (server.160);
+    \draw[->, thick, univBlue, dashed] (server.195) to[bend left=15] node[below, font=\scriptsize] {Jauge en direct} (teacher.345);
+
+    \draw[->, thick, emeraldGreen] (server.20) to[bend left=15] node[above, font=\scriptsize] {Flux synchronisé} (student.160);
+    
+    \draw[->, thick, primaryRed] (student.south) |- node[below right, font=\scriptsize] {Feedback discret} (thermo.east);
+    \draw[->, thick, primaryRed, dashed] (thermo.north) -- node[right, font=\scriptsize] {Alerte amphi} (server.south);
+
+\end{tikzpicture}
+\end{center}
+\vspace{0.4cm}
+
+\subsection{Intégration Transparente des Outils en Situation de Cours}
+Sur le Bureau Virtuel, les outils d'IA sont intégrés de manière transparente au flux pédagogique. L'enseignant projette son diaporama ou son énoncé de TD et peut, à tout instant, \textbf{instancier un module directement sur sa surface de cours} sous forme de widget manipulable :
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item Ouvrir le \textbf{Clarificateur} sur un théorème ou une notion difficile pour projeter instantanément une métaphore ou un schéma relationnel.
+    \item Déployer le module \textbf{Pas-à-Pas} pour expliciter les jalons méthodologiques d'une SAÉ de BUT en direct devant la promotion.
+    \item Activer le \textbf{micro mobile sans fil} via un smartphone enseignant pour assurer la transcription et le sous-titrage en direct sur les écrans des étudiants.
+\end{itemize}
+
+\subsection{Le Thermomètre de Compréhension d'Amphithéâtre}
+En grand amphi, la timidité ou la peur du jugement empêche souvent les étudiants en difficulté de poser des questions. Grâce au \textbf{Thermomètre de Compréhension}, chaque étudiant peut cliquer anonymement sur l'un des 3 états (\textit{Vert / Jaune / Rouge}). L'enseignant visualise en temps réel le niveau d'assimilation de la salle et réajuste immédiatement ses explications.
+
+\subsection{Format de Cours Universitaire Portable \texttt{.stb}}
+Le Bureau Virtuel intègre le format d'archive ouvert \textbf{\texttt{.stb}}, encapsulant l'état complet d'une séance (fonds, calques, documents, widgets IA et transcriptions), permettant une réutilisation d'un semestre sur l'autre et le partage de bonnes pratiques pédagogiques entre enseignants.
+
+% ------------------------------------------------------------------------------
+% SECTION 5 : ARCHITECTURE TECHNIQUE & SÉCURITÉ SSO / LDAP
+% ------------------------------------------------------------------------------
+\newpage
+\section{Architecture Technique Sécurisée \& Fédération d'Identités}
+
+Pour s'intégrer harmonieusement dans les systèmes d'information des universités et des IUT, la plateforme repose sur une architecture d'entreprise conteneurisée respectant les normes de l'ANSSI et du RGPD.
+
+\vspace{0.4cm}
+\begin{center}
+\begin{tikzpicture}[scale=0.92, every node/.style={transform shape}, node distance=0.8cm, >=Latex,
+    layerBox/.style={rectangle, draw=univBlue!60, fill=bgGray, rounded corners=2mm, inner sep=8pt, text width=15.5cm},
+    compBox/.style={rectangle, draw=accentBlue, fill=white, rounded corners=2mm, text width=4.5cm, align=center, font=\footnotesize, minimum height=1.2cm},
+    secBox/.style={rectangle, draw=emeraldGreen, fill=emeraldGreen!5, rounded corners=2mm, text width=4.5cm, align=center, font=\footnotesize, minimum height=1.2cm},
+    aiBox/.style={rectangle, draw=softPurple, fill=softPurple!5, rounded corners=2mm, text width=4.5cm, align=center, font=\footnotesize, minimum height=1.2cm}
+]
+
+    % Couche 1
+    \node[layerBox] (l1) {
+        \textbf{\color{univBlue} 1. Couche Accès Utilisateurs \& Ingress Sécurisé}\\
+        \vspace{0.2cm}
+        \centering
+        \begin{tikzpicture}
+            \node[compBox] (c1) {\textbf{Navigateurs Enseignants}\\Bureau Virtuel \& Amphi};
+            \node[compBox, right=0.5cm of c1] (c2) {\textbf{Terminaux Étudiants}\\Espace Synchrone \& CUA};
+            \node[secBox, right=0.5cm of c2] (c3) {\textbf{Nginx Ingress Proxy}\\SSL/TLS Let's Encrypt};
+        \end{tikzpicture}
+    };
+
+    % Couche 2
+    \node[layerBox, below=0.5cm of l1] (l2) {
+        \textbf{\color{univBlue} 2. Gestion des Identités Universitaires (SSO / LDAP / Keycloak)}\\
+        \vspace{0.2cm}
+        \centering
+        \begin{tikzpicture}
+            \node[secBox] (s1) {\textbf{Keycloak 26+ OIDC}\\Serveur SSO Centralisé};
+            \node[secBox, right=0.5cm of s1] (s2) {\textbf{Annuaires Universitaires}\\LDAP / Active Directory};
+            \node[secBox, right=0.5cm of s2] (s3) {\textbf{Fédération Nationale}\\EduConnect / Shibboleth};
+        \end{tikzpicture}
+    };
+
+    % Couche 3
+    \node[layerBox, below=0.5cm of l2] (l3) {
+        \textbf{\color{univBlue} 3. Moteur Applicatif \& Interopérabilité Pédagogique}\\
+        \vspace{0.2cm}
+        \centering
+        \begin{tikzpicture}
+            \node[compBox] (a1) {\textbf{\AIBrand\ Node/Vite}\\WebSockets Temps Réel};
+            \node[compBox, right=0.5cm of a1] (a2) {\textbf{Backend FastAPI Core}\\Base PostgreSQL \& Séances};
+            \node[compBox, right=0.5cm of a2] (a3) {\textbf{Relais ScoDoc / Moodle}\\Synchro Promos \& API};
+        \end{tikzpicture}
+    };
+
+    % Couche 4
+    \node[layerBox, below=0.5cm of l3] (l4) {
+        \textbf{\color{univBlue} 4. Pôle d'Inférence IA 100\,\% Souverain \& Conforme AI Act}\\
+        \vspace{0.2cm}
+        \centering
+        \begin{tikzpicture}
+            \node[aiBox] (i1) {\textbf{LLM Albert (DINUM)}\\RAG Référentiels d'État};
+            \node[aiBox, right=0.5cm of i1] (i2) {\textbf{Mistral AI (France)}\\Modèles Souverains};
+            \node[aiBox, right=0.5cm of i2] (i3) {\textbf{Ollama Local GPU}\\Cluster Univ. Le Havre};
+        \end{tikzpicture}
+    };
+
+\end{tikzpicture}
+\end{center}
+\vspace{0.4cm}
+
+\subsection{Fédération d'Identités et Gestion des Rôles Universitaires}
+L'intégration de \textbf{Keycloak 26+} garantit une connexion fluide et sécurisée :
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{Enseignants :} Connexion via le compte universitaire (LDAP/CAS) pour retrouver automatiquement leurs promotions d'étudiants, leurs séances sauvegardées et leurs modules CUA.
+    \item \textbf{Étudiants :} Accès transparent via les identifiants ENT de l'établissement ou code de session éphémère pour les cours en présentiel.
+    \item \textbf{Tuteurs \& Référents Handicap :} Accès dédié pour accompagner les étudiants à besoins particuliers sans perturber le déroulement du cours.
+\end{itemize}
+
+\subsection{Garantie Territoriale \& Protection des Données (RGPD)}
+L'infrastructure est hébergée sur les serveurs de l'\textbf{Université Le Havre Normandie}. Aucune donnée personnelle, aucune saisie étudiante et aucun profil d'adaptation n'est transféré hors du territoire national. Les flux d'inférence sont traités soit localement sur GPU universitaires, soit via les API souveraines de l'État français (\textbf{Albert}).
+
+% ------------------------------------------------------------------------------
+% SECTION 6 : GOUVERNANCE DU CONSORTIUM \& COMMŪNS NUMÉRIQUES
+% ------------------------------------------------------------------------------
+\newpage
+\section{Gouvernance du Consortium \& Engagement Communs Numériques}
+
+\subsection{Composition du Consortium Structurant}
+Le projet réunit un consortium d'excellence de l'Enseignement Supérieur :
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{Établissement Porteur \& Pilote :} Université Le Havre Normandie (IUT TC, Direction des Systèmes d'Information et laboratoire de recherche pressenti \textbf{LITIS EA 4108}).
+    \item \textbf{Établissements Partenaires :} IUT de l'Académie de Normandie, départements universitaires pilotes (Licences, BUT).
+    \item \textbf{Partenaire Industriel / EdTech :} Développement full-stack, inférence GPU conteneurisée et industrialisation des connecteurs API Moodle/ENT.
+    \item \textbf{Réseau de Diffusion :} Réseaux nationaux d'IUT, Universités Numériques Thématiques (UNT : UNISCIEL, AUNEGe) et association ANSTIA.
+\end{itemize}
+
+\subsection{Cadre des Communs Numériques \& Licences Libres}
+Tous les développements réalisés seront publiés sous licences libres :
+\begin{itemize}[leftmargin=1.5em, itemsep=2pt]
+    \item \textbf{Code Source :} Licence \textbf{MIT} / \textbf{AGPLv3}, déposé sur la Forge des Communs Numériques de l'Enseignement Supérieur.
+    \item \textbf{Packs de Cours et Grilles CUA :} Licence \textbf{Creative Commons (CC-BY-SA 4.0)}.
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% SECTION 7 : PLANNING PRÉVISIONNEL \& WORK PACKAGES (24 MOIS)
+% ------------------------------------------------------------------------------
+\newpage
+\section{Planning Prévisionnel \& Work Packages (24 Mois)}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l p{4.2cm} p{3.2cm} X}
+\toprule
+\textbf{WP} & \textbf{Intitulé} & \textbf{Période} & \textbf{Livrables Clés} \\
+\midrule
+\textbf{WP 1} & Pilote Enseignement Supérieur & M1 -- M4 (Sept - Déc 2026) & Déploiement sur promotions pilotes de BUT TC et Licences Le Havre ; bilan d'impact. \\
+\addlinespace
+\textbf{WP 2} & Bureau Virtuel d'Amphi \& TD & M4 -- M9 (Jan - Mai 2027) & Intégration des 10 outils en widgets, synchro WebSockets et thermomètre d'amphi. \\
+\addlinespace
+\textbf{WP 3} & Infrastructure SSO \& Cluster GPU & M8 -- M14 (Mai - Nov 2027) & Fédération Keycloak / LDAP / EduConnect et déploiement du cluster souverain Albert/Ollama. \\
+\addlinespace
+\textbf{WP 4} & Interopérabilité Moodle \& HAPI & M12 -- M18 (Sept 2027 - Fév 2028) & Connecteurs API REST Moodle universitaire, export H5P et conteneurs de cours \texttt{.stb}. \\
+\addlinespace
+\textbf{WP 5} & Commun Numérique \& Transfert & M18 -- M24 (Mars - Août 2028) & Dépôt sur la Forge des Communs Numériques, guides méthodologiques et diffusion nationale. \\
+\bottomrule
+\end{tabularx}
+\caption{Structure des Work Packages et Livrables du Projet All' Inclusive (24 mois)}
+\end{table}
+\vspace{0.4cm}
+\begin{center}
+\begin{tikzpicture}[scale=0.92, every node/.style={transform shape}]
+    % Fond et grille temporelle
+    \fill[bgGray!80] (0,0) rectangle (12,5.2);
+    \draw[borderGray, line width=0.5pt, xstep=1.5cm, ystep=1.0cm] (0,0) grid (12,5.2);
+    \draw[univBlue!40, line width=1pt] (0,0) rectangle (12,5.2);
+
+    % Étiquettes des mois (parfaitement calées sur chaque ligne verticale de 1.5cm = 3 mois)
+    \foreach \m/\x in {M1/0, M3/1.5, M6/3.0, M9/4.5, M12/6.0, M15/7.5, M18/9.0, M21/10.5, M24/12.0} {
+        \node[font=\footnotesize\bfseries, color=univBlue] at (\x, 5.5) {\m};
+        \draw[univBlue!60, line width=0.8pt] (\x, 5.2) -- (\x, 5.35);
+    }
+
+    % WP 1 : M1 - M4 (x de 0.0 à 2.0)
+    \fill[primaryRed!85, rounded corners=2.5mm] (0.05, 4.2) rectangle (2.0, 4.9);
+    \node[font=\scriptsize\bfseries\color{white}] at (1.025, 4.55) {WP1: Pilote Rentrée};
+
+    % WP 2 : M4 - M9 (x de 2.0 à 4.5)
+    \fill[softPurple!85, rounded corners=2.5mm] (2.0, 3.2) rectangle (4.5, 3.9);
+    \node[font=\scriptsize\bfseries\color{white}] at (3.25, 3.55) {WP2: Bureau Virtuel Amphi \& TD};
+
+    % WP 3 : M8 - M14 (x de 4.0 à 7.0)
+    \fill[accentBlue!85, rounded corners=2.5mm] (4.0, 2.2) rectangle (7.0, 2.9);
+    \node[font=\scriptsize\bfseries\color{white}] at (5.5, 2.55) {WP3: SSO Keycloak \& Cluster GPU};
+
+    % WP 4 : M12 - M18 (x de 6.0 à 9.0)
+    \fill[amberOrange!85, rounded corners=2.5mm] (6.0, 1.2) rectangle (9.0, 1.9);
+    \node[font=\scriptsize\bfseries\color{white}] at (7.5, 1.55) {WP4: Connecteurs Moodle \& HAPI};
+
+    % WP 5 : M18 - M24 (x de 9.0 à 11.95)
+    \fill[emeraldGreen!85, rounded corners=2.5mm] (9.0, 0.2) rectangle (11.95, 0.9);
+    \node[font=\scriptsize\bfseries\color{white}] at (10.475, 0.55) {WP5: Forge \& Déploiement National};
+\end{tikzpicture}
+\end{center}
+
+% ------------------------------------------------------------------------------
+% SECTION 8 : PLAN FINANCIER \& BUDGET PRÉVISIONNEL
+% ------------------------------------------------------------------------------
+\newpage
+\section{Plan Financier \& Budget Prévisionnel (\texorpdfstring{750\,000~€}{750 000 euros})}
+
+\subsection{Ventilation du Budget par Postes de Dépense}
+Le budget sollicité auprès du SGPI / Bpifrance s'élève à \textbf{750\,000~€} sur une période de 24 mois :
+\begin{itemize}[leftmargin=1.5em, itemsep=3pt]
+    \item \textbf{Personnel de Recherche \& Développement (55\,\%) --- 412\,500~€ :}
+    Financement de 2 ingénieurs full-stack spécialisés en architecture temps réel / WebSockets, 1 ingénieur IA (fine-tuning et déploiement RAG/Ollama), et 1 ingénieur pédagogique expert en CUA dans l'enseignement supérieur.
+    \item \textbf{Expérimentation \& Accompagnement Terrain (25\,\%) --- 187\,500~€ :}
+    Prise en charge du suivi scientifique des promotions pilotes en IUT et Université, formation des équipes pédagogiques, journées d'études et guides d'usage.
+    \item \textbf{Infrastructures IA Souveraines \& Équipements (20\,\%) --- 150\,000~€ :}
+    Acquisition de serveurs GPU dédiés pour l'inférence locale universitaire, sécurisation des passerelles et hébergement haute disponibilité.
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+% SECTION 9 : ANALYSE DES RISQUES \& GESTION DE CRISE
+% ------------------------------------------------------------------------------
+\section{Analyse des Risques \& Stratégies de Mitigation}
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabularx}{\textwidth}{l c c X}
+\toprule
+\textbf{Risque Identifié} & \textbf{Niveau} & \textbf{Impact} & \textbf{Stratégie de Mitigation} \\
+\midrule
+\textbf{Fuite de données / RGPD} & Faible & Critique & \textbf{Cloisonnement fonctionnel} : le questionnaire CUA n'enregistre aucune donnée de santé. Hébergement 100\,\% souverain universitaire. \\
+\addlinespace
+\textbf{Hallucinations des LLM} & Faible & Moyen & Ancrage strict sur les référentiels officiels du supérieur et validation systématique de l'enseignant. \\
+\addlinespace
+\textbf{Charge réseau en grand amphi} & Moyen & Élevé & Architecture WebSockets optimisée à faible bande passante et exécution locale d'Ollama. \\
+\addlinespace
+\textbf{Adoption par les enseignants} & Moyen & Élevé & Ergonomie intuitive « zéro formation » inspirée des outils du quotidien et valorisation du gain de temps de préparation. \\
+\addlinespace
+\textbf{Conformité AI Act} & Faible & Élevé & Utilisation exclusive de modèles souverains d'État (Albert) ou open-source certifiés sans réutilisation des données. \\
+\bottomrule
+\end{tabularx}
+\caption{Matrice de Gestion des Risques du Projet All' Inclusive}
+\end{table}
+
+% ------------------------------------------------------------------------------
+% SECTION 10 : PERSPECTIVES D'ÉVOLUTION \& IMPACT DANS LE SUPÉRIEUR
+% ------------------------------------------------------------------------------
+\section{Perspectives d'Évolution \& Impact dans l'Enseignement Supérieur}
+
+Le projet \AIFull\ apporte une solution concrète, éthique et souveraine aux défis de la réussite étudiante et de l'inclusion dans l'Enseignement Supérieur. En outillant les enseignants d'amphithéâtre et de TD sans jamais remplacer leur expertise, la plateforme offre à chaque étudiant les clés d'un apprentissage accessible et émancipateur.
+
+\vspace{1cm}
+\begin{flushright}
+    \textbf{Pour le Consortium du Projet \AIFull}\\[0.1cm]
+    \textit{Université Le Havre Normandie --- IUT TC}\\
+    \textit{En lien avec le Laboratoire LITIS (EA 4108, pressenti)}\\[0.3cm]
+    \small Document finalisé le \today\ pour soumission AAP DGESIP / Bpifrance
+\end{flushright}
+
+\end{document}

@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "discipline": "Histoire-Géographie",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme d'histoire-géographie 2nde, 1ère, Terminale GT",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Maîtriser des repères chronologiques et spatiaux fondamentaux",
+    "Construire une argumentation historique ou géographique",
+    "Analyser des documents de nature variée",
+    "Réaliser des compositions et des croquis",
+    "Exercer un regard critique sur les sources"
+  ],
+  "domaines": [
+    {
+      "nom": "Histoire 2nde — Grandes étapes de la formation du monde moderne",
+      "description": "Du XVe au XVIIIe siècle, les transformations politiques, sociales et culturelles.",
+      "competences": [
+        {
+          "intitule": "La Méditerranée antique : empreintes grecques et romaines",
+          "exemples_themes": ["La démocratie athénienne (discours de Périclès)", "La romanisation de l'Empire (un monument gallo-romain)", "Un texte de Thucydide ou Tite-Live", "Une carte de l'Empire romain au IIe siècle"]
+        },
+        {
+          "intitule": "La Méditerranée médiévale : espace d'échanges et de conflits",
+          "exemples_themes": ["Un récit de croisade (chroniqueur chrétien ou musulman)", "La Reconquista en péninsule ibérique", "Les échanges commerciaux en Méditerranée (carte)", "La coexistence des trois civilisations (Cordoue, Palerme)"]
+        },
+        {
+          "intitule": "Renaissance, Humanisme et réformes religieuses (XVe-XVIe siècles)",
+          "exemples_themes": ["Un extrait de l'œuvre d'Érasme ou de Rabelais", "Une œuvre de Léonard de Vinci ou Michel-Ange", "Les 95 thèses de Luther (extraits)", "Un plan de ville à la Renaissance (Florence, Rome)"]
+        },
+        {
+          "intitule": "L'ouverture atlantique : les conséquences de la découverte du Nouveau Monde",
+          "exemples_themes": ["La carte de Waldseemüller (1507)", "Un récit de conquête (Cortés, Las Casas)", "Le commerce triangulaire (schéma)", "La controverse de Valladolid"]
+        },
+        {
+          "intitule": "L'affirmation de l'État dans le royaume de France (XVIe-XVIIe siècles)",
+          "exemples_themes": ["L'édit de Nantes (extraits)", "Un portrait de Louis XIV par Rigaud", "Un texte de Bossuet sur la monarchie de droit divin", "Le château de Versailles (plan et fonctions)"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire 1ère — Nations, empires, nationalités (de 1789 aux lendemains de la Première Guerre mondiale)",
+      "description": "La Révolution française, l'Europe des nationalités, les transformations du XIXe siècle.",
+      "competences": [
+        {
+          "intitule": "La Révolution française et l'Empire : une nouvelle conception de la nation",
+          "exemples_themes": ["La DDHC de 1789 (analyse du préambule et des articles)", "Un discours de Robespierre ou Danton", "Le sacre de Napoléon par David (analyse d'image)", "Une carte de l'Europe napoléonienne en 1811"]
+        },
+        {
+          "intitule": "L'Europe entre restauration et révolution (1814-1848)",
+          "exemples_themes": ["Le Congrès de Vienne (carte de l'Europe redessinée)", "La Liberté guidant le peuple de Delacroix", "Un texte de Metternich sur l'ordre européen", "Les révolutions de 1848 (chronologie comparée)"]
+        },
+        {
+          "intitule": "La IIIe République avant 1914 : un régime politique, un empire colonial",
+          "exemples_themes": ["Les lois scolaires de Jules Ferry (extraits)", "L'affaire Dreyfus (une de L'Aurore, J'Accuse)", "Une carte de l'Empire colonial français vers 1900", "Un discours de Jules Ferry sur la colonisation"]
+        },
+        {
+          "intitule": "La Première Guerre mondiale : le « suicide de l'Europe » et la fin des empires",
+          "exemples_themes": ["Une lettre de poilu (fonds d'archives)", "Les 14 points de Wilson (extraits)", "Une carte des fronts et des empires avant/après 1918", "Un monument aux morts communal (analyse)"]
+        }
+      ]
+    },
+    {
+      "nom": "Histoire Terminale — Les relations entre les puissances et l'opposition des modèles politiques",
+      "description": "Du XXe au XXIe siècle, les grands enjeux géopolitiques mondiaux.",
+      "competences": [
+        {
+          "intitule": "L'impact de la crise de 1929 : démocraties fragilisées et totalitarismes",
+          "exemples_themes": ["Une photographie de Dorothea Lange (Grande Dépression)", "Un extrait de discours de Roosevelt (New Deal)", "Un texte de propagande nazie ou soviétique", "Le Front populaire en France (affiches, photos)"]
+        },
+        {
+          "intitule": "La Seconde Guerre mondiale : guerre d'anéantissement et génocide",
+          "exemples_themes": ["Le programme du CNR (extraits)", "Un témoignage de déporté (Primo Levi, extraits)", "La conférence de Wannsee (document)", "Le procès de Nuremberg (photographies et extraits)"]
+        },
+        {
+          "intitule": "La guerre froide et la construction européenne",
+          "exemples_themes": ["Le discours de Fulton de Churchill (1946)", "Le mur de Berlin (photographies avant/après)", "La déclaration Schuman de 1950", "Une carte des blocs Est/Ouest"]
+        },
+        {
+          "intitule": "Le monde après 1989 : nouvel ordre mondial et défis contemporains",
+          "exemples_themes": ["Les attentats du 11 septembre 2001 (analyse médiatique)", "La chute du mur de Berlin (témoignages)", "La construction européenne de Maastricht à nos jours", "Une carte des conflits contemporains"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie 2nde — Environnement, développement, mobilité",
+      "description": "Les grands enjeux du développement durable et les dynamiques de la mondialisation.",
+      "competences": [
+        {
+          "intitule": "Sociétés et environnements : des équilibres fragiles",
+          "exemples_themes": ["Un risque naturel en zone tropicale (cyclone, inondation)", "Le changement climatique : une carte des projections du GIEC", "La gestion d'une ressource (l'eau au Moyen-Orient)", "Un croquis des milieux à risques dans le monde"]
+        },
+        {
+          "intitule": "Territoires, populations et développement : quels défis ?",
+          "exemples_themes": ["La transition démographique (graphique comparé Nord/Sud)", "L'IDH : carte mondiale et ses limites", "Un bidonville vs un écoquartier (étude comparée)", "Les inégalités de développement à l'échelle d'un pays"]
+        },
+        {
+          "intitule": "Des mobilités généralisées : migrations et tourisme",
+          "exemples_themes": ["Une carte des flux migratoires mondiaux", "Le tourisme de masse (Barcelone, Venise)", "Un camp de réfugiés (photographies et données)", "L'impact du tourisme sur un littoral méditerranéen"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie 1ère — La France : dynamiques et recompositions territoriales",
+      "description": "Les mutations des territoires français dans le contexte européen et mondial.",
+      "competences": [
+        {
+          "intitule": "La métropolisation : un processus mondial différencié",
+          "exemples_themes": ["Paris, ville-monde (carte et données)", "Une métropole régionale française (Lyon, Toulouse, Bordeaux)", "Un croquis de l'organisation d'une métropole", "Les inégalités socio-spatiales dans une agglomération"]
+        },
+        {
+          "intitule": "Les espaces ruraux : multifonctionnalité ou fragmentation ?",
+          "exemples_themes": ["Un espace rural dynamique vs un espace en déprise", "L'agriculture intensive en Beauce", "Un parc naturel régional (carte et enjeux)", "La périurbanisation et ses conséquences"]
+        },
+        {
+          "intitule": "Les espaces productifs et leurs mutations",
+          "exemples_themes": ["Une zone industrialo-portuaire (Le Havre, Fos-sur-Mer)", "Un technopôle (Sophia Antipolis, Toulouse Aerospace Valley)", "Un espace touristique littoral ou montagnard", "Un croquis des dynamiques des espaces productifs en France"]
+        }
+      ]
+    },
+    {
+      "nom": "Géographie Terminale — Les territoires dans la mondialisation",
+      "description": "La mondialisation et ses effets sur les territoires à différentes échelles.",
+      "competences": [
+        {
+          "intitule": "Mers et océans : au cœur de la mondialisation",
+          "exemples_themes": ["Un détroit stratégique (Malacca, Ormuz, Suez)", "La façade maritime de l'Asie orientale", "Les enjeux de l'Arctique (carte et ressources)", "Un croquis des routes maritimes mondiales"]
+        },
+        {
+          "intitule": "Dynamiques territoriales, coopérations et tensions dans la mondialisation",
+          "exemples_themes": ["L'Union européenne : un pôle de la mondialisation", "Les États-Unis et la Chine : rivalités géoéconomiques", "Un pays émergent (Inde, Brésil)", "Un croquis des pôles et flux de la mondialisation"]
+        },
+        {
+          "intitule": "L'Union européenne dans la mondialisation : des dynamiques complexes",
+          "exemples_themes": ["La politique agricole commune (PAC)", "Les disparités régionales en Europe (carte PIB/hab)", "Le Brexit et ses conséquences", "Un croquis de l'organisation de l'espace européen"]
+        },
+        {
+          "intitule": "La France et ses régions dans l'Union européenne et dans la mondialisation",
+          "exemples_themes": ["Les territoires ultramarins français (carte et enjeux)", "La France dans la mondialisation (IDE, tourisme, culture)", "Les régions françaises et la réforme territoriale de 2015", "Un croquis de la France dans la mondialisation"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'histoire-géographie au lycée GT couvre trois années. En histoire : le monde moderne (2nde), l'ère des nations et des empires (1ère), les relations internationales au XXe-XXIe siècle (Terminale). En géographie : environnement et mobilités (2nde), la France et ses territoires (1ère), la mondialisation (Terminale). Les élèves pratiquent la composition, l'analyse de documents et la réalisation de croquis."
+}

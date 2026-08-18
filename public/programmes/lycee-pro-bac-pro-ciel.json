@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "discipline": "Bac Pro CIEL",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro CIEL — Cybersécurité, Informatique et réseaux, Électronique",
+    "mise_a_jour": "2022-09-01",
+    "note": "Remplace le Bac Pro SN (Systèmes Numériques). Options A (Informatique et réseaux) et B (Électronique et réseaux)"
+  },
+  "attendus_fin_cycle": [
+    "Installer, configurer et maintenir des systèmes informatiques et des réseaux",
+    "Contribuer à la cybersécurité des systèmes et des données",
+    "Réaliser et tester des systèmes électroniques",
+    "Communiquer avec les utilisateurs et l'équipe technique",
+    "Assurer une veille technologique"
+  ],
+  "domaines": [
+    {
+      "nom": "Réseaux informatiques",
+      "description": "L'installation et la configuration de réseaux locaux et étendus.",
+      "competences": [
+        {
+          "intitule": "Installer et configurer un réseau informatique local",
+          "exemples_themes": ["Le câblage réseau : RJ45, baie de brassage, switch", "L'adressage IP et le sous-réseau (IPv4, masque, passerelle)", "La configuration d'un routeur et d'un switch (Cisco Packet Tracer)", "Le Wi-Fi : point d'accès, sécurisation (WPA3), couverture"]
+        },
+        {
+          "intitule": "Administrer un réseau et ses services",
+          "exemples_themes": ["Le serveur DHCP et le serveur DNS : rôle et configuration", "Le partage de fichiers et les droits d'accès (Active Directory)", "La sauvegarde des données (stratégie 3-2-1)", "La supervision réseau (ping, traceroute, SNMP)"]
+        }
+      ]
+    },
+    {
+      "nom": "Cybersécurité",
+      "description": "La sécurisation des systèmes et des données.",
+      "competences": [
+        {
+          "intitule": "Contribuer à la cybersécurité d'un système d'information",
+          "exemples_themes": ["Les menaces : virus, ransomware, phishing, ingénierie sociale", "Le pare-feu : principes et configuration de règles de filtrage", "La gestion des mots de passe et l'authentification (MFA)", "La charte informatique et le RGPD en entreprise"]
+        }
+      ]
+    },
+    {
+      "nom": "Systèmes informatiques",
+      "description": "L'installation et la maintenance des postes et des serveurs.",
+      "competences": [
+        {
+          "intitule": "Installer, configurer et maintenir des systèmes informatiques",
+          "exemples_themes": ["L'installation d'un système d'exploitation (Windows, Linux)", "Le déploiement d'un poste client (image, pilotes, logiciels)", "La virtualisation : machine virtuelle (VirtualBox, Hyper-V)", "Le diagnostic et la résolution de pannes matérielles et logicielles"]
+        }
+      ]
+    },
+    {
+      "nom": "Électronique et systèmes embarqués",
+      "description": "La conception et le test de systèmes électroniques.",
+      "competences": [
+        {
+          "intitule": "Réaliser et tester des circuits et systèmes électroniques",
+          "exemples_themes": ["La lecture d'un schéma électronique (composants, symboles)", "Le soudage de composants sur circuit imprimé (CMS, traversants)", "La programmation d'un microcontrôleur (Arduino, STM32)", "Les capteurs et les interfaces de communication (I2C, SPI, UART)"]
+        }
+      ]
+    },
+    {
+      "nom": "Objets connectés et IoT",
+      "description": "Les systèmes connectés et l'Internet des objets.",
+      "competences": [
+        {
+          "intitule": "Déployer et maintenir des objets connectés",
+          "exemples_themes": ["Un système IoT : capteur → passerelle → cloud (architecture)", "Les protocoles IoT : MQTT, LoRa, Zigbee", "Le tableau de bord de données IoT (Node-RED, Grafana)", "La sécurité des objets connectés (mise à jour firmware, chiffrement)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro CIEL forme aux métiers de l'informatique, des réseaux et de l'électronique. Il couvre l'installation et l'administration de réseaux, la cybersécurité, la maintenance des systèmes informatiques, l'électronique embarquée et les objets connectés (IoT). La formation intègre les enjeux de sécurité numérique et prépare aux métiers de technicien réseau, informatique et électronique."
+}

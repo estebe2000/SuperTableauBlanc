@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "discipline": "Sciences et Technologies du Management (STMG)",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme d'économie-gestion Bac Pro (secteurs des services)",
+    "mise_a_jour": "2019-04-11",
+    "note": "Enseignement de gestion-administration et commerce dans les filières tertiaires du lycée professionnel"
+  },
+  "attendus_fin_cycle": [
+    "Comprendre le fonctionnement des organisations du secteur tertiaire",
+    "Maîtriser les outils de gestion administrative et commerciale",
+    "Communiquer efficacement dans un contexte professionnel",
+    "Utiliser les outils numériques de gestion",
+    "Préparer son insertion dans les métiers du tertiaire"
+  ],
+  "domaines": [
+    {
+      "nom": "Gestion administrative",
+      "description": "Les activités de gestion administrative en entreprise.",
+      "competences": [
+        {
+          "intitule": "Réaliser les activités de gestion administrative courante",
+          "exemples_themes": ["Le classement et l'archivage de documents (papier et numérique)", "La rédaction de courriers et de notes de service", "La gestion d'un agenda et l'organisation de réunions", "Le traitement du courrier entrant et sortant"]
+        },
+        {
+          "intitule": "Utiliser les outils numériques de gestion",
+          "exemples_themes": ["Le tableur pour le suivi de données (Excel, Calc)", "Le traitement de texte pour la production de documents professionnels", "Un logiciel de gestion commerciale (PGI simplifié)", "La messagerie professionnelle et le travail collaboratif"]
+        }
+      ]
+    },
+    {
+      "nom": "La relation client et le commerce",
+      "description": "L'accueil, la vente et la relation commerciale.",
+      "competences": [
+        {
+          "intitule": "Assurer l'accueil et la relation client",
+          "exemples_themes": ["L'accueil physique et téléphonique (jeu de rôle)", "La prise en charge d'une réclamation client", "La mise en valeur d'un produit ou d'un service (argumentaire)", "La fidélisation client (carte, programme, enquête de satisfaction)"]
+        },
+        {
+          "intitule": "Participer à l'activité commerciale",
+          "exemples_themes": ["La réalisation d'un devis et d'une facture", "Le suivi des commandes et des livraisons", "L'aménagement d'un espace de vente (merchandising)", "L'analyse des ventes et le tableau de bord commercial"]
+        }
+      ]
+    },
+    {
+      "nom": "Gestion des ressources humaines",
+      "description": "La gestion du personnel au quotidien.",
+      "competences": [
+        {
+          "intitule": "Comprendre les bases de la gestion des ressources humaines",
+          "exemples_themes": ["La rédaction d'une offre d'emploi", "Le processus de recrutement (simulation)", "La gestion des absences et des congés (planning)", "Le bulletin de paie : lecture et compréhension"]
+        }
+      ]
+    },
+    {
+      "nom": "Projet professionnel",
+      "description": "La construction du parcours professionnel.",
+      "competences": [
+        {
+          "intitule": "Construire et présenter son projet professionnel",
+          "exemples_themes": ["Le bilan personnel et professionnel", "La recherche de stage et d'emploi dans le secteur tertiaire", "Le dossier professionnel pour le baccalauréat", "La présentation orale du parcours de formation"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "L'enseignement de gestion et management en lycée professionnel (filières tertiaires) couvre la gestion administrative, la relation client et le commerce, la gestion des ressources humaines et le projet professionnel. L'approche est pratique : simulations, outils numériques, mises en situation professionnelle. Les élèves développent les compétences nécessaires aux métiers du secteur tertiaire."
+}

@@ -1,0 +1,377 @@
+<!-- Floating Session Control Bar inside Desktop -->
+<div class="floating-session-bar" id="floatingSessionBar">
+    <div class="session-brand">
+        <span class="pulse-green-dot"></span>
+        <strong>Diffusion en direct</strong>
+    </div>
+    
+    <button class="btn btn-primary btn-sm" id="startSessionBtn">🚀 Partager l'écran</button>
+    <button class="btn btn-danger btn-sm" id="stopSessionBtn" style="display: none;">⏹ Arrêter</button>
+    
+    <!-- Quick Course Pack Persistence (Accessible at any time) -->
+    <button class="btn btn-secondary btn-sm" id="openLoadSessionModalBtn" title="Charger une séance préparée ou récente">📂 Charger Séance</button>
+    <button class="btn btn-secondary btn-sm" id="saveSessionPackQuickBtn" title="Sauvegarder l'état actuel du tableau comme modèle de séance">💾 Sauvegarder Séance</button>
+    
+    <div class="session-sharing-details" id="sessionSharingDetails" style="display: none;">
+        <span class="code-badge">Code : <strong id="teacherSessionCode">------</strong></span>
+        <button class="btn btn-secondary btn-circle btn-sm" id="copyShareLinkBtn" title="Copier le lien élève">📋</button>
+        <button class="btn btn-secondary btn-circle btn-sm" id="showSessionQrBtn" title="Afficher le QR Code élève">📱</button>
+        <button class="btn btn-secondary btn-sm" id="showMicQrBtn" title="Connecter un smartphone comme micro" style="gap: 4px;">🎙️ Micro Mobile</button>
+        
+        <!-- Live Understanding Thermometer Widget -->
+        <div class="session-thermometer" id="sessionThermometer" title="Thermomètre de compréhension des élèves">
+            <span class="thermo-icon">🌡️</span>
+            <div class="thermo-bar">
+                <div class="thermo-fill" id="thermoFill" style="width: 100%;"></div>
+            </div>
+            <span class="thermo-text" id="thermoText">100%</span>
+            <div class="thermo-badges">
+                <span class="badge-count badge-green" id="badgeGreen" title="Élèves à l'aise">0</span>
+                <span class="badge-count badge-yellow" id="badgeYellow" title="Besoin d'un exemple">0</span>
+                <span class="badge-count badge-red" id="badgeRed" title="Perdus">0</span>
+            </div>
+        </div>
+
+        <!-- Quick Layout Presets -->
+        <div class="bureau-layout-presets">
+            <button class="btn btn-secondary btn-sm" id="layoutFreeBtn" title="Disposition libre">🪟 Libre</button>
+            <button class="btn btn-secondary btn-sm" id="layoutSplitBtn" title="Côte-à-côte (Split)">◫ Split</button>
+            <button class="btn btn-secondary btn-sm" id="layoutFocusBtn" title="Mode Focus / Plein écran">⛶ Focus</button>
+        </div>
+
+        <!-- End Course & Export Summary -->
+        <button class="btn btn-success btn-sm" id="exportCourseBtn" title="Terminer et exporter le bilan du cours">💾 Bilan</button>
+    </div>
+</div>
+
+<div class="bureau-layout single-column-layout">
+    <!-- RIGHT SECTION: Virtual Desktop Board (Takes full screen width) -->
+    <main class="bureau-board-wrapper">
+        <div class="bureau-desktop" id="bureauDesktop">
+            
+            <!-- Grid instructions / placeholder -->
+            <div class="bureau-placeholder-info" id="bureauPlaceholderInfo">
+                <div class="info-icon">🖥️</div>
+                <p>Ceci est votre tableau de projection. Utilisez la barre de widgets (Dock) en bas pour poser des outils ou diffuser des médias.</p>
+            </div>
+
+            <!-- Drawing canvas widget (always exists, visibility toggled) -->
+            <div id="w-drawing" class="desktop-widget widget-drawing" style="display: none;">
+                <div class="widget-drag-handle">
+                    <span class="widget-title">✏️ Dessin sur tableau</span>
+                    <div class="drawing-tools">
+                        <input type="color" id="drawColorPicker" value="#ff0000" title="Couleur de trait">
+                        <input type="range" id="drawSizeSlider" min="2" max="15" value="4" title="Taille de trait">
+                        <button class="btn btn-secondary btn-sm" id="clearCanvasBtn">Tout effacer</button>
+                    </div>
+                </div>
+                <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
+            </div>
+
+            <!-- Floating Transcribe Bar at the top of desktop -->
+            <div class="floating-transcribe-bar" id="floatingTranscribeBar" style="display: none;">
+                <span class="pulse-red-dot"></span>
+                <span class="live-status-lbl">Micro en direct :</span>
+                <span id="floatingRecordTimer" style="font-variant-numeric: tabular-nums; font-weight: 700; margin-right: 10px;">00:00</span>
+                <textarea id="liveTranscriptTextarea" class="floating-transcript-input" placeholder="Parlez maintenant pour transcrire..."></textarea>
+                <button class="btn btn-secondary btn-sm" id="transcribeMobileMicBtn" title="Connecter un smartphone comme micro sans fil" style="margin-right: 6px; font-size: 0.72rem; padding: 2px 8px;">📱 Micro Mobile</button>
+                <button class="btn btn-secondary btn-circle btn-sm" id="clearTranscriptBtn" title="Effacer la transcription">🗑️</button>
+            </div>
+
+            <!-- Floating Background Popover -->
+            <div class="dock-popover" id="bgPopover" style="display: none;">
+                <div class="bg-options-grid mini-grid">
+                    <button class="bg-opt-btn active" data-bg="default">Blanc Cassé</button>
+                    <button class="bg-opt-btn" data-bg="grid">Carreaux</button>
+                    <button class="bg-opt-btn" data-bg="seyes">Lignes</button>
+                    <button class="bg-opt-btn" data-bg="blackboard">Tableau</button>
+                    <button class="bg-opt-btn" data-bg="white">Blanc</button>
+                </div>
+                <!-- Custom Background Image URL -->
+                <div class="custom-bg-image-input" style="margin-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+                    <label style="font-size:0.7rem; color:var(--text-muted); display:block; margin-bottom:4px;">Image de fond (URL) :</label>
+                    <div style="display:flex; gap:4px;">
+                        <input type="text" id="bgImgUrlInput" placeholder="https://..." class="btn-sm" style="flex:1; font-size:0.7rem; background:rgba(0,0,0,0.2); border:1px solid var(--border); color:white; border-radius:4px; padding:2px 4px;">
+                        <button id="applyBgImgBtn" class="btn btn-primary btn-sm" style="padding:2px 6px; font-size:0.7rem;">OK</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- UNIFIED MEDIA & AI PLAYLIST PANEL -->
+            <div class="dock-floating-panel playlist-panel" id="mediaPlaylistPanel" style="display: none;">
+                <div class="panel-header">
+                    <span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span>
+                    <div class="tab-selectors">
+                        <button class="playlist-tab-btn active" data-tab="playlist-list">📋 Liste de lecture</button>
+                        <button class="playlist-tab-btn" data-tab="playlist-add">➕ Ajouter</button>
+                        <button class="playlist-tab-btn" data-tab="playlist-ai">🔮 Assistant IA</button>
+                    </div>
+                    <button class="btn-close-panel" id="closePlaylistPanelBtn">×</button>
+                </div>
+                <div class="panel-body">
+                    <!-- Tab 1: List of media -->
+                    <div class="playlist-tab-content" id="tab-playlist-list">
+                        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Sélectionnez un média à diffuser sur le tableau :</p>
+                        <div class="playlist-items-list" id="playlistItemsList">
+                            <div class="playlist-empty-info" style="font-size:0.8rem; text-align:center; padding:20px; color:rgba(255,255,255,0.4);">
+                                Aucun média dans la liste. Allez dans l'onglet "Ajouter".
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 2: Add media -->
+                    <div class="playlist-tab-content" id="tab-playlist-add" style="display: none;">
+                        <div class="bureau-drop-zone" id="bureauDropZone">
+                            <input type="file" id="bureauFileInput" accept=".pdf,.docx,image/*,audio/*,video/*" style="display: none;">
+                            <div class="bureau-drop-zone-content">
+                                <span class="drop-icon">📁</span>
+                                <span class="drop-text" style="font-size:0.75rem; pointer-events: none;">Déposer un fichier (PDF, image, audio, vidéo)</span>
+                            </div>
+                        </div>
+                        <div class="bureau-files-list" id="bureauFilesList" style="display: none; margin-top: 10px;"></div>
+                        
+                        <div class="add-url-section" style="margin-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                            <label style="font-size:0.72rem; color:rgba(255,255,255,0.6); display:block; margin-bottom:4px;">Ajouter par URL (YouTube, Image, Web) :</label>
+                            <input type="text" id="mediaUrlInput" placeholder="https://..." class="btn-sm" style="width:100%; font-size:0.75rem; background:rgba(0,0,0,0.25); border:1px solid var(--border); color:white; border-radius:4px; margin-bottom:6px; padding:4px;">
+                            <input type="text" id="mediaTitleInput" placeholder="Nom du média (ex: Graphique)" class="btn-sm" style="width:100%; font-size:0.75rem; background:rgba(0,0,0,0.25); border:1px solid var(--border); color:white; border-radius:4px; margin-bottom:6px; padding:4px;">
+                            <button id="addMediaUrlBtn" class="btn btn-primary btn-sm" style="width:100%;">Ajouter à la liste</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Tab 3: AI Assistant -->
+                    <div class="playlist-tab-content" id="tab-playlist-ai" style="display: none;">
+                        <p style="font-size: 0.72rem; color: rgba(255,255,255,0.5); margin-bottom: 8px;">Générez des fiches et supports adaptés CUA à partir de la transcription et des documents :</p>
+                        <div class="form-group">
+                            <label for="cuaDocFormatSelect">Format cible :</label>
+                            <select id="cuaDocFormatSelect" class="btn-sm select-dark" style="width:100%;">
+                                <option value="fiche">📋 Fiche de cours complète CUA</option>
+                                <option value="eleve">🧒 Support élève simplifié (FALC)</option>
+                                <option value="mindmap_radial">🧠 Carte Mentale Radiale (Mermaid)</option>
+                                <option value="mindmap_blocks">🗂️ Blocs Thématiques (Colonnes)</option>
+                                <option value="mindmap_tiles">🔲 Tuiles CUA Interactives</option>
+                                <option value="mindmap_step">➡️ Parcours Pas-à-Pas</option>
+                                <option value="mindmap_matrix">📊 Matrice Sketchnote</option>
+                                <option value="todo">🎯 Checklist d'étapes (TDAH)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" id="generateCuaDocBtn" style="width: 100%; margin-top: 10px;">
+                            🔮 Demander à l'IA Albert
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Document Output Panel (inside the board, floating as overlay) -->
+            <div class="dock-floating-panel doc-output-panel" id="teacherDocOutputPanel" style="display: none;">
+                <div class="panel-header">
+                    <span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span>
+                    <h4 id="generatedDocTitle">Support de cours généré</h4>
+                    <div class="panel-actions">
+                        <button class="btn btn-secondary btn-circle btn-sm" id="fullscreenDocBtn" title="Plein écran" style="margin-right: 4px; padding: 2px 6px;">⛶</button>
+                        <button class="btn btn-success btn-sm" id="broadcastDocBtn">📢 Diffuser</button>
+                        <button class="btn-close-panel" id="closeDocOutputBtn">×</button>
+                    </div>
+                </div>
+                <div class="panel-body" style="max-height: 350px; overflow-y: auto;">
+                    <div class="skeleton-loader" id="aiDocSkeleton" style="display: none;">
+                        <div class="skeleton-line" style="width: 75%;"></div>
+                        <div class="skeleton-line" style="width: 90%;"></div>
+                        <div class="skeleton-line" style="width: 60%;"></div>
+                    </div>
+                    <div class="output-text markdown-content" id="aiDocOutput"></div>
+                </div>
+            </div>
+
+            <!-- FLASH QUIZ & POLL PANEL -->
+            <div class="dock-floating-panel quiz-panel" id="teacherQuizPanel" style="display: none;">
+                <div class="panel-header">
+                    <span class="drag-handle-grip" title="Glisser pour déplacer">⋮⋮</span>
+                    <h4>⚡ Flash Quiz & Sondage en Direct</h4>
+                    <button class="btn-close-panel" id="closeQuizPanelBtn">×</button>
+                </div>
+                <div class="panel-body">
+                    <!-- Creation Form -->
+                    <div id="quizCreateView">
+                        <div class="form-group" style="margin-bottom: 8px;">
+                            <label style="font-size: 0.72rem; color: rgba(255,255,255,0.7); display: flex; justify-content: space-between;">
+                                <span>Question pour la classe :</span>
+                                <button class="btn btn-secondary btn-sm" id="generateAiQuizBtn" style="padding: 2px 6px; font-size: 0.7rem;">🔮 Question IA Flash</button>
+                            </label>
+                            <input type="text" id="quizQuestionInput" placeholder="Ex: Quel est le rôle principal de l'adaptation CUA ?" class="btn-sm" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border); color: white; border-radius: 4px; padding: 6px;">
+                        </div>
+                        <div class="quiz-options-inputs" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px;">
+                            <input type="text" id="quizOpt1" placeholder="Option A (ex: Faciliter l'accès à tous)" class="btn-sm quiz-opt-field" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border); color: white; border-radius: 4px; padding: 4px;">
+                            <input type="text" id="quizOpt2" placeholder="Option B (ex: Réduire le niveau attendu)" class="btn-sm quiz-opt-field" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border); color: white; border-radius: 4px; padding: 4px;">
+                            <input type="text" id="quizOpt3" placeholder="Option C (ex: Remplacer le professeur)" class="btn-sm quiz-opt-field" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border); color: white; border-radius: 4px; padding: 4px;">
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="launchQuizBtn" style="width: 100%;">
+                            🚀 Lancer le Flash Quiz aux élèves
+                        </button>
+                    </div>
+
+                    <!-- Live Results View -->
+                    <div id="quizLiveView" style="display: none;">
+                        <h5 id="quizLiveQuestionTitle" style="color: white; margin-bottom: 8px; font-size: 0.85rem;">Question...</h5>
+                        <div class="quiz-results-bars" id="quizResultsBars" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px;">
+                            <!-- Bars rendered dynamically -->
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span style="font-size: 0.75rem; color: var(--text-muted);">Réponses : <strong id="quizTotalAnswers">0</strong></span>
+                            <button class="btn btn-danger btn-sm" id="closeLiveQuizBtn">Clôturer le Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- THE macOS DOCK -->
+            <div class="macos-dock" id="macosDock">
+                <div class="dock-item" data-widget="drawing" title="Tableau de Dessin">✏️<span class="dock-tooltip">Dessin</span></div>
+                <div class="dock-item" data-widget="postit" title="Poser une Note">📌<span class="dock-tooltip">Post-it</span></div>
+                <div class="dock-item" data-widget="timer" title="Poser un Minuteur">⏱️<span class="dock-tooltip">Minuteur</span></div>
+                <div class="dock-divider"></div>
+                <div class="dock-item" id="dockMicrophone" title="Transcription voix (Micro PC)">🎙️<span class="dock-tooltip">Micro PC</span></div>
+                <div class="dock-item" id="dockRemoteMic" title="Connecter un smartphone comme micro sans fil">📱<span class="dock-tooltip">Micro Smartphone</span></div>
+                <div class="dock-item" id="dockQuiz" title="Flash Quiz & Sondage en Direct">⚡<span class="dock-tooltip">Flash Quiz</span></div>
+                <div class="dock-item" id="dockBackground" title="Changer l'Arrière-plan">🎨<span class="dock-tooltip">Arrière-plan</span></div>
+                <div class="dock-item" id="dockPlaylist" title="Liste de lecture & Documents">📁<span class="dock-tooltip">Playlist & Médias</span></div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<!-- Modal for Session QR Code -->
+<div id="sessionQrModal" class="mermaid-modal">
+    <div class="modal-close-area" id="sessionQrModalCloseArea"></div>
+    <div class="modal-content qr-modal-content">
+        <button class="close-modal" id="closeSessionQrModalBtn">×</button>
+        <h3>🚀 Diffusion en Direct Activée</h3>
+        <p>Les élèves peuvent scanner ce QR code ou se connecter sur le lien ci-dessous avec le code de session.</p>
+        
+        <div class="qr-session-code-header" style="font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 2px;">Code de Session</div>
+        <div class="qr-session-code-giant" id="sessionCodeGiant">------</div>
+        
+        <div class="qr-code-display-box">
+            <img id="sessionQrCodeImg" src="" alt="QR Code Session">
+        </div>
+        
+        <div class="qr-link-box">
+            <div class="qr-link-header" style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: left; margin-bottom: 6px; font-weight: 600;">Lien direct élève (cliquez pour copier) :</div>
+            <div class="qr-link-url-field" id="sessionQrLinkCopyContainer">
+                <span id="sessionQrLinkUrl" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 440px;">http://...</span>
+                <span style="font-size: 0.9rem; color: var(--accent1); font-weight: 700; display: flex; align-items: center; gap: 4px;">📋 Copier</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Smartphone Remote Mic QR Code -->
+<div id="micQrModal" class="mermaid-modal">
+    <div class="modal-close-area" id="micQrModalCloseArea"></div>
+    <div class="modal-content qr-modal-content">
+        <button class="close-modal" id="closeMicQrModalBtn">×</button>
+        <h3>🎙️ Micro Déporté Smartphone</h3>
+        <p>Scannez ce QR code avec votre téléphone pour l'utiliser comme micro sans fil pendant le cours.</p>
+        
+        <div class="qr-code-display-box">
+            <img id="micQrCodeImg" src="" alt="QR Code Micro Smartphone">
+        </div>
+        
+        <div class="qr-link-box">
+            <div class="qr-link-header" style="font-size: 0.75rem; color: rgba(255,255,255,0.4); text-align: left; margin-bottom: 6px; font-weight: 600;">Lien micro mobile (cliquez pour copier) :</div>
+            <div class="qr-link-url-field" id="micQrLinkCopyContainer">
+                <span id="micQrLinkUrl" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 440px;">http://...</span>
+                <span style="font-size: 0.9rem; color: var(--accent1); font-weight: 700; display: flex; align-items: center; gap: 4px;">📋 Copier</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for End of Course Export -->
+<div id="courseExportModal" class="mermaid-modal">
+    <div class="modal-close-area" id="courseExportModalCloseArea"></div>
+    <div class="modal-content" style="max-width: 750px; background: var(--surface); padding: 24px; border-radius: 16px; color: var(--text);">
+        <button class="close-modal" id="closeCourseExportModalBtn">×</button>
+        <h3>💾 Bilan & Synthèse du Cours</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+            Voici la synthèse générée à partir des documents projetés, de la transcription de votre voix et des annotations de session.
+        </p>
+        <div class="export-preview-box markdown-content" id="courseExportPreview" style="max-height: 400px; overflow-y: auto; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px;">
+            <!-- Rendered course summary -->
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+            <button class="btn btn-secondary" id="copyCourseExportBtn">📋 Copier le texte</button>
+            <button class="btn btn-primary" id="downloadCourseExportBtn">📥 Télécharger (PDF / Markdown)</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Session Pack (Save & Load Course Templates) -->
+<div id="sessionPackModal" class="mermaid-modal">
+    <div class="modal-close-area" id="sessionPackModalCloseArea"></div>
+    <div class="dialog-modal-card">
+        <button class="dialog-close-btn" id="closeSessionPackModalBtn">×</button>
+        
+        <div class="dialog-header">
+            <span class="dialog-header-icon">📦</span>
+            <div>
+                <h3 class="dialog-title">Gestionnaire de Séances de Cours (.stb)</h3>
+                <p class="dialog-subtitle">
+                    Préparez, sauvegardez et recyclez vos cours d'une classe à l'autre en un clic, sans compte utilisateur.
+                </p>
+            </div>
+        </div>
+
+        <!-- Segment Control Tabs -->
+        <div class="dialog-segment-tabs">
+            <button class="dialog-tab-btn active pack-tab-btn" data-tab="recent-packs" id="tabBtnRecentPacks">
+                🕒 Séances Récentes
+            </button>
+            <button class="dialog-tab-btn pack-tab-btn" data-tab="import-pack" id="tabBtnImportPack">
+                📥 Importer (.stb)
+            </button>
+            <button class="dialog-tab-btn pack-tab-btn" data-tab="save-pack" id="tabBtnSavePack">
+                💾 Sauvegarder
+            </button>
+        </div>
+
+        <!-- TAB 1: Recent Stored Sessions -->
+        <div id="packTabRecent" class="pack-tab-content dialog-tab-panel">
+            <div id="recentPacksList" class="recent-packs-container">
+                <p class="empty-pack-hint">Aucune séance mémorisée dans ce navigateur pour le moment.</p>
+            </div>
+        </div>
+
+        <!-- TAB 2: Import .stb file -->
+        <div id="packTabImport" class="pack-tab-content dialog-tab-panel" style="display: none;">
+            <div class="pack-dropzone">
+                <span class="pack-drop-icon">📁</span>
+                <h4 style="margin: 0 0 6px 0; font-size: 1rem; color: var(--text);">Glissez-déposez votre fichier .stb ici</h4>
+                <p style="font-size: 0.78rem; color: var(--text-muted); margin: 0 0 16px 0;">Tous vos widgets, documents et vidéos seront restaurés instantanément sur le tableau.</p>
+                <input type="file" id="importPackFileInput" accept=".stb,.json" style="display: none;">
+                <button class="btn btn-primary btn-sm" onclick="document.getElementById('importPackFileInput').click()">Choisir un fichier (.stb) sur mon ordinateur</button>
+            </div>
+        </div>
+
+        <!-- TAB 3: Save Current Board -->
+        <div id="packTabSave" class="pack-tab-content dialog-tab-panel" style="display: none;">
+            <div class="form-group" style="margin-bottom: 14px;">
+                <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 6px; color: var(--text);">Titre / Référence du cours :</label>
+                <input type="text" id="savePackTitleInput" class="search-input" style="width: 100%; height: 40px; border-radius: 8px; padding-left: 12px; font-size: 0.9rem;" placeholder="Ex: 2nde — Chapitre 3 : La cellule végétale">
+            </div>
+            <div class="pack-content-summary">
+                <strong>📦 Ce pack contient :</strong>
+                <ul>
+                    <li>Vos fenêtres et widgets ouverts (avec leurs tailles et emplacements)</li>
+                    <li>Votre playlist de médias et documents partagés</li>
+                    <li>Vos questions de quiz préparées</li>
+                    <li>Votre arrière-plan de tableau personnalisé</li>
+                </ul>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px;">
+                <button class="btn btn-secondary" id="savePackBrowserOnlyBtn">💾 Mémoriser dans le navigateur</button>
+                <button class="btn btn-primary" id="downloadPackFileBtn">📥 Télécharger le Fichier (.stb)</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "discipline": "CAP Cuisine",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année"],
+    "source": "Référentiel CAP Cuisine",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Réaliser des productions culinaires simples et maîtrisées",
+    "Appliquer les règles d'hygiène et de sécurité alimentaire",
+    "Organiser son poste de travail de manière rationnelle",
+    "Travailler en équipe dans le respect de la hiérarchie",
+    "Connaître les produits alimentaires de base"
+  ],
+  "domaines": [
+    {
+      "nom": "Techniques culinaires de base",
+      "description": "Les gestes fondamentaux en cuisine.",
+      "competences": [
+        {
+          "intitule": "Réaliser les préparations préliminaires (éplucher, laver, tailler, peser)",
+          "exemples_themes": ["Les taillages de base : émincer, ciseler, concasser, tourner", "L'habillage d'un poisson ou d'une volaille", "Les pesées et les mesures (balance, verre doseur)", "L'organisation du poste de travail : mise en place"]
+        },
+        {
+          "intitule": "Réaliser des cuissons et des appareils de base",
+          "exemples_themes": ["Les cuissons de base : pocher, sauter, rôtir, frire, griller", "Les fonds et les sauces de base (fond blanc, roux, vinaigrette)", "Les appareils de base (appareil à crème prise, pâte à crêpes)", "Les pâtes de base : brisée, sablée (tarte, quiche)"]
+        },
+        {
+          "intitule": "Réaliser des desserts simples",
+          "exemples_themes": ["La crème pâtissière et la crème anglaise", "Le gâteau de base (quatre-quarts, génoise)", "Les fruits : préparation, cuisson (compote, tarte aux fruits)", "Le dressage d'un dessert à l'assiette"]
+        }
+      ]
+    },
+    {
+      "nom": "Hygiène et sécurité",
+      "description": "Les règles d'hygiène en cuisine professionnelle.",
+      "competences": [
+        {
+          "intitule": "Appliquer les règles d'hygiène et de sécurité en cuisine",
+          "exemples_themes": ["La tenue professionnelle et le lavage des mains", "La marche en avant : principe et application", "Les températures de conservation (chaîne du froid)", "La prévention des risques : brûlures, coupures, chutes"]
+        }
+      ]
+    },
+    {
+      "nom": "Connaissance des produits",
+      "description": "Les produits alimentaires et leur utilisation.",
+      "competences": [
+        {
+          "intitule": "Connaître les produits alimentaires et leurs caractéristiques",
+          "exemples_themes": ["Les familles de produits (fruits, légumes, viandes, poissons, produits laitiers)", "Les produits de saison (calendrier des fruits et légumes)", "La réception et le stockage des marchandises", "Les labels et les signes de qualité (AOP, AB, Label Rouge)"]
+        }
+      ]
+    },
+    {
+      "nom": "Communication et organisation",
+      "description": "Le travail en équipe et la communication en cuisine.",
+      "competences": [
+        {
+          "intitule": "Communiquer en situation professionnelle et organiser son travail",
+          "exemples_themes": ["Le vocabulaire professionnel de la cuisine", "La lecture et l'exécution d'une fiche technique", "Le travail en binôme et en brigade (répartition des tâches)", "Le rangement et le nettoyage du poste de travail en fin de service"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le CAP Cuisine forme aux bases du métier de cuisinier : techniques culinaires fondamentales (taillages, cuissons, sauces, pâtisserie de base), hygiène et sécurité alimentaire, connaissance des produits et organisation du travail en brigade. La formation est très pratique, centrée sur les gestes professionnels et la rigueur en cuisine."
+}

@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "discipline": "Grec ancien",
+    "cycle": "Lycée GT",
+    "classes": ["Seconde", "Première", "Terminale"],
+    "source": "B.O. spécial n°1 du 22 janvier 2019 — Programme de LLCA Grec ancien 2nde, 1ère, Terminale",
+    "mise_a_jour": "2019-01-22"
+  },
+  "attendus_fin_cycle": [
+    "Lire, comprendre et traduire des textes grecs anciens",
+    "Maîtriser les structures fondamentales de la langue grecque ancienne",
+    "Acquérir une culture littéraire et historique de la Grèce antique",
+    "Établir des liens entre l'Antiquité grecque et le monde contemporain",
+    "Développer des compétences d'analyse et d'interprétation"
+  ],
+  "domaines": [
+    {
+      "nom": "La tragédie et le théâtre grec",
+      "description": "Les origines du théâtre occidental et ses enjeux.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser des extraits de tragédies et comédies grecques",
+          "exemples_themes": ["Un extrait d'Antigone de Sophocle (le conflit loi/conscience)", "Un passage de Médée d'Euripide", "Un extrait des Oiseaux ou des Nuées d'Aristophane", "Le théâtre de Dionysos : architecture et festival"]
+        }
+      ]
+    },
+    {
+      "nom": "La philosophie grecque",
+      "description": "Les fondements de la pensée philosophique occidentale.",
+      "competences": [
+        {
+          "intitule": "Découvrir la pensée philosophique grecque à travers les textes",
+          "exemples_themes": ["Un extrait de l'Apologie de Socrate de Platon", "Un passage de l'Éthique à Nicomaque d'Aristote", "Un texte présocratique (Héraclite, Parménide — fragments)", "L'allégorie de la caverne (République de Platon, livre VII)"]
+        }
+      ]
+    },
+    {
+      "nom": "L'épopée homérique",
+      "description": "L'Iliade et l'Odyssée, fondements de la littérature occidentale.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser des extraits des épopées homériques",
+          "exemples_themes": ["Un extrait de l'Iliade (combat d'Achille et Hector, chant XXII)", "Un passage de l'Odyssée (Ulysse chez les Phéaciens, Cyclope)", "La question homérique : un ou plusieurs auteurs ?", "L'héritage homérique dans la littérature et le cinéma"]
+        }
+      ]
+    },
+    {
+      "nom": "La démocratie et ses enjeux",
+      "description": "Athènes, berceau de la démocratie.",
+      "competences": [
+        {
+          "intitule": "Étudier les origines et le fonctionnement de la démocratie athénienne",
+          "exemples_themes": ["L'oraison funèbre de Périclès (Thucydide, Guerre du Péloponnèse)", "L'Assemblée (Ecclésia) et le tirage au sort", "Les critiques de la démocratie (Platon, le Pseudo-Xénophon)", "La condition des femmes et des métèques à Athènes"]
+        }
+      ]
+    },
+    {
+      "nom": "L'histoire et les historiens grecs",
+      "description": "L'invention de l'histoire comme discipline.",
+      "competences": [
+        {
+          "intitule": "Lire les grands historiens grecs et comprendre leur méthode",
+          "exemples_themes": ["Un extrait d'Hérodote (Histoires — guerres médiques)", "Un passage de Thucydide (la peste d'Athènes)", "Xénophon et l'Anabase (récit d'aventure historique)", "Plutarque et les Vies parallèles (portrait comparé)"]
+        }
+      ]
+    },
+    {
+      "nom": "Langue grecque ancienne",
+      "description": "Maîtrise progressive de l'alphabet, de la morphologie et de la syntaxe grecques.",
+      "competences": [
+        {
+          "intitule": "Maîtriser la grammaire et le vocabulaire grecs pour traduire",
+          "exemples_themes": ["L'alphabet grec et la lecture à voix haute", "Les déclinaisons (1re, 2e, 3e) et les cas grecs", "Le système verbal grec (présent, aoriste, parfait)", "L'étymologie grecque dans le vocabulaire scientifique et médical"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de grec ancien au lycée GT (option et spécialité LLCA) couvre la tragédie, la philosophie, l'épopée homérique, la démocratie athénienne et l'historiographie. Les élèves lisent des textes en version originale, progressent en grammaire grecque et explorent les héritages de la Grèce antique. L'étymologie et les liens avec le monde contemporain sont valorisés."
+}

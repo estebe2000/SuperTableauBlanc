@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "discipline": "Français",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de français CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Maîtriser l'expression écrite et orale dans des situations variées",
+    "Lire et interpréter des textes littéraires et non littéraires",
+    "Construire une réflexion personnelle sur les textes et les questions de société",
+    "Développer le goût de la lecture et l'ouverture culturelle",
+    "Communiquer efficacement dans un contexte professionnel et citoyen"
+  ],
+  "domaines": [
+    {
+      "nom": "Dire, écrire, lire le métier (CAP)",
+      "description": "Le français au service de l'insertion professionnelle.",
+      "competences": [
+        {
+          "intitule": "Rédiger des écrits professionnels : compte rendu, courrier, note de service",
+          "exemples_themes": ["Un courrier de demande de stage (lettre formelle)", "Un compte rendu de visite d'entreprise", "Un CV et une lettre de motivation", "Une fiche technique de procédure (consignes de sécurité)"]
+        },
+        {
+          "intitule": "S'exprimer à l'oral dans un contexte professionnel",
+          "exemples_themes": ["Simulation d'un entretien d'embauche", "Présentation orale d'une expérience de stage", "Prise de parole pour expliquer un geste professionnel", "Communication téléphonique avec un client ou un fournisseur"]
+        }
+      ]
+    },
+    {
+      "nom": "S'informer, informer, communiquer (2nde Bac Pro)",
+      "description": "Comprendre et produire de l'information dans le monde contemporain.",
+      "competences": [
+        {
+          "intitule": "Comprendre et analyser des textes informatifs et médiatiques",
+          "exemples_themes": ["Un article de presse sur un fait de société", "Une infographie sur un sujet d'actualité", "Une page web d'entreprise ou d'institution", "Un document de prévention (santé, sécurité routière)"]
+        },
+        {
+          "intitule": "Produire des écrits pour informer et communiquer",
+          "exemples_themes": ["Rédaction d'un article pour le journal du lycée", "Création d'une affiche de sensibilisation", "Écriture d'un mail professionnel structuré", "Synthèse écrite d'un dossier documentaire"]
+        }
+      ]
+    },
+    {
+      "nom": "Dire et se faire entendre : la parole, le théâtre, l'éloquence (2nde Bac Pro)",
+      "description": "L'art de la parole et la prise de parole en public.",
+      "competences": [
+        {
+          "intitule": "Prendre la parole en public de manière structurée et convaincante",
+          "exemples_themes": ["Un extrait de pièce de théâtre joué en classe (Molière, Koltès)", "Exercices d'éloquence : concours de plaidoiries", "Lecture à voix haute expressive d'un texte littéraire", "Enregistrement d'un podcast sur un sujet de société"]
+        }
+      ]
+    },
+    {
+      "nom": "Le récit de vie et le témoignage (1ère Bac Pro)",
+      "description": "L'écriture de soi, la mémoire et le témoignage.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser des récits de vie, autobiographies et témoignages",
+          "exemples_themes": ["Un extrait de L'Ami retrouvé de Fred Uhlman", "Un extrait de No et moi de Delphine de Vigan", "Un témoignage de poilu (Paroles de poilus)", "Un récit de parcours de vie (reportage, documentaire)"]
+        },
+        {
+          "intitule": "Rédiger un texte autobiographique ou un témoignage",
+          "exemples_themes": ["Écriture d'un souvenir marquant (récit personnel)", "Portrait chinois ou autoportrait littéraire", "Lettre à soi-même dans le futur", "Rédaction d'un témoignage sur une expérience de stage"]
+        }
+      ]
+    },
+    {
+      "nom": "La poésie engagée et la chanson (1ère Bac Pro)",
+      "description": "La littérature comme engagement et expression de valeurs.",
+      "competences": [
+        {
+          "intitule": "Lire et analyser des textes poétiques et des chansons engagés",
+          "exemples_themes": ["Un poème de Jacques Prévert (Barbara)", "Un poème d'Aimé Césaire (extrait du Cahier d'un retour au pays natal)", "Une chanson de Grand Corps Malade ou de Fauve", "Un slam : performance orale et écriture poétique"]
+        }
+      ]
+    },
+    {
+      "nom": "Le texte argumentatif et la prise de parole (Terminale Bac Pro)",
+      "description": "Argumenter à l'écrit et à l'oral pour le baccalauréat.",
+      "competences": [
+        {
+          "intitule": "Construire une argumentation structurée à l'écrit et à l'oral",
+          "exemples_themes": ["Rédaction d'un texte argumenté sur un sujet de société", "Analyse d'un texte argumentatif (éditorial, tribune, discours)", "Débat argumenté en classe sur un dilemme éthique", "Préparation de l'épreuve orale du baccalauréat professionnel"]
+        },
+        {
+          "intitule": "Lire et comprendre un corpus de documents variés",
+          "exemples_themes": ["Confrontation de deux textes sur un même thème", "Analyse d'un document iconographique (affiche, photographie)", "Synthèse de documents en lien avec le monde professionnel", "Lecture d'un extrait de roman social (Zola, Kessel)"]
+        }
+      ]
+    },
+    {
+      "nom": "Étude de la langue",
+      "description": "Consolider les compétences linguistiques.",
+      "competences": [
+        {
+          "intitule": "Maîtriser la syntaxe, l'orthographe et le vocabulaire dans des situations variées",
+          "exemples_themes": ["Les connecteurs logiques dans un texte argumentatif", "L'accord du participe passé (exercices en contexte)", "Le vocabulaire professionnel du secteur de formation", "La ponctuation et ses effets de sens dans un texte littéraire"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de français en lycée professionnel vise la maîtrise de l'expression écrite et orale dans des contextes variés (professionnel, citoyen, littéraire). En CAP, l'accent est sur les écrits professionnels. En Bac Pro, le programme aborde la communication, l'éloquence, le récit de vie, la poésie engagée et l'argumentation. La lecture d'œuvres littéraires nourrit la réflexion personnelle et prépare aux épreuves du baccalauréat."
+}

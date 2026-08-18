@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "discipline": "Mathématiques",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de mathématiques CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Rechercher, extraire et organiser l'information",
+    "Proposer, choisir et exécuter une méthode de résolution",
+    "Expérimenter, simuler et émettre des conjectures",
+    "Critiquer un résultat et argumenter",
+    "Rendre compte d'une démarche et communiquer un résultat"
+  ],
+  "domaines": [
+    {
+      "nom": "Statistiques et probabilités",
+      "description": "Lire, interpréter et produire des données statistiques.",
+      "competences": [
+        {
+          "intitule": "Lire et interpréter des données statistiques : tableaux, diagrammes, indicateurs",
+          "exemples_themes": ["Relevé de températures ou de ventes sur un mois (tableur)", "Calcul de moyenne, médiane, étendue sur des données professionnelles", "Diagramme en barres ou circulaire à partir de données d'enquête", "Lecture d'un bulletin météo ou d'un bilan d'activité"]
+        },
+        {
+          "intitule": "Calculer des probabilités dans des situations simples",
+          "exemples_themes": ["Probabilité d'un tirage au sort (jeu de cartes, dés)", "Simulation d'une expérience aléatoire avec un tableur", "Arbre de probabilités pour un contrôle qualité", "Estimation d'une proportion à partir d'un échantillon"]
+        }
+      ]
+    },
+    {
+      "nom": "Algèbre et analyse",
+      "description": "Fonctions, équations, proportionnalité au service de la résolution de problèmes.",
+      "competences": [
+        {
+          "intitule": "Utiliser la proportionnalité et les pourcentages dans des situations concrètes",
+          "exemples_themes": ["Calcul d'un prix après remise ou augmentation", "Les pourcentages dans un devis ou une facture", "Échelles et proportions dans un plan technique", "Conversion de devises ou d'unités de mesure"]
+        },
+        {
+          "intitule": "Résoudre des équations du premier degré et utiliser des fonctions de base",
+          "exemples_themes": ["Mise en équation d'un problème de coût de production", "Fonction linéaire et affine : tarif proportionnel, forfait + coût variable", "Lecture graphique d'une fonction (image, antécédent, variations)", "Tableur : formules et représentations graphiques"]
+        },
+        {
+          "intitule": "Étudier des suites et des fonctions (Bac Pro 1ère-Terminale)",
+          "exemples_themes": ["Suite arithmétique : versements réguliers sur un livret d'épargne", "Suite géométrique : évolution d'un placement à intérêts composés", "Fonction carré, inverse : optimisation d'une aire, d'un volume", "Dérivation : vitesse, coût marginal (notions)"]
+        }
+      ]
+    },
+    {
+      "nom": "Géométrie",
+      "description": "Géométrie plane et dans l'espace au service des métiers.",
+      "competences": [
+        {
+          "intitule": "Utiliser les propriétés géométriques pour résoudre des problèmes concrets",
+          "exemples_themes": ["Théorème de Pythagore pour calculer une diagonale ou une pente", "Théorème de Thalès pour une mise à l'échelle", "Trigonométrie : calcul d'un angle de toit ou d'une rampe", "Aires et volumes de solides courants (cylindre, cône, prisme)"]
+        },
+        {
+          "intitule": "Lire et interpréter des plans, des schémas et des représentations techniques",
+          "exemples_themes": ["Lecture d'un plan d'architecte (échelle, cotation)", "Patron d'un solide (boîte, emballage) à découper", "Repérage dans le plan et dans l'espace (coordonnées)", "Utilisation d'un logiciel de géométrie dynamique (GeoGebra)"]
+        }
+      ]
+    },
+    {
+      "nom": "Calcul numérique et algorithmique",
+      "description": "Automatiser des calculs et utiliser des outils numériques.",
+      "competences": [
+        {
+          "intitule": "Utiliser le calcul numérique et des algorithmes simples",
+          "exemples_themes": ["Utilisation de la calculatrice scientifique (fonctions, mémoire)", "Tableur : formules avec références, mise en forme conditionnelle", "Algorithme simple en pseudo-code ou Python (boucle, test)", "Automatisation d'un calcul de paie ou de stock"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de mathématiques en lycée professionnel est ancré dans des situations concrètes liées aux métiers. Il couvre la proportionnalité, les pourcentages, les statistiques, les probabilités, les fonctions de base, la géométrie appliquée et l'utilisation du tableur. En Bac Pro, les suites et la dérivation sont abordées. L'objectif est de donner aux élèves les outils mathématiques nécessaires à leur vie professionnelle et citoyenne."
+}

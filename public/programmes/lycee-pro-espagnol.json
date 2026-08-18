@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "discipline": "Espagnol",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de langues vivantes CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Atteindre le niveau B1+ en LVA / A2+ en LVB du CECRL",
+    "Communiquer dans des situations professionnelles simples en espagnol",
+    "Comprendre des documents authentiques liés au monde du travail hispanophone",
+    "S'exprimer à l'oral et à l'écrit dans des situations concrètes",
+    "Développer une ouverture sur le monde hispanique"
+  ],
+  "domaines": [
+    {
+      "nom": "Communication professionnelle en espagnol",
+      "description": "L'espagnol au service du monde professionnel.",
+      "competences": [
+        {
+          "intitule": "Communiquer en espagnol dans des situations professionnelles courantes",
+          "exemples_themes": ["Accueil d'un client hispanophone (jeu de rôle)", "Prise de commande ou renseignement en espagnol", "Rédaction d'un mail ou d'un courrier simple en espagnol", "Présentation de son métier et de son entreprise en espagnol"]
+        },
+        {
+          "intitule": "Comprendre des documents professionnels en espagnol",
+          "exemples_themes": ["Une offre d'emploi en espagnol", "Un bon de commande ou une facture en espagnol", "Un tutoriel vidéo en espagnol lié au secteur professionnel", "Les consignes de sécurité en espagnol"]
+        }
+      ]
+    },
+    {
+      "nom": "Le monde du travail en contexte hispanique",
+      "description": "Découvrir le monde professionnel dans les pays hispanophones.",
+      "competences": [
+        {
+          "intitule": "Explorer le monde du travail dans les pays hispanophones",
+          "exemples_themes": ["Les métiers et les secteurs d'activité en Espagne et en Amérique latine", "Un reportage sur une entreprise hispanique", "Le commerce et le tourisme avec l'Amérique latine", "Les stages à l'étranger en pays hispanophone (Erasmus+)"]
+        }
+      ]
+    },
+    {
+      "nom": "Échanges et coopération",
+      "description": "Les échanges interculturels et la coopération internationale.",
+      "competences": [
+        {
+          "intitule": "Participer à des échanges interculturels en espagnol",
+          "exemples_themes": ["Les coutumes et la vie quotidienne en Espagne et en Amérique latine", "La gastronomie hispanique (recette, spécialités régionales)", "Un échange par visioconférence avec une classe hispanophone", "Les fêtes et traditions (Feria, Carnaval, Día de los Muertos)"]
+        }
+      ]
+    },
+    {
+      "nom": "Compétences langagières",
+      "description": "Les activités langagières adaptées au niveau des élèves.",
+      "competences": [
+        {
+          "intitule": "Comprendre et s'exprimer dans des situations simples en espagnol",
+          "exemples_themes": ["Se présenter et parler de son parcours en espagnol", "Comprendre un dialogue courant (au marché, à l'hôtel)", "Rédiger un message court en espagnol (SMS, mail, carte postale)", "Décrire une image ou raconter un événement simple"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme d'espagnol en lycée professionnel vise le niveau B1+ (LVA) ou A2+ (LVB) du CECRL. Il privilégie la communication professionnelle en contexte hispanophone et la découverte du monde du travail en Espagne et en Amérique latine. Les situations concrètes liées au secteur professionnel des élèves et les échanges interculturels sont au cœur de l'apprentissage."
+}

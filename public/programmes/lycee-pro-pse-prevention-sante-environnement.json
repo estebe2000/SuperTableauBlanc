@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "discipline": "PSE – Prévention Santé Environnement",
+    "cycle": "Lycée Pro",
+    "classes": ["CAP 1re année", "CAP 2e année", "Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "B.O. spécial n°5 du 11 avril 2019 — Programme de PSE CAP et Bac Pro",
+    "mise_a_jour": "2019-04-11"
+  },
+  "attendus_fin_cycle": [
+    "Adopter des comportements responsables face aux risques sanitaires et environnementaux",
+    "Comprendre les enjeux de la santé au travail",
+    "Maîtriser les gestes de premiers secours (PSC1/SST)",
+    "Analyser des situations professionnelles en lien avec la prévention",
+    "Connaître ses droits en matière de santé et de protection sociale"
+  ],
+  "domaines": [
+    {
+      "nom": "L'individu et sa santé",
+      "description": "Les déterminants de la santé et les comportements à risque.",
+      "competences": [
+        {
+          "intitule": "Comprendre les déterminants de la santé et adopter des comportements responsables",
+          "exemples_themes": ["L'alimentation équilibrée : lecture d'étiquettes, Nutri-Score", "Le sommeil et ses effets sur la santé et la performance au travail", "Les addictions : tabac, alcool, drogues, écrans (données Santé publique France)", "L'activité physique et la sédentarité (recommandations OMS)"]
+        },
+        {
+          "intitule": "Comprendre la sexualité, la contraception et les IST",
+          "exemples_themes": ["Les modes de contraception (comparaison, efficacité)", "Les infections sexuellement transmissibles : prévention et dépistage", "La grossesse et le suivi médical", "Les centres de planification et d'éducation familiale"]
+        }
+      ]
+    },
+    {
+      "nom": "L'individu dans son milieu professionnel",
+      "description": "Les risques professionnels et la prévention.",
+      "competences": [
+        {
+          "intitule": "Identifier les risques professionnels et les mesures de prévention",
+          "exemples_themes": ["Les principaux risques professionnels par secteur (TMS, chutes, bruit)", "Le Document Unique d'Évaluation des Risques (DUERP)", "Les Équipements de Protection Individuelle (EPI) : choix et utilisation", "L'ergonomie au poste de travail (gestes et postures)"]
+        },
+        {
+          "intitule": "Connaître le cadre réglementaire de la santé au travail",
+          "exemples_themes": ["Le Code du travail : obligations de l'employeur et du salarié", "Les acteurs de la prévention (médecin du travail, CHSCT/CSE, CARSAT)", "L'accident du travail et la maladie professionnelle (déclaration, prise en charge)", "L'habilitation et la formation à la sécurité"]
+        }
+      ]
+    },
+    {
+      "nom": "L'individu et son environnement",
+      "description": "Les enjeux environnementaux et le développement durable.",
+      "competences": [
+        {
+          "intitule": "Comprendre les enjeux environnementaux liés à l'activité professionnelle",
+          "exemples_themes": ["La gestion des déchets en entreprise (tri, recyclage, valorisation)", "La pollution de l'air intérieur (aération, produits chimiques)", "L'eau : consommation, pollution, économies", "Le développement durable en entreprise (RSE, écolabels)"]
+        }
+      ]
+    },
+    {
+      "nom": "Secourisme",
+      "description": "Les gestes de premiers secours.",
+      "competences": [
+        {
+          "intitule": "Maîtriser les gestes de premiers secours (PSC1 / SST)",
+          "exemples_themes": ["Le PAS : Protéger, Alerter, Secourir", "La Position Latérale de Sécurité (PLS)", "Le massage cardiaque et l'utilisation d'un défibrillateur (DAE)", "La conduite à tenir face à un saignement, une brûlure, un étouffement"]
+        }
+      ]
+    },
+    {
+      "nom": "Protection sociale et parcours professionnel",
+      "description": "Les droits sociaux et le parcours de santé.",
+      "competences": [
+        {
+          "intitule": "Connaître le système de protection sociale et ses droits",
+          "exemples_themes": ["La Sécurité sociale : branches et prestations", "La complémentaire santé obligatoire en entreprise (mutuelle)", "Le parcours de soins coordonné (médecin traitant, carte Vitale)", "Les droits en cas d'arrêt maladie ou d'accident du travail"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "La PSE en lycée professionnel couvre la santé individuelle (alimentation, sommeil, addictions, sexualité), la prévention des risques professionnels (TMS, bruit, chutes, ergonomie), l'environnement (déchets, pollution), le secourisme (PSC1/SST) et la protection sociale. C'est un enseignement spécifique au lycée professionnel, directement lié aux réalités du monde du travail."
+}

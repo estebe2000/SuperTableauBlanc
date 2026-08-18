@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "discipline": "Anglais",
+    "cycle": "Cycle 3",
+    "classes": ["CM1", "CM2", "6e"],
+    "source": "B.O. n°31 du 30 juillet 2020 — Programme de langues vivantes du cycle 3 (applicable aussi aux autres LV)",
+    "mise_a_jour": "2020-07-30"
+  },
+  "attendus_fin_cycle": [
+    "Écouter et comprendre des messages oraux simples relevant de la vie quotidienne (niveau A1-A2)",
+    "S'exprimer oralement en continu et en interaction (niveau A1-A2)",
+    "Lire et comprendre des textes courts et simples (niveau A1-A2)",
+    "Écrire des textes courts et simples (niveau A1)",
+    "Découvrir les aspects culturels d'une langue vivante étrangère"
+  ],
+  "domaines": [
+    {
+      "nom": "Écouter et comprendre (compréhension orale)",
+      "description": "Comprendre des mots familiers et des expressions courantes dans des énoncés clairs et simples.",
+      "competences": [
+        {
+          "intitule": "Comprendre des mots familiers et des expressions très courantes",
+          "exemples_themes": ["La chanson Head Shoulders Knees and Toes (parties du corps)", "Un extrait de Peppa Pig en VO (comprendre la situation)", "Les consignes de classe en anglais : Stand up, Sit down, Open your book", "La météo sur BBC Weather Kids (sunny, rainy, cloudy)", "Un dialogue au restaurant : Can I have a pizza, please?"]
+        },
+        {
+          "intitule": "Suivre des instructions courtes et simples",
+          "exemples_themes": ["Les règles d'un jeu en anglais (Simon Says)", "Une recette simple en anglais (pancakes)", "Un itinéraire : Go straight, turn left, turn right", "Les consignes d'un exercice interactif (British Council Kids)", "Une chanson à gestes (If you're happy and you know it)"]
+        },
+        {
+          "intitule": "Comprendre des textes courts et simples lus par l'enseignant ou enregistrés",
+          "exemples_themes": ["L'album The Very Hungry Caterpillar (Eric Carle)", "L'album Brown Bear, Brown Bear, What Do You See? (Bill Martin Jr)", "L'album We're Going on a Bear Hunt (Michael Rosen)", "Un court extrait audio de la BBC Learning English", "L'album Dear Zoo (Rod Campbell)"]
+        }
+      ]
+    },
+    {
+      "nom": "S'exprimer oralement en continu et en interaction",
+      "description": "Produire des énoncés simples et participer à de courts échanges.",
+      "competences": [
+        {
+          "intitule": "Se présenter et présenter quelqu'un",
+          "exemples_themes": ["La carte d'identité en anglais (name, age, country, pet)", "L'interview d'un camarade (What's your name? How old are you?)", "La vidéo de présentation pour la classe partenaire", "Le jeu de rôle : meeting a new student", "La fiche « All about me » illustrée"]
+        },
+        {
+          "intitule": "Poser des questions simples et répondre",
+          "exemples_themes": ["Le jeu de devinettes : Is it a dog? No, it isn't", "Le sondage de classe : Do you like chocolate? (Yes I do / No I don't)", "Le jeu Who am I? (personnages célèbres)", "Le jeu de rôle : at the market (How much is it?)", "Le jeu Guess Who? (describing people)"]
+        },
+        {
+          "intitule": "Décrire son environnement quotidien, exprimer ses goûts",
+          "exemples_themes": ["Ma chambre en anglais (There is a bed, there are two posters)", "Mon emploi du temps (On Monday I have maths)", "Ma journée type (I get up at 7, I go to school at 8)", "Mes goûts : I like / I don't like / I prefer (food, sports, animals)", "Mon animal préféré (It's big, it's grey, it lives in Africa)"]
+        }
+      ]
+    },
+    {
+      "nom": "Lire et comprendre",
+      "description": "Lire et comprendre des textes courts accompagnés d'éléments visuels.",
+      "competences": [
+        {
+          "intitule": "Lire et comprendre des textes courts et simples accompagnés d'indices visuels",
+          "exemples_themes": ["Une carte postale d'un correspondant anglais", "Un menu de restaurant anglais (fish and chips, apple pie)", "Un article du magazine I Love English Junior", "La couverture et le résumé d'un album en anglais", "Un court mail d'un e-pal (correspondant numérique)"]
+        },
+        {
+          "intitule": "Se faire une idée du contenu d'un texte informatif simple",
+          "exemples_themes": ["Une fiche documentaire sur un animal en anglais (panda, dolphin)", "Le plan d'une ville anglaise (repérer school, park, library)", "L'emploi du temps d'un élève anglais", "Un dépliant touristique de Londres simplifié", "La fiche de présentation d'un sportif anglophone"]
+        }
+      ]
+    },
+    {
+      "nom": "Écrire",
+      "description": "Produire des textes très courts et très simples.",
+      "competences": [
+        {
+          "intitule": "Écrire des textes courts et simples",
+          "exemples_themes": ["Une carte de vœux (Happy Birthday / Merry Christmas)", "Un court mail à un correspondant (Dear…, My name is…, I live in…)", "La légende de photos de vacances en anglais", "Un mini portrait (My best friend is… She is tall, she has brown hair)", "La bulle d'une BD en anglais"]
+        }
+      ]
+    },
+    {
+      "nom": "Découvrir les aspects culturels",
+      "description": "Explorer la culture des pays anglophones.",
+      "competences": [
+        {
+          "intitule": "Identifier quelques grands repères culturels des pays anglophones",
+          "exemples_themes": ["Halloween : l'histoire et les traditions (trick or treat, pumpkin carving)", "Christmas crackers, mince pies et le Christmas pudding", "Thanksgiving : l'histoire des Pèlerins et le repas traditionnel", "La vie quotidienne d'un élève anglais (school uniform, lunch box, assembly)", "Les monuments de Londres (Big Ben, Tower Bridge, Buckingham Palace)"]
+        },
+        {
+          "intitule": "Comparer des modes de vie et des cultures",
+          "exemples_themes": ["L'école en France vs en Angleterre (horaires, uniforme, matières)", "Le petit-déjeuner anglais vs le petit-déjeuner français", "Les sports populaires (football, cricket, rugby)", "Les paysages du Royaume-Uni (Écosse, Pays de Galles, Irlande)", "Un album culturel : Katie in London (James Mayhew)"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le programme de langues vivantes du cycle 3 vise le niveau A1 (fin CM2) à A2 (fin 6e) du CECRL. L'enseignement s'appuie sur des supports authentiques adaptés (albums, chansons, vidéos, documents de la vie quotidienne) et sur l'approche actionnelle (tâches communicatives en contexte). Les cinq activités langagières sont travaillées : compréhension orale et écrite, expression orale en continu et en interaction, expression écrite. La dimension culturelle est essentielle : les élèves découvrent les modes de vie, fêtes, traditions et repères géographiques des pays anglophones."
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://matomo.ac-normandie.fr https://drane-normandie.forge.apps.education.fr; style-src 'self' 'unsafe-inline' https://drane-normandie.forge.apps.education.fr; font-src 'self' data: https://drane-normandie.forge.apps.education.fr; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; worker-src 'self' blob:; connect-src 'self' https: blob: data:; frame-src 'self' https:; object-src 'none'; base-uri 'self'">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGU - HAPI</title>
+    <link rel="icon" type="image/png" href="images/favicon.ico">
+    <!-- Color switcher : applique le thème mémorisé AVANT le rendu (anti-flash) -->
+    <script>try{var d=document.documentElement,_t=localStorage.getItem('hapi-theme');if(_t&&_t!=='vert')d.setAttribute('data-theme',_t);if(localStorage.getItem('hapi-mode')==='dark')d.setAttribute('data-mode','dark');}catch(e){}</script>
+    <link rel="stylesheet" href="css/styles.css">
+
+	<script>
+	  var _paq = window._paq = window._paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['disableCookies']);
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="https://matomo.ac-normandie.fr/piwik/";
+	    _paq.push(['setTrackerUrl', u+'matomo.php']);
+	    _paq.push(['setSiteId', '32']);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+
+</head>
+<body>
+    <a class="skip-link" href="#contenu">Aller au contenu principal</a>
+    <header>
+        <div class="container">
+            <div class="hapi-badge">
+                <a href="./" title="Retour à l'accueil">
+                    <img src="images/logo-drane-normandie.png" alt="Chouette logo HAPI" class="hapi-logo">
+                </a>
+            </div>
+
+            <div class="hapi">
+                <a href="./" title="Retour à l'accueil">
+                    <h1>HAPI</h1>
+                </a>
+                <p>Le <strong>H</strong>ub d'<strong>A</strong>ssistance <strong>P</strong>édagogique <strong>I</strong>nteractif</p>
+                <p><small>Un service proposé par la <abbr title="Délégation Régionale de l'académie de Normandie">Drane</abbr> de l'académie de Normandie</small></p>
+            </div>
+
+            <div class="hapi-aides">
+                <div id="hapi-theme-slot"></div>
+                <div><a href="./hapi.html" title="Qu'est-ce que HAPI ? Comment et pour quoi puis-je l'utiliser ?">Plus d'infos</a></div>
+                <div><a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié">Tchap</a></div>
+            </div>
+
+            <div class="institution" title="Académie de Normandie">
+                <img class="logo-acnormandie" src="./images/logo_ac-normandie.svg" alt="Académie de Normandie">
+                <img class="logo-marianne" src="./images/marianne.svg" alt="académie de Normandie">
+            </div>
+
+        </div>
+    </header>
+    
+    <div class="container">
+
+        <div class="breadcrumb" role="navigation" aria-label="Fil d'Ariane">
+            <a href="./" title="Retour à l'accueil">Accueil</a>
+            <span>À propos du site</span>
+        </div>
+
+        <div class="content" id="contenu" role="main">
+			<h1>Conditions Générales d'Utilisation (CGU)</h1>
+
+			<h2>Préambule</h2>
+			<p>
+			    Le service HAPI (Hub d'Assistance Pédagogique Interactif) est un outil numérique éducatif mis à disposition par la <strong>DRANE de l'académie de Normandie</strong>. Il est hébergé sur la <strong>Forge des Communs Numériques Éducatifs</strong>. L'utilisation de HAPI implique l'acceptation pleine et entière des présentes Conditions Générales d'Utilisation.
+			</p>
+
+			<h2>Article 1 : Nature du service et confidentialité (Privacy by Design)</h2>
+			<p>
+			    HAPI agit en tant qu'intermédiaire technique (passerelle) permettant la création de ressources pédagogiques interactives, notamment en analysant des pages web ou des ressources audiovisuelles. 
+			</p>
+			<p>
+			    Dans un souci de protection des données et de sobriété numérique, le service HAPI fonctionne selon un principe de <strong>"Zéro Stockage"</strong> :
+			</p>
+			<ul>
+			    <li>Les textes, transcriptions et contenus extraits des URL fournies par les utilisateurs ne sont <strong>jamais</strong> enregistrés dans nos bases de données.</li>
+			    <li>Ils transitent uniquement de manière temporaire vers le navigateur de l'utilisateur final.</li>
+			</ul>
+			<p>
+			    De plus, HAPI n'utilise aucun cookie de traçage et les mesures d'audience (Matomo) sont strictement anonymisées.
+			</p>
+
+			<h2>Article 2 : Responsabilité de l'utilisateur sur les contenus sources</h2>
+			<p>
+			    En soumettant un document ou une URL (site web, plateforme vidéo) à HAPI pour en extraire le contenu, l'utilisateur certifie avoir le droit d'exploiter cette ressource. L'utilisateur est le seul et unique responsable du respect des droits de propriété intellectuelle (droits d'auteur) rattachés aux ressources qu'il décide d'analyser.
+			</p>
+
+			<h3>2.1 Le cadre de l'Exception pédagogique</h3>
+			<p>
+			    HAPI étant un outil à destination de la communauté éducative, l'utilisateur peut s'appuyer sur l'<strong>exception pédagogique</strong> (art. L. 122-5 du Code de la Propriété Intellectuelle) pour extraire et transformer des œuvres protégées. 
+			</p>
+			<p>
+			    Toutefois, l'utilisateur est informé que cette exception n'est valable <strong>qu'à la condition stricte que le résultat généré soit partagé au sein d'un public restreint</strong> (une classe, un groupe d'élèves, un ENT sécurisé).
+			</p>
+
+			<h3>2.2 Diffusion publique</h3>
+			<p>
+			    Si l'utilisateur décide de rendre publique et librement accessible sur internet la ressource générée via HAPI, l'exception pédagogique s'annule. L'utilisateur s'engage alors à n'utiliser comme sources que des contenus libres de droits, placés sous licence ouverte (comme Creative Commons), ou dont il est l'auteur légitime.
+			</p>
+
+			<h2>Article 3 : Avertissements liés à l'Intelligence Artificielle</h2>
+			<p>
+			    Le code source de cette plateforme a été généré avec l'Intelligence Artificielle[cite: 3]. Par ailleurs, HAPI fait appel à des modèles de langage (IA) pour formater, résumer ou interagir avec les contenus pédagogiques. 
+			</p>
+			<p>
+			    L'utilisateur reconnaît que l'Intelligence Artificielle peut générer des erreurs ou des "hallucinations". Il relève de la responsabilité exclusive de l'enseignant de relire, vérifier et valider scientifiquement et pédagogiquement les contenus générés avant toute diffusion à ses élèves.
+			</p>
+
+			<h2>Article 4 : Usages interdits et limitation de service</h2>
+			<p>
+			    HAPI est mis à disposition gratuitement pour un usage strictement éducatif et non commercial. Sont formellement interdits :
+			</p>
+			<ul>
+			    <li>Toute utilisation du service à des fins commerciales ou lucratives.</li>
+			    <li>L'utilisation de scripts automatisés, de bots, ou toute tentative de requêtes massives visant à contourner l'interface utilisateur.</li>
+			    <li>L'extraction de contenus issus de plateformes prohibant formellement ces pratiques dans leurs propres conditions générales, en dehors du strict cadre de préparation de cours.</li>
+			</ul>
+			<p>
+			    L'éditeur se réserve le droit de suspendre ou de bloquer l'accès au service à tout utilisateur ou adresse IP dont le comportement menacerait la stabilité technique de l'infrastructure ou contreviendrait aux présentes règles.
+			</p>
+        </div>
+    </div>
+
+ 	<footer class="footer" >
+        <a href="./">HAPI</a> est développé sous <a href="https://forge.apps.education.fr/drane-normandie/hapi/-/blob/main/LICENSE" title="GNU GPL v3.0 ou ultérieure">licence libre</a> sur la Forge des communs numériques éducatifs par la <a class="out" href="https://drane.ac-normandie.fr/">DRANE de l'académie de Normandie</a>
+        <div class="footer-links">
+            <a href="mentions-legales.html">Mentions légales</a>
+            <span class="footer-separator">|</span>
+            <a href="cgu.html">CGU</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/-/issues" title="Signaler un bug" target="_blank">Tickets</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://forge.apps.education.fr/drane-normandie/hapi/" title="Espace de développement" target="_blank">Forge</a>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://drane.ac-normandie.fr/les-dernieres-nouveautes-de-la-plateforme-hapi" title="Les dernières évolutions" target="_blank">Quoi de neuf ?</a>
+            <span class="footer-separator">|</span>
+            <span title="Tutoriels HAPI et aides sur le site dédié (lien à venir)">Documentation</span>
+            <span class="footer-separator">|</span>
+            <a class="out" href="https://www.tchap.gouv.fr/#/room/#HAPIHlLVM7sVIBz:agent.education.tchap.gouv.fr" title="Aide de la communauté sur le salon dédié" target="_blank">Salon Tchap</a>
+        </div>
+        
+        <div class="footer-gia-container">
+            <img src="images/gia.png" alt="Généré par IA" class="gia-icon" title="Plateforme entièrement codée avec des IA">
+        </div>
+	</footer>
+	<script src="js/tracking-static.js"></script>
+<script src="js/theme-switcher.js"></script>
+</body>
+</html>

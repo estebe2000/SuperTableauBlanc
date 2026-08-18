@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "discipline": "Bac Pro CSR – Restauration",
+    "cycle": "Lycée Pro",
+    "classes": ["Bac Pro 2nde", "Bac Pro 1re", "Bac Pro Terminale"],
+    "source": "Référentiel Bac Pro CSR — Commercialisation et Services en Restauration",
+    "mise_a_jour": "2019-09-01"
+  },
+  "attendus_fin_cycle": [
+    "Accueillir, conseiller et servir la clientèle en restauration",
+    "Réaliser les techniques de service en salle",
+    "Commercialiser les produits et les prestations du restaurant",
+    "Organiser et gérer le service",
+    "Communiquer en situation professionnelle (y compris en langue étrangère)"
+  ],
+  "domaines": [
+    {
+      "nom": "Accueil et relation client",
+      "description": "L'accueil, le conseil et la prise en charge du client.",
+      "competences": [
+        {
+          "intitule": "Accueillir, installer et prendre en charge le client",
+          "exemples_themes": ["L'accueil du client : prise de réservation, placement en salle", "La prise de commande et le conseil (accord mets-vins)", "La gestion des réclamations et des situations délicates", "L'accueil de clients étrangers : phrases clés en anglais et espagnol"]
+        },
+        {
+          "intitule": "Commercialiser les produits et les prestations",
+          "exemples_themes": ["La technique de vente suggestive (upselling)", "La présentation et l'argumentation de la carte et des menus", "La vente de vins et de boissons (sommellerie de base)", "L'animation d'un buffet ou d'un brunch"]
+        }
+      ]
+    },
+    {
+      "nom": "Techniques de service en salle",
+      "description": "Les gestes et techniques du service de table.",
+      "competences": [
+        {
+          "intitule": "Réaliser les techniques de service (à l'assiette, au plat, au guéridon)",
+          "exemples_themes": ["Le service à l'assiette : porter, débarrasser, enchaîner", "Le service au guéridon : flambage, découpage, salade", "Le service des boissons : ouverture et service du vin", "La préparation et le débarrassage des tables (mise en place)"]
+        }
+      ]
+    },
+    {
+      "nom": "Organisation et gestion du service",
+      "description": "La planification et la gestion d'un service de restauration.",
+      "competences": [
+        {
+          "intitule": "Organiser le service et gérer les encaissements",
+          "exemples_themes": ["Le plan de salle et la gestion des réservations", "Le briefing d'avant-service (menu du jour, allergènes, VIP)", "L'encaissement et les modes de paiement (TPE, tickets restaurant)", "L'analyse du chiffre d'affaires et des indicateurs de service"]
+        }
+      ]
+    },
+    {
+      "nom": "Connaissance des produits et des boissons",
+      "description": "Les vins, les boissons et les produits de la restauration.",
+      "competences": [
+        {
+          "intitule": "Connaître les produits, les vins et les boissons pour conseiller le client",
+          "exemples_themes": ["Les grandes régions viticoles françaises (carte, cépages)", "Les accords mets-vins : principes de base", "Les boissons chaudes : le café et ses préparations", "Les fromages français : familles, terroirs, service"]
+        }
+      ]
+    },
+    {
+      "nom": "Hygiène et sécurité en salle",
+      "description": "Les règles d'hygiène et de sécurité en salle de restaurant.",
+      "competences": [
+        {
+          "intitule": "Appliquer les règles d'hygiène et de sécurité en restauration",
+          "exemples_themes": ["Les allergènes : information du client et traçabilité", "L'hygiène des mains et la tenue professionnelle", "La réglementation sur le service de l'alcool (mineurs, ivresse)", "La sécurité en salle : évacuation, extincteurs, premiers secours"]
+        }
+      ]
+    }
+  ],
+  "programme_resume": "Le Bac Pro CSR forme aux métiers de la salle et du service en restauration : accueil et relation client, techniques de service, vente suggestive, connaissance des vins et des produits, organisation du service. La communication, y compris en langue étrangère, et la commercialisation sont des axes prioritaires."
+}
