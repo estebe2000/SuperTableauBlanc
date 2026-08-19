@@ -6420,18 +6420,150 @@ body.bureau-active .bureau-desktop {
     border-top: 1px dashed rgba(255, 255, 255, 0.08);
 }
 
-/* Post-doc Mermaid centering and responsive styling */
-#docOutput .mermaid {
+/* ═══════════════════════════════════════════════════════════
+   STUDIO PÉDAGOGIQUE — STYLES & MISE EN PAGE UNIFIÉE
+   ═══════════════════════════════════════════════════════════ */
+
+.studio-grid {
+    display: grid !important;
+    grid-template-columns: minmax(380px, 480px) 1fr !important;
+    gap: 24px !important;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .studio-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+.studio-wizard-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    gap: 18px !important;
+}
+
+.studio-step-block {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.studio-select {
+    width: 100% !important;
+    height: 44px !important;
+    padding: 8px 14px !important;
+    font-size: 0.92rem !important;
+    font-weight: 500 !important;
+    color: var(--text) !important;
+    background-color: var(--surface2) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    appearance: auto !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-sizing: border-box !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.studio-select:focus {
+    border-color: var(--accent1) !important;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2) !important;
+}
+
+.studio-intent-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.studio-tab-btn {
     background: var(--surface2);
     border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 20px;
-    overflow-x: auto;
-    max-width: 100%;
+    color: var(--text-muted);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
+
+.studio-tab-btn:hover {
+    background: rgba(124, 58, 237, 0.1);
+    color: var(--text);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+.studio-tab-btn.active {
+    background: var(--accent1) !important;
+    color: #ffffff !important;
+    border-color: var(--accent1) !important;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+#pp-competence-container {
+    max-height: 160px !important;
+    overflow-y: auto !important;
+    background: var(--surface2) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 10px !important;
+    padding: 10px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#pp-competence-container .competence-item {
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+    padding: 8px 10px !important;
+    background: var(--surface) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-radius: 8px !important;
+    margin: 0 !important;
+    transition: background 0.15s ease;
+}
+
+#pp-competence-container .competence-item:hover {
+    background: rgba(124, 58, 237, 0.06) !important;
+    border-color: rgba(124, 58, 237, 0.2) !important;
+}
+
+#pp-competence-container .competence-item input[type="checkbox"] {
+    margin-top: 3px !important;
+    width: 16px !important;
+    height: 16px !important;
+    accent-color: var(--accent1) !important;
+    cursor: pointer !important;
+    flex-shrink: 0;
+}
+
+#pp-competence-container .competence-item label {
+    font-size: 0.86rem !important;
+    line-height: 1.45 !important;
+    color: var(--text) !important;
+    cursor: pointer !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    flex: 1;
+}
+
+.studio-output-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    min-height: 600px;
+}
+
 
 
 

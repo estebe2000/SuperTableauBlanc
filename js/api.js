@@ -101,12 +101,13 @@ export async function makeStreamingRequest(prompt, options = {}, onChunk, onComp
         transcription = data.text || '';
       }
       
-      onChunk(transcription, transcription);
-      onComplete(transcription);
+      if (typeof onChunk === 'function') onChunk(transcription, transcription);
+      if (typeof onComplete === 'function') onComplete(transcription);
       return;
     } catch (err) {
-      onError(err);
-      return;
+      if (typeof onError === 'function') onError(err);
+      else console.error("Transcription error:", err);
+      throw err;
     }
   }
 
@@ -296,9 +297,16 @@ export async function makeStreamingRequest(prompt, options = {}, onChunk, onComp
       }
     }
 
-    onComplete(accumulatedText);
+    if (typeof onComplete === 'function') {
+      onComplete(accumulatedText);
+    }
   } catch (error) {
-    onError(error);
+    if (typeof onError === 'function') {
+      onError(error);
+    } else {
+      console.error("makeStreamingRequest error:", error);
+    }
+    throw error;
   }
 }
 

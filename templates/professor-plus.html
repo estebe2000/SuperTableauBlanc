@@ -3,21 +3,21 @@
                 <p>L'atelier complet de conception, d'adaptation et de différenciation pédagogique inclusive — 20 modules experts conformes CUA, FALC et programmes officiels.</p>
             </div>
             
-            <div class="app-grid studio-grid" style="grid-template-columns: 1fr 1fr; gap: 24px;">
+            <div class="app-grid studio-grid">
                 <!-- Panneau Gauche : Entonnoir de Conception en 4 étapes -->
-                <section class="panel input-panel studio-wizard-panel" style="display: flex; flex-direction: column; gap: 20px;">
+                <section class="panel input-panel studio-wizard-panel">
                     
                     <!-- ÉTAPE 1 : Cadrage & Référentiel -->
                     <div class="studio-step-block">
-                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 12px; border-bottom: 1px solid var(--border);">
+                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 8px; border-bottom: 1px solid var(--border);">
                             <h2>1. Référentiel & Contexte</h2>
                         </div>
                         
                         <div class="row2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div class="field">
                                 <label class="section-label">Cycle / Niveau</label>
-                                <select id="pp-cycle" class="search-input" style="height: 44px; padding-left: 12px; font-size: 0.95rem; border-radius: 10px;">
-                                    <option value="">— Choisir —</option>
+                                <select id="pp-cycle" class="studio-select">
+                                    <option value="">— Choisir le cycle —</option>
                                     <option value="cycle1">Cycle 1 — Maternelle</option>
                                     <option value="cycle2">Cycle 2 — CP, CE1, CE2</option>
                                     <option value="cycle3">Cycle 3 — CM1, CM2, 6e</option>
@@ -29,15 +29,15 @@
                             </div>
                             <div class="field" id="pp-filiere-field" style="display: none;">
                                 <label class="section-label">Filière</label>
-                                <select id="pp-filiere" class="search-input" style="height: 44px; padding-left: 12px; font-size: 0.95rem; border-radius: 10px;">
-                                    <option value="">— Choisir —</option>
+                                <select id="pp-filiere" class="studio-select">
+                                    <option value="">— Choisir la filière —</option>
                                     <option value="but-tc">BUT Techniques de Commercialisation</option>
                                     <option value="licence-anglais">Licence Anglais (LLCER/EAD)</option>
                                 </select>
                             </div>
                             <div class="field">
                                 <label class="section-label">Discipline / UE</label>
-                                <select id="pp-discipline" class="search-input" style="height: 44px; padding-left: 12px; font-size: 0.95rem; border-radius: 10px;" disabled>
+                                <select id="pp-discipline" class="studio-select" disabled>
                                     <option value="">— Choisir le niveau —</option>
                                 </select>
                             </div>
@@ -45,36 +45,36 @@
 
                         <div class="field" style="margin-top: 10px;">
                             <label class="section-label">Compétence visée (Référentiel)</label>
-                            <div id="pp-competence-container" class="pp-scroll-area" style="max-height: 100px; overflow-y: auto; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px;">
+                            <div id="pp-competence-container" class="pp-scroll-area">
                                 <p class="placeholder-text" style="font-size: 0.85rem; margin: 0;">Sélectionnez un niveau et une discipline pour charger les compétences officielles.</p>
                             </div>
                         </div>
 
                         <div class="field" style="margin-top: 10px;">
                             <label class="section-label">Titre ou Thème de la séance</label>
-                            <input type="text" id="pp-theme" class="search-input" style="height: 44px; padding-left: 12px; font-size: 0.95rem; border-radius: 10px;" placeholder="Ex: Les fractions, La Révolution française, Le droit des contrats...">
+                            <input type="text" id="pp-theme" class="search-input" style="height: 44px; padding-left: 14px; font-size: 0.95rem; border-radius: 10px;" placeholder="Ex: Les fractions, La Révolution française, Le droit des contrats...">
                         </div>
                     </div>
 
                     <!-- ÉTAPE 2 : Choix du Module (20 modules en 4 intentions) -->
                     <div class="studio-step-block">
-                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
                             <h2>2. Module Pédagogique Spécialisé</h2>
                             <span class="badge" style="background: rgba(124,58,237,0.1); color: var(--accent5); font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;">20 modules disponibles</span>
                         </div>
 
                         <!-- Familles d'intentions -->
-                        <div class="studio-intent-tabs" style="display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px;">
-                            <button class="btn btn-sm studio-tab-btn active" data-family="concevoir" style="font-size: 0.8rem; padding: 6px 10px;">🎯 Concevoir & Évaluer</button>
-                            <button class="btn btn-sm studio-tab-btn" data-family="adapter" style="font-size: 0.8rem; padding: 6px 10px;">📄 Adapter un texte</button>
-                            <button class="btn btn-sm studio-tab-btn" data-family="besoin" style="font-size: 0.8rem; padding: 6px 10px;">🧠 Besoins Spécifiques</button>
-                            <button class="btn btn-sm studio-tab-btn" data-family="communiquer" style="font-size: 0.8rem; padding: 6px 10px;">💬 Communiquer (CAA)</button>
+                        <div class="studio-intent-tabs" style="margin-bottom: 10px;">
+                            <button class="studio-tab-btn active" data-family="concevoir">🎯 Concevoir & Évaluer</button>
+                            <button class="studio-tab-btn" data-family="adapter">📄 Adapter un texte</button>
+                            <button class="studio-tab-btn" data-family="besoin">🧠 Besoins Spécifiques</button>
+                            <button class="studio-tab-btn" data-family="communiquer">💬 Communiquer (CAA)</button>
                         </div>
 
                         <!-- Sélecteur de module dynamique -->
                         <div class="field">
                             <label class="section-label">Module actif</label>
-                            <select id="pp-selected-module" class="search-input" style="height: 44px; padding-left: 12px; font-size: 0.95rem; border-radius: 10px; font-weight: 600; color: var(--accent1);">
+                            <select id="pp-selected-module" class="studio-select" style="font-weight: 600; color: var(--accent1);">
                                 <!-- Concevoir -->
                                 <optgroup label="🎯 Concevoir & Évaluer une séance" data-family-group="concevoir">
                                     <option value="conception-cua" selected>🎓 Conception CUA (Séance complète & Enseignement explicite)</option>
