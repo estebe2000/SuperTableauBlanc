@@ -1,710 +1,390 @@
 import { makeStreamingRequest, formatMarkdown } from './api.js';
-import { appConfig } from './config.js';
-import { initDefia } from './tool-defia.js';
+import { appConfig, DEFAULT_SYSTEM_PROMPTS } from './config.js';
+import { checkRGPD } from './rgpd-guard.js';
+import { downloadOdt } from './odt-export.js';
 
 export function initProfessorPlus() {
     const cycleSelect = document.getElementById('pp-cycle');
     const disciplineSelect = document.getElementById('pp-discipline');
+    const filiereField = document.getElementById('pp-filiere-field');
+    const filiereSelect = document.getElementById('pp-filiere');
     const competenceContainer = document.getElementById('pp-competence-container');
+    const themeInput = document.getElementById('pp-theme');
+    
+    // Module selector & tabs
+    const moduleSelect = document.getElementById('pp-selected-module');
+    const moduleDescBox = document.getElementById('pp-module-description-box');
+    const intentTabs = document.querySelectorAll('.studio-tab-btn');
+
+    // RGPD & Sources elements
+    const inputText = document.getElementById('pp-input-text');
+    const rgpdAlertBox = document.getElementById('pp-rgpd-alert-box');
+    const rgpdAlertList = document.getElementById('pp-rgpd-alert-list');
+    
+    // Buttons & Outputs
     const generateBtn = document.getElementById('pp-generate-btn');
     const outputEl = document.getElementById('pp-output');
-    const placeholderEl = document.getElementById('pp-placeholder');
-    const skeletonEl = document.getElementById('pp-skeleton');
-    const gameContainer = document.getElementById('pp-game-container');
-    
-    // File/Audio elements
+    const copyBtn = document.getElementById('pp-copy-btn');
+    const exportOdtBtn = document.getElementById('pp-export-odt-btn');
+    const exportStbBtn = document.getElementById('pp-export-stb-btn');
+    const exportHapiBtn = document.getElementById('pp-export-hapi-btn');
+    const creditFooter = document.getElementById('pp-credit-footer');
+
+    // Doc / Audio elements
     const fileInputDoc = document.getElementById('pp-file-input-doc');
     const dropZoneDoc = document.getElementById('pp-drop-zone-doc');
     const docStatus = document.getElementById('pp-doc-status');
-    const fileInputAudio = document.getElementById('pp-file-input-audio');
-    const dropZoneAudio = document.getElementById('pp-drop-zone-audio');
     const recordBtn = document.getElementById('pp-record-btn');
-    
+    const recordStatus = document.getElementById('pp-record-status');
+
     let extractedDocText = "";
-    let base64Audio = null;
     let mediaRecorder = null;
     let audioChunks = [];
     let generatedMarkdown = "";
 
-    // Source Tabs Logic
+    // Descriptions des 20 modules
+    const MODULE_DESCRIPTIONS = {
+        'conception-cua': "🎓 Concevez une séance complète, structurée en enseignement explicite (Rosenshine) et différenciée selon les 3 piliers CUA.",
+        'differencier': "🔀 Générez 3 versions strictement différenciées d'une consigne : Soutien (étayé), Standard, Approfondissement (complexité réflexive).",
+        'analyse-cua': "🔍 Évaluez une fiche ou activité existante selon les 9 directives CUA (CAST 2.2/3.0) et obtenez 3 pistes d'adaptation prioritaires.",
+        'expliciter': "💡 Dévoilez les implicites d'une consigne : séparez ce que l'élève doit FAIRE matériellement de ce qu'il doit APPRENDRE.",
+        'qcm': "🧪 Rédigez un QCM équitable conforme aux 20 règles de Leclercq/Castaigne avec feedback formatif explicatif par proposition.",
+        'planification-m2pa': "📐 Planifiez l'accessibilité de votre séance sur 3 niveaux : Universel (socle commun), Ciblé et Intensif.",
+        'falc': "✍️ Adaptez votre texte selon les normes européennes du Facile à Lire et à Comprendre (Inclusion Europe) : phrases courtes, mots simples, zéro passif.",
+        'aide-lecture': "📚 Extrayez le vocabulaire clé de niveau 2 (mots transversaux de l'écrit) et générez un résumé guidé paragraphe par paragraphe.",
+        'allophone': "🌍 Adaptez une activité pour un élève allophone (EANA / CECRL) : consignes visuelles, imagier contextuel et amorces de phrases.",
+        'tsa': "🧩 Aménagez la séance pour un élève avec autisme (TSA) : repères temporels explicites, consignes littérales et allègement sensoriel.",
+        'surdite': "🧏 Adaptez le support pour un élève sourd ou malentendant : priorité au canal visuel (schémas, LSF/LPC, vidéos sous-titrées).",
+        'deficience-visuelle': "👁️ Adaptez pour la basse vision : description textuelle des figures, linéarisation pour lecteur d'écran et typographie contrastée.",
+        'handicap-moteur': "✍️ Neutralisez le coût graphique pour la dyspraxie (TDC) : formats cochants (QCM, textes à trous) et supports pré-remplis.",
+        'maths-dyscalculie': "🔢 Rendez une notion de maths accessible : triple code de Dehaene (visuel, verbal, symbolique) et verbalisation systématique.",
+        'dyslexie': "📖 Allégez le coût de déchiffrage : segmentation syllabique, aération visuelle renforcée et guidage phonologique sans baisser l'exigence.",
+        'haut-potentiel': "⚡ Enrichissez l'activité pour un élève à Haut Potentiel (EHP - Renzulli) : complexité conceptuelle et recherche ouverte sans double ration.",
+        'accompagnement': "🤝 Générez une fiche de stratégies comportementales selon la grille des 4 champs de besoins de Barry (cognitif, langagier, affectif, social).",
+        'caa': "🖼️ Traduisez une consigne en une bande-phrase de pictogrammes ARASAAC selon le code couleur de la Clé de Fitzgerald.",
+        'tableau-communication': "💬 Construisez une grille de communication thématique de 12 à 20 cases classées par fonction grammaticale pour une situation donnée.",
+        'sequentiel': "📋 Décomposez une routine ou consigne complexe en 4 à 8 étapes chronologiques simples et illustrées (méthode TEACCH).",
+        'scenario-social': "📖 Rédigez un scénario social bienveillant (méthode Carol Gray) avec au moins 2 phrases descriptives pour 1 directive."
+    };
+
+    // Tab filter for module intentions
+    intentTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            intentTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            const family = tab.getAttribute('data-family');
+            
+            // Show only options in matching optgroup or select first option
+            const optgroups = moduleSelect.querySelectorAll('optgroup');
+            optgroups.forEach(og => {
+                const grpFamily = og.getAttribute('data-family-group');
+                if (grpFamily === family) {
+                    og.style.display = '';
+                    // Select first option in this group
+                    const firstOpt = og.querySelector('option');
+                    if (firstOpt) {
+                        moduleSelect.value = firstOpt.value;
+                        updateModuleDesc(firstOpt.value);
+                    }
+                } else {
+                    og.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    moduleSelect?.addEventListener('change', (e) => {
+        updateModuleDesc(e.target.value);
+    });
+
+    function updateModuleDesc(modId) {
+        if (moduleDescBox) {
+            moduleDescBox.textContent = MODULE_DESCRIPTIONS[modId] || "Sélectionnez vos options pour générer l'adaptation.";
+        }
+    }
+
+    // Source Tabs Logic (Text / Doc / Audio)
     const sourceTabs = document.querySelectorAll('.pp-source-tab');
     const sourceContents = document.querySelectorAll('.pp-source-content');
-    let currentSource = 'text';
     
     sourceTabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            currentSource = tab.getAttribute('data-source');
+            const src = tab.getAttribute('data-source');
             sourceTabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             
             sourceContents.forEach(content => {
-                if (content.id === `pp-source-${currentSource}`) {
-                    content.style.display = 'block';
-                } else {
-                    content.style.display = 'none';
-                }
+                content.style.display = (content.id === `pp-source-${src}`) ? 'block' : 'none';
             });
         });
     });
 
-    // DOC/PDF Handling
+    // Real-time RGPD Guard
+    inputText?.addEventListener('input', () => {
+        const text = inputText.value;
+        const alerts = checkRGPD(text);
+        if (alerts.length > 0) {
+            rgpdAlertBox.style.display = 'block';
+            rgpdAlertList.innerHTML = '';
+            alerts.forEach(a => {
+                const li = document.createElement('li');
+                li.textContent = a.message;
+                rgpdAlertList.appendChild(li);
+            });
+        } else {
+            rgpdAlertBox.style.display = 'none';
+        }
+    });
+
+    // File Upload handling
     if (dropZoneDoc) {
         dropZoneDoc.addEventListener('click', () => fileInputDoc.click());
-        fileInputDoc.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) handleDocFile(e.target.files[0]);
-        });
-    }
-
-    async function handleDocFile(file) {
-        docStatus.style.display = 'block';
-        docStatus.textContent = `Chargement de ${file.name}...`;
-        extractedDocText = "";
-
-        try {
-            if (file.type === 'application/pdf') {
-                extractedDocText = await extractPdfText(file);
-            } else if (file.name.endsWith('.docx')) {
-                extractedDocText = await extractDocxText(file);
-            } else {
-                throw new Error("Format de fichier non supporté (PDF ou DOCX uniquement).");
+        fileInputDoc.addEventListener('change', async (e) => {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                docStatus.style.display = 'block';
+                docStatus.textContent = `Chargement de ${file.name}...`;
+                try {
+                    if (file.type === 'application/pdf') {
+                        extractedDocText = await extractPdfText(file);
+                    } else if (file.name.endsWith('.docx')) {
+                        extractedDocText = await extractDocxText(file);
+                    } else {
+                        throw new Error("Format non supporté (PDF ou DOCX uniquement).");
+                    }
+                    docStatus.textContent = `✅ ${file.name} chargé (${extractedDocText.length} caractères)`;
+                    docStatus.style.color = '#16a34a';
+                } catch (err) {
+                    docStatus.textContent = `❌ Erreur : ${err.message}`;
+                    docStatus.style.color = '#dc2626';
+                }
             }
-            docStatus.textContent = `✅ ${file.name} chargé (${extractedDocText.length} caractères)`;
-            docStatus.style.color = 'var(--success-color)';
-        } catch (error) {
-            console.error(error);
-            docStatus.textContent = `❌ Erreur: ${error.message}`;
-            docStatus.style.color = 'var(--danger-color)';
-        }
-    }
-
-    // Audio Handling
-    if (dropZoneAudio) {
-        dropZoneAudio.addEventListener('click', () => fileInputAudio.click());
-        fileInputAudio.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) handleAudioFile(e.target.files[0]);
         });
     }
 
-    function handleAudioFile(file) {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            base64Audio = reader.result.split('base64,')[1];
-            dropZoneAudio.querySelector('p').textContent = `✅ ${file.name} prêt`;
-        };
-    }
-
-    // Recording Logic
+    // Microphone Dictation Handling
     if (recordBtn) {
         recordBtn.addEventListener('click', async () => {
             if (mediaRecorder && mediaRecorder.state === 'recording') {
                 mediaRecorder.stop();
-                recordBtn.textContent = 'Enregistrer';
-                recordBtn.classList.remove('btn-danger');
-                return;
-            }
-
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                mediaRecorder = new MediaRecorder(stream);
-                audioChunks = [];
-                mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
-                mediaRecorder.onstop = () => {
-                    const blob = new Blob(audioChunks, { type: 'audio/wav' });
-                    handleAudioFile(new File([blob], "enregistrement.wav", { type: 'audio/wav' }));
-                    stream.getTracks().forEach(t => t.stop());
-                };
-                mediaRecorder.start();
-                recordBtn.textContent = '⏹ Arrêter';
-                recordBtn.classList.add('btn-danger');
-            } catch (err) {
-                alert("Erreur micro: " + err.message);
+                recordBtn.classList.remove('recording');
+                recordBtn.textContent = '🎤';
+                recordStatus.textContent = "Traitement audio en cours...";
+            } else {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+                    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                        recordStatus.textContent = "Transcription vocale...";
+                        // Transcribe
+                        try {
+                            const reader = new FileReader();
+                            reader.readAsDataURL(audioBlob);
+                            reader.onloadend = async () => {
+                                const base64 = reader.result.split(',')[1];
+                                const prompt = "Transcris fidèlement et mot-à-mot cet enregistrement audio :";
+                                let transcription = "";
+                                await makeStreamingRequest(prompt, { tool: 'voice', images: [base64] }, (chunk) => {
+                                    transcription += chunk;
+                                });
+                                if (inputText) {
+                                    inputText.value += (inputText.value ? "\n\n" : "") + transcription;
+                                    inputText.dispatchEvent(new Event('input'));
+                                }
+                                recordStatus.textContent = "✅ Dictée ajoutée au texte source !";
+                            };
+                        } catch (err) {
+                            recordStatus.textContent = `❌ Erreur transcription : ${err.message}`;
+                        }
+                    };
+                    mediaRecorder.start();
+                    recordBtn.classList.add('recording');
+                    recordBtn.textContent = '⏹️';
+                    recordStatus.textContent = "Enregistrement en cours... Parlez maintenant.";
+                } catch (err) {
+                    recordStatus.textContent = "❌ Accès micro refusé.";
+                }
             }
         });
     }
 
-    // Format selection
-    const formatBtns = document.querySelectorAll('#pp-output-format .tone-btn');
-    let currentFormat = 'fiche';
-    
-    formatBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            formatBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFormat = btn.getAttribute('data-format');
-        });
-    });
-
-    // Cycle & Discipline Loading Logic
-    cycleSelect.addEventListener('change', async () => {
-        const cycle = cycleSelect.value;
-        const filiereField = document.getElementById('pp-filiere-field');
-        const filiereSelect = document.getElementById('pp-filiere');
-
-        if (!cycle) {
-            disciplineSelect.disabled = true;
-            disciplineSelect.innerHTML = '<option value="">— Choisir le niveau —</option>';
-            filiereField.style.display = 'none';
-            return;
-        }
-
+    // Cycle & Discipline change
+    cycleSelect?.addEventListener('change', async (e) => {
+        const cycle = e.target.value;
         if (cycle === 'post-bac') {
-            filiereField.style.display = 'block';
-            disciplineSelect.disabled = true;
-            disciplineSelect.innerHTML = '<option value="">— Choisir la filière —</option>';
-            filiereSelect.value = "";
-        } else {
+            if (filiereField) filiereField.style.display = 'block';
+            disciplineSelect.disabled = false;
+            populateDisciplines(await fetchDisciplines(cycle, filiereSelect?.value || 'but-tc'));
+        } else if (cycle) {
             if (filiereField) filiereField.style.display = 'none';
             disciplineSelect.disabled = false;
-            disciplineSelect.innerHTML = '<option value="">Chargement...</option>';
-            const disciplines = await fetchDisciplines(cycle);
-            populateDisciplines(disciplines);
+            populateDisciplines(await fetchDisciplines(cycle));
+        } else {
+            if (filiereField) filiereField.style.display = 'none';
+            disciplineSelect.disabled = true;
+            disciplineSelect.innerHTML = '<option value="">— Choisir le niveau —</option>';
         }
     });
 
-    const filiereSelect = document.getElementById('pp-filiere');
-    if (filiereSelect) {
-        filiereSelect.addEventListener('change', async () => {
-            const cycle = cycleSelect.value;
-            const filiere = filiereSelect.value;
-            if (cycle === 'post-bac' && filiere) {
-                disciplineSelect.disabled = false;
-                disciplineSelect.innerHTML = '<option value="">Chargement...</option>';
-                const disciplines = await fetchDisciplines(cycle, filiere);
-                populateDisciplines(disciplines);
-            } else {
-                disciplineSelect.disabled = true;
-                disciplineSelect.innerHTML = '<option value="">— Choisir la filière —</option>';
-            }
-        });
-    }
-
-    disciplineSelect.addEventListener('change', async () => {
-        const cycle = cycleSelect.value;
-        const discipline = disciplineSelect.value;
-        const filiere = filiereSelect ? filiereSelect.value : null;
-        if (!cycle || !discipline) return;
-        competenceContainer.innerHTML = '<p class="placeholder-text">Chargement des compétences...</p>';
-        try {
-            const programme = await loadProgramme(cycle, discipline, filiere);
-            populateCompetences(programme);
-        } catch (error) {
-            competenceContainer.innerHTML = `<p class="placeholder-text">Erreur : ${error.message}</p>`;
+    filiereSelect?.addEventListener('change', async (e) => {
+        const filiere = e.target.value;
+        if (filiere) {
+            populateDisciplines(await fetchDisciplines('post-bac', filiere));
         }
     });
 
-    // Generation Logic
-    generateBtn.addEventListener('click', async () => {
+    disciplineSelect?.addEventListener('change', async (e) => {
+        const disc = e.target.value;
         const cycle = cycleSelect.value;
-        const discipline = disciplineSelect.value;
-        const theme = document.getElementById('pp-theme').value;
-        let inputText = document.getElementById('pp-input-text').value;
-        
-        const pillars = [];
-        if (document.getElementById('pp-pillar-engagement').checked) pillars.push('Engagement');
-        if (document.getElementById('pp-pillar-representation').checked) pillars.push('Représentation');
-        if (document.getElementById('pp-pillar-action').checked) pillars.push('Action & Expression');
-
-        const selectedCompetences = Array.from(competenceContainer.querySelectorAll('input:checked'))
-            .map(input => input.value);
-
-        if (!cycle || !discipline) {
-            alert('Veuillez renseigner au moins le cycle et la discipline.');
-            return;
-        }
-
-        // Context preparation
-        let context = "";
-        if (currentSource === 'text') context = inputText;
-        if (currentSource === 'doc') context = extractedDocText;
-        
-        // Prepare UI
-        placeholderEl.style.display = 'none';
-        skeletonEl.style.display = 'block';
-        outputEl.style.display = 'none';
-        gameContainer.style.display = 'none';
-        outputEl.innerHTML = '';
-        generateBtn.disabled = true;
-        document.getElementById('pp-copy-btn').disabled = true;
-        const exportBtn = document.getElementById('pp-export-btn');
-        if (exportBtn) exportBtn.disabled = true;
-        const exportDropdown = document.querySelector('.export-dropdown');
-        if (exportDropdown) exportDropdown.classList.add('disabled');
-        generateBtn.querySelector('.btn-loader').style.display = 'block';
-        generateBtn.querySelector('.btn-text').textContent = 'Analyse...';
-
-        if (currentFormat === 'defia') {
-            generateBtn.querySelector('.btn-text').textContent = 'Préparation du défi...';
-            skeletonEl.style.display = 'none';
-            gameContainer.style.display = 'block';
-            
-            // Special initialization for Defia as an output format
-            initDefia(context || selectedCompetences.join(', '), {
-                targetEl: gameContainer,
-                cycle,
-                discipline,
-                competences: selectedCompetences,
-                theme: theme // Passing the theme from the input field
-            });
-            
-            generateBtn.disabled = false;
-            generateBtn.querySelector('.btn-loader').style.display = 'none';
-            generateBtn.querySelector('.btn-text').textContent = 'Générer le défi';
-            return;
-        }
-
-        // Handling Audio source
-        if (currentSource === 'audio' && base64Audio) {
-            generateBtn.querySelector('.btn-text').textContent = 'Transcription audio...';
+        const filiere = filiereSelect?.value;
+        if (disc && cycle) {
             try {
-                context = await transcribeAudio(base64Audio);
+                const prog = await loadProgramme(cycle, disc, filiere);
+                populateCompetences(prog);
             } catch (err) {
-                console.error("Audio transcription failed:", err);
+                console.warn(err);
+                if (competenceContainer) {
+                    competenceContainer.innerHTML = '<p class="placeholder-text" style="font-size:0.85rem;">Programme standard prêt.</p>';
+                }
             }
         }
+    });
 
-        const prompt = constructPrompt(cycle, discipline, theme, selectedCompetences, pillars, context, currentFormat);
+    // GENERATION HANDLER
+    generateBtn?.addEventListener('click', async () => {
+        const selectedModule = moduleSelect?.value || 'conception-cua';
+        const cycle = cycleSelect?.options[cycleSelect.selectedIndex]?.text || '';
+        const discipline = disciplineSelect?.value || '';
+        const theme = themeInput?.value || '';
+        
+        const selectedComps = [];
+        document.querySelectorAll('#pp-competence-container input:checked').forEach(cb => {
+            selectedComps.push(cb.value);
+        });
+
+        const rawText = inputText?.value || '';
+        const combinedContext = [rawText, extractedDocText].filter(Boolean).join("\n\n");
+
+        // Assemble specialized prompt
+        const studioPrompts = DEFAULT_SYSTEM_PROMPTS.studioModules || {};
+        const systemPrompt = studioPrompts[selectedModule] || DEFAULT_SYSTEM_PROMPTS.professorPlus;
+
+        const userPrompt = `
+[CONTEXTE SCOLAIRE] :
+- Niveau / Cycle : ${cycle || 'Non spécifié'}
+- Discipline / UE : ${discipline || 'Non spécifiée'}
+- Compétence(s) ciblée(s) : ${selectedComps.join(', ') || 'Objectif d\'apprentissage général'}
+- Thème / Titre de la séance : ${theme || 'Séance inclusive'}
+
+${combinedContext ? `[DOCUMENT / DONNÉES SOURCES FOURNIES] :\n${combinedContext}\n` : ''}
+
+[MISSION] :
+Applique les consignes de ton rôle d'expert pour produire le contenu complet et prêt à l'emploi. Réponds en Markdown soigné et structuré.`;
+
+        // UI Loading State
+        generateBtn.disabled = true;
+        generateBtn.textContent = "⏳ Génération experte en cours...";
+        outputEl.innerHTML = `<div class="loading-state" style="text-align:center; padding: 40px;"><div class="spinner"></div><p style="color:var(--accent1); margin-top:12px;">Élaboration de l'adaptation avec le modèle souverain...</p></div>`;
+        generatedMarkdown = "";
 
         try {
-            await makeStreamingRequest(prompt, { tool: 'professor' }, 
-                (chunk, full) => {
-                    skeletonEl.style.display = 'none';
-                    outputEl.style.display = 'block';
-                    generatedMarkdown = full;
-                    formatMarkdown(outputEl, full);
-                },
-                () => {
-                    generateBtn.disabled = false;
-                    generateBtn.querySelector('.btn-loader').style.display = 'none';
-                    generateBtn.querySelector('.btn-text').textContent = 'Générer la séance inclusive';
-                    document.getElementById('pp-copy-btn').disabled = false;
-                    const exportBtn = document.getElementById('pp-export-btn');
-                    if (exportBtn) exportBtn.disabled = false;
-                    const exportDropdown = document.querySelector('.export-dropdown');
-                    if (exportDropdown) exportDropdown.classList.remove('disabled');
-                    if (window.mermaid) window.mermaid.run().catch(e => {});
-                },
-                (error) => {
-                    outputEl.innerHTML = `<p class="error">Erreur : ${error.message}</p>`;
-                    generateBtn.disabled = false;
-                    generateBtn.querySelector('.btn-loader').style.display = 'none';
-                    generateBtn.querySelector('.btn-text').textContent = 'Réessayer';
-                }
-            );
-        } catch (error) {
-            console.error('Request failed:', error);
-        }
-    });
-
-    const themeInput = document.getElementById('pp-theme');
-    const copyBtn = document.getElementById('pp-copy-btn');
-    const exportOpts = document.querySelectorAll('.export-opt');
-
-    // Copy
-    if (copyBtn) {
-        copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText(outputEl.innerText);
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = '✅';
-            setTimeout(() => copyBtn.textContent = originalText, 2000);
-        });
-    }
-
-    // Export Option Handlers
-    exportOpts.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const formatType = btn.getAttribute('data-format');
-            const title = themeInput.value || disciplineSelect.value || "seance_inclusive";
-            try {
-                if (formatType === 'pdf') {
-                    exportToPDF(outputEl, currentFormat, title);
-                } else if (formatType === 'word') {
-                    exportToWord(outputEl, currentFormat, title);
-                } else if (formatType === 'md') {
-                    exportToMarkdown(generatedMarkdown, currentFormat, title);
-                } else if (formatType === 'odt') {
-                    exportToODT(outputEl, currentFormat, title);
-                }
-            } catch (error) {
-                console.error(`Export ${formatType} failed:`, error);
-                alert(`Erreur lors de l'export ${formatType.toUpperCase()}.`);
-            }
-        });
-    });
-}
-
-function exportToPDF(element, format, title) {
-    const opt = {
-        margin: [15, 15],
-        filename: `IAcademie_${format}_${title.replace(/[^a-z0-9]/gi, '_')}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, letterRendering: true, scrollX: 0, scrollY: 0 },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-    };
-
-    // Create a clone for export to apply specific print styles
-    const clone = element.cloneNode(true);
-    clone.style.padding = "10px";
-    clone.style.color = "#1e293b";
-    clone.style.backgroundColor = "#ffffff";
-    clone.style.fontSize = "11pt";
-    clone.style.fontFamily = "'Sora', sans-serif";
-    clone.style.lineHeight = "1.6";
-    clone.style.textAlign = "left";
-    
-    // Header for the PDF
-    const header = document.createElement('div');
-    header.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #dc2626; padding-bottom: 10px; margin-bottom: 20px; font-family: 'Sora', sans-serif;">
-            <div style="font-weight: 800; color: #dc2626; font-size: 18pt;">IAcadémie</div>
-            <div style="text-align: right; font-size: 10pt; color: #64748b;">Ressource Pédagogique Inclusive</div>
-        </div>
-        <h1 style="font-size: 22pt; margin: 0 0 10px 0; color: #1e293b; font-family: 'Sora', sans-serif; font-weight: 700; text-align: left;">${title}</h1>
-        <div style="background: #f1f5f9; padding: 12px; border-radius: 8px; margin-bottom: 25px; font-size: 10pt; color: #334155; line-height: 1.5; font-family: 'Sora', sans-serif; text-align: left;">
-            Type de document : <strong>${format.toUpperCase()}</strong><br>
-            Date de génération : ${new Date().toLocaleDateString('fr-FR')}
-        </div>
-    `;
-
-    // Apply styles to elements in the clone to make them look clean and consistent
-    const headings = clone.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    headings.forEach(h => {
-        h.style.color = "#dc2626";
-        h.style.fontFamily = "'Sora', sans-serif";
-        h.style.textAlign = "left";
-    });
-
-    const h1s = clone.querySelectorAll('h1');
-    h1s.forEach(h1 => {
-        h1.style.borderBottom = "2px solid #dc2626";
-        h1.style.paddingBottom = "6px";
-        h1.style.fontSize = "16pt";
-        h1.style.marginTop = "20px";
-        h1.style.marginBottom = "10px";
-    });
-
-    const h2s = clone.querySelectorAll('h2');
-    h2s.forEach(h2 => {
-        h2.style.borderBottom = "1px solid #e2e8f0";
-        h2.style.paddingBottom = "4px";
-        h2.style.fontSize = "14pt";
-        h2.style.marginTop = "15px";
-        h2.style.marginBottom = "8px";
-    });
-
-    const paragraphs = clone.querySelectorAll('p');
-    paragraphs.forEach(p => {
-        p.style.color = "#1e293b";
-        p.style.marginBottom = "8px";
-        p.style.fontSize = "11pt";
-        p.style.textAlign = "left";
-    });
-
-    const listItems = clone.querySelectorAll('li');
-    listItems.forEach(li => {
-        li.style.color = "#1e293b";
-        li.style.marginBottom = "4px";
-        li.style.fontSize = "11pt";
-        li.style.textAlign = "left";
-    });
-
-    const strongs = clone.querySelectorAll('strong');
-    strongs.forEach(s => {
-        s.style.color = "#dc2626";
-    });
-
-    // Format tables to make column widths clean and space-saving
-    const tables = clone.querySelectorAll('table');
-    tables.forEach(table => {
-        table.style.width = "100%";
-        table.style.tableLayout = "fixed";
-        table.style.borderCollapse = "collapse";
-        table.style.margin = "15px 0";
-        
-        const headers = table.querySelectorAll('thead th, tr:first-child th, tr:first-child td');
-        if (headers.length === 5) {
-            // "Déroulement chronologique" table columns
-            // Phase (18%), Temps (10%), Activités prof (42%), Activités élèves (18%), CUA (12%)
-            const widths = ["18%", "10%", "42%", "18%", "12%"];
-            headers.forEach((th, idx) => {
-                if (widths[idx]) th.style.width = widths[idx];
+            await makeStreamingRequest(userPrompt, {
+                tool: 'professor',
+                systemPrompt: systemPrompt
+            }, (chunk) => {
+                generatedMarkdown += chunk;
+                outputEl.innerHTML = formatMarkdown(generatedMarkdown);
             });
-        } else if (headers.length === 2) {
-            // "Différenciation" table columns
-            // Besoin (20%), Variante (80%)
-            const widths = ["20%", "80%"];
-            headers.forEach((th, idx) => {
-                if (widths[idx]) th.style.width = widths[idx];
-            });
-        } else if (headers.length === 3) {
-            // "Matériel nécessaire" table columns
-            // Ressource (45%), Quantité (25%), Usage (30%)
-            const widths = ["45%", "25%", "30%"];
-            headers.forEach((th, idx) => {
-                if (widths[idx]) th.style.width = widths[idx];
-            });
-        }
 
-        const cells = table.querySelectorAll('th, td');
-        cells.forEach(cell => {
-            cell.style.wordBreak = "break-word";
-            cell.style.padding = "6px 8px";
-            cell.style.fontSize = "10pt";
-            cell.style.lineHeight = "1.4";
-            cell.style.textAlign = "left";
-            cell.style.color = "#1e293b";
-        });
-        
-        table.querySelectorAll('th').forEach(th => {
-            th.style.backgroundColor = "#f1f5f9";
-            th.style.color = "#0f172a";
-            th.style.borderColor = "#cbd5e1";
-            th.style.fontWeight = "700";
-        });
-        
-        table.querySelectorAll('td').forEach(td => {
-            td.style.borderColor = "#e2e8f0";
+            window.showToast("Adaptation pédagogique générée avec succès ! ✨");
+            if (creditFooter) {
+                creditFooter.textContent = `Module actif : ${moduleSelect?.options[moduleSelect.selectedIndex]?.text} · Conforme CUA & Données Souveraines.`;
+            }
+        } catch (err) {
+            outputEl.innerHTML = `<div class="error-msg" style="color:#dc2626; padding: 20px;">❌ Erreur lors de la génération : ${err.message}</div>`;
+        } finally {
+            generateBtn.disabled = false;
+            generateBtn.textContent = "✨ Générer l'Adaptation Pédagogique";
+        }
+    });
+
+    // COPY MARKDOWN
+    copyBtn?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Rien à copier pour le moment.");
+            return;
+        }
+        navigator.clipboard.writeText(generatedMarkdown).then(() => {
+            window.showToast("Contenu Markdown copié ! ✓");
         });
     });
 
-    const wrapper = document.createElement('div');
-    wrapper.style.backgroundColor = "#ffffff";
-    wrapper.style.color = "#1e293b";
-    wrapper.style.padding = "10px";
-    wrapper.appendChild(header);
-    wrapper.appendChild(clone);
-    
-    // Add footer to each page (simplified via CSS in html2pdf)
-    const footer = document.createElement('div');
-    footer.innerHTML = `<div style="text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 10px; font-family: 'Sora', sans-serif;">
-        Généré par IAcadémie — Atelier Pédagogique
-    </div>`;
-    wrapper.appendChild(footer);
-    
-    // If the user has Dyslexic mode on, apply it to the PDF too
-    if (document.body.classList.contains('accessibility-dyslexia')) {
-        wrapper.style.fontFamily = "'OpenDyslexic', 'Lexend', sans-serif";
-        wrapper.style.lineHeight = "1.8";
-        
-        clone.querySelectorAll('p, li, span, td, th, h1, h2, h3, h4, h5, h6').forEach(el => {
-            el.style.fontFamily = "'OpenDyslexic', 'Lexend', sans-serif";
-            el.style.lineHeight = "1.8";
-        });
-    }
-
-    if (window.html2pdf) {
-        window.html2pdf().set(opt).from(wrapper).save();
-    }
-}
-
-function exportToWord(element, format, title) {
-    const filename = `IAcademie_${format}_${title.replace(/[^a-z0-9]/gi, '_')}.doc`;
-    
-    // Create simple HTML template styled for Word
-    const htmlContent = `
-    <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-    <head>
-        <meta charset="utf-8">
-        <title>${title}</title>
-        <style>
-            body {
-                font-family: 'Segoe UI', Arial, sans-serif;
-                color: #1e293b;
-                line-height: 1.6;
-            }
-            h1, h2, h3, h4, h5, h6 {
-                color: #dc2626;
-                font-family: 'Segoe UI', Arial, sans-serif;
-            }
-            h1 {
-                border-bottom: 2px solid #dc2626;
-                padding-bottom: 5px;
-                font-size: 20pt;
-                margin-top: 25px;
-            }
-            h2 {
-                border-bottom: 1px solid #e2e8f0;
-                padding-bottom: 3px;
-                font-size: 16pt;
-                margin-top: 20px;
-            }
-            p, li {
-                font-size: 11pt;
-                margin-bottom: 8px;
-            }
-            strong {
-                color: #dc2626;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 15px 0;
-            }
-            th, td {
-                border: 1px solid #cbd5e1;
-                padding: 8px 10px;
-                text-align: left;
-                font-size: 10pt;
-                vertical-align: top;
-            }
-            th {
-                background-color: #f1f5f9;
-                color: #0f172a;
-                font-weight: bold;
-            }
-            pre, code {
-                font-family: Consolas, monospace;
-                background-color: #f1f5f9;
-                color: #0f172a;
-                font-size: 10pt;
-            }
-        </style>
-    </head>
-    <body>
-        <div style="border-bottom: 2px solid #dc2626; padding-bottom: 10px; margin-bottom: 20px;">
-            <span style="font-weight: bold; color: #dc2626; font-size: 18pt;">IAcadémie</span>
-            <span style="float: right; font-size: 10pt; color: #64748b; margin-top: 10px;">Ressource Pédagogique Inclusive</span>
-        </div>
-        <h1 style="font-size: 22pt; margin: 0 0 10px 0; color: #1e293b; font-weight: bold;">${title}</h1>
-        <div style="background: #f1f5f9; padding: 12px; border-radius: 8px; margin-bottom: 25px; font-size: 10pt; color: #334155;">
-            Type de document : <strong>${format.toUpperCase()}</strong><br>
-            Date de génération : ${new Date().toLocaleDateString('fr-FR')}
-        </div>
-        <hr style="border: 0; border-top: 1px solid #e2e8f0; margin-bottom: 25px;">
-        ${element.innerHTML}
-        <div style="text-align: center; font-size: 9pt; color: #94a3b8; margin-top: 40px; border-top: 1px solid #e2e8f0; padding-top: 10px;">
-            Généré par IAcadémie — Atelier Pédagogique
-        </div>
-    </body>
-    </html>`;
-
-    const blob = new Blob(['\ufeff' + htmlContent], { type: 'application/msword;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-function exportToMarkdown(markdownText, format, title) {
-    const filename = `IAcademie_${format}_${title.replace(/[^a-z0-9]/gi, '_')}.md`;
-    const blob = new Blob([markdownText], { type: 'text/markdown;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-function exportToODT(element, format, title) {
-    const filename = `IAcademie_${format}_${title.replace(/[^a-z0-9]/gi, '_')}.odt`;
-    const xmlContent = htmlToFodt(element.innerHTML, title);
-    const blob = new Blob([xmlContent], { type: 'application/vnd.oasis.opendocument.text;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-}
-
-function htmlToFodt(html, title) {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<office:document xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0"
-                 xmlns:text="urn:oasis:names:tc:opendocument:xmlns:text:1.0"
-                 xmlns:table="urn:oasis:names:tc:opendocument:xmlns:table:1.0"
-                 xmlns:style="urn:oasis:names:tc:opendocument:xmlns:style:1.0"
-                 xmlns:fo="urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0"
-                 office:version="1.2"
-                 office:mimetype="application/vnd.oasis:opendocument.text"
-                 office:class="text">
-  <office:font-face-decls>
-    <style:font-face style:name="Segoe UI" svg:font-family="Segoe UI, Arial, sans-serif"/>
-  </office:font-face-decls>
-  <office:automatic-styles>
-    <style:style style:name="H1" style:family="paragraph">
-      <style:text-properties fo:font-size="18pt" fo:font-weight="bold" fo:color="#dc2626"/>
-    </style:style>
-    <style:style style:name="H2" style:family="paragraph">
-      <style:text-properties fo:font-size="14pt" fo:font-weight="bold" fo:color="#dc2626"/>
-    </style:style>
-    <style:style style:name="P" style:family="paragraph">
-      <style:text-properties fo:font-size="11pt" fo:color="#1e293b"/>
-    </style:style>
-    <style:style style:name="Strong" style:family="text">
-      <style:text-properties fo:font-weight="bold" fo:color="#dc2626"/>
-    </style:style>
-  </office:automatic-styles>
-  <office:body>
-    <office:text>
-      <text:h text:style-name="H1" text:outline-level="1">${title}</text:h>
-`;
-
-    function traverse(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            return node.textContent.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // EXPORT ODT
+    exportOdtBtn?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
         }
-        
-        const tagName = node.tagName ? node.tagName.toLowerCase() : "";
-        
-        if (tagName === "h1") {
-            return `<text:h text:style-name="H1" text:outline-level="1">${traverseChildren(node)}</text:h>`;
-        }
-        if (tagName === "h2" || tagName === "h3") {
-            return `<text:h text:style-name="H2" text:outline-level="2">${traverseChildren(node)}</text:h>`;
-        }
-        if (tagName === "p") {
-            return `<text:p text:style-name="P">${traverseChildren(node)}</text:p>`;
-        }
-        if (tagName === "strong" || tagName === "b") {
-            return `<text:span text:style-name="Strong">${traverseChildren(node)}</text:span>`;
-        }
-        if (tagName === "li") {
-            return `<text:p text:style-name="P">• ${traverseChildren(node)}</text:p>`;
-        }
-        if (tagName === "table") {
-            return `<table:table>${traverseChildren(node)}</table:table>`;
-        }
-        if (tagName === "tr") {
-            return `<table:table-row>${traverseChildren(node)}</table:table-row>`;
-        }
-        if (tagName === "td" || tagName === "th") {
-            return `<table:table-cell><text:p>${traverseChildren(node)}</text:p></table:table-cell>`;
-        }
-        
-        return traverseChildren(node);
-    }
+        const title = themeInput?.value || moduleSelect?.value || "Seance_Pedagogique";
+        downloadOdt(title, generatedMarkdown);
+        window.showToast("Document .ODT accessible téléchargé ! 📄");
+    });
 
-    function traverseChildren(node) {
-        let res = "";
-        node.childNodes.forEach(child => {
-            res += traverse(child);
-        });
-        return res;
-    }
+    // EXPORT STB (Pack de cours pour le Bureau Virtuel & Espace Élève)
+    exportStbBtn?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        const title = themeInput?.value || "Seance_All_Inclusive";
+        const pack = {
+            format: "stb",
+            version: "2.0",
+            created_at: new Date().toISOString(),
+            metadata: {
+                title: title,
+                module: moduleSelect?.value,
+                cycle: cycleSelect?.value,
+                discipline: disciplineSelect?.value
+            },
+            content: {
+                markdown: generatedMarkdown
+            }
+        };
 
-    xml += traverseChildren(doc.body);
-    xml += `
-    </office:text>
-  </office:body>
-</office:document>`;
-    return xml;
+        const blob = new Blob([JSON.stringify(pack, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${title.toLowerCase().replace(/[^a-z0-9]+/g, '_')}.stb`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        window.showToast("Pack .STB exporté avec succès ! 📦");
+    });
+
+    // EXPORT TO HAPI
+    exportHapiBtn?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu pour HAPI.");
+            return;
+        }
+        sessionStorage.setItem('hapi_source_content', generatedMarkdown);
+        const hapiTab = document.querySelector('.tab-link[data-tab="hapi"]');
+        if (hapiTab) {
+            hapiTab.click();
+            window.showToast("Contenu transmis à HAPI ! 🐝");
+        }
+    });
 }
 
 // Extraction Helpers
 async function extractPdfText(file) {
+    if (!window.pdfjsLib) return "PDF parser non disponible.";
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     let text = "";
@@ -717,20 +397,13 @@ async function extractPdfText(file) {
 }
 
 async function extractDocxText(file) {
+    if (!window.mammoth) return "DOCX parser non disponible.";
     const arrayBuffer = await file.arrayBuffer();
     const result = await window.mammoth.extractRawText({ arrayBuffer });
     return result.value;
 }
 
-async function transcribeAudio(base64) {
-    // Re-use logic for whisper transcription
-    const prompt = "RÉPONDS UNIQUEMENT PAR LA TRANSCRIPTION DU DIALOGUE AUDIO.";
-    let transcription = "";
-    await makeStreamingRequest(prompt, { tool: 'voice', images: [base64] }, (chunk) => transcription += chunk);
-    return transcription;
-}
-
-// Programme loading helpers (simplified mapping)
+// Disciplines & Programmes Loaders
 export async function fetchDisciplines(cycle, filiere = null) {
     const DISCIPLINES_PAR_CYCLE = {
         cycle1: ['Maternelle'],
@@ -815,8 +488,7 @@ export async function loadProgramme(cycle, discipline, filiere = null) {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '');
         filename = `${filiere}-${discSlug}.json`;
-    }
-    else {
+    } else {
         const discSlug = mappedDiscipline.toLowerCase()
             .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
             .replace(/[^a-z0-9]+/g, '-')
@@ -827,7 +499,7 @@ export async function loadProgramme(cycle, discipline, filiere = null) {
     const path = `/programmes/${subDir}${filename}`;
     const response = await fetch(path);
     if (!response.ok) {
-        throw new Error(`Le programme "${discipline}" n'est pas disponible (Fichier ${filename} introuvable).`);
+        throw new Error(`Programme introuvable.`);
     }
     return await response.json();
 }
@@ -838,11 +510,8 @@ function populateCompetences(programme) {
     container.innerHTML = '';
     
     let items = [];
-
-    // Case 1: programme.domaines is an object (like cycle2.json)
     if (programme.domaines && !Array.isArray(programme.domaines)) {
         Object.values(programme.domaines).forEach(domaine => {
-            // Check for sous_domaines
             if (domaine.sous_domaines) {
                 Object.values(domaine.sous_domaines).forEach(sd => {
                     if (sd.attendus) items.push(...sd.attendus);
@@ -852,16 +521,12 @@ function populateCompetences(programme) {
             if (domaine.competences) items.push(...domaine.competences);
             if (domaine.attendus) items.push(...domaine.attendus);
         });
-    } 
-    // Case 2: programme.domaines is an array (like cycle3-francais.json)
-    else if (Array.isArray(programme.domaines)) {
+    } else if (Array.isArray(programme.domaines)) {
         programme.domaines.forEach(domaine => {
             if (domaine.competences) items.push(...domaine.competences);
             if (domaine.attendus) items.push(...domaine.attendus);
         });
-    }
-    // Case 3: Flat array
-    else if (Array.isArray(programme.competences)) {
+    } else if (Array.isArray(programme.competences)) {
         items = programme.competences;
     }
 
@@ -870,59 +535,13 @@ function populateCompetences(programme) {
         const id = `comp-${Math.random().toString(36).substr(2, 9)}`;
         const item = document.createElement('div');
         item.className = 'competence-item';
+        item.style.fontSize = '0.85rem';
+        item.style.marginBottom = '4px';
         item.innerHTML = `<input type="checkbox" id="${id}" value="${label}"> <label for="${id}">${label}</label>`;
         container.appendChild(item);
     });
 
     if (container.innerHTML === '') {
-        container.innerHTML = '<p class="placeholder-text">Aucune compétence répertoriée pour cette discipline.</p>';
+        container.innerHTML = '<p class="placeholder-text" style="font-size:0.85rem;">Aucune compétence répertoriée pour cette discipline.</p>';
     }
-}
-
-function constructPrompt(cycle, discipline, theme, competences, pillars, context, format) {
-    let prompt = `Tu es un expert en pédagogie inclusive et en Conception Universelle des Apprentissages (CUA/UDL).
-Ta mission est de concevoir une ressource pour le niveau ${cycle} en ${discipline}.
-
-SUJET : ${theme || 'Non précisé'}
-COMPÉTENCES VISÉES : ${competences.join(', ') || 'Selon le programme officiel'}
-PILIERS CUA À MOBILISER : ${pillars.join(', ')}
-${context ? `\nCONTEXTE / DOCUMENTS FOURNIS :\n${context}\n` : ''}
-
-FORMAT DE SORTIE ATTENDU : ${format}
-`;
-
-    if (format === 'fiche') {
-        prompt += `\nProduis une Fiche de Mise en Œuvre structurée comprenant :
-1. Objectifs de la séance
-2. Déroulement chronologique (Phases)
-3. Différenciation par pilier CUA (propose des variantes concrètes pour les élèves DYS, TDAH ou Allophones)
-4. Matériel nécessaire.`;
-    } else if (format === 'eleve') {
-        prompt += `\nProduis un support pour l'élève. Utilise un langage simple (FALC), des phrases courtes, et une structure très claire.`;
-    } else if (format === 'mindmap_radial' || format === 'mindmap') {
-        prompt += `\nProduis une CARTE MENTALE RADIALE du concept au format Mermaid mindmap.
-CONSIGNES STRICTES :
-1. Démarre STRICTEMENT par le mot-clé "mindmap".
-2. Définis un nœud central root((Sujet Principal)) (2 mots max).
-3. 3 à 5 branches principales, feuilles très courtes (1 à 4 mots max) entourées de guillemets [\"...\"]`;
-    } else if (format === 'mindmap_blocks') {
-        prompt += `\nProduis un DIAGRAMME EN BOÎTES THÉMATIQUES HORIZONTALES au format Mermaid (graph LR avec subgraphs).
-CONSIGNES STRICTES :
-1. Démarre par "graph LR".
-2. Regroupe par domaines dans des "subgraph G1 [\"Titre\"]".
-3. Cartes concises [\"...\"] et liens logiques clairs.`;
-    } else if (format === 'mindmap_tiles') {
-        prompt += `\nProduis une série de TUILES CONCEPTUELLES INTERACTIVES au format HTML (<div class="cua-interactive-grid">...</div>).
-Chaque tuile a un badge, un titre emoji, une définition courte FALC, et un bloc déroulant <details><summary>💡 Exemple concret</summary><div class="cua-tile-example">...</div></details>.`;
-    } else if (format === 'mindmap_step') {
-        prompt += `\nProduis un SCHÉMA DE PARCOURS LINÉAIRE PAS-À-PAS au format Mermaid (graph LR) ordonné chronologiquement (Étape 1 ➔ Étape 2 ➔ Étape 3) avec flèches légendées.`;
-    } else if (format === 'mindmap_matrix') {
-        prompt += `\nProduis une MATRICE CONCEPTUELLE SKETCHNOTE sous forme de tableau Markdown (3 colonnes : Notion / Outil clé | Définition simple en 1 phrase | Exemple concret du quotidien).`;
-    } else if (format === 'todo') {
-        prompt += `\nDécoupe la tâche principale en une liste de micro-étapes (check-list) pour aider un élève ayant des troubles des fonctions exécutives (TDAH).`;
-    }
-
-    prompt += `\nRéponds en français, avec un ton professionnel. Utilise le format Markdown pour la structure.`;
-    
-    return prompt;
 }

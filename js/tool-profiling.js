@@ -243,13 +243,33 @@ export function initProfiling() {
         }
     });
 
+    // Export Profile JSON
+    const exportProfileJsonBtn = document.getElementById('exportProfileJsonBtn');
+    exportProfileJsonBtn?.addEventListener('click', () => {
+        const profileRaw = localStorage.getItem('student_profile');
+        if (!profileRaw) {
+            window.showToast("Veuillez d'abord calculer votre profil.");
+            return;
+        }
+        const blob = new Blob([profileRaw], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `profil_etudiant_${Date.now()}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        window.showToast("Profil Étudiant exporté en .json ! 📥");
+    });
+
     // Copy code logic
     copyCuaCodeBtn?.addEventListener('click', () => {
         const codeText = generatedCuaCode?.textContent;
         if (codeText) {
             navigator.clipboard.writeText(codeText)
                 .then(() => {
-                    window.showToast("Code d'adaptation copié ! ✓");
+                    window.showToast("Code de profil copié ! ✓");
                 })
                 .catch(err => {
                     console.error("Copy failed:", err);
@@ -262,24 +282,13 @@ export function initProfiling() {
         const code = generatedCuaCode?.textContent || '';
         if (!code) return;
 
-        // Store profile details
-        const finalAnswers = {};
-        for (let i = 1; i <= totalSteps; i++) {
-            finalAnswers[`q${i}`] = getAnswerForStep(i);
-        }
-
-        // Apply rules in student window
-        localStorage.setItem('cua_profile_code', code);
-        localStorage.setItem('cua_profile_answers', JSON.stringify(finalAnswers));
-
-        window.showToast("Profil d'adaptation appliqué avec succès ! ✓");
+        window.showToast("Profil Étudiant activé avec succès dans votre espace ! ✨");
 
         // Redirect student
         const tabEl = document.querySelector('.tab-link[data-tab="student"]');
         if (tabEl) {
             tabEl.click();
         } else {
-            // Fallback: reload home
             const homeTab = document.querySelector('.tab-link[data-tab="home"]');
             homeTab?.click();
         }
@@ -287,8 +296,11 @@ export function initProfiling() {
 
     function calculateCuaProfile() {
         const values = [];
+        const finalAnswers = {};
         for (let i = 1; i <= totalSteps; i++) {
-            values.push(getAnswerForStep(i) || 'A');
+            const ans = getAnswerForStep(i) || 'A';
+            values.push(ans);
+            finalAnswers[`q${i}`] = ans;
         }
 
         // Frequency count
@@ -305,59 +317,126 @@ export function initProfiling() {
 
         let profileText = "";
         if (majority === 'A') {
-            profileText = "🧠 Profil d'adaptation légère. Vigilance et ajustements légers recommandés.";
+            profileText = "🧠 Profil Autonomie & Flexibilité. Ajustements légers de confort visuel et méthodologique.";
         } else if (majority === 'B') {
-            profileText = "🎨 Profil d'adaptation modérée. Aménagements de temps et de présentation utiles.";
+            profileText = "🎨 Profil Soutien Méthodologique & Visuel. Aménagements de temps, aération des textes et guidage pas-à-pas.";
         } else if (majority === 'C') {
-            profileText = "🗺️ Profil d'adaptation forte. Allègements, simplifications textuelles et guidage visuel requis.";
+            profileText = "🗺️ Profil Adaptation Renforcée. Simplification textuelle (FALC), soutien audio et structuration séquentielle indispensables.";
         } else {
-            profileText = "🤝 Profil d'adaptation individualisée. Simplification maximale (FALC), aide audio ou humaine recommandée.";
+            profileText = "🤝 Profil Compensation & Multimodalité Maximale. Recours prioritaire à la CAA (pictogrammes), synthèse vocale immersive et découpage guidé.";
         }
 
         if (resultProfileText) resultProfileText.textContent = profileText;
 
-        // Generate Code: CUA-A-B-C-A-B-C-A-A-B-D
-        const code = `CUA-${values.join('-')}`;
+        // Generate Code: ETUDIANT-A-B-C-A-B-C-A-A-B-D
+        const code = `ETUDIANT-${values.join('-')}`;
         if (generatedCuaCode) generatedCuaCode.textContent = code;
 
-        // Create detail recommendations
+        // Calculate Recommended Modules
+        const recommendedModules = [];
+        const qReading = values[0];
+        const qSize = values[1];
+        const qLayout = values[2];
+        const qAudio = values[4];
+        const qOrga = values[5];
+        const qWrite = values[7];
+        const qVisual = values[9];
+
+        // 1. Reading & Dyslexia & FALC
+        if (qReading === 'C' || qReading === 'D' || qSize === 'C' || qSize === 'D') {
+            recommendedModules.push({ id: 'falc', label: '✍️ Simplification FALC', desc: 'Phrases courtes et claires' });
+            recommendedModules.push({ id: 'dyslexie', label: '📖 Module Dyslexie', desc: 'Police DYS et aération' });
+            recommendedModules.push({ id: 'aide-lecture', label: '📚 Aide à la lecture', desc: 'Lexique et résumé guidé' });
+        }
+
+        // 2. Audio & Speech
+        if (qAudio === 'C' || qAudio === 'D' || qReading === 'D') {
+            recommendedModules.push({ id: 'voice', label: '🎙️ Synthèse vocale immersive', desc: 'Lecture audio mot-à-mot' });
+        }
+
+        // 3. Organization & Step-by-Step & TEACCH
+        if (qOrga === 'C' || qOrga === 'D' || qLayout === 'C' || qLayout === 'D') {
+            recommendedModules.push({ id: 'sequentiel', label: '🧩 Séquentiel (TEACCH)', desc: 'Routines étape par étape' });
+            recommendedModules.push({ id: 'todo', label: '📋 Pas-à-Pas (Tâches)', desc: 'Décomposition de consignes' });
+            recommendedModules.push({ id: 'expliciter', label: '💡 Expliciter la tâche', desc: 'Lever les implicites' });
+        }
+
+        // 4. Writing & Motor Fatigue
+        if (qWrite === 'C' || qWrite === 'D') {
+            recommendedModules.push({ id: 'handicap-moteur', label: '✍️ Formats cochants', desc: 'Soulagement de la saisie' });
+            recommendedModules.push({ id: 'mic', label: '🎤 Dictée Vocale', desc: 'Saisie sans clavier' });
+        }
+
+        // 5. Visual & CAA Pictograms
+        if (qReading === 'D' || qWrite === 'D') {
+            recommendedModules.push({ id: 'caa', label: '🖼️ Pictogrammes ARASAAC', desc: 'Bandes-phrases visuelles' });
+            recommendedModules.push({ id: 'tableau-communication', label: '💬 Grille CAA', desc: 'Communication thématique' });
+        }
+
+        // 6. Visual contrast
+        if (qVisual === 'D') {
+            recommendedModules.push({ id: 'deficience-visuelle', label: '👁️ Fort contraste & Luciole', desc: 'Confort visuel maximal' });
+        }
+
+        // Fallback default modules
+        if (recommendedModules.length === 0) {
+            recommendedModules.push({ id: 'expliciter', label: '💡 Explicitation CUA', desc: 'Clarté cognitive' });
+            recommendedModules.push({ id: 'todo', label: '📋 Pas-à-Pas', desc: 'Méthodologie' });
+            recommendedModules.push({ id: 'professor', label: '💡 Clarificateur', desc: 'Multi-angles' });
+        }
+
+        // Populate badges in UI
+        const badgesContainer = document.getElementById('recommendedModulesBadges');
+        if (badgesContainer) {
+            badgesContainer.innerHTML = '';
+            recommendedModules.forEach(mod => {
+                const span = document.createElement('span');
+                span.className = 'stag';
+                span.style.background = 'rgba(124, 58, 237, 0.12)';
+                span.style.borderColor = 'rgba(124, 58, 237, 0.3)';
+                span.style.color = 'var(--text)';
+                span.style.padding = '6px 12px';
+                span.style.borderRadius = '20px';
+                span.style.fontSize = '0.85rem';
+                span.style.fontWeight = '500';
+                span.title = mod.desc;
+                span.textContent = mod.label;
+                badgesContainer.appendChild(span);
+            });
+        }
+
+        // Preferences list
         if (cuaPreferencesList) {
             cuaPreferencesList.innerHTML = '';
             
-            // FontSize preference
-            const sizeOption = values[1]; // q2
-            let sizePref = "Taille standard";
-            if (sizeOption === 'B') sizePref = "Texte légèrement agrandi";
-            else if (sizeOption === 'C') sizePref = "Texte très agrandi";
-            else if (sizeOption === 'D') sizePref = "Écran à fort grossissement ou lecture vocale";
+            const sizeOption = values[1];
+            let sizePref = "Taille standard (16px)";
+            if (sizeOption === 'B') sizePref = "Texte légèrement agrandi (18px)";
+            else if (sizeOption === 'C') sizePref = "Texte agrandi (22px)";
+            else if (sizeOption === 'D') sizePref = "Grand format (26px) et synthèse vocale";
             
-            // Layout preference
-            const layoutOption = values[2]; // q3
-            let layoutPref = "Mise en page classique";
+            const layoutOption = values[2];
+            let layoutPref = "Mise en page standard";
             if (layoutOption === 'B') layoutPref = "Mise en page aérée (double interligne)";
-            else if (layoutOption === 'C') layoutPref = "Consignes segmentées (une consigne par bloc)";
-            else if (layoutOption === 'D') layoutPref = "Mise en page minimale simplifiée";
+            else if (layoutOption === 'C') layoutPref = "Consignes segmentées en micro-blocs";
+            else if (layoutOption === 'D') layoutPref = "Mise en page épurée (style FALC)";
 
-            // Writing preference
-            const writeOption = values[7]; // q8
-            let writePref = "Saisie manuscrite standard";
+            const writeOption = values[7];
+            let writePref = "Saisie standard";
             if (writeOption === 'B') writePref = "Soulagement de l'écrit (manuscrits courts)";
-            if (writeOption === 'C') writePref = "Rendre les réponses sous forme de cases à cocher/QCM";
-            if (writeOption === 'D') writePref = "Dictée vocale ou clavier numérique";
+            if (writeOption === 'C') writePref = "Réponses par cases à cocher / QCM";
+            if (writeOption === 'D') writePref = "Dictée vocale et réponses audio";
 
-            // Add to bullet points
             const prefs = [sizePref, layoutPref, writePref];
             
-            // Check dyslexia
-            const readingOption = values[0]; // q1
-            if (readingOption === 'C' || readingOption === 'D' || sizeOption === 'C') {
-                prefs.push("Police d'écriture inclusive / Dyslexie (OpenDyslexic) active");
+            if (qReading === 'C' || qReading === 'D' || sizeOption === 'C') {
+                prefs.push("Police inclusive OpenDyslexic activée");
             }
-            if (values[4] === 'C' || values[4] === 'D') { // q5
-                prefs.push("Audio et synthèse vocale activés pour les consignes");
+            if (qAudio === 'C' || qAudio === 'D') {
+                prefs.push("Lecteur vocal et synthèse de consignes activés");
             }
-            if (values[9] === 'D') { // q10
-                prefs.push("Contraste élevé et couleurs de repérage visuel");
+            if (qVisual === 'D') {
+                prefs.push("Contraste élevé et repérage visuel renforcé");
             }
 
             prefs.forEach(p => {
@@ -366,6 +445,28 @@ export function initProfiling() {
                 cuaPreferencesList.appendChild(li);
             });
         }
+
+        // Save complete Student Profile to LocalStorage
+        const isDys = (qReading === 'C' || qReading === 'D' || qSize === 'C');
+        const studentProfile = {
+            code: code,
+            level: majority,
+            answers: finalAnswers,
+            recommendedModules: recommendedModules.map(m => m.id),
+            typography: {
+                font: isDys ? 'OpenDyslexic' : 'default',
+                size: values[1],
+                spacing: values[2] === 'B' || values[2] === 'C' ? '1.5' : 'normal'
+            },
+            needsAudio: (qAudio === 'C' || qAudio === 'D' || qReading === 'D'),
+            needsFalc: (qReading === 'C' || qReading === 'D'),
+            needsPictos: (qReading === 'D' || qWrite === 'D'),
+            updatedAt: new Date().toISOString()
+        };
+
+        localStorage.setItem('student_profile', JSON.stringify(studentProfile));
+        localStorage.setItem('cua_profile_code', code);
+        localStorage.setItem('cua_profile_answers', JSON.stringify(finalAnswers));
 
         // Switch to result view
         if (profilingCard) profilingCard.style.display = 'none';

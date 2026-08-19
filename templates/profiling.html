@@ -1,6 +1,6 @@
 <div class="workspace-header">
-    <h2>🎯 Déterminer mon Profil d'Accessibilité (CUA)</h2>
-    <p>Répondez aux mises en situation pour configurer vos outils et documents de cours à vos besoins.</p>
+    <h2>🎯 Déterminer mon Profil Étudiant</h2>
+    <p>Répondez aux mises en situation interactives pour configurer automatiquement vos outils, modules d'accessibilité et supports de cours selon vos besoins réels.</p>
 </div>
 
 <div class="profiling-container">
@@ -372,19 +372,19 @@
     <!-- Result View -->
     <div class="profiling-result-card" id="profilingResultCard" style="display: none;">
         <div class="result-icon">🎉</div>
-        <h3>Votre Profil CUA a été calculé !</h3>
+        <h3>Votre Profil Étudiant est prêt !</h3>
         <p class="result-profile-text" id="resultProfileText">Profil d'adaptation modéré détecté.</p>
         
         <div class="result-code-box">
-            <span class="code-label">Code d'Adaptation Unique :</span>
+            <span class="code-label">Code Profil Étudiant :</span>
             <div class="code-value-wrapper">
-                <span class="code-value" id="generatedCuaCode">CUA-A-B-B-C-A-D-C-A-B-C</span>
+                <span class="code-value" id="generatedCuaCode">ETUDIANT-A-B-B-C-A-D-C-A-B-C</span>
                 <button class="btn btn-secondary btn-sm" id="copyCuaCodeBtn" title="Copier le code">📋 Copier</button>
             </div>
         </div>
 
         <div class="result-details">
-            <h4>Vos préférences d'affichage et de contenu :</h4>
+            <h4>⚙️ Vos préférences d'accessibilité actives :</h4>
             <ul id="cuaPreferencesList">
                 <li>Police standard</li>
                 <li>Taille légèrement agrandie</li>
@@ -392,8 +392,23 @@
             </ul>
         </div>
 
-        <button class="btn btn-primary" id="applyProfileBtn" style="margin-top: 1.5rem; width: 100%;">
-            💾 Appliquer le profil à ma session
-        </button>
+        <div class="result-modules-box" style="margin-top: 1.5rem; text-align: left; background: rgba(124, 58, 237, 0.06); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 12px; padding: 16px;">
+            <h4 style="margin-top: 0; margin-bottom: 8px; color: var(--accent1); display: flex; align-items: center; gap: 8px;">
+                <span>✨</span> Modules recommandés pour vous dans le Tableau Blanc :
+            </h4>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 12px;">Ces outils s'adapteront automatiquement et en toute discrétion lors de vos cours :</p>
+            <div id="recommendedModulesBadges" class="search-tags" style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <!-- Dynamically populated badges -->
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 12px; margin-top: 1.5rem;">
+            <button class="btn btn-secondary" id="exportProfileJsonBtn" style="flex: 1;">
+                📥 Exporter mon profil (.json)
+            </button>
+            <button class="btn btn-primary" id="applyProfileBtn" style="flex: 2;">
+                💾 Activer dans mon Espace Élève ➡
+            </button>
+        </div>
     </div>
 </div>

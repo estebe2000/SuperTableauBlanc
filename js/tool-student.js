@@ -362,7 +362,7 @@ export function initStudent() {
         }, 100);
     }
 
-    // Load stored CUA code if exists
+    // Load stored Student profile / CUA code if exists
     const storedCode = localStorage.getItem('cua_profile_code');
     if (storedCode) {
         activeCuaCode = storedCode;
@@ -390,15 +390,15 @@ export function initStudent() {
 
     applyCuaCodeBtn?.addEventListener('click', () => {
         const code = cuaCodeInput.value.trim().toUpperCase();
-        if (!code.startsWith('CUA-')) {
-            alert("Code invalide. Le code doit commencer par 'CUA-'.");
+        if (!code.startsWith('ETUDIANT-') && !code.startsWith('CUA-')) {
+            alert("Code invalide. Le code doit commencer par 'ETUDIANT-' ou 'CUA-'.");
             return;
         }
         activeCuaCode = code;
         localStorage.setItem('cua_profile_code', code);
         applyCuaProfile(code);
         closeModal();
-        window.showToast("Profil d'accessibilité mis à jour ! ✓");
+        window.showToast("Profil Étudiant appliqué avec succès ! ✨");
     });
 
     // Student Documents Panel trigger
@@ -1303,16 +1303,16 @@ RÉPONSES CONSEILS : Rends uniquement la traduction exacte, sans aucune introduc
         currentViewingDoc = null;
     });
 
-    // Apply accessibility settings based on CUA code
+    // Apply accessibility settings based on Student profile / CUA code
     function applyCuaProfile(code) {
-        if (!code || !code.startsWith('CUA-')) return;
+        if (!code || (!code.startsWith('ETUDIANT-') && !code.startsWith('CUA-'))) return;
         
         if (cuaAppliedCodeText) {
-            cuaAppliedCodeText.textContent = `Profil CUA : ${code}`;
+            cuaAppliedCodeText.textContent = `Profil Actif : ${code}`;
             cuaAppliedCodeText.className = 'cua-code-status active';
         }
 
-        // Split code segments (e.g. CUA-A-B-C-A-B-C-A-A-B-D)
+        // Split code segments (e.g. ETUDIANT-A-B-C-A-B-C-A-A-B-D)
         const parts = code.split('-');
         if (parts.length < 11) return;
 
