@@ -448,6 +448,23 @@ export function formatMarkdown(elementOrText, rawText) {
       if (decodedCode.startsWith('mermaid')) {
         decodedCode = decodedCode.replace(/^mermaid\s+/, '').trim();
       }
+
+      // Sanitize node labels in Mermaid graphs (wrap unquoted labels containing special characters in quotes)
+      try {
+        decodedCode = decodedCode.split('\n').map(line => {
+          let trimmed = line.trim();
+          if (!trimmed || /^(graph|flowchart|mindmap|sequenceDiagram|classDiagram|style|classDef|linkStyle|subgraph|end)\b/.test(trimmed)) {
+            return line;
+          }
+          // Wrap unquoted square bracket node labels in double quotes
+          return line.replace(/(\w+)\s*\[([^"\]]+)\]/g, (m, id, label) => {
+            const safeLabel = label.replace(/"/g, "'").trim();
+            return `${id}["${safeLabel}"]`;
+          });
+        }).join('\n');
+      } catch (e) {
+        console.warn("Mermaid sanitization note:", e);
+      }
       
       return `<div class="mermaid-container"><pre class="mermaid">${decodedCode}</pre></div>`;
     });

@@ -358,17 +358,29 @@ export function initProfessorPlus() {
 ${dynamicValues.length > 0 ? `[PARAMÈTRES SPÉCIFIQUES DU MODULE] :\n${dynamicValues.join('\n')}\n` : ''}
 ${combinedContext ? `[DOCUMENTS SOURCES & DONNÉES D'APPUI] :\n${combinedContext}\n` : ''}
 
-[EXIGENCE DE PRODUCTION DE CONTENU COMPLET] :
-Ne te limite pas à un simple plan ou à des conseils généraux. Rédige l'INTÉGRALITÉ du CONTENU PÉDAGOGIQUE DIRECTEMENT EXPLOITABLE pour la classe :
-1. Titre clair et Objectivation (Pourquoi apprend-on cela ?).
-2. Déroulé minuté complet (sur ${duration}) avec les étapes d'enseignement explicite (Modelage, Pratique guidée, Pratique autonome).
-3. Le Savoir / Cours intégralement rédigé avec définitions et repères clés.
-4. Les Activités & Exercices complets prêts à être projetés ou distribués aux élèves (énoncés intégraux rédigés, fiches de travail).
-5. La Différenciation CUA effective (variantes Soutien / Standard / Approfondissement rédigées in extenso).
-6. Un Schéma conceptuel Mermaid (\`\`\`mermaid ... \`\`\`) pour ancrer visuellement les notions.
-7. L'Évaluation formative avec corrigé explicatif intégral.
+[CONSIGNES DE PRODUCTION ET FORMAT DE SORTIE STRICT] :
+Rédige le support de manière complète, détaillée et sans aucune ellipse (pas de « voir annexe » ni de « tableau à compléter ultérieurement »).
+Organise OBLIGATOIREMENT ta réponse en deux grandes parties distinctes :
 
-Réponds en Markdown soigné, avec une typographie aérée et structurée.`;
+---
+## 📄 PARTIE 1 : Document à remettre à l'Élève
+*(Cette partie doit être immédiatement imprimable et utilisable en classe, SANS aucun méta-commentaire ni jargon d'évaluation)*
+- Le Titre clair et la mise en situation concrète.
+- Le Cours / Savoir intégralement rédigé avec définitions et repères visuels.
+${selectedModule === 'allophone' ? '- Le Tableau de Lexique Disciplinaire Bilingue complet avec colonnes : | Mot (français) | Traduction (selon langue maternelle) | Exemple illustré |\n- Les Phrases modèles à trous et structures de phrases pour guider l\'écrit.\n- Les fiches d\'exercices adaptées au niveau CECRL.' : ''}
+${selectedModule === 'differencier' ? '- Les 3 versions autonomes de la consigne (Soutien / Standard / Expert) rédigées intégralement avec critères de réussite.' : ''}
+${selectedModule === 'falc' ? '- Le texte intégral réécrit en FALC (phrases courtes < 15 mots SVC, une idée par ligne, vocabulaire simple) suivi du glossaire.' : ''}
+${selectedModule === 'aide-lecture' ? '- Le Lexique structuré (niveau 2 transversal et niveau 3 disciplinaire) avec définitions accessibles et exemples, suivi des résumés par paragraphe.' : ''}
+${selectedModule === 'qcm' ? '- Le questionnaire complet avec amorce, choix étiquetés et rétroactions formatives bienveillantes pour chaque option.' : ''}
+${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices différenciés complets (Soutien / Standard / Approfondissement) prêts pour les élèves.' : ''}
+- Si un diagramme Mermaid est pertinent, écris-le avec des labels rigoureusement entre guillemets doubles, ex: \`\`\`mermaid\ngraph TD\n  A["Concept"] --> B["Détail (15%)"]\n\`\`\`
+
+---
+## 🧑‍🏫 PARTIE 2 : Fiche de Préparation & Notes pour l'Enseignant
+- Le déroulé minuté complet (sur ${duration}) avec les étapes d'enseignement explicite (Modelage, Pratique guidée, Pratique autonome).
+- Les principes et aménagements d'accessibilité mobilisés.
+- Le corrigé complet et explicatif des activités.
+- La synthèse des **3 gestes prioritaires à mettre en place dès demain** (un geste en une phrase, puis le signe observable pour l'alléger).`;
 
         // UI Loading State
         generateBtn.disabled = true;

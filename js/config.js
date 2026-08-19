@@ -261,30 +261,39 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🎯 Concevoir & Évaluer',
       desc: "Bâtir une séance complète accessible dès le départ (Rosenshine & CUA)",
       fields: [
-        { id: 'profils_classe', label: 'Profils d’élèves dans la classe', type: 'text', placeholder: 'Ex: 2 élèves DYS, 1 TDAH, hétérogénéité moyenne' },
-        { id: 'objectif_detail', label: 'Objectif d’apprentissage spécifique', type: 'text', placeholder: 'Ex: Savoir poser et calculer une multiplication de décimaux' }
+        { id: 'objectif', label: "Objectif d'apprentissage visé", type: 'text', placeholder: "Ex : Modéliser le coût du tabac et calculer des pourcentages" },
+        { id: 'profils_classe', label: "Profils d'élèves de la classe", type: 'text', placeholder: "Ex : Hétérogénéité moyenne, 2 élèves DYS, 1 élève TDAH" },
+        { id: 'contraintes_additionnelles', label: "Contraintes pédagogiques spécifiques", type: 'text', placeholder: "Ex : Travail en îlots de 4, matériel de géométrie autorisé" }
       ]
     },
     {
       id: 'differencier',
-      name: 'Différenciation',
+      name: 'Différenciation de consignes',
       icon: '🔀',
       family: 'concevoir',
       familyLabel: '🎯 Concevoir & Évaluer',
-      desc: "Générer 3 versions d'une consigne (Soutien / Standard / Approfondissement)",
+      desc: "Générer 3 versions d'une consigne (Soutien / Standard / Expert - Tomlinson)",
       fields: [
-        { id: 'consigne_base', label: 'Consigne / Tâche de départ', type: 'textarea', placeholder: 'Collez la consigne ou l’exercice à différencier en 3 niveaux...' }
+        { id: 'sourceInstruction', label: "Consigne ou tâche de base à différencier", type: 'textarea', placeholder: "Collez la consigne ou l'exercice à décliner en 3 parcours distincts..." },
+        { id: 'objectif', label: "Objectif d'apprentissage socle", type: 'text', placeholder: "Ex : Savoir poser une équation à une inconnue" },
+        { id: 'options_differenciation', label: "Leviers de différenciation prioritaires (Tomlinson)", type: 'select', options: [
+          { value: 'processus_productions', label: "Processus & Productions (aides pas-à-pas / formats de réponse variés)" },
+          { value: 'contenus_processus', label: "Contenus & Processus (supports visuels / amorces de raisonnement)" },
+          { value: 'environnement', label: "Environnement & Modalités (binôme, temps, matériel d'étayage)" }
+        ]}
       ]
     },
     {
       id: 'analyse-cua',
-      name: 'Analyse CUA (Audit)',
+      name: 'Analyse CUA (Diagnostic)',
       icon: '🔍',
       family: 'concevoir',
       familyLabel: '🎯 Concevoir & Évaluer',
-      desc: "Diagnostic d'une séance existante au prisme des 9 directives CUA",
+      desc: "Audit d'une séance existante au prisme des 9 directives CUA (CAST 2.2/3.0)",
       fields: [
-        { id: 'fiche_source', label: 'Fiche ou séance existante à auditer', type: 'textarea', placeholder: 'Collez le déroulé de votre séance existante pour analyse...' }
+        { id: 'sessionDescription', label: "Fiche ou déroulé de séance à diagnostiquer", type: 'textarea', placeholder: "Collez les objectifs, déroulement et modalités de votre séance existante..." },
+        { id: 'probleme_observe', label: "Difficultés ou obstacles observés", type: 'text', placeholder: "Ex : Beaucoup d'élèves décrochent lors de la phase autonome" },
+        { id: 'contraintes_materielles', label: "Matériel et environnement disponibles", type: 'text', placeholder: "Ex : Vidéoprojecteur, 1 tablette pour 2 élèves, tableau blanc" }
       ]
     },
     {
@@ -295,7 +304,14 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🎯 Concevoir & Évaluer',
       desc: "Lever les implicites : séparer ce qu'on fait de ce qu'on apprend",
       fields: [
-        { id: 'tache_brute', label: 'Énoncé ou consigne brute', type: 'textarea', placeholder: 'Ex: « Faites l’exercice 4 page 52 » ou « Rédigez un paragraphe argumenté »' }
+        { id: 'sourceText', label: "Tâche, consigne ou activité brute", type: 'textarea', placeholder: "Ex : « Rédigez un paragraphe argumenté à partir des documents 1 et 2 »" },
+        { id: 'objectif', label: "Ce que la tâche vise réellement à faire apprendre", type: 'text', placeholder: "Ex : Savoir distinguer un fait historique d'une interprétation" },
+        { id: 'constats', label: "Ce que vous observez chez les élèves", type: 'text', placeholder: "Ex : Les élèves recopient les documents sans argumenter" },
+        { id: 'modalites', label: "Modalité de coopération retenue", type: 'select', options: [
+          { value: 'relecture_croisee', label: "Relecture croisée en binôme avec critères" },
+          { value: 'reformulation_orale', label: "Reformulation orale de l'attendu avant démarrage" },
+          { value: 'confrontation_paires', label: "Confrontation de deux productions contrastées" }
+        ]}
       ]
     },
     {
@@ -306,34 +322,62 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🎯 Concevoir & Évaluer',
       desc: "Évaluation équitable selon les 20 règles de Leclercq et Bloom",
       fields: [
-        { id: 'qcm_mode', label: 'Mode', type: 'select', options: [{ value: 'creer', label: 'Créer un nouveau QCM' }, { value: 'relire', label: 'Auditer / Améliorer un QCM existant' }] },
-        { id: 'nb_questions', label: 'Nombre de questions', type: 'select', options: [{ value: '3', label: '3 questions' }, { value: '5', label: '5 questions' }, { value: '8', label: '8 questions' }, { value: '10', label: '10 questions' }] },
-        { id: 'nb_propositions', label: 'Nombre de choix par question', type: 'select', options: [{ value: '4', label: '4 propositions (1 correcte + 3 distracteurs)' }, { value: '3', label: '3 propositions (1 correcte + 2 distracteurs)' }] },
-        { id: 'bloom_level', label: 'Niveau cognitif (Bloom)', type: 'select', options: [{ value: 'mixte', label: 'Tous niveaux (Mémoriser, Comprendre, Appliquer, Analyser)' }, { value: 'memoriser', label: 'Mémoriser (Restituer faits et termes)' }, { value: 'comprendre', label: 'Comprendre (Expliquer et reformuler)' }, { value: 'appliquer', label: 'Appliquer (Cas concrets et calculs)' }] }
+        { id: 'mode', label: "Mode de travail", type: 'select', options: [
+          { value: 'creer', label: "Créer un nouveau QCM à partir d'une notion" },
+          { value: 'relire', label: "Auditer / Améliorer un QCM existant" }
+        ]},
+        { id: 'notion', label: "Notion ou contenu à évaluer", type: 'textarea', placeholder: "Décrivez la notion ou collez le QCM à auditer..." },
+        { id: 'objectif', label: "Objectif d'apprentissage évalué", type: 'text', placeholder: "Ex : Identifier la valeur de position des chiffres décimaux" },
+        { id: 'nb_propositions', label: "Nombre de propositions par question", type: 'select', options: [
+          { value: '4', label: "4 choix (1 réponse correcte + 3 distracteurs plausibles)" },
+          { value: '3', label: "3 choix (1 réponse correcte + 2 distracteurs)" }
+        ]},
+        { id: 'bloom_level', label: "Niveau cognitif (Bloom)", type: 'select', options: [
+          { value: 'mixte', label: "Équilibré (Mémoriser, Comprendre, Appliquer, Analyser)" },
+          { value: 'memoriser', label: "Mémoriser (Restituer faits, définitions et règles)" },
+          { value: 'comprendre', label: "Comprendre (Expliquer, reformuler et distinguer)" },
+          { value: 'appliquer', label: "Appliquer (Résoudre des cas concrets et calculs)" }
+        ]}
       ]
     },
 
     // 2. Adapter un texte
     {
       id: 'falc',
-      name: 'FALC',
+      name: 'FALC — Facile à Lire et à Comprendre',
       icon: '✍️',
       family: 'adapter',
       familyLabel: '📄 Adapter un texte',
-      desc: "Simplification Facile à Lire et à Comprendre (Inclusion Europe)",
+      desc: "Simplification aux normes européennes (Inclusion Europe)",
       fields: [
-        { id: 'profil_lecteur', label: 'Profil du lecteur', type: 'text', placeholder: 'Ex: Troubles cognitifs légers, élève non francophone, grande difficulté de déchiffrage' }
+        { id: 'sourceText', label: "Texte source à adapter en FALC", type: 'textarea', placeholder: "Collez le texte du cours, le règlement ou l'énoncé à simplifier..." },
+        { id: 'profil', label: "Profil du lecteur", type: 'select', options: [
+          { value: 'handicap_intellectuel', label: "Élève avec trouble cognitif / handicap intellectuel" },
+          { value: 'difficulte_lecture', label: "Élève en grande difficulté de déchiffrage et compréhension" },
+          { value: 'allophone_debutant', label: "Élève allophone nouvellement arrivé" }
+        ]}
       ]
     },
     {
       id: 'aide-lecture',
-      name: 'Aide à la lecture',
+      name: 'Aide à la lecture — Lexique & Résumé',
       icon: '📚',
       family: 'adapter',
       familyLabel: '📄 Adapter un texte',
       desc: "Lexique de niveau 2 (Beck) et résumé paragraphe par paragraphe",
       fields: [
-        { id: 'longueur_resume', label: 'Format des résumés', type: 'select', options: [{ value: 'court', label: 'Ultra-synthétique (1 phrase par paragraphe)' }, { value: 'detaille', label: 'Guidé (2 à 3 phrases simples par paragraphe)' }] }
+        { id: 'sourceText', label: "Texte de lecture à équiper", type: 'textarea', placeholder: "Collez le texte ou document à analyser..." },
+        { id: 'objectif_lecture', label: "Objectif de lecture visé", type: 'text', placeholder: "Ex : Comprendre la chronologie des événements et les causes" },
+        { id: 'langue_maternelle', label: "Langue de traduction pour le lexique (optionnelle)", type: 'select', options: [
+          { value: '', label: "Français uniquement (pas de traduction bilingue)" },
+          { value: 'arabe', label: "Arabe (العربية)" },
+          { value: 'ukrainien', label: "Ukrainien (Українська)" },
+          { value: 'anglais', label: "Anglais (English)" },
+          { value: 'espagnol', label: "Espagnol (Español)" },
+          { value: 'portugais', label: "Portugais (Português)" },
+          { value: 'turc', label: "Turc (Türkçe)" },
+          { value: 'russe', label: "Russe (Русский)" }
+        ]}
       ]
     },
     {
@@ -344,20 +388,48 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '📄 Adapter un texte',
       desc: "Support multi-modal et repères CECRL pour apprenant non francophone",
       fields: [
-        { id: 'niveau_cecrl', label: 'Niveau en français langue de scolarisation', type: 'select', options: [{ value: 'a1.1', label: 'A1.1 — Débutant complet (très peu de français)' }, { value: 'a1', label: 'A1 — Découverte (mots isolés et phrases simples)' }, { value: 'a2', label: 'A2 — Intermédiaire (compréhension courante)' }] }
+        { id: 'activityDescription', label: "Description de l'activité ou texte de travail", type: 'textarea', placeholder: "Collez le contenu disciplinaire à adapter pour l'élève allophone..." },
+        { id: 'niveau_francais', label: "Niveau de français selon le CECRL", type: 'select', options: [
+          { value: 'A1.1', label: "A1.1 — Débutant complet (très peu de mots, consignes 3-5 mots, appui image/geste)" },
+          { value: 'A1', label: "A1 — Découverte (phrases très simples au présent, vocabulaire concret)" },
+          { value: 'A2', label: "A2 — Intermédiaire (phrases courtes reliées, situations familières)" },
+          { value: 'B1', label: "B1 — Seuil (textes cohérents, explication de raisonnement)" }
+        ]},
+        { id: 'langue_maternelle', label: "Langue maternelle de l'élève (pour le lexique bilingue)", type: 'select', options: [
+          { value: 'arabe', label: "Arabe (العربية)" },
+          { value: 'ukrainien', label: "Ukrainien (Українська)" },
+          { value: 'espagnol', label: "Espagnol (Español)" },
+          { value: 'anglais', label: "Anglais (English)" },
+          { value: 'portugais', label: "Portugais (Português)" },
+          { value: 'turc', label: "Turc (Türkçe)" },
+          { value: 'roumain', label: "Roumain (Română)" },
+          { value: 'russe', label: "Russe (Русский)" },
+          { value: 'chinois', label: "Chinois (中文)" },
+          { value: 'autre', label: "Autre langue / Sans traduction" }
+        ]},
+        { id: 'supports', label: "Types de supports souhaités", type: 'select', options: [
+          { value: 'complet', label: "Complet : Lexique bilingue + Phrases modèles à trous + Consignes visuelles" },
+          { value: 'lexique_seul', label: "Lexique bilingue disciplinaire illustré en tableau Markdown" },
+          { value: 'phrases_trous', label: "Structures de phrases modèles à compléter (amorces écrites)" }
+        ]}
       ]
     },
 
     // 3. Besoins spécifiques
     {
       id: 'tsa',
-      name: 'Adaptations TSA',
+      name: 'Adaptations TSA (Autisme)',
       icon: '🧩',
       family: 'besoin',
       familyLabel: '🧠 Besoins Spécifiques',
-      desc: "Prévisibilité, consignes littérales et aménagement sensoriel",
+      desc: "Prévisibilité, communication littérale et aménagement sensoriel",
       fields: [
-        { id: 'observables_tsa', label: 'Observables et particularités de l’élève', type: 'text', placeholder: 'Ex: Anxiété face à l’imprévu, hypersensibilité au bruit, besoin de repères visuels clairs' }
+        { id: 'observables', label: "Observables relevés en classe", type: 'textarea', placeholder: "Décrivez les comportements observés (anxiété lors des transitions, sensibilité au bruit, besoin de repères visuels)..." },
+        { id: 'contexte', label: "Contexte de mise en œuvre", type: 'select', options: [
+          { value: 'classe_entiere', label: "Classe entière avec AESH" },
+          { value: 'classe_seul', label: "Classe ordinaire en autonomie" },
+          { value: 'petit_groupe', label: "Travail en petit groupe / Îlots" }
+        ]}
       ]
     },
     {
@@ -368,7 +440,16 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Priorité au canal visuel, LSF, LPC et appui écrit renforcé",
       fields: [
-        { id: 'mode_communication', label: 'Mode de communication principal', type: 'select', options: [{ value: 'lsf', label: 'Langue des Signes Française (LSF)' }, { value: 'lpc', label: 'Langue Parlée Complétée (LPC)' }, { value: 'ecrit_visuel', label: 'Français écrit / Appui visuel renforcé' }] }
+        { id: 'sourceText', label: "Activité ou support à adapter", type: 'textarea', placeholder: "Collez le texte ou la consigne de l'activité..." },
+        { id: 'mode_communication', label: "Mode de communication de l'élève", type: 'select', options: [
+          { value: 'LSF', label: "Bilingue LSF (Langue des Signes Française)" },
+          { value: 'LPC', label: "Oraliste avec LPC (Langue française Parlée Complétée)" },
+          { value: 'ecrit_visuel', label: "Appui écrit et visuel renforcé (lecture labiale)" }
+        ]},
+        { id: 'supports', label: "Supports souhaités", type: 'select', options: [
+          { value: 'consignes_lexique', label: "Consignes écrites visuelles + Lexique illustré de la séance" },
+          { value: 'preparation_amont', label: "Supports à fournir à l'avance (textes pré-écrits, transcriptions)" }
+        ]}
       ]
     },
     {
@@ -379,18 +460,37 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Linéarisation pour lecteur d'écran, contrastes et descriptions d'images",
       fields: [
-        { id: 'degre_vision', label: 'Degré de vision', type: 'select', options: [{ value: 'malvoyance', label: 'Basse vision (Agrandissement & Contrastes Luciole)' }, { value: 'cecite', label: 'Cécité (Linéarisation stricte pour lecteur d’écran / Braille)' }] }
+        { id: 'sourceText', label: "Support à adapter (texte et description des figures)", type: 'textarea', placeholder: "Collez le texte du document et décrivez brièvement les schémas présents..." },
+        { id: 'type_deficience', label: "Degré de déficience", type: 'select', options: [
+          { value: 'malvoyance', label: "Malvoyance / Basse vision (Agrandissement, Luciole, Contrastes WCAG)" },
+          { value: 'cecite', label: "Cécité (Linéarisation stricte pour lecteur d'écran / Braille)" }
+        ]},
+        { id: 'nature_support', label: "Nature des contenus", type: 'select', options: [
+          { value: 'texte_figures', label: "Texte avec figures géométriques / Schémas à décrire" },
+          { value: 'texte_seul', label: "Texte documentaire / Consignes écrites" },
+          { value: 'tableaux_complexes', label: "Tableaux de données à mettre à plat" }
+        ]}
       ]
     },
     {
       id: 'handicap-moteur',
-      name: 'Handicap moteur & TDC',
+      name: 'Handicap moteur & Dyspraxie (TDC)',
       icon: '✍️',
       family: 'besoin',
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Neutralisation du coût graphique : formats cochants et allégés",
       fields: [
-        { id: 'format_soulagement', label: 'Format de soulagement souhaité', type: 'select', options: [{ value: 'cochant', label: 'Cases à cocher et QCM' }, { value: 'trous', label: 'Textes à trous et étiquettes à relier' }, { value: 'pre_rempli', label: 'Support pré-rempli avec guidage minimal' }] }
+        { id: 'sourceText', label: "Activité ou évaluation à ré-outiller", type: 'textarea', placeholder: "Collez les exercices ou questions rédactionnelles..." },
+        { id: 'entraves', label: "Entrave motrice principale", type: 'select', options: [
+          { value: 'fatigabilite_graphique', label: "Fatigabilité et lenteur de l'écriture manuscrite" },
+          { value: 'dyspraxie_visuo_spatiale', label: "Trouble visuo-spatial (difficulté de repérage et de tracé)" },
+          { value: 'coordination_motrice', label: "Atteinte motrice des membres supérieurs" }
+        ]},
+        { id: 'alternatives', label: "Alternative matérielle disponible", type: 'select', options: [
+          { value: 'numerique', label: "Ordinateur / Tablette en classe" },
+          { value: 'secretaire_aesh', label: "Secrétaire / AESH pour la dictée" },
+          { value: 'papier_adapte', label: "Papier adapté pré-rempli avec lignage et cases" }
+        ]}
       ]
     },
     {
@@ -401,29 +501,55 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Triple code de Dehaene (visuel, verbal, symbolique) et verbalisation",
       fields: [
-        { id: 'notion_maths', label: 'Notion ou opération ciblée', type: 'text', placeholder: 'Ex: Fractions, théorème de Pythagore, équations, proportionnalité' }
+        { id: 'sourceText', label: "Notion ou exercice de mathématiques", type: 'textarea', placeholder: "Collez l'exercice ou la notion de calcul/géométrie..." },
+        { id: 'obstacles', label: "Obstacle cognitif ciblé", type: 'select', options: [
+          { value: 'sens_du_nombre', label: "Sens du nombre et passage entre les 3 codes (Dehaene)" },
+          { value: 'charge_lecture', label: "Charge de lecture de l'énoncé qui masque le raisonnement" },
+          { value: 'memoire_travail', label: "Surcharge de la mémoire de travail dans les calculs posés" }
+        ]},
+        { id: 'leviers', label: "Levier d'adaptation prioritaire", type: 'select', options: [
+          { value: 'manipulation_visuel', label: "Manipulation concrète (réglettes, cubes) puis représentation imagée" },
+          { value: 'etapes_verbalisation', label: "Procédure décomposée pas-à-pas avec verbalisation" },
+          { value: 'aides_memoire', label: "Aides-mémoire réutilisables (tables, réglettes, repères)" }
+        ]}
       ]
     },
     {
       id: 'dyslexie',
-      name: 'Dyslexie & Troubles DYS',
+      name: 'Dyslexie & Dysorthographie',
       icon: '📖',
       family: 'besoin',
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Allègement du déchiffrage et soutien phonologique sans baisse d'exigence",
       fields: [
-        { id: 'amenagements_dys', label: 'Aménagements souhaités', type: 'text', placeholder: 'Ex: Segmentation des phrases, surlignage des mots clés, aération renforcée' }
+        { id: 'sourceText', label: "Support à adapter (texte, énoncé, consigne)", type: 'textarea', placeholder: "Collez le texte source ou le document de cours..." },
+        { id: 'obstacles', label: "Obstacle principal", type: 'select', options: [
+          { value: 'dechiffrage_couteux', label: "Déchiffrage coûteux qui sature la compréhension (Gough & Tunmer)" },
+          { value: 'surcharge_visuelle', label: "Encombrement visuel et fatigue de lecture" },
+          { value: 'double_tache_copie', label: "Double tâche de copie et d'écoute" }
+        ]},
+        { id: 'leviers', label: "Leviers retenus", type: 'select', options: [
+          { value: 'espacement_aeration', label: "Aération visuelle stricte (interligne 1.5, pas de justifié, paragraphes courts)" },
+          { value: 'canal_audio_oral', label: "Contournement par le canal oral / audio / lecture à voix haute" },
+          { value: 'quantite_ajustee', label: "Quantité d'écrit allégée sans baisse de l'exigence conceptuelle" }
+        ]}
       ]
     },
     {
       id: 'haut-potentiel',
-      name: 'Haut Potentiel (EHP)',
+      name: 'Haut Potentiel (EHP/EIP)',
       icon: '⚡',
       family: 'besoin',
       familyLabel: '🧠 Besoins Spécifiques',
       desc: "Enrichissement en profondeur et complexité réflexive (Renzulli)",
       fields: [
-        { id: 'angle_enrichissement', label: 'Axe d’approfondissement', type: 'text', placeholder: 'Ex: Analyse épistémologique, défi créatif, liens interdisciplinaires' }
+        { id: 'sourceText', label: "Activité ou séance standard à enrichir", type: 'textarea', placeholder: "Collez l'activité proposée à l'ensemble de la classe..." },
+        { id: 'objectif', label: "Objectif d'apprentissage socle de la classe", type: 'text', placeholder: "Ex : Maîtriser le théorème de Pythagore" },
+        { id: 'type_enrichissement', label: "Type d'enrichissement souhaité (Renzulli)", type: 'select', options: [
+          { value: 'complexification', label: "Complexification et abstraction (cas limites, contraintes supplémentaires)" },
+          { value: 'ouverture_projet', label: "Ouverture interdisciplinaire et démarche d'investigation" },
+          { value: 'analyse_critique', label: "Analyse critique et questions de niveau Bloom supérieur" }
+        ]}
       ]
     },
     {
@@ -432,9 +558,19 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       icon: '🤝',
       family: 'besoin',
       familyLabel: '🧠 Besoins Spécifiques',
-      desc: "Fiche de stratégies selon la grille des 4 besoins de Barry",
+      desc: "Fiche de stratégies selon le modèle RAI à 3 paliers et grille de Barry",
       fields: [
-        { id: 'comportements_observes', label: 'Comportements observés en classe', type: 'textarea', placeholder: 'Décrivez les situations observables déclenchant une difficulté ou un débordement...' }
+        { id: 'comportements', label: "Comportements observables en classe (faits descriptifs)", type: 'textarea', placeholder: "Décrivez précisément ce qui se voit et s'entend (situation déclenchante, durée, fréquence)..." },
+        { id: 'contexte', label: "Contexte de survenue", type: 'select', options: [
+          { value: 'travail_individuel', label: "Pendant le travail individuel écrit" },
+          { value: 'transitions', label: "Lors des transitions et changements d'activité" },
+          { value: 'travail_groupe', label: "Pendant les temps d'échange ou de travail collectif" }
+        ]},
+        { id: 'ressources', label: "Ressources disponibles", type: 'select', options: [
+          { value: 'enseignant_seul', label: "Enseignant seul en classe ordinaire" },
+          { value: 'avec_aesh', label: "Avec accompagnement AESH" },
+          { value: 'appui_rased', label: "Avec appui du RASED ou enseignant spécialisé" }
+        ]}
       ]
     },
 
@@ -447,7 +583,8 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '💬 Communiquer (CAA)',
       desc: "Traduction d'une phrase en pictogrammes ARASAAC et clé de Fitzgerald",
       fields: [
-        { id: 'phrase_caa', label: 'Phrase ou consigne à traduire en pictogrammes', type: 'text', placeholder: 'Ex: Je veux aller aux toilettes / Ouvre ton cahier et écris la date' }
+        { id: 'phrase', label: "Phrase à mettre en pictogrammes", type: 'text', placeholder: "Ex : À midi, je mange à la cantine avec mes camarades" },
+        { id: 'profil', label: "Profil de communication", type: 'text', placeholder: "Ex : Élève non verbal utilisant un classeur de communication PECS/CAA" }
       ]
     },
     {
@@ -458,8 +595,12 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '💬 Communiquer (CAA)',
       desc: "Grille thématique de 12 à 20 cases pour une situation de classe",
       fields: [
-        { id: 'situation_tableau', label: 'Lieu ou situation de classe', type: 'text', placeholder: 'Ex: Cour de récréation, cantine, atelier sciences, cours d’arts plastiques' },
-        { id: 'nb_cases', label: 'Nombre de cases', type: 'select', options: [{ value: '12', label: '12 cases (Grille 3x4)' }, { value: '16', label: '16 cases (Grille 4x4)' }, { value: '20', label: '20 cases (Grille 4x5)' }] }
+        { id: 'situation', label: "Situation ou lieu de la classe", type: 'text', placeholder: "Ex : La cantine, la cour de récréation, l'atelier sciences, le cours d'EPS" },
+        { id: 'nb_cases', label: "Nombre de cases de la grille", type: 'select', options: [
+          { value: '16', label: "16 cases (Grille 4x4 avec vocabulaire noyau + situation)" },
+          { value: '12', label: "12 cases (Grille 3x4 allégée)" },
+          { value: '20', label: "20 cases (Grille 4x5 étendue)" }
+        ]}
       ]
     },
     {
@@ -470,8 +611,12 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '💬 Communiquer (CAA)',
       desc: "Décomposition d'une routine en micro-étapes chronologiques",
       fields: [
-        { id: 'routine_titre', label: 'Activité ou routine à décomposer', type: 'text', placeholder: 'Ex: Arrivée en classe le matin / Préparer son cartable / Résoudre un problème de maths' },
-        { id: 'nb_etapes', label: 'Nombre d’étapes souhaité', type: 'select', options: [{ value: '4', label: '4 étapes simples' }, { value: '6', label: '6 étapes détaillées' }, { value: '8', label: '8 micro-étapes' }] }
+        { id: 'routine', label: "Routine ou activité à décomposer", type: 'text', placeholder: "Ex : Se laver les mains / Préparer son matériel de géométrie / Résoudre un problème" },
+        { id: 'nb_etapes', label: "Nombre d'étapes souhaité", type: 'select', options: [
+          { value: '6', label: "6 étapes détaillées" },
+          { value: '4', label: "4 étapes simples" },
+          { value: '8', label: "8 micro-étapes exhaustives" }
+        ]}
       ]
     },
     {
@@ -482,7 +627,8 @@ Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et 
       familyLabel: '💬 Communiquer (CAA)',
       desc: "Récit social explicatif structuré pour anticiper un imprévu ou une situation",
       fields: [
-        { id: 'situation_sociale', label: 'Situation ou imprévu à préparer', type: 'text', placeholder: 'Ex: Changement d’emploi du temps, sortie scolaire, travail en groupe bruyant' }
+        { id: 'situation', label: "Situation sociale ou imprévu à préparer", type: 'text', placeholder: "Ex : L'alarme incendie va sonner / Un professeur remplaçant arrive / Sortie scolaire" },
+        { id: 'profil', label: "Profil de l'élève", type: 'text', placeholder: "Ex : Élève autiste ayant une grande anxiété face au changement de routine" }
       ]
     }
   ],
