@@ -2,6 +2,7 @@ import { makeStreamingRequest, formatMarkdown } from './api.js';
 import { appConfig, DEFAULT_SYSTEM_PROMPTS } from './config.js';
 import { checkRGPD } from './rgpd-guard.js';
 import { exportODT, exportWord, exportPDF, exportMarkdown, exportLatex } from './export-suite.js';
+import { searchPictos, pictoUrl, ARASAAC_CREDIT } from './arasaac.js';
 
 export function initProfessorPlus() {
     const cycleSelect = document.getElementById('pp-cycle');
@@ -80,11 +81,36 @@ export function initProfessorPlus() {
         // Render dynamic custom fields
         if (dynamicFieldsContainer) {
             dynamicFieldsContainer.innerHTML = '';
+
+            // If Allophone, add an example loader button
+            if (mod.id === 'allophone') {
+                const exampleRow = document.createElement('div');
+                exampleRow.style.cssText = 'grid-column: 1 / -1; display:flex; justify-content:flex-end; margin-bottom: 4px;';
+                exampleRow.innerHTML = `<button type="button" id="pp-fill-example-btn" class="btn btn-outline" style="font-size:0.8rem; padding:4px 12px; border-radius:6px; cursor:pointer; color:var(--accent1); border-color:var(--accent1);">💡 Remplir avec l'exemple (Géographie CE2 Allophone)</button>`;
+                dynamicFieldsContainer.appendChild(exampleRow);
+
+                setTimeout(() => {
+                    document.getElementById('pp-fill-example-btn')?.addEventListener('click', () => {
+                        const desc = document.getElementById('pp-field-activityDescription');
+                        if (desc) desc.value = "Séance de géographie sur les paysages de France. Les élèves/étudiants doivent lire un texte descriptif, identifier les éléments du paysage sur une carte et rédiger 3 phrases sur le paysage de leur choix.";
+                        if (cycleSelect) {
+                            cycleSelect.value = 'cycle2';
+                            cycleSelect.dispatchEvent(new Event('change'));
+                        }
+                        if (themeInput) themeInput.value = "Les paysages de France";
+                        const nf = document.getElementById('pp-field-niveau_francais');
+                        if (nf) nf.value = 'Quelques mots';
+                        const lm = document.getElementById('pp-field-langue_maternelle');
+                        if (lm) lm.value = 'Arabe';
+                    });
+                }, 50);
+            }
+
             if (mod.fields && mod.fields.length > 0) {
                 mod.fields.forEach(field => {
                     const fieldWrapper = document.createElement('div');
                     fieldWrapper.className = 'field';
-                    if (field.type === 'textarea') {
+                    if (field.type === 'textarea' || field.type === 'checkboxes') {
                         fieldWrapper.style.gridColumn = '1 / -1';
                     }
 
@@ -104,6 +130,44 @@ export function initProfessorPlus() {
                             sel.appendChild(o);
                         });
                         fieldWrapper.appendChild(sel);
+
+                        // If select has __other__ option, add custom text input
+                        if (field.id === 'langue_maternelle' || (field.options || []).some(o => o.value === '__other__')) {
+                            const otherInput = document.createElement('input');
+                            otherInput.type = 'text';
+                            otherInput.className = 'search-input';
+                            otherInput.id = `pp-field-${field.id}-other`;
+                            otherInput.placeholder = "Saisissez la langue maternelle…";
+                            otherInput.style.cssText = 'display:none; height:42px; padding-left:12px; border-radius:8px; margin-top:6px; width:100%;';
+                            fieldWrapper.appendChild(otherInput);
+
+                            sel.addEventListener('change', () => {
+                                if (sel.value === '__other__') {
+                                    otherInput.style.display = 'block';
+                                    otherInput.focus();
+                                } else {
+                                    otherInput.style.display = 'none';
+                                }
+                            });
+                        }
+                    } else if (field.type === 'checkboxes') {
+                        const checkGrid = document.createElement('div');
+                        checkGrid.id = `pp-field-${field.id}`;
+                        checkGrid.style.cssText = 'display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-top: 4px;';
+                        (field.options || []).forEach(opt => {
+                            const lbl = document.createElement('label');
+                            lbl.style.cssText = 'display:flex; align-items:center; gap:8px; padding:8px 12px; background:var(--bg-input, #ffffff); border:1px solid var(--border-color, #e2e8f0); border-radius:8px; cursor:pointer; font-size:0.88rem;';
+                            const cb = document.createElement('input');
+                            cb.type = 'checkbox';
+                            cb.value = opt.value;
+                            cb.checked = !!opt.checked;
+                            cb.name = `pp-cb-${field.id}`;
+                            cb.style.cssText = 'width:18px; height:18px; cursor:pointer; accent-color:var(--accent1);';
+                            lbl.appendChild(cb);
+                            lbl.appendChild(document.createTextNode(opt.label));
+                            checkGrid.appendChild(lbl);
+                        });
+                        fieldWrapper.appendChild(checkGrid);
                     } else if (field.type === 'textarea') {
                         const ta = document.createElement('textarea');
                         ta.className = 'search-input';
@@ -329,11 +393,33 @@ export function initProfessorPlus() {
         const dynamicValues = [];
         if (modObj && modObj.fields) {
             modObj.fields.forEach(f => {
-                const el = document.getElementById(`pp-field-${f.id}`);
-                if (el && el.value) {
-                    const label = f.label;
-                    const val = (el.tagName === 'SELECT') ? el.options[el.selectedIndex]?.text : el.value;
-                    dynamicValues.push(`- ${label} : ${val}`);
+                if (f.type === 'checkboxes') {
+                    const checked = [];
+                    document.querySelectorAll(`input[name="pp-cb-${f.id}"]:checked`).forEach(cb => {
+                        checked.push(cb.value);
+                    });
+                    if (checked.length > 0) {
+                        dynamicValues.push(`- ${f.label} : ${checked.join(', ')}`);
+                    }
+                } else if (f.type === 'select') {
+                    const el = document.getElementById(`pp-field-${f.id}`);
+                    if (el) {
+                        let val = el.options[el.selectedIndex]?.text || el.value;
+                        if (el.value === '__other__') {
+                            const otherInp = document.getElementById(`pp-field-${f.id}-other`);
+                            if (otherInp && otherInp.value.trim()) {
+                                val = otherInp.value.trim();
+                            }
+                        }
+                        if (val && val !== 'Choisir…') {
+                            dynamicValues.push(`- ${f.label} : ${val}`);
+                        }
+                    }
+                } else {
+                    const el = document.getElementById(`pp-field-${f.id}`);
+                    if (el && el.value.trim()) {
+                        dynamicValues.push(`- ${f.label} : ${el.value.trim()}`);
+                    }
                 }
             });
         }
@@ -412,6 +498,9 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
                 }
             }
 
+            // Post-rendering ARASAAC PictoLexique
+            await renderPictoLexique(outputEl);
+
             window.showToast("Support pédagogique généré avec succès ! ✨");
             if (creditFooter) {
                 creditFooter.textContent = `Module actif : ${modObj ? modObj.name : selectedModule} · Conforme CUA & Données Souveraines.`;
@@ -423,6 +512,74 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
             generateBtn.textContent = "✨ Générer le Support Pédagogique Complet";
         }
     });
+
+    // Helper: Render PictoLexique gallery from output tables
+    async function renderPictoLexique(container) {
+        const tables = container.querySelectorAll('table');
+        if (!tables || tables.length === 0) return;
+
+        for (const table of tables) {
+            const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim().toLowerCase());
+            const motIdx = headers.findIndex(h => h.includes('mot') || h.includes('terme') || h.includes('vocabulaire') || h.includes('français'));
+            if (motIdx === -1) continue;
+
+            const tradIdx = headers.findIndex(h => h.includes('traduc') || h.includes('langue') || h.includes('arabe') || h.includes('ukrainien') || h.includes('espagnol') || h.includes('anglais'));
+
+            const rows = table.querySelectorAll('tbody tr');
+            if (rows.length === 0) continue;
+
+            const pictoGallery = document.createElement('div');
+            pictoGallery.className = 'picto-lexique-container';
+            pictoGallery.style.cssText = 'margin: 20px 0; padding: 16px; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px;';
+            
+            pictoGallery.innerHTML = `
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px; flex-wrap:wrap; gap:6px;">
+                    <h4 style="margin:0; font-size:1.05rem; color:var(--accent1); display:flex; align-items:center; gap:8px;">
+                        🖼️ Lexique Illustré ARASAAC (Communication Augmentée)
+                    </h4>
+                    <span style="font-size:0.75rem; color:#64748b;">${ARASAAC_CREDIT}</span>
+                </div>
+                <div class="picto-cards-grid" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px;"></div>
+            `;
+
+            const cardsGrid = pictoGallery.querySelector('.picto-cards-grid');
+
+            for (const row of rows) {
+                const cells = row.querySelectorAll('td');
+                if (cells.length <= motIdx) continue;
+
+                const rawWord = cells[motIdx].textContent.trim();
+                const cleanWord = rawWord.replace(/^[\u{1F300}-\u{1F9FF}\s]+/u, '').replace(/^(le|la|les|un|une|des|l')\s+/i, '').replace(/[\*\_]/g, '').trim();
+                if (!cleanWord || cleanWord.length < 2) continue;
+
+                const trad = (tradIdx !== -1 && cells[tradIdx]) ? cells[tradIdx].textContent.trim() : '';
+
+                try {
+                    const pictos = await searchPictos(cleanWord);
+                    if (pictos && pictos.length > 0) {
+                        const pictoId = pictos[0]._id || pictos[0].id;
+                        const imgUrl = pictoUrl(pictoId, { resolution: 300 });
+
+                        const card = document.createElement('div');
+                        card.className = 'picto-card';
+                        card.style.cssText = 'background:#ffffff; border:2px solid #e2e8f0; border-radius:10px; padding:10px 8px; text-align:center; box-shadow:0 2px 4px rgba(0,0,0,0.04); display:flex; flex-direction:column; align-items:center; gap:4px;';
+                        card.innerHTML = `
+                            <img src="${imgUrl}" alt="${cleanWord}" style="width:70px; height:70px; object-fit:contain; border-radius:6px;" loading="lazy" />
+                            <span style="font-weight:700; font-size:0.92rem; color:#1e293b; margin-top:2px;">${cleanWord}</span>
+                            ${trad ? `<span style="font-size:0.82rem; color:#0284c7; font-weight:600;">${trad}</span>` : ''}
+                        `;
+                        cardsGrid.appendChild(card);
+                    }
+                } catch (pErr) {
+                    console.warn("Picto search err for word:", cleanWord, pErr);
+                }
+            }
+
+            if (cardsGrid.children.length > 0) {
+                table.parentNode.insertBefore(pictoGallery, table.nextSibling);
+            }
+        }
+    }
 
     // COPY MARKDOWN
     copyBtn?.addEventListener('click', () => {
