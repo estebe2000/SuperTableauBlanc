@@ -309,10 +309,22 @@ Réponds en Markdown soigné, avec une typographie aérée et structurée.`;
                 systemPrompt: systemPrompt
             }, (chunk) => {
                 generatedMarkdown += chunk;
-                outputEl.innerHTML = formatMarkdown(generatedMarkdown);
+                formatMarkdown(outputEl, generatedMarkdown);
             });
 
-            window.showToast("Adaptation pédagogique générée avec succès ! ✨");
+            // Post-rendering diagrams & equations
+            if (window.mermaid) {
+                try {
+                    const mermaidNodes = outputEl.querySelectorAll('.mermaid');
+                    if (mermaidNodes.length > 0) {
+                        window.mermaid.run({ nodes: mermaidNodes });
+                    }
+                } catch (mErr) {
+                    console.warn("Mermaid render note:", mErr);
+                }
+            }
+
+            window.showToast("Contenu pédagogique généré avec succès ! ✨");
             if (creditFooter) {
                 creditFooter.textContent = `Module actif : ${moduleSelect?.options[moduleSelect.selectedIndex]?.text} · Conforme CUA & Données Souveraines.`;
             }
@@ -335,14 +347,14 @@ Réponds en Markdown soigné, avec une typographie aérée et structurée.`;
         });
     });
 
-    // EXPORT ODT
+    // EXPORT ODT (OpenDocument Accessible)
     exportOdtBtn?.addEventListener('click', () => {
         if (!generatedMarkdown) {
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        const title = themeInput?.value || moduleSelect?.value || "Seance_Pedagogique";
-        downloadOdt(title, generatedMarkdown);
+        const title = themeInput?.value || moduleSelect?.options[moduleSelect.selectedIndex]?.text || "Seance_Pedagogique";
+        downloadOdt(title, outputEl.innerHTML || generatedMarkdown);
         window.showToast("Document .ODT accessible téléchargé ! 📄");
     });
 

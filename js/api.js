@@ -400,14 +400,24 @@ export async function makeNonStreamingRequest(prompt, options = {}) {
 }
 
 // Markdown Formatter helper
-export function formatMarkdown(element, rawText) {
-  if (!rawText) {
-    element.innerHTML = '';
-    return;
+export function formatMarkdown(elementOrText, rawText) {
+  let targetEl = null;
+  let text = '';
+
+  if (typeof elementOrText === 'string' && rawText === undefined) {
+    text = elementOrText;
+  } else {
+    targetEl = elementOrText;
+    text = rawText || '';
+  }
+
+  if (!text) {
+    if (targetEl) targetEl.innerHTML = '';
+    return '';
   }
 
   // Remove thought tags
-  let cleanText = rawText.replace(/<thought>[\s\S]*?<\/thought>/gi, '').trim();
+  let cleanText = text.replace(/<thought>[\s\S]*?<\/thought>/gi, '').trim();
   if (cleanText.includes('</thought>')) {
     cleanText = cleanText.split('</thought>').pop().trim();
   }
@@ -443,7 +453,11 @@ export function formatMarkdown(element, rawText) {
     });
   }
 
-  element.innerHTML = html;
+  if (targetEl && typeof targetEl.innerHTML !== 'undefined') {
+    targetEl.innerHTML = html;
+  }
+
+  return html;
 }
 
 export function parseProbedModels(data, type) {
