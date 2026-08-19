@@ -120,13 +120,11 @@ export async function makeStreamingRequest(prompt, options = {}, onChunk, onComp
         prompt: prompt,
         stream: true,
         options: {
-          temperature: 0.0,
+          temperature: options.temperature !== undefined ? options.temperature : 0.0,
           num_ctx: 8192,
           ...(options.options || {})
-        },
-        ...options
+        }
       };
-      delete body.options.options;
 
       // For Ollama, multimodal data (images OR audio) must be sent in the 'images' array.
       if (options.images && options.images.length > 0) {
@@ -205,11 +203,8 @@ export async function makeStreamingRequest(prompt, options = {}, onChunk, onComp
         model: model,
         messages: messages,
         stream: true,
-        temperature: 0.0,
-        ...options
+        temperature: options.temperature !== undefined ? options.temperature : 0.0
       };
-      delete body.images;
-      delete body.systemPrompt;
 
       response = await fetch(chatUrl, {
         method: 'POST',

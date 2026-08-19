@@ -259,6 +259,8 @@ export function initProfessorPlus() {
         const cycle = cycleSelect?.options[cycleSelect.selectedIndex]?.text || '';
         const discipline = disciplineSelect?.value || '';
         const theme = themeInput?.value || '';
+        const duration = document.getElementById('pp-duration')?.options[document.getElementById('pp-duration')?.selectedIndex]?.text || '55 minutes';
+        const nbSeances = document.getElementById('pp-nb-seances')?.options[document.getElementById('pp-nb-seances')?.selectedIndex]?.text || '1 séance autonome';
         
         const selectedComps = [];
         document.querySelectorAll('#pp-competence-container input:checked').forEach(cb => {
@@ -273,21 +275,32 @@ export function initProfessorPlus() {
         const systemPrompt = studioPrompts[selectedModule] || DEFAULT_SYSTEM_PROMPTS.professorPlus;
 
         const userPrompt = `
-[CONTEXTE SCOLAIRE] :
+[CADRAGE PÉDAGOGIQUE] :
 - Niveau / Cycle : ${cycle || 'Non spécifié'}
-- Discipline / UE : ${discipline || 'Non spécifiée'}
-- Compétence(s) ciblée(s) : ${selectedComps.join(', ') || 'Objectif d\'apprentissage général'}
-- Thème / Titre de la séance : ${theme || 'Séance inclusive'}
+- Discipline / UE : ${discipline || 'Générale'}
+- Thème / Titre de la séance : ${theme || 'Séance pédagogique inclusive'}
+- Durée prévue par séance : ${duration}
+- Format de la séquence : ${nbSeances}
+- Compétence(s) visée(s) : ${selectedComps.join(', ') || 'Acquisition et maîtrise des savoirs fondamentaux'}
 
-${combinedContext ? `[DOCUMENT / DONNÉES SOURCES FOURNIES] :\n${combinedContext}\n` : ''}
+${combinedContext ? `[DOCUMENTS SOURCES & DONNÉES D'APPUI] :\n${combinedContext}\n` : ''}
 
-[MISSION] :
-Applique les consignes de ton rôle d'expert pour produire le contenu complet et prêt à l'emploi. Réponds en Markdown soigné et structuré.`;
+[EXIGENCE DE PRODUCTION DE CONTENU COMPLET] :
+Ne te limite pas à un simple plan ou à des conseils généraux. Rédige l'INTÉGRALITÉ du CONTENU PÉDAGOGIQUE DIRECTEMENT EXPLOITABLE pour la classe :
+1. Titre clair et Objectivation (Pourquoi apprend-on cela ?).
+2. Déroulé minuté complet (sur ${duration}) avec les étapes d'enseignement explicite (Modelage, Pratique guidée, Pratique autonome).
+3. Le Savoir / Cours intégralement rédigé avec définitions et repères clés.
+4. Les Activités & Exercices complets prêts à être projetés ou distribués aux élèves.
+5. La Différenciation CUA effective (variantes Soutien / Standard / Approfondissement).
+6. Un Schéma conceptuel Mermaid (\`\`\`mermaid ... \`\`\`) pour ancrer visuellement les notions.
+7. L'Évaluation formative avec corrigé explicatif.
+
+Réponds en Markdown soigné, avec une typographie aérée et structurée.`;
 
         // UI Loading State
         generateBtn.disabled = true;
-        generateBtn.textContent = "⏳ Génération experte en cours...";
-        outputEl.innerHTML = `<div class="loading-state" style="text-align:center; padding: 40px;"><div class="spinner"></div><p style="color:var(--accent1); margin-top:12px;">Élaboration de l'adaptation avec le modèle souverain...</p></div>`;
+        generateBtn.textContent = "⏳ Génération du contenu pédagogique en cours...";
+        outputEl.innerHTML = `<div class="loading-state" style="text-align:center; padding: 40px;"><div class="spinner"></div><p style="color:var(--accent1); margin-top:12px;">Élaboration du cours et des activités avec le modèle souverain...</p></div>`;
         generatedMarkdown = "";
 
         try {

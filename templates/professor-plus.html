@@ -50,6 +50,30 @@
                             </div>
                         </div>
 
+                        <div class="row2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
+                            <div class="field">
+                                <label class="section-label">Durée de la séance</label>
+                                <select id="pp-duration" class="studio-select">
+                                    <option value="55min" selected>55 minutes (1 heure)</option>
+                                    <option value="45min">45 minutes</option>
+                                    <option value="1h30">1h30</option>
+                                    <option value="2h">2 heures</option>
+                                    <option value="3h">3 heures (Demi-journée)</option>
+                                    <option value="4h">4 heures (TP / Atelier)</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label class="section-label">Format de la séquence</label>
+                                <select id="pp-nb-seances" class="studio-select">
+                                    <option value="1" selected>1 séance autonome</option>
+                                    <option value="2">Séquence de 2 séances</option>
+                                    <option value="3">Séquence de 3 séances</option>
+                                    <option value="4">Séquence de 4 séances</option>
+                                    <option value="6">Séquence complète (6 séances)</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="field" style="margin-top: 10px;">
                             <label class="section-label">Titre ou Thème de la séance</label>
                             <input type="text" id="pp-theme" class="search-input" style="height: 44px; padding-left: 14px; font-size: 0.95rem; border-radius: 10px;" placeholder="Ex: Les fractions, La Révolution française, Le droit des contrats...">
