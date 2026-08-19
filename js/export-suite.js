@@ -2,7 +2,7 @@
  * Export Suite — Suite complète d'exportation pédagogique accessible multi-formats :
  * - ODT (OpenDocument 1.2 CUA)
  * - Word (.doc / OpenXML)
- * - PDF Direct (Téléchargement binaire instantané sans impression via jsPDF & html2canvas)
+ * - PDF Direct (Téléchargement binaire instantané sans coupure de texte via jsPDF.html)
  * - Markdown (.md)
  * - LaTeX (.tex)
  * - Packs ZIP (Fiche Élève + Fiche Enseignant séparées par format ou bundle complet)
@@ -39,32 +39,38 @@ function triggerDownload(blob, filename) {
  * - Fiche 2 : Fiche Enseignant (Préparation / Notes)
  */
 export function splitSessionParts(htmlContent, mdContent = '') {
-  // Split HTML
   let part1Html = htmlContent;
   let part2Html = '';
 
-  const part2Regex = /<h2[^>]*>.*?PARTIE\s*2.*?<\/h2>/i;
-  const match = htmlContent.match(part2Regex);
-  if (match) {
-    const idx = match.index;
-    part1Html = htmlContent.substring(0, idx);
-    part2Html = htmlContent.substring(idx);
+  const cleanHtml = (htmlContent || '').replace(/[\u202F\u00A0]/g, ' ');
+
+  // Match Part 2 header with flexible regex
+  const match = cleanHtml.match(/(?:<h[1-4][^>]*>|#{1,3}\s*).*?(?:PARTIE\s*2|Partie\s*2|Fiche\s*de\s*Pr[ée]paration|Notes\s*pour\s*l['’]Enseignant).*?(?:<\/h[1-4]>|\n)/i);
+  if (match && match.index > 0) {
+    part1Html = htmlContent.substring(0, match.index).trim();
+    part2Html = htmlContent.substring(match.index).trim();
+  } else {
+    part1Html = htmlContent;
+    part2Html = htmlContent;
   }
 
-  // Split MD
   let part1Md = mdContent;
   let part2Md = '';
-  const mdSplit = mdContent.split(/(?:^|\n)##\s+.*?PARTIE\s*2/i);
-  if (mdSplit.length > 1) {
-    part1Md = mdSplit[0].trim();
-    part2Md = `## 🧑‍🏫 PARTIE 2${mdSplit[1]}`.trim();
+  const cleanMd = (mdContent || '').replace(/[\u202F\u00A0]/g, ' ');
+  const mdMatch = cleanMd.match(/(?:^|\n)#{1,3}\s+.*?(?:PARTIE\s*2|Partie\s*2|Fiche\s*de\s*Pr[ée]paration|Notes\s*pour\s*l['’]Enseignant)/i);
+  if (mdMatch && mdMatch.index > 0) {
+    part1Md = mdContent.substring(0, mdMatch.index).trim();
+    part2Md = mdContent.substring(mdMatch.index).trim();
+  } else {
+    part1Md = mdContent;
+    part2Md = mdContent;
   }
 
   return {
-    part1Html,
+    part1Html: part1Html || htmlContent,
     part2Html: part2Html || htmlContent,
     fullHtml: htmlContent,
-    part1Md,
+    part1Md: part1Md || mdContent,
     part2Md: part2Md || mdContent,
     fullMd: mdContent
   };
@@ -135,132 +141,127 @@ export function exportWord(title, htmlContent, meta = {}) {
 }
 
 /**
- * 3. Génération directe d'un PDF natif haute fidélité (jsPDF + html2canvas)
+ * 3. Génération directe d'un PDF natif haute fidélité avec découpage de pages intelligent (jsPDF.html)
  */
 export async function getDirectPDFBlob(title, htmlContent, meta = {}) {
-  // Create offscreen rendering sandbox with clean A4 layout (794px width)
-  const container = document.createElement('div');
-  container.className = 'pdf-render-sandbox';
-  container.style.cssText = `
-    position: absolute;
-    left: -9999px;
-    top: 0;
-    width: 794px;
-    background: #ffffff;
-    color: #0f172a;
-    font-family: Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 13pt;
-    line-height: 1.55;
-    padding: 36px 40px;
-    box-sizing: border-box;
-  `;
+  return new Promise(async (resolve, reject) => {
+    let container = null;
+    try {
+      container = document.createElement('div');
+      container.className = 'pdf-render-sandbox';
+      container.style.cssText = `
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 780px;
+        background: #ffffff;
+        color: #0f172a;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 11.5pt;
+        line-height: 1.5;
+        padding: 24px 30px;
+        box-sizing: border-box;
+        opacity: 0;
+        pointer-events: none;
+        z-index: -9999;
+      `;
 
-  container.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2.5px solid #2563eb; padding-bottom:8px; margin-bottom:16px;">
-      <div>
-        <div style="font-size:14pt; font-weight:800; color:#2563eb; letter-spacing:-0.3px;">All' Inclusive · Studio Pédagogique</div>
-        <div style="font-size:8.5pt; color:#64748b; margin-top:2px; font-weight:500;">Conception Universelle des Apprentissages & IA Souveraine</div>
-      </div>
-      <div style="text-align:right; font-size:9pt; color:#475569; line-height:1.35;">
-        ${meta.cycle ? `<div><strong>Niveau :</strong> ${meta.cycle}</div>` : ''}
-        ${meta.discipline ? `<div><strong>Discipline :</strong> ${meta.discipline}</div>` : ''}
-        ${meta.theme ? `<div><strong>Thème :</strong> ${meta.theme}</div>` : ''}
-      </div>
-    </div>
-    <div class="pdf-body">${htmlContent}</div>
-  `;
+      container.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; border-bottom:2px solid #2563eb; padding-bottom:6px; margin-bottom:14px;">
+          <div>
+            <div style="font-size:13pt; font-weight:800; color:#2563eb; letter-spacing:-0.2px;">All' Inclusive · Studio Pédagogique</div>
+            <div style="font-size:8pt; color:#64748b; margin-top:2px;">Conception Universelle des Apprentissages & IA Souveraine</div>
+          </div>
+          <div style="text-align:right; font-size:8.5pt; color:#475569; line-height:1.3;">
+            ${meta.cycle ? `<div><strong>Niveau :</strong> ${meta.cycle}</div>` : ''}
+            ${meta.discipline ? `<div><strong>Discipline :</strong> ${meta.discipline}</div>` : ''}
+            ${meta.theme ? `<div><strong>Thème :</strong> ${meta.theme}</div>` : ''}
+          </div>
+        </div>
+        <div class="pdf-inner-body">
+          ${htmlContent}
+        </div>
+      `;
 
-  // Apply print-friendly styling to inner elements
-  const tables = container.querySelectorAll('table');
-  tables.forEach(t => {
-    t.style.cssText = 'width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 11pt;';
-  });
-  container.querySelectorAll('th').forEach(th => {
-    th.style.cssText = 'background-color: #2563eb; color: #ffffff; padding: 6px 8px; border: 1px solid #cbd5e1; text-align: left;';
-  });
-  container.querySelectorAll('td').forEach(td => {
-    td.style.cssText = 'padding: 6px 8px; border: 1px solid #cbd5e1; vertical-align: top;';
-  });
-  container.querySelectorAll('.picto-card').forEach(pc => {
-    pc.style.cssText = 'border: 1.5px solid #cbd5e1; border-radius: 6px; padding: 6px; text-align: center; background: #fff; display: inline-flex; flex-direction: column; align-items: center; width: 110px; margin: 4px;';
-  });
+      // Apply print-friendly styling to inner elements
+      container.querySelectorAll('table').forEach(t => {
+        t.style.cssText = 'width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt;';
+      });
+      container.querySelectorAll('th').forEach(th => {
+        th.style.cssText = 'background-color: #2563eb; color: #ffffff; padding: 5px 7px; border: 1px solid #cbd5e1; text-align: left; font-weight: 700;';
+      });
+      container.querySelectorAll('td').forEach(td => {
+        td.style.cssText = 'padding: 5px 7px; border: 1px solid #cbd5e1; vertical-align: top;';
+      });
+      container.querySelectorAll('.picto-card').forEach(pc => {
+        pc.style.cssText = 'border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px; text-align: center; background: #fff; display: inline-flex; flex-direction: column; align-items: center; width: 95px; margin: 3px; font-size: 8pt;';
+      });
+      container.querySelectorAll('.picto-card img').forEach(img => {
+        img.style.cssText = 'width: 48px; height: 48px; object-fit: contain;';
+      });
 
-  document.body.appendChild(container);
+      document.body.appendChild(container);
 
-  // Wait for all images
-  const images = Array.from(container.querySelectorAll('img'));
-  await Promise.all(images.map(img => {
-    if (img.complete) return Promise.resolve();
-    return new Promise(res => { img.onload = img.onerror = res; });
-  }));
+      // Wait for all images in container
+      const images = Array.from(container.querySelectorAll('img'));
+      await Promise.all(images.map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise(res => { img.onload = img.onerror = res; });
+      }));
 
-  try {
-    const canvas = await html2canvas(container, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#ffffff'
-    });
+      const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'pt',
+        format: 'a4'
+      });
 
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pdfWidth = 210;
-    const pdfHeight = 297;
-    const margin = 10;
-    const contentWidth = pdfWidth - (margin * 2);
-
-    const canvasWidth = canvas.width;
-    const canvasHeight = canvas.height;
-    const pageHeightPx = (canvasWidth / contentWidth) * (pdfHeight - (margin * 2));
-
-    let renderedHeight = 0;
-    let pageNum = 0;
-
-    while (renderedHeight < canvasHeight) {
-      if (pageNum > 0) pdf.addPage();
-
-      const sourceY = renderedHeight;
-      const sourceHeight = Math.min(pageHeightPx, canvasHeight - renderedHeight);
-
-      const pageCanvas = document.createElement('canvas');
-      pageCanvas.width = canvasWidth;
-      pageCanvas.height = sourceHeight;
-      const ctx = pageCanvas.getContext('2d');
-
-      ctx.drawImage(
-        canvas,
-        0, sourceY, canvasWidth, sourceHeight,
-        0, 0, canvasWidth, sourceHeight
-      );
-
-      const pageImgData = pageCanvas.toDataURL('image/jpeg', 0.95);
-      const renderHeightMm = (sourceHeight / canvasWidth) * contentWidth;
-
-      pdf.addImage(pageImgData, 'JPEG', margin, margin, contentWidth, renderHeightMm);
-
-      // Page footer
-      pdf.setFontSize(8);
-      pdf.setTextColor(148, 163, 184);
-      pdf.text(`Page ${pageNum + 1} — All' Inclusive`, pdfWidth - margin, pdfHeight - 4, { align: 'right' });
-
-      renderedHeight += pageHeightPx;
-      pageNum++;
+      doc.html(container, {
+        callback: function (pdfDoc) {
+          try {
+            if (container && container.parentNode) {
+              document.body.removeChild(container);
+            }
+            const blob = pdfDoc.output('blob');
+            resolve(blob);
+          } catch (e) {
+            reject(e);
+          }
+        },
+        x: 15,
+        y: 15,
+        width: 565, // A4 width in pt (595.28) minus margins (30)
+        windowWidth: 780,
+        autoPaging: 'text',
+        html2canvas: {
+          scale: 1.2,
+          useCORS: true,
+          logging: false
+        }
+      });
+    } catch (err) {
+      if (container && container.parentNode) {
+        document.body.removeChild(container);
+      }
+      console.error("PDF generation error:", err);
+      reject(err);
     }
-
-    return pdf.output('blob');
-  } finally {
-    document.body.removeChild(container);
-  }
+  });
 }
 
 /**
  * Télécharge directement le fichier PDF binaire sans passer par la fenêtre d'impression
  */
 export async function exportDirectPDF(title, htmlContent, meta = {}, customFilename = null) {
-  window.showToast("Génération du fichier PDF en cours... ⏳");
-  const blob = await getDirectPDFBlob(title, htmlContent, meta);
-  const filename = customFilename || cleanFilename(title, 'pdf');
-  triggerDownload(blob, filename);
-  window.showToast("Fichier PDF téléchargé avec succès ! 📕");
+  try {
+    window.showToast("Génération du fichier PDF en cours... ⏳");
+    const blob = await getDirectPDFBlob(title, htmlContent, meta);
+    const filename = customFilename || cleanFilename(title, 'pdf');
+    triggerDownload(blob, filename);
+    window.showToast("Fichier PDF téléchargé avec succès ! 📕");
+  } catch (err) {
+    console.error("Erreur export PDF:", err);
+    window.showToast("❌ Erreur lors de la création du PDF : " + err.message);
+  }
 }
 
 /**
@@ -318,40 +319,45 @@ ${mdToLatex(mdContent)}
  * 6. Export Packs ZIP (Fiches Individuelles & Archives Complètes)
  */
 export async function exportPackZip(title, htmlContent, mdContent, format = 'all', meta = {}) {
-  window.showToast(`Préparation du Pack ZIP (${format.toUpperCase()})... ⏳`);
-  const zip = new JSZip();
-  const parts = splitSessionParts(htmlContent, mdContent);
-  const safeTitle = (title || 'seance').toLowerCase().replace(/[^a-z0-9]+/g, '_');
+  try {
+    window.showToast(`Préparation du Pack ZIP (${format.toUpperCase()})... ⏳`);
+    const zip = new JSZip();
+    const parts = splitSessionParts(htmlContent, mdContent);
+    const safeTitle = (title || 'seance').toLowerCase().replace(/[^a-z0-9]+/g, '_');
 
-  if (format === 'pdf' || format === 'all') {
-    const pdfEleve = await getDirectPDFBlob(`${title} — Fiche Élève`, parts.part1Html, { ...meta, theme: `${meta.theme || title} (Fiche Élève)` });
-    const pdfEnseignant = await getDirectPDFBlob(`${title} — Fiche Enseignant`, parts.part2Html, { ...meta, theme: `${meta.theme || title} (Fiche Enseignant)` });
-    const pdfComplet = await getDirectPDFBlob(title, parts.fullHtml, meta);
+    if (format === 'pdf' || format === 'all') {
+      const pdfEleve = await getDirectPDFBlob(`${title} — Fiche Élève`, parts.part1Html, { ...meta, theme: `${meta.theme || title} (Fiche Élève)` });
+      const pdfEnseignant = await getDirectPDFBlob(`${title} — Fiche Enseignant`, parts.part2Html, { ...meta, theme: `${meta.theme || title} (Fiche Enseignant)` });
+      const pdfComplet = await getDirectPDFBlob(title, parts.fullHtml, meta);
 
-    zip.file(`01_Fiche_Eleve_${safeTitle}.pdf`, pdfEleve);
-    zip.file(`02_Fiche_Enseignant_${safeTitle}.pdf`, pdfEnseignant);
-    zip.file(`00_Seance_Complete_${safeTitle}.pdf`, pdfComplet);
+      zip.file(`01_Fiche_Eleve_${safeTitle}.pdf`, pdfEleve);
+      zip.file(`02_Fiche_Enseignant_${safeTitle}.pdf`, pdfEnseignant);
+      zip.file(`00_Seance_Complete_${safeTitle}.pdf`, pdfComplet);
+    }
+
+    if (format === 'odt' || format === 'all') {
+      zip.file(`01_Fiche_Eleve_${safeTitle}.odt`, getOdtBlob(`${title} — Fiche Élève`, parts.part1Html));
+      zip.file(`02_Fiche_Enseignant_${safeTitle}.odt`, getOdtBlob(`${title} — Fiche Enseignant`, parts.part2Html));
+      zip.file(`00_Seance_Complete_${safeTitle}.odt`, getOdtBlob(title, parts.fullHtml));
+    }
+
+    if (format === 'doc' || format === 'all') {
+      zip.file(`01_Fiche_Eleve_${safeTitle}.doc`, getWordBlob(`${title} — Fiche Élève`, parts.part1Html, meta));
+      zip.file(`02_Fiche_Enseignant_${safeTitle}.doc`, getWordBlob(`${title} — Fiche Enseignant`, parts.part2Html, meta));
+      zip.file(`00_Seance_Complete_${safeTitle}.doc`, getWordBlob(title, parts.fullHtml, meta));
+    }
+
+    if (format === 'md' || format === 'all') {
+      zip.file(`01_Fiche_Eleve_${safeTitle}.md`, getMarkdownBlob(`${title} — Fiche Élève`, parts.part1Md));
+      zip.file(`02_Fiche_Enseignant_${safeTitle}.md`, getMarkdownBlob(`${title} — Fiche Enseignant`, parts.part2Md));
+      zip.file(`00_Seance_Complete_${safeTitle}.md`, getMarkdownBlob(title, parts.fullMd));
+    }
+
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+    triggerDownload(zipBlob, `Pack_Seance_${format.toUpperCase()}_${safeTitle}.zip`);
+    window.showToast(`Pack ZIP (${format.toUpperCase()}) téléchargé avec succès ! 📦`);
+  } catch (err) {
+    console.error("Erreur création pack ZIP:", err);
+    window.showToast("❌ Erreur lors de la création du Pack ZIP : " + err.message);
   }
-
-  if (format === 'odt' || format === 'all') {
-    zip.file(`01_Fiche_Eleve_${safeTitle}.odt`, getOdtBlob(`${title} — Fiche Élève`, parts.part1Html));
-    zip.file(`02_Fiche_Enseignant_${safeTitle}.odt`, getOdtBlob(`${title} — Fiche Enseignant`, parts.part2Html));
-    zip.file(`00_Seance_Complete_${safeTitle}.odt`, getOdtBlob(title, parts.fullHtml));
-  }
-
-  if (format === 'doc' || format === 'all') {
-    zip.file(`01_Fiche_Eleve_${safeTitle}.doc`, getWordBlob(`${title} — Fiche Élève`, parts.part1Html, meta));
-    zip.file(`02_Fiche_Enseignant_${safeTitle}.doc`, getWordBlob(`${title} — Fiche Enseignant`, parts.part2Html, meta));
-    zip.file(`00_Seance_Complete_${safeTitle}.doc`, getWordBlob(title, parts.fullHtml, meta));
-  }
-
-  if (format === 'md' || format === 'all') {
-    zip.file(`01_Fiche_Eleve_${safeTitle}.md`, getMarkdownBlob(`${title} — Fiche Élève`, parts.part1Md));
-    zip.file(`02_Fiche_Enseignant_${safeTitle}.md`, getMarkdownBlob(`${title} — Fiche Enseignant`, parts.part2Md));
-    zip.file(`00_Seance_Complete_${safeTitle}.md`, getMarkdownBlob(title, parts.fullMd));
-  }
-
-  const zipBlob = await zip.generateAsync({ type: 'blob' });
-  triggerDownload(zipBlob, `Pack_Seance_${format.toUpperCase()}_${safeTitle}.zip`);
-  window.showToast(`Pack ZIP (${format.toUpperCase()}) téléchargé avec succès ! 📦`);
 }
