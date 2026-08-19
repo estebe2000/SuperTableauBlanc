@@ -615,13 +615,21 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
         return themeInput?.value || moduleSelect?.options[moduleSelect.selectedIndex]?.text?.split('—')[0]?.trim() || "Seance_Pedagogique";
     }
 
+    function getExportMeta() {
+        return {
+            cycle: cycleSelect?.options[cycleSelect.selectedIndex]?.text || '',
+            discipline: disciplineSelect?.value || '',
+            theme: themeInput?.value || getExportTitle()
+        };
+    }
+
     // 1. ODT Export
     document.getElementById('pp-exp-odt')?.addEventListener('click', () => {
         if (!generatedMarkdown) {
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        exportODT(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        exportODT(getExportTitle(), outputEl.innerHTML || generatedMarkdown, getExportMeta());
         if (exportDropdown) exportDropdown.style.display = 'none';
         window.showToast("Document .ODT accessible téléchargé ! 📄");
     });
@@ -632,7 +640,7 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        exportWord(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        exportWord(getExportTitle(), outputEl.innerHTML || generatedMarkdown, getExportMeta());
         if (exportDropdown) exportDropdown.style.display = 'none';
         window.showToast("Document Word (.doc) téléchargé ! 📝");
     });
@@ -643,7 +651,7 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        exportPDF(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        exportPDF(getExportTitle(), outputEl.innerHTML || generatedMarkdown, getExportMeta());
         if (exportDropdown) exportDropdown.style.display = 'none';
         window.showToast("Génération de la vue PDF en cours... 📑");
     });

@@ -87,7 +87,36 @@ export function htmlToOdfBody(html) {
     if (tag === 'hr') {
       return `<text:p text:style-name="Standard"/>`;
     }
+    if (tag === 'svg') {
+      try {
+        const svgClone = node.cloneNode(true);
+        if (!svgClone.getAttribute('xmlns')) {
+          svgClone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        }
+        const svgStr = new XMLSerializer().serializeToString(svgClone);
+        const b64 = btoa(unescape(encodeURIComponent(svgStr)));
+        return `<text:p text:style-name="P_CUA"><draw:frame draw:style-name="Graf1" draw:name="MermaidDiagramme" text:anchor-type="as-char" svg:width="16cm" svg:height="8.5cm"><draw:image><office:binary-data>${b64}</office:binary-data></draw:image></draw:frame></text:p>`;
+      } catch (e) {
+        return `<text:p text:style-name="P_Code">${escapeXml(node.textContent)}</text:p>`;
+      }
+    }
+    if (tag === 'img') {
+      const src = node.getAttribute('src') || '';
+      const alt = escapeXml(node.getAttribute('alt') || 'Illustration');
+      if (src.startsWith('data:image/')) {
+        const b64 = src.split(',')[1] || '';
+        return `<draw:frame draw:style-name="Graf1" draw:name="${alt}" text:anchor-type="as-char" svg:width="2.5cm" svg:height="2.5cm"><draw:image><office:binary-data>${b64}</office:binary-data></draw:image></draw:frame>`;
+      }
+      return `<draw:frame draw:style-name="Graf1" draw:name="${alt}" text:anchor-type="as-char" svg:width="2.5cm" svg:height="2.5cm"><draw:image xlink:href="${escapeXml(src)}"/></draw:frame>`;
+    }
+    if (node.classList && node.classList.contains('picto-card')) {
+      return `<text:p text:style-name="P_Quote">${traverseChildren(node)}</text:p>`;
+    }
     if (tag === 'pre' || tag === 'code') {
+      // Check if it is a raw mermaid block that was not rendered as SVG
+      if (node.textContent.includes('graph ') || node.textContent.includes('flowchart ') || node.textContent.includes('mindmap')) {
+        return `<text:p text:style-name="P_Code">[Diagramme de synthèse]\n${escapeXml(node.textContent)}</text:p>`;
+      }
       return `<text:p text:style-name="P_Code">${escapeXml(node.textContent)}</text:p>`;
     }
 
