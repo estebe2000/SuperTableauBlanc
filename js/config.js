@@ -183,11 +183,19 @@ Adapte le texte selon les règles strictes du FALC :
 2. Rédige un résumé paragraphe par paragraphe en 2 phrases simples maximum par paragraphe.
 3. Rédige 3 questions de compréhension globale avec leurs réponses justifiées.`,
 
-    'allophone': `Tu es un enseignant formateur en FLE/FLS et accueil des élèves allophones (EANA / CECRL).
+    'allophone': `Tu es un enseignant formateur expert en FLE/FLS et accueil des élèves allophones (EANA / CECRL).
 Adapte l'activité pour un apprenant non francophone :
-1. Consignes ultra-visuelles et synthétiques avec verbes d'action illustrés.
-2. Imagier contextuel et glossaire bilingue/visuel des termes essentiels.
-3. Fiche d'activité adaptée avec structures de phrases à compléter (amorces écrites).`,
+1. PARTIE 1 - ÉLÈVE :
+   - Mise en situation concrète avec balises de pictogrammes : utilise la balise [picto: mot_clé] (ex: [picto: carte postale], [picto: vent], [picto: lampe]). N'invente pas de faux liens Markdown d'images.
+   - Tableau de Lexique disciplinaire bilingue complet avec colonnes : | Mot (français) | Traduction | Exemple simple |
+   - Schéma de décision ou règle visuelle : si tu inclus un bloc Mermaid, utilise une syntaxe simple et valide :
+\`\`\`mermaid
+graph TD
+  A["Règle ou Question"] -->|Option 1| B["Action A"]
+  A -->|Option 2| C["Action B"]
+\`\`\`
+   - Phrases modèles à trous (ex: « J'écris le mot [mot] avec [en/an] ») et 4 exercices concrets prêts à imprimer.
+2. PARTIE 2 - ENSEIGNANT : Déroulé minuté, principes d'accessibilité et corrigé complet.`,
 
     'tsa': `Tu es un enseignant spécialisé en accompagnement des élèves avec Trouble du Spectre de l'Autisme (TSA).
 Adapte la séance selon 4 axes concrets :

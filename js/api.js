@@ -449,8 +449,22 @@ export function formatMarkdown(elementOrText, rawText) {
         decodedCode = decodedCode.replace(/^mermaid\s+/, '').trim();
       }
 
-      // Sanitize node labels in Mermaid graphs (wrap unquoted labels containing special characters in quotes)
+      // Sanitize and validate Mermaid code
       try {
+        let lines = decodedCode.split('\n').map(l => l.trim()).filter(Boolean);
+        const hasHeader = /^(graph|flowchart|mindmap|sequenceDiagram|classDiagram|stateDiagram|pie|gitGraph)\b/.test(lines[0] || '');
+        
+        if (!hasHeader) {
+          // If contains arrows or steps, prepend flowchart TD
+          if (decodedCode.includes('-->') || decodedCode.includes('->') || decodedCode.includes('|')) {
+            decodedCode = `flowchart TD\n` + decodedCode;
+          } else {
+            // Not a valid diagram code, render as clean visual block
+            return `<div class="p-card" style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:8px; padding:12px; margin:12px 0;"><strong>📊 Schéma :</strong> ${decodedCode}</div>`;
+          }
+        }
+
+        // Sanitize labels: ensure bracket labels are quoted
         decodedCode = decodedCode.split('\n').map(line => {
           let trimmed = line.trim();
           if (!trimmed || /^(graph|flowchart|mindmap|sequenceDiagram|classDiagram|style|classDef|linkStyle|subgraph|end)\b/.test(trimmed)) {

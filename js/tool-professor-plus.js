@@ -487,18 +487,43 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
             });
 
             // Post-rendering diagrams & equations
+            // Post-rendering diagrams & equations
             if (window.mermaid) {
                 try {
                     const mermaidNodes = outputEl.querySelectorAll('.mermaid');
-                    if (mermaidNodes.length > 0) {
-                        window.mermaid.run({ nodes: mermaidNodes });
+                    for (const node of mermaidNodes) {
+                        try {
+                            if (window.mermaid.parse) {
+                                await window.mermaid.parse(node.textContent);
+                            }
+                        } catch (err) {
+                            // Convert broken mermaid block to clean visual flow card
+                            const cleanLines = node.textContent.split('\n').filter(l => l.trim() && !l.trim().startsWith('graph') && !l.trim().startsWith('flowchart'));
+                            const steps = cleanLines.map(l => l.replace(/["\[\]\(\)]/g, '').replace(/-->/g, ' ➔ ').trim()).filter(Boolean);
+                            const fallbackCard = document.createElement('div');
+                            fallbackCard.className = 'flowchart-fallback-card';
+                            fallbackCard.style.cssText = 'background:#f8fafc; border:1.5px solid #93c5fd; border-radius:10px; padding:14px; margin:14px 0;';
+                            fallbackCard.innerHTML = `
+                                <div style="font-weight:700; color:#1d4ed8; margin-bottom:8px; font-size:0.95rem;">📊 Schéma & Règle Visuelle :</div>
+                                <div style="display:flex; flex-direction:column; gap:6px;">
+                                    ${steps.map(s => `<div style="background:#ffffff; border:1px solid #bfdbfe; border-radius:6px; padding:6px 12px; font-weight:600; color:#1e293b;">📌 ${s}</div>`).join('')}
+                                </div>
+                            `;
+                            if (node.parentElement) {
+                                node.parentElement.replaceWith(fallbackCard);
+                            }
+                        }
                     }
+                    window.mermaid.run({ nodes: outputEl.querySelectorAll('.mermaid') });
                 } catch (mErr) {
                     console.warn("Mermaid render note:", mErr);
                 }
             }
 
-            // Post-rendering ARASAAC PictoLexique
+            // Post-rendering: Auto-illustrate all image placeholders with real ARASAAC pictograms
+            await autoIllustrateContent(outputEl);
+
+            // Post-rendering: ARASAAC PictoLexique on bilingual lexicon table
             await renderPictoLexique(outputEl);
 
             window.showToast("Support pédagogique généré avec succès ! ✨");
@@ -513,24 +538,99 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
         }
     });
 
+    // Helper: Auto-Illustrate all image placeholders in text nodes and table cells
+    async function autoIllustrateContent(container) {
+        // Collect all text nodes with placeholder patterns
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+        const textNodes = [];
+        let cur;
+        while (cur = walker.nextNode()) {
+            if (/!\[(?:Image\s*:\s*)?([^\]]+)\]|\[(?:Image\s*:\s*|picto\s*:\s*)([^\]]+)\]/i.test(cur.nodeValue)) {
+                textNodes.push(cur);
+            }
+        }
+
+        for (const node of textNodes) {
+            const parent = node.parentNode;
+            if (!parent || parent.tagName === 'CODE' || parent.tagName === 'PRE') continue;
+
+            const text = node.nodeValue;
+            const regex = /!\[(?:Image\s*:\s*)?([^\]]+)\](?:\([^\)]*\))?|\[(?:Image\s*:\s*|picto\s*:\s*)([^\]]+)\]/gi;
+            let match;
+            const replacements = [];
+
+            while ((match = regex.exec(text)) !== null) {
+                let concept = match[1] || match[2] || '';
+                // Extract clean keyword
+                let keyword = concept;
+                if (keyword.includes('«') && keyword.includes('»')) {
+                    const q = keyword.match(/«\s*([^»]+)\s*»/);
+                    if (q) keyword = q[1];
+                } else if (keyword.includes('"')) {
+                    const q = keyword.match(/"([^"]+)"/);
+                    if (q) keyword = q[1];
+                } else if (keyword.toLowerCase().includes('carte postale')) {
+                    keyword = 'carte postale';
+                } else if (keyword.toLowerCase().includes('nez') || keyword.toLowerCase().includes('visage')) {
+                    keyword = 'nez';
+                } else if (keyword.toLowerCase().includes('dictionnaire')) {
+                    keyword = 'dictionnaire';
+                } else if (keyword.toLowerCase().includes('élève')) {
+                    keyword = 'élève';
+                }
+
+                const cleanKey = keyword.replace(/^[\u{1F300}-\u{1F9FF}\s]+/u, '').replace(/^(le|la|les|un|une|des|l')\s+/i, '').replace(/[\*\_]/g, '').trim();
+                if (cleanKey) {
+                    replacements.push({ raw: match[0], key: cleanKey });
+                }
+            }
+
+            if (replacements.length > 0) {
+                const span = document.createElement('span');
+                span.innerHTML = text;
+                for (const r of replacements) {
+                    try {
+                        const pictos = await searchPictos(r.key);
+                        if (pictos && pictos.length > 0) {
+                            const pId = pictos[0]._id || pictos[0].id;
+                            const pUrl = pictoUrl(pId, { resolution: 300 });
+                            const badge = `<span class="inline-arasaac-badge" style="display:inline-flex; align-items:center; gap:6px; background:#eff6ff; border:1.5px solid #93c5fd; border-radius:8px; padding:2px 8px; margin:2px 4px; vertical-align:middle;"><img src="${pUrl}" alt="${r.key}" style="width:30px; height:30px; object-fit:contain;" /><strong style="color:#1e3a8a; font-size:0.88rem;">${r.key}</strong></span>`;
+                            span.innerHTML = span.innerHTML.replace(r.raw, badge);
+                        } else {
+                            span.innerHTML = span.innerHTML.replace(r.raw, `<span class="badge" style="background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px;">🖼️ ${r.key}</span>`);
+                        }
+                    } catch (e) {
+                        span.innerHTML = span.innerHTML.replace(r.raw, `<strong>${r.key}</strong>`);
+                    }
+                }
+                parent.replaceChild(span, node);
+            }
+        }
+    }
+
     // Helper: Render PictoLexique gallery from output tables
     async function renderPictoLexique(container) {
         const tables = container.querySelectorAll('table');
         if (!tables || tables.length === 0) return;
 
+        let galleryRendered = false;
+
         for (const table of tables) {
+            if (galleryRendered) break; // Only attach one main PictoLexique gallery
+
             const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim().toLowerCase());
             const motIdx = headers.findIndex(h => h.includes('mot') || h.includes('terme') || h.includes('vocabulaire') || h.includes('français'));
             if (motIdx === -1) continue;
 
-            const tradIdx = headers.findIndex(h => h.includes('traduc') || h.includes('langue') || h.includes('arabe') || h.includes('ukrainien') || h.includes('espagnol') || h.includes('anglais'));
+            const tradIdx = headers.findIndex(h => h.includes('traduc') || h.includes('langue') || h.includes('arabe') || h.includes('arménien') || h.includes('ukrainien') || h.includes('espagnol') || h.includes('anglais'));
+            if (tradIdx === -1) continue; // Only for bilingual vocabulary table!
 
             const rows = table.querySelectorAll('tbody tr');
             if (rows.length === 0) continue;
 
             const pictoGallery = document.createElement('div');
             pictoGallery.className = 'picto-lexique-container';
-            pictoGallery.style.cssText = 'margin: 20px 0; padding: 16px; background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 12px;';
+            pictoGallery.style.cssText = 'margin: 20px 0; padding: 16px; background: rgba(59, 130, 246, 0.05); border: 1.5px solid rgba(59, 130, 246, 0.25); border-radius: 12px;';
             
             pictoGallery.innerHTML = `
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid rgba(0,0,0,0.08); padding-bottom:8px; flex-wrap:wrap; gap:6px;">
@@ -577,6 +677,7 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
 
             if (cardsGrid.children.length > 0) {
                 table.parentNode.insertBefore(pictoGallery, table.nextSibling);
+                galleryRendered = true;
             }
         }
     }
