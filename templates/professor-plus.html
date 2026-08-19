@@ -1,153 +1,125 @@
             <div class="workspace-header">
                 <h2>🎓 Studio Pédagogique</h2>
-                <p>L'atelier complet de conception, d'adaptation et de différenciation pédagogique inclusive — 20 modules experts conformes CUA, FALC et programmes officiels.</p>
+                <p>L'atelier complet de conception, d'adaptation et de différenciation pédagogique inclusive — 19 modules experts conformes CUA, FALC et programmes officiels.</p>
             </div>
             
-            <div class="app-grid studio-grid">
-                <!-- Panneau Gauche : Entonnoir de Conception en 4 étapes -->
-                <section class="panel input-panel studio-wizard-panel">
-                    
-                    <!-- ÉTAPE 1 : Cadrage & Référentiel -->
-                    <div class="studio-step-block">
-                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 8px; border-bottom: 1px solid var(--border);">
-                            <h2>1. Référentiel & Contexte</h2>
+            <div class="studio-fullwidth-container" style="display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 1200px; margin: 0 auto;">
+                
+                <!-- 1. BLOC EN HAUT : Sélecteur de Module avec onglets de familles -->
+                <section class="panel studio-top-panel" style="padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.3rem;">🎯</span>
+                            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700;">1. Choisir le Module Pédagogique</h3>
                         </div>
-                        
-                        <div class="row2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-                            <div class="field">
-                                <label class="section-label">Cycle / Niveau</label>
-                                <select id="pp-cycle" class="studio-select">
-                                    <option value="">— Choisir le cycle —</option>
-                                    <option value="cycle1">Cycle 1 — Maternelle</option>
-                                    <option value="cycle2">Cycle 2 — CP, CE1, CE2</option>
-                                    <option value="cycle3">Cycle 3 — CM1, CM2, 6e</option>
-                                    <option value="cycle4">Cycle 4 — 5e, 4e, 3e</option>
-                                    <option value="lycee-gt">Lycée général et technologique</option>
-                                    <option value="lycee-pro">Lycée professionnel</option>
-                                    <option value="post-bac">Post-Bac (IUT, Licence, etc.)</option>
-                                </select>
-                            </div>
-                            <div class="field" id="pp-filiere-field" style="display: none;">
-                                <label class="section-label">Filière</label>
-                                <select id="pp-filiere" class="studio-select">
-                                    <option value="">— Choisir la filière —</option>
-                                    <option value="but-tc">BUT Techniques de Commercialisation</option>
-                                    <option value="licence-anglais">Licence Anglais (LLCER/EAD)</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <label class="section-label">Discipline / UE</label>
-                                <select id="pp-discipline" class="studio-select" disabled>
-                                    <option value="">— Choisir le niveau —</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="field" style="margin-top: 10px;">
-                            <label class="section-label">Compétence visée (Référentiel)</label>
-                            <div id="pp-competence-container" class="pp-scroll-area">
-                                <p class="placeholder-text" style="font-size: 0.85rem; margin: 0;">Sélectionnez un niveau et une discipline pour charger les compétences officielles.</p>
-                            </div>
-                        </div>
-
-                        <div class="row2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;">
-                            <div class="field">
-                                <label class="section-label">Durée de la séance</label>
-                                <select id="pp-duration" class="studio-select">
-                                    <option value="55min" selected>55 minutes (1 heure)</option>
-                                    <option value="45min">45 minutes</option>
-                                    <option value="1h30">1h30</option>
-                                    <option value="2h">2 heures</option>
-                                    <option value="3h">3 heures (Demi-journée)</option>
-                                    <option value="4h">4 heures (TP / Atelier)</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <label class="section-label">Format de la séquence</label>
-                                <select id="pp-nb-seances" class="studio-select">
-                                    <option value="1" selected>1 séance autonome</option>
-                                    <option value="2">Séquence de 2 séances</option>
-                                    <option value="3">Séquence de 3 séances</option>
-                                    <option value="4">Séquence de 4 séances</option>
-                                    <option value="6">Séquence complète (6 séances)</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="field" style="margin-top: 10px;">
-                            <label class="section-label">Titre ou Thème de la séance</label>
-                            <input type="text" id="pp-theme" class="search-input" style="height: 44px; padding-left: 14px; font-size: 0.95rem; border-radius: 10px;" placeholder="Ex: Les fractions, La Révolution française, Le droit des contrats...">
-                        </div>
+                        <span class="badge" style="background: rgba(124,58,237,0.15); color: var(--accent1); font-size: 0.8rem; font-weight: 600; padding: 4px 10px; border-radius: 12px;">19 modules experts</span>
                     </div>
 
-                    <!-- ÉTAPE 2 : Choix du Module (20 modules en 4 intentions) -->
-                    <div class="studio-step-block">
-                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                            <h2>2. Module Pédagogique Spécialisé</h2>
-                            <span class="badge" style="background: rgba(124,58,237,0.1); color: var(--accent5); font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;">20 modules disponibles</span>
-                        </div>
+                    <!-- Onglets Familles d'intentions -->
+                    <div class="studio-intent-tabs" style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+                        <button class="studio-tab-btn active" data-family="concevoir">🎯 Concevoir & Évaluer</button>
+                        <button class="studio-tab-btn" data-family="adapter">📄 Adapter un texte</button>
+                        <button class="studio-tab-btn" data-family="besoin">🧠 Besoins Spécifiques</button>
+                        <button class="studio-tab-btn" data-family="communiquer">💬 Communiquer (CAA)</button>
+                    </div>
 
-                        <!-- Familles d'intentions -->
-                        <div class="studio-intent-tabs" style="margin-bottom: 10px;">
-                            <button class="studio-tab-btn active" data-family="concevoir">🎯 Concevoir & Évaluer</button>
-                            <button class="studio-tab-btn" data-family="adapter">📄 Adapter un texte</button>
-                            <button class="studio-tab-btn" data-family="besoin">🧠 Besoins Spécifiques</button>
-                            <button class="studio-tab-btn" data-family="communiquer">💬 Communiquer (CAA)</button>
+                    <!-- Dropdown / Selecteur de Module -->
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+                        <select id="pp-selected-module" class="studio-select" style="font-size: 1rem; font-weight: 600; padding: 10px 14px; height: 48px; border: 2px solid var(--accent1);">
+                            <!-- Alimenté dynamiquement par JS -->
+                        </select>
+                        <div id="pp-module-description-box" style="font-size: 0.9rem; color: var(--text-muted); background: rgba(124,58,237,0.05); padding: 10px 14px; border-radius: 8px; border-left: 4px solid var(--accent1);">
+                            Bâtir une séance complète accessible dès le départ (Rosenshine & CUA).
                         </div>
+                    </div>
+                </section>
 
-                        <!-- Sélecteur de module dynamique -->
+                <!-- 2. BLOC AU MILIEU : Formulaire de Configuration Dynamique (Pleine Largeur) -->
+                <section class="panel studio-form-panel" style="padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.3rem;">⚙️</span>
+                            <h3 style="margin: 0; font-size: 1.1rem; font-weight: 700;">2. Configuration & Paramètres de la Séance</h3>
+                        </div>
+                        <span id="rgpd-shield-badge" class="badge" style="background: rgba(22,163,74,0.15); color: #16a34a; font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;">🛡️ Bouclier RGPD Actif</span>
+                    </div>
+
+                    <!-- Sous-partie A : Cadrage Académique Général -->
+                    <div class="studio-form-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px;">
                         <div class="field">
-                            <label class="section-label">Module actif</label>
-                            <select id="pp-selected-module" class="studio-select" style="font-weight: 600; color: var(--accent1);">
-                                <!-- Concevoir -->
-                                <optgroup label="🎯 Concevoir & Évaluer une séance" data-family-group="concevoir">
-                                    <option value="conception-cua" selected>🎓 Conception CUA (Séance complète & Enseignement explicite)</option>
-                                    <option value="differencier">🔀 Différenciation (3 parcours : Soutien, Standard, Approfondissement)</option>
-                                    <option value="analyse-cua">🔍 Analyse & Diagnostic CUA d'une fiche existante</option>
-                                    <option value="expliciter">💡 Expliciter une tâche (Dévoiler les implicites)</option>
-                                    <option value="qcm">🧪 Concevoir un QCM (20 règles docimologiques & Bloom)</option>
-                                    <option value="planification-m2pa">📐 Planification M2PA (3 niveaux d'accessibilité)</option>
-                                </optgroup>
-                                <!-- Adapter -->
-                                <optgroup label="📄 Adapter un texte ou une activité" data-family-group="adapter">
-                                    <option value="falc">✍️ FALC (Facile à Lire et à Comprendre - Inclusion Europe)</option>
-                                    <option value="aide-lecture">📚 Aide à la lecture (Lexique niveau 2 & Résumé guidé)</option>
-                                    <option value="allophone">🌍 Allophone EANA (Support multi-modal & CECRL)</option>
-                                </optgroup>
-                                <!-- Besoins spécifiques -->
-                                <optgroup label="🧠 Répondre à un besoin spécifique" data-family-group="besoin">
-                                    <option value="tsa">🧩 Adaptations TSA (Prévisibilité & Aménagement cognitif)</option>
-                                    <option value="surdite">🧏 Surdité & Malentendance (LSF, LPC & Appui visuel)</option>
-                                    <option value="deficience-visuelle">👁️ Déficience visuelle (Luciole, contrastes & descriptions)</option>
-                                    <option value="handicap-moteur">✍️ Handicap moteur & Dyspraxie (Formats cochants allégés)</option>
-                                    <option value="maths-dyscalculie">🔢 Maths & Dyscalculie (Triple code Dehaene & Verbalisation)</option>
-                                    <option value="dyslexie">📖 Dyslexie (Allègement du déchiffrage & Aération)</option>
-                                    <option value="haut-potentiel">⚡ Haut Potentiel EHP (Enrichissement & Complexité Renzulli)</option>
-                                    <option value="accompagnement">🤝 Accompagnement comportemental (Grille de besoins Barry)</option>
-                                </optgroup>
-                                <!-- Communiquer -->
-                                <optgroup label="💬 Communiquer autrement (CAA)" data-family-group="communiquer">
-                                    <option value="caa">🖼️ CAA Bande-phrases (Pictogrammes ARASAAC & Fitzgerald)</option>
-                                    <option value="tableau-communication">💬 Tableau de communication thématique</option>
-                                    <option value="sequentiel">📋 Séquentiel illustré TEACCH (Routine par étapes)</option>
-                                    <option value="scenario-social">📖 Scénario Social (Carol Gray - 2 descriptives / 1 directive)</option>
-                                </optgroup>
+                            <label class="section-label">Cycle / Niveau</label>
+                            <select id="pp-cycle" class="studio-select">
+                                <option value="">— Choisir le cycle —</option>
+                                <option value="cycle1">Cycle 1 — Maternelle</option>
+                                <option value="cycle2">Cycle 2 — CP, CE1, CE2</option>
+                                <option value="cycle3">Cycle 3 — CM1, CM2, 6e</option>
+                                <option value="cycle4" selected>Cycle 4 — 5e, 4e, 3e</option>
+                                <option value="lycee-gt">Lycée général et technologique</option>
+                                <option value="lycee-pro">Lycée professionnel</option>
+                                <option value="post-bac">Post-Bac (IUT, Licence, etc.)</option>
                             </select>
                         </div>
-
-                        <!-- Description dynamique du module sélectionné -->
-                        <div id="pp-module-description-box" style="margin-top: 8px; font-size: 0.85rem; color: var(--text-muted); background: rgba(255,255,255,0.03); padding: 8px 12px; border-radius: 8px; border-left: 3px solid var(--accent1);">
-                            Conception d'une séance inclusive complète avec objectifs, déroulé en phases et différenciation CUA.
+                        <div class="field" id="pp-filiere-field" style="display: none;">
+                            <label class="section-label">Filière</label>
+                            <select id="pp-filiere" class="studio-select">
+                                <option value="">— Choisir la filière —</option>
+                                <option value="but-tc">BUT Techniques de Commercialisation</option>
+                                <option value="licence-anglais">Licence Anglais (LLCER/EAD)</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="section-label">Discipline / UE</label>
+                            <select id="pp-discipline" class="studio-select" disabled>
+                                <option value="">— Choisir le niveau —</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="section-label">Durée de la séance</label>
+                            <select id="pp-duration" class="studio-select">
+                                <option value="55min" selected>55 minutes (1 heure)</option>
+                                <option value="45min">45 minutes</option>
+                                <option value="1h30">1h30</option>
+                                <option value="2h">2 heures</option>
+                                <option value="3h">3 heures (Demi-journée)</option>
+                                <option value="4h">4 heures (TP / Atelier)</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label class="section-label">Format de la séquence</label>
+                            <select id="pp-nb-seances" class="studio-select">
+                                <option value="1" selected>1 séance autonome</option>
+                                <option value="2">Séquence de 2 séances</option>
+                                <option value="3">Séquence de 3 séances</option>
+                                <option value="4">Séquence de 4 séances</option>
+                                <option value="6">Séquence complète (6 séances)</option>
+                            </select>
                         </div>
                     </div>
 
-                    <!-- ÉTAPE 3 : Documents Sources & Bouclier RGPD -->
-                    <div class="studio-step-block">
-                        <div class="panel-header" style="padding: 0 0 10px 0; margin-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-                            <h2>3. Contenu Source & Sécurité</h2>
-                            <span id="rgpd-shield-badge" class="badge" style="background: rgba(22,163,74,0.15); color: #16a34a; font-size: 0.75rem; padding: 3px 8px; border-radius: 12px;">🛡️ Bouclier RGPD Actif</span>
+                    <div class="field" style="margin-bottom: 14px;">
+                        <label class="section-label">Compétence visée (Référentiel officiel)</label>
+                        <div id="pp-competence-container" class="pp-scroll-area" style="max-height: 140px; overflow-y: auto;">
+                            <p class="placeholder-text" style="font-size: 0.85rem; margin: 0;">Sélectionnez une discipline pour charger les compétences officielles.</p>
                         </div>
+                    </div>
 
+                    <div class="field" style="margin-bottom: 16px;">
+                        <label class="section-label">Titre ou Thème de la séance</label>
+                        <input type="text" id="pp-theme" class="search-input" style="height: 44px; padding-left: 14px; font-size: 0.95rem; border-radius: 10px;" placeholder="Ex: Les fractions et pourcentages, La Révolution française, Le droit des contrats...">
+                    </div>
+
+                    <!-- Sous-partie B : Champs Spécifiques au Module Sélectionné (Injectés dynamiquement) -->
+                    <div id="pp-dynamic-fields-section" style="margin-bottom: 16px; padding: 14px; background: rgba(124,58,237,0.03); border: 1px dashed rgba(124,58,237,0.3); border-radius: 10px;">
+                        <div style="font-weight: 600; font-size: 0.9rem; color: var(--accent1); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+                            <span>✨</span> Paramètres spécifiques : <strong id="pp-dynamic-module-title" style="color: var(--text);">Conception CUA</strong>
+                        </div>
+                        <div id="pp-dynamic-fields-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+                            <!-- Injecté dynamiquement par JS -->
+                        </div>
+                    </div>
+
+                    <!-- Sous-partie C : Données Sources & Bouclier RGPD -->
+                    <div class="pp-sources-section" style="margin-bottom: 16px;">
                         <!-- RGPD Alert Banner (Dynamic) -->
                         <div id="pp-rgpd-alert-box" style="display: none; margin-bottom: 10px; background: rgba(234, 88, 12, 0.12); border: 1px solid rgba(234, 88, 12, 0.4); border-radius: 8px; padding: 10px; font-size: 0.85rem; color: #ea580c;">
                             <div style="font-weight: 600; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
@@ -156,56 +128,58 @@
                             <ul id="pp-rgpd-alert-list" style="margin: 0; padding-left: 20px;"></ul>
                         </div>
 
-                        <div class="pp-sources">
-                            <div class="pp-source-tabs" style="display: flex; gap: 6px; margin-bottom: 8px;">
-                                <button class="pp-source-tab active btn btn-sm" data-source="text">✍️ Texte / Consigne</button>
-                                <button class="pp-source-tab btn btn-sm" data-source="doc">📄 Document (PDF/DOCX)</button>
-                                <button class="pp-source-tab btn btn-sm" data-source="audio">🎙️ Dictée / Audio</button>
-                            </div>
-
-                            <div class="pp-source-content" id="pp-source-text">
-                                <textarea id="pp-input-text" rows="5" placeholder="Collez ici le texte du cours, l'énoncé d'exercice ou vos notes brutes..." class="search-input" style="border-radius: 8px; font-size: 0.95rem;"></textarea>
-                            </div>
-
-                            <div class="pp-source-content" id="pp-source-doc" style="display:none;">
-                                <div class="drop-zone mini" id="pp-drop-zone-doc" style="border: 2px dashed var(--border); padding: 16px; text-align: center; border-radius: 10px; cursor: pointer;">
-                                    <div class="upload-icon" style="font-size: 1.8rem;">📄</div>
-                                    <p style="margin: 4px 0 0; font-size: 0.85rem;">Glissez un fichier PDF ou DOCX</p>
-                                    <input type="file" id="pp-file-input-doc" accept=".pdf,.docx" style="display:none;">
-                                </div>
-                                <div id="pp-doc-status" class="file-status" style="display:none; font-size: 0.85rem; margin-top: 6px;"></div>
-                            </div>
-
-                            <div class="pp-source-content" id="pp-source-audio" style="display:none;">
-                                <div class="audio-record-box" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px;">
-                                    <button class="btn btn-secondary btn-circle" id="pp-record-btn" title="Enregistrer avec le micro">🎤</button>
-                                    <span id="pp-record-status" style="font-size: 0.85rem; color: var(--text-muted);">Cliquez sur le micro pour dicter vos consignes.</span>
-                                </div>
-                            </div>
+                        <div class="pp-source-tabs" style="display: flex; gap: 8px; margin-bottom: 8px;">
+                            <button class="pp-source-tab active btn btn-sm" data-source="text">✍️ Texte / Consigne brute</button>
+                            <button class="pp-source-tab btn btn-sm" data-source="doc">📄 Importer un Document (PDF / DOCX)</button>
+                            <button class="pp-source-tab btn btn-sm" data-source="audio">🎙️ Dictée Vocale</button>
                         </div>
 
-                        <!-- Bouton Générer Principal -->
-                        <button class="btn btn-primary" id="pp-generate-btn" style="width: 100%; margin-top: 16px; height: 48px; font-size: 1.05rem; font-weight: 600; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);">
-                            ✨ Générer l'Adaptation Pédagogique
-                        </button>
+                        <div class="pp-source-content" id="pp-source-text">
+                            <textarea id="pp-input-text" rows="4" placeholder="Collez ici le texte du cours, l'énoncé d'exercice, vos notes de préparation..." class="search-input" style="border-radius: 8px; font-size: 0.95rem; width: 100%;"></textarea>
+                        </div>
+
+                        <div class="pp-source-content" id="pp-source-doc" style="display:none;">
+                            <div class="drop-zone mini" id="pp-drop-zone-doc" style="border: 2px dashed var(--border); padding: 16px; text-align: center; border-radius: 10px; cursor: pointer;">
+                                <div class="upload-icon" style="font-size: 1.8rem;">📄</div>
+                                <p style="margin: 4px 0 0; font-size: 0.85rem;">Glissez un fichier PDF ou DOCX ici</p>
+                                <input type="file" id="pp-file-input-doc" accept=".pdf,.docx" style="display:none;">
+                            </div>
+                            <div id="pp-doc-status" class="file-status" style="display:none; font-size: 0.85rem; margin-top: 6px;"></div>
+                        </div>
+
+                        <div class="pp-source-content" id="pp-source-audio" style="display:none;">
+                            <div class="audio-record-box" style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 8px;">
+                                <button class="btn btn-secondary btn-circle" id="pp-record-btn" title="Enregistrer avec le micro">🎤</button>
+                                <span id="pp-record-status" style="font-size: 0.85rem; color: var(--text-muted);">Cliquez sur le micro pour dicter vos consignes.</span>
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- Bouton de Génération Principal -->
+                    <button class="btn btn-primary" id="pp-generate-btn" style="width: 100%; height: 50px; font-size: 1.1rem; font-weight: 700; box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35); border-radius: 10px;">
+                        ✨ Générer le Support Pédagogique Complet
+                    </button>
                 </section>
 
-                <!-- Panneau Droit : Espace de Rendu & Atelier Multi-Exports -->
-                <section class="panel output-panel studio-output-panel" style="display: flex; flex-direction: column;">
-                    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
-                        <h2>Résultat Pédagogique</h2>
+                <!-- 3. BLOC EN BAS : Espace de Rendu Pleine Largeur (Grand Format) -->
+                <section class="panel studio-output-panel" style="padding: 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; min-height: 500px; display: flex; flex-direction: column;">
+                    <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="font-size: 1.3rem;">📋</span>
+                            <h3 style="margin: 0; font-size: 1.15rem; font-weight: 700;">3. Support Pédagogique Prêt pour la Classe</h3>
+                        </div>
+
+                        <!-- Barre d'outils d'exportation -->
                         <div class="actions" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
                             <button class="btn btn-secondary btn-sm" id="pp-copy-btn" title="Copier le contenu Markdown">📋 Copier</button>
                             
-                            <!-- Unified Export Dropdown (ODT, Word, PDF, MD, LaTeX) -->
+                            <!-- Menu Déroulant Exporter (ODT, Word, PDF, MD, LaTeX) -->
                             <div class="export-dropdown-wrapper" style="position: relative; display: inline-block;">
                                 <button class="btn btn-primary btn-sm" id="pp-export-menu-btn" style="display: flex; align-items: center; gap: 6px; font-weight: 600;">
                                     <span>📥 Exporter</span>
                                     <span style="font-size: 0.75rem;">▼</span>
                                 </button>
-                                <div class="export-dropdown-menu" id="pp-export-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1000; min-width: 220px; padding: 6px; flex-direction: column; gap: 2px;">
+                                <div class="export-dropdown-menu" id="pp-export-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1000; min-width: 230px; padding: 6px; flex-direction: column; gap: 2px;">
                                     <button class="export-menu-item" id="pp-exp-odt" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
                                         <span>📄</span>
                                         <div>
@@ -224,7 +198,7 @@
                                         <span>📑</span>
                                         <div>
                                             <strong>PDF / Impression</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page prête à imprimer</div>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page A4 imprimable</div>
                                         </div>
                                     </button>
                                     <button class="export-menu-item" id="pp-exp-md" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
@@ -249,17 +223,17 @@
                         </div>
                     </div>
 
-                    <!-- Output Content Area -->
-                    <div class="result-area" id="pp-output" style="flex: 1; overflow-y: auto; padding: 16px; min-height: 400px; line-height: 1.6;">
-                        <div class="empty-state" style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
-                            <div style="font-size: 3rem; margin-bottom: 12px; opacity: 0.6;">🎓</div>
-                            <h3 style="color: var(--text); margin-bottom: 8px;">Studio Pédagogique Prêt</h3>
-                            <p style="font-size: 0.9rem; max-width: 420px; margin: 0 auto;">Sélectionnez votre référentiel, choisissez l'un des 20 modules spécialisés et lancez la génération pour obtenir votre support prêt pour la classe.</p>
+                    <!-- Zone de Rendu Markdown Format Large -->
+                    <div class="result-area" id="pp-output" style="flex: 1; overflow-y: auto; padding: 20px 10px; min-height: 420px; line-height: 1.7; font-size: 1.02rem;">
+                        <div class="empty-state" style="text-align: center; padding: 50px 20px; color: var(--text-muted);">
+                            <div style="font-size: 3.5rem; margin-bottom: 14px; opacity: 0.6;">🎓</div>
+                            <h3 style="color: var(--text); margin-bottom: 8px; font-size: 1.25rem;">Studio Pédagogique Prêt</h3>
+                            <p style="font-size: 0.95rem; max-width: 500px; margin: 0 auto; line-height: 1.5;">Sélectionnez votre module en haut, ajustez les paramètres ci-dessus et cliquez sur <strong>Générer</strong> pour obtenir votre support complet, différencié et directement utilisable en classe.</p>
                         </div>
                     </div>
 
-                    <!-- Footer d'attribution ARASAAC / CUA si applicable -->
-                    <div id="pp-credit-footer" style="padding: 8px 12px; font-size: 0.75rem; color: var(--text-muted); border-top: 1px solid var(--border); background: rgba(0,0,0,0.1); border-radius: 0 0 12px 12px;">
+                    <!-- Footer d'Attribution & Souveraineté -->
+                    <div id="pp-credit-footer" style="padding: 10px 14px; font-size: 0.8rem; color: var(--text-muted); border-top: 1px solid var(--border); background: rgba(0,0,0,0.1); border-radius: 0 0 10px 10px; margin-top: 10px;">
                         Conception Universelle de l'Apprentissage (CUA/UDL) · IA Souveraine & Données 100% Protégées.
                     </div>
                 </section>

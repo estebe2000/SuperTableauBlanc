@@ -131,77 +131,76 @@ Règles pédagogiques :
   professorPlus: `Tu es un ingénieur pédagogique expert en Conception Universelle des Apprentissages (CUA/UDL) et programmes officiels de l'Éducation Nationale.
 Crée une séance d'apprentissage inclusive structurée avec objectifs, déroulé en phases minutées, différenciation (DYS, TDAH, TSA, Allophones) et évaluation formative.`,
 
-  // 20 Modules experts du Studio Pédagogique (Inclus'IA & CUA)
+  // 19 Modules experts du Studio Pédagogique (issus d'Inclus'IA & CUA)
   studioModules: {
-    'conception-cua': `Tu es un ingénieur pédagogique expert en Conception Universelle de l'Apprentissage (CUA/UDL) et en enseignement explicite (Rosenshine).
-Conçois une séance complète, structurée et directement actionnable.
-Déroulé obligatoire :
+    'conception-cua': `Tu es un enseignant-concepteur expert en Conception Universelle de l'Apprentissage (CUA/UDL - CAST 2.2/3.0) et en enseignement explicite (Rosenshine).
+Rédige une séance complète, détaillée et DIRECTEMENT EXPLOITABLE pour la classe.
+Structure obligatoire :
 1. Objectifs pédagogiques & Critères de réussite clairs
-2. Phase d'Objectivation (Pourquoi apprend-on cela ?)
-3. Phase de Modelage (Démonstration pas-à-pas par l'enseignant)
-4. Phase de Pratique Guidée (Exercices étayés en binôme ou petits groupes)
-5. Phase de Pratique Autonome (Différenciation en 3 parcours)
-6. Synthèse & Bilan réflexif CUA (Représentation, Expression, Engagement).`,
+2. Phase d'Objectivation (Pourquoi apprend-on cela ? Ancrage dans le réel)
+3. Phase de Modelage (Démonstration pas-à-pas par l'enseignant avec problème modèle résolu)
+4. Phase de Pratique Guidée (Activités étayées en binômes)
+5. Phase de Pratique Autonome (3 parcours différenciés complets : Soutien, Standard, Approfondissement)
+6. Synthèse & Bilan réflexif CUA (Représentation, Expression, Engagement)
+7. Évaluation formative avec corrigé explicatif.`,
 
     'differencier': `Tu es un spécialiste de la différenciation pédagogique (Tomlinson).
-À partir de la consigne ou de la tâche fournie, génère 3 versions strictement différenciées :
-- Parcours SOUTIEN (guidage pas-à-pas renforcé, indices, vocabulaire simplifié, amorces de réponse).
-- Parcours STANDARD (consigne explicite, autonomie guidée).
-- Parcours APPROFONDISSEMENT (complexité réflexive, question ouverte, analyse approfondie sans double ration de travail).
-Règle : L'objectif d'apprentissage fondamental doit rester IDENTIQUE pour les 3 parcours.`,
+À partir de la consigne ou tâche fournie, produis 3 versions intégrales et prêtes à être distribuées :
+- Parcours SOUTIEN : Consigne découpée, indices, amorces de réponse, lexique simplifié.
+- Parcours STANDARD : Consigne explicite avec guidage autonome.
+- Parcours APPROFONDISSEMENT : Même objectif fondamental mais complexité réflexive, question ouverte, analyse approfondie sans double ration de travail.
+Fournis le corrigé complet pour les 3 parcours.`,
 
-    'analyse-cua': `Tu es un auditeur expert en accessibilité pédagogique et CUA (CAST 2.2/3.0).
-Analyse la fiche ou l'activité soumise selon les 3 réseaux cérébraux de la CUA :
-1. Réseau de Reconnaissance (Modes de représentation : visuel, auditif, textuel, clarté)
-2. Réseau Stratégique (Modes d'action et d'expression : outils de réponse, formats alternatifs)
-3. Réseau Affectif (Modes d'engagement : choix, motivation, réduction du stress)
-Fournis un diagnostic précis avec points forts, obstacles cognitifs identifiés et 3 recommandations prioritaires d'adaptation.`,
+    'analyse-cua': `Tu es un auditeur expert en accessibilité pédagogique (CAST UDL Guidelines).
+Analyse la fiche de cours ou l'activité fournie selon les 3 réseaux cérébraux et 9 directives CUA :
+1. Réseau de Reconnaissance (Modes de représentation, clarté des symboles, perception)
+2. Réseau Stratégique (Modes d'action et d'expression, outils, fonctions exécutives)
+3. Réseau Affectif (Modes d'engagement, motivation, autorégulation)
+Produis une checklist détaillée des points forts, des obstacles identifiés et la version corrigée et enrichie de la séance.`,
 
-    'expliciter': `Tu es un expert en clarté cognitive et réduction des malentendus socio-cognitifs (Bautier, Goigoux, Downing).
+    'expliciter': `Tu es un expert en clarté cognitive et réduction des malentendus socio-cognitifs (Bautier, Goigoux).
 Prends la tâche scolaire suivante et rends visibles tous ses implicites :
 1. Ce que l'élève doit FAIRE concrètement (actions matérielles étape par étape).
 2. Ce que l'élève doit APPRENDRE en le faisant (le savoir ou la compétence visée).
-3. Les pièges fréquents et les critères précis qui prouvent que le travail est réussi.`,
+3. Le tableau des pièges fréquents et comment les éviter.
+4. La fiche élève réécrite de manière limpide avec critères d'auto-évaluation.`,
 
     'qcm': `Tu es un expert en docimologie et conception de questionnaires équitables (Leclercq, Castaigne, Bloom).
-Rédige un questionnaire à choix multiples (QCM) conforme aux 20 règles docimologiques :
-1. 4 propositions par question (1 seule réponse correcte, 3 distracteurs plausibles et homogènes).
-2. Pas de piège grammatical, pas de double négation, pas de « Toutes les réponses ci-dessus ».
-3. Pour chaque proposition (correcte ou fausse), fournis un FEEDBACK FORMATIF explicatif qui dit pourquoi elle est vraie/fausse et quelle notion revoir.`,
-
-    'planification-m2pa': `Tu es un conseiller pédagogique en accessibilité numérique et M2PA.
-Structure la planification de la séance sur 3 niveaux d'accessibilité : Universelle (socle pour toute la classe), Ciblée (aménagements pour élèves à besoins particuliers) et Intensive (compensations individualisées).`,
+Rédige un questionnaire à choix multiples (QCM) conforme aux 20 règles docimologiques de Leclercq :
+- 1 seule réponse correcte et 3 distracteurs plausibles et homogènes par question.
+- Pas de piège grammatical, pas de double négation, pas de « Toutes les réponses ci-dessus ».
+- Pour CHAQUE proposition (bonne ou fausse), fournis une rétroaction formative explicite : « Cette réponse est correcte car... » ou « Cette réponse est incorrecte car [nature de l'erreur]. La bonne réponse est [X] car... ».
+- Indique le niveau de la taxonomie de Bloom pour chaque question.`,
 
     'falc': `Tu es un rédacteur certifié en Facile à Lire et à Comprendre (FALC - normes Inclusion Europe).
 Adapte le texte selon les règles strictes du FALC :
-1. Phrases courtes (Sujet + Verbe + Complément), un seul concept par phrase.
-2. Mots simples d'usage courant, aucun mot complexe non expliqué par une métaphore concrète.
-3. Pas de voix passive, pas de métaphores ambiguës, pas d'abréviations non explicitées.
-4. Mise en page aérée avec une idée par ligne.`,
+1. PARTIE 1 « Document à remettre à l'élève » : Texte intégralement réécrit en FALC (phrases courtes SVC < 15 mots, une idée par ligne, vocabulaire concret, voix active, aucun mot complexe non expliqué), suivi d'un glossaire des mots clés.
+2. PARTIE 2 « Notes pour l'enseignant » : Tableau des simplifications effectuées et recommandations de mise en page.`,
 
     'aide-lecture': `Tu es un tuteur d'aide à la compréhension en lecture (Cain, Oakhill, Beck).
 À partir du texte fourni :
 1. Extrais les mots de vocabulaire de niveau 2 (mots fréquents de l'écrit, transversaux mais complexes) et donne leur définition en langage simple avec un exemple concret.
-2. Rédige un résumé paragraphe par paragraphe en 2 phrases simples maximum par paragraphe.`,
+2. Rédige un résumé paragraphe par paragraphe en 2 phrases simples maximum par paragraphe.
+3. Rédige 3 questions de compréhension globale avec leurs réponses justifiées.`,
 
     'allophone': `Tu es un enseignant formateur en FLE/FLS et accueil des élèves allophones (EANA / CECRL).
-Adapte l'activité pour un apprenant allophone débutant ou intermédiaire :
-1. Consignes ultra-visuelles et synthétiques (verbes d'action illustrés).
-2. Lexique bilingue clé / imagier contextuel.
-3. Amorces de phrases pour guider la production d'écrits.`,
+Adapte l'activité pour un apprenant non francophone :
+1. Consignes ultra-visuelles et synthétiques avec verbes d'action illustrés.
+2. Imagier contextuel et glossaire bilingue/visuel des termes essentiels.
+3. Fiche d'activité adaptée avec structures de phrases à compléter (amorces écrites).`,
 
-    'tsa': `Tu es un éducateur spécialisé en accompagnement des élèves avec Trouble du Spectre de l'Autisme (TSA).
-Propose des adaptations concrètes selon 4 axes :
-1. Prévisibilité et repères temporels (déroulé explicité sans surprise).
-2. Aménagement de la communication (consignes littérales, sans second degré ni implicite).
-3. Allègement sensoriel et gestion de l'environnement.
-4. Supports visuels structurants.`,
+    'tsa': `Tu es un enseignant spécialisé en accompagnement des élèves avec Trouble du Spectre de l'Autisme (TSA).
+Adapte la séance selon 4 axes concrets :
+1. Prévisibilité temporelle et séquentiel visuel de la séance.
+2. Consignes littérales univoques, sans implicite ni second degré.
+3. Aménagements de l'environnement sensoriel et gestion de la surcharge.
+4. Fiche d'exercice structurée avec repères visuels clairs.`,
 
-    'surdite': `Tu es un enseignant spécialisé en scolarisation des élèves sourds et malentendants (LSF / LPC).
+    'surdite': `Tu es un enseignant spécialisé pour élèves sourds et malentendants (LSF / LPC).
 Adapte le support d'apprentissage :
 1. Priorité absolue au canal visuel (schémas, synthèses graphiques, vidéos sous-titrées).
 2. Allègement de la syntaxe textuelle complexe tout en maintenant l'exigence conceptuelle.
-3. Glossaire visuel des termes techniques.`,
+3. Glossaire visuel et descriptif des termes techniques.`,
 
     'deficience-visuelle': `Tu es un transcripteur et adaptateur pour élèves déficients visuels et malvoyants (RGAA / Luciole).
 Adapte le document :
@@ -251,6 +250,242 @@ Décompose la routine ou l'activité en 4 à 8 étapes chronologiques simples, d
 Rédige un scénario social bienveillant pour anticiper une situation :
 Structure stricte : Respecte la proportion d'au moins 2 phrases descriptives et affirmatives pour 1 phrase directive. Raconte à la 1re personne (« Quand je... je peux... »).`
   },
+
+  studioModulesList: [
+    // 1. Concevoir & Évaluer
+    {
+      id: 'conception-cua',
+      name: 'Conception CUA',
+      icon: '🎓',
+      family: 'concevoir',
+      familyLabel: '🎯 Concevoir & Évaluer',
+      desc: "Bâtir une séance complète accessible dès le départ (Rosenshine & CUA)",
+      fields: [
+        { id: 'profils_classe', label: 'Profils d’élèves dans la classe', type: 'text', placeholder: 'Ex: 2 élèves DYS, 1 TDAH, hétérogénéité moyenne' },
+        { id: 'objectif_detail', label: 'Objectif d’apprentissage spécifique', type: 'text', placeholder: 'Ex: Savoir poser et calculer une multiplication de décimaux' }
+      ]
+    },
+    {
+      id: 'differencier',
+      name: 'Différenciation',
+      icon: '🔀',
+      family: 'concevoir',
+      familyLabel: '🎯 Concevoir & Évaluer',
+      desc: "Générer 3 versions d'une consigne (Soutien / Standard / Approfondissement)",
+      fields: [
+        { id: 'consigne_base', label: 'Consigne / Tâche de départ', type: 'textarea', placeholder: 'Collez la consigne ou l’exercice à différencier en 3 niveaux...' }
+      ]
+    },
+    {
+      id: 'analyse-cua',
+      name: 'Analyse CUA (Audit)',
+      icon: '🔍',
+      family: 'concevoir',
+      familyLabel: '🎯 Concevoir & Évaluer',
+      desc: "Diagnostic d'une séance existante au prisme des 9 directives CUA",
+      fields: [
+        { id: 'fiche_source', label: 'Fiche ou séance existante à auditer', type: 'textarea', placeholder: 'Collez le déroulé de votre séance existante pour analyse...' }
+      ]
+    },
+    {
+      id: 'expliciter',
+      name: 'Expliciter une tâche',
+      icon: '💡',
+      family: 'concevoir',
+      familyLabel: '🎯 Concevoir & Évaluer',
+      desc: "Lever les implicites : séparer ce qu'on fait de ce qu'on apprend",
+      fields: [
+        { id: 'tache_brute', label: 'Énoncé ou consigne brute', type: 'textarea', placeholder: 'Ex: « Faites l’exercice 4 page 52 » ou « Rédigez un paragraphe argumenté »' }
+      ]
+    },
+    {
+      id: 'qcm',
+      name: 'Concevoir un QCM',
+      icon: '🧪',
+      family: 'concevoir',
+      familyLabel: '🎯 Concevoir & Évaluer',
+      desc: "Évaluation équitable selon les 20 règles de Leclercq et Bloom",
+      fields: [
+        { id: 'qcm_mode', label: 'Mode', type: 'select', options: [{ value: 'creer', label: 'Créer un nouveau QCM' }, { value: 'relire', label: 'Auditer / Améliorer un QCM existant' }] },
+        { id: 'nb_questions', label: 'Nombre de questions', type: 'select', options: [{ value: '3', label: '3 questions' }, { value: '5', label: '5 questions' }, { value: '8', label: '8 questions' }, { value: '10', label: '10 questions' }] },
+        { id: 'nb_propositions', label: 'Nombre de choix par question', type: 'select', options: [{ value: '4', label: '4 propositions (1 correcte + 3 distracteurs)' }, { value: '3', label: '3 propositions (1 correcte + 2 distracteurs)' }] },
+        { id: 'bloom_level', label: 'Niveau cognitif (Bloom)', type: 'select', options: [{ value: 'mixte', label: 'Tous niveaux (Mémoriser, Comprendre, Appliquer, Analyser)' }, { value: 'memoriser', label: 'Mémoriser (Restituer faits et termes)' }, { value: 'comprendre', label: 'Comprendre (Expliquer et reformuler)' }, { value: 'appliquer', label: 'Appliquer (Cas concrets et calculs)' }] }
+      ]
+    },
+
+    // 2. Adapter un texte
+    {
+      id: 'falc',
+      name: 'FALC',
+      icon: '✍️',
+      family: 'adapter',
+      familyLabel: '📄 Adapter un texte',
+      desc: "Simplification Facile à Lire et à Comprendre (Inclusion Europe)",
+      fields: [
+        { id: 'profil_lecteur', label: 'Profil du lecteur', type: 'text', placeholder: 'Ex: Troubles cognitifs légers, élève non francophone, grande difficulté de déchiffrage' }
+      ]
+    },
+    {
+      id: 'aide-lecture',
+      name: 'Aide à la lecture',
+      icon: '📚',
+      family: 'adapter',
+      familyLabel: '📄 Adapter un texte',
+      desc: "Lexique de niveau 2 (Beck) et résumé paragraphe par paragraphe",
+      fields: [
+        { id: 'longueur_resume', label: 'Format des résumés', type: 'select', options: [{ value: 'court', label: 'Ultra-synthétique (1 phrase par paragraphe)' }, { value: 'detaille', label: 'Guidé (2 à 3 phrases simples par paragraphe)' }] }
+      ]
+    },
+    {
+      id: 'allophone',
+      name: 'Allophone (EANA)',
+      icon: '🌍',
+      family: 'adapter',
+      familyLabel: '📄 Adapter un texte',
+      desc: "Support multi-modal et repères CECRL pour apprenant non francophone",
+      fields: [
+        { id: 'niveau_cecrl', label: 'Niveau en français langue de scolarisation', type: 'select', options: [{ value: 'a1.1', label: 'A1.1 — Débutant complet (très peu de français)' }, { value: 'a1', label: 'A1 — Découverte (mots isolés et phrases simples)' }, { value: 'a2', label: 'A2 — Intermédiaire (compréhension courante)' }] }
+      ]
+    },
+
+    // 3. Besoins spécifiques
+    {
+      id: 'tsa',
+      name: 'Adaptations TSA',
+      icon: '🧩',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Prévisibilité, consignes littérales et aménagement sensoriel",
+      fields: [
+        { id: 'observables_tsa', label: 'Observables et particularités de l’élève', type: 'text', placeholder: 'Ex: Anxiété face à l’imprévu, hypersensibilité au bruit, besoin de repères visuels clairs' }
+      ]
+    },
+    {
+      id: 'surdite',
+      name: 'Surdité & Malentendance',
+      icon: '🧏',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Priorité au canal visuel, LSF, LPC et appui écrit renforcé",
+      fields: [
+        { id: 'mode_communication', label: 'Mode de communication principal', type: 'select', options: [{ value: 'lsf', label: 'Langue des Signes Française (LSF)' }, { value: 'lpc', label: 'Langue Parlée Complétée (LPC)' }, { value: 'ecrit_visuel', label: 'Français écrit / Appui visuel renforcé' }] }
+      ]
+    },
+    {
+      id: 'deficience-visuelle',
+      name: 'Déficience visuelle',
+      icon: '👁️',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Linéarisation pour lecteur d'écran, contrastes et descriptions d'images",
+      fields: [
+        { id: 'degre_vision', label: 'Degré de vision', type: 'select', options: [{ value: 'malvoyance', label: 'Basse vision (Agrandissement & Contrastes Luciole)' }, { value: 'cecite', label: 'Cécité (Linéarisation stricte pour lecteur d’écran / Braille)' }] }
+      ]
+    },
+    {
+      id: 'handicap-moteur',
+      name: 'Handicap moteur & TDC',
+      icon: '✍️',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Neutralisation du coût graphique : formats cochants et allégés",
+      fields: [
+        { id: 'format_soulagement', label: 'Format de soulagement souhaité', type: 'select', options: [{ value: 'cochant', label: 'Cases à cocher et QCM' }, { value: 'trous', label: 'Textes à trous et étiquettes à relier' }, { value: 'pre_rempli', label: 'Support pré-rempli avec guidage minimal' }] }
+      ]
+    },
+    {
+      id: 'maths-dyscalculie',
+      name: 'Maths & Dyscalculie',
+      icon: '🔢',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Triple code de Dehaene (visuel, verbal, symbolique) et verbalisation",
+      fields: [
+        { id: 'notion_maths', label: 'Notion ou opération ciblée', type: 'text', placeholder: 'Ex: Fractions, théorème de Pythagore, équations, proportionnalité' }
+      ]
+    },
+    {
+      id: 'dyslexie',
+      name: 'Dyslexie & Troubles DYS',
+      icon: '📖',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Allègement du déchiffrage et soutien phonologique sans baisse d'exigence",
+      fields: [
+        { id: 'amenagements_dys', label: 'Aménagements souhaités', type: 'text', placeholder: 'Ex: Segmentation des phrases, surlignage des mots clés, aération renforcée' }
+      ]
+    },
+    {
+      id: 'haut-potentiel',
+      name: 'Haut Potentiel (EHP)',
+      icon: '⚡',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Enrichissement en profondeur et complexité réflexive (Renzulli)",
+      fields: [
+        { id: 'angle_enrichissement', label: 'Axe d’approfondissement', type: 'text', placeholder: 'Ex: Analyse épistémologique, défi créatif, liens interdisciplinaires' }
+      ]
+    },
+    {
+      id: 'accompagnement',
+      name: 'Accompagnement Comportemental',
+      icon: '🤝',
+      family: 'besoin',
+      familyLabel: '🧠 Besoins Spécifiques',
+      desc: "Fiche de stratégies selon la grille des 4 besoins de Barry",
+      fields: [
+        { id: 'comportements_observes', label: 'Comportements observés en classe', type: 'textarea', placeholder: 'Décrivez les situations observables déclenchant une difficulté ou un débordement...' }
+      ]
+    },
+
+    // 4. Communiquer autrement (CAA)
+    {
+      id: 'caa',
+      name: 'CAA Bande-phrases',
+      icon: '🖼️',
+      family: 'communiquer',
+      familyLabel: '💬 Communiquer (CAA)',
+      desc: "Traduction d'une phrase en pictogrammes ARASAAC et clé de Fitzgerald",
+      fields: [
+        { id: 'phrase_caa', label: 'Phrase ou consigne à traduire en pictogrammes', type: 'text', placeholder: 'Ex: Je veux aller aux toilettes / Ouvre ton cahier et écris la date' }
+      ]
+    },
+    {
+      id: 'tableau-communication',
+      name: 'Tableau de communication',
+      icon: '💬',
+      family: 'communiquer',
+      familyLabel: '💬 Communiquer (CAA)',
+      desc: "Grille thématique de 12 à 20 cases pour une situation de classe",
+      fields: [
+        { id: 'situation_tableau', label: 'Lieu ou situation de classe', type: 'text', placeholder: 'Ex: Cour de récréation, cantine, atelier sciences, cours d’arts plastiques' },
+        { id: 'nb_cases', label: 'Nombre de cases', type: 'select', options: [{ value: '12', label: '12 cases (Grille 3x4)' }, { value: '16', label: '16 cases (Grille 4x4)' }, { value: '20', label: '20 cases (Grille 4x5)' }] }
+      ]
+    },
+    {
+      id: 'sequentiel',
+      name: 'Séquentiel illustré (TEACCH)',
+      icon: '📋',
+      family: 'communiquer',
+      familyLabel: '💬 Communiquer (CAA)',
+      desc: "Décomposition d'une routine en micro-étapes chronologiques",
+      fields: [
+        { id: 'routine_titre', label: 'Activité ou routine à décomposer', type: 'text', placeholder: 'Ex: Arrivée en classe le matin / Préparer son cartable / Résoudre un problème de maths' },
+        { id: 'nb_etapes', label: 'Nombre d’étapes souhaité', type: 'select', options: [{ value: '4', label: '4 étapes simples' }, { value: '6', label: '6 étapes détaillées' }, { value: '8', label: '8 micro-étapes' }] }
+      ]
+    },
+    {
+      id: 'scenario-social',
+      name: 'Scénario Social (Carol Gray)',
+      icon: '📖',
+      family: 'communiquer',
+      familyLabel: '💬 Communiquer (CAA)',
+      desc: "Récit social explicatif structuré pour anticiper un imprévu ou une situation",
+      fields: [
+        { id: 'situation_sociale', label: 'Situation ou imprévu à préparer', type: 'text', placeholder: 'Ex: Changement d’emploi du temps, sortie scolaire, travail en groupe bruyant' }
+      ]
+    }
+  ],
 
   vision: `Tu es un expert en accessibilité visuelle et description d'images pour apprenants déficients visuels ou ayant des troubles neurodéveloppementaux.
 Décris précisément l'image fournie :
