@@ -179,40 +179,65 @@
                                     <span>📥 Exporter</span>
                                     <span style="font-size: 0.75rem;">▼</span>
                                 </button>
-                                <div class="export-dropdown-menu" id="pp-export-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1000; min-width: 230px; padding: 6px; flex-direction: column; gap: 2px;">
-                                    <button class="export-menu-item" id="pp-exp-odt" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                <div class="export-dropdown-menu" id="pp-export-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1000; min-width: 270px; padding: 8px; flex-direction: column; gap: 4px;">
+                                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent1); padding: 4px 8px; letter-spacing: 0.5px;">📄 Séance Complète</div>
+                                    <button class="export-menu-item" id="pp-exp-pdf" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📕</span>
+                                        <div>
+                                            <strong>PDF Direct (.pdf)</strong>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Téléchargement direct haute qualité</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-odt" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
                                         <span>📄</span>
                                         <div>
                                             <strong>OpenDocument (.odt)</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Accessible CUA (LibreOffice / Docs)</div>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Accessible CUA (LibreOffice / Docs)</div>
                                         </div>
                                     </button>
-                                    <button class="export-menu-item" id="pp-exp-word" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                    <button class="export-menu-item" id="pp-exp-word" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
                                         <span>📝</span>
                                         <div>
                                             <strong>Microsoft Word (.doc)</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page Office propre</div>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Mise en page Office propre</div>
                                         </div>
                                     </button>
-                                    <button class="export-menu-item" id="pp-exp-pdf" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
-                                        <span>📑</span>
-                                        <div>
-                                            <strong>PDF / Impression</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page A4 imprimable</div>
-                                        </div>
-                                    </button>
-                                    <button class="export-menu-item" id="pp-exp-md" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                    <button class="export-menu-item" id="pp-exp-md" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
                                         <span>📋</span>
                                         <div>
                                             <strong>Markdown (.md)</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Fichier texte brut structuré</div>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Fichier texte structuré</div>
                                         </div>
                                     </button>
-                                    <button class="export-menu-item" id="pp-exp-latex" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
-                                        <span>🔣</span>
+
+                                    <div style="border-top: 1px solid var(--border); margin: 4px 0;"></div>
+                                    <div style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #10b981; padding: 4px 8px; letter-spacing: 0.5px;">📦 Packs Fiches Séparées (ZIP)</div>
+                                    <button class="export-menu-item" id="pp-exp-zip-pdf" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📦</span>
                                         <div>
-                                            <strong>LaTeX (.tex)</strong>
-                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Document scientifique compilable</div>
+                                            <strong>Pack PDF Fiches (.zip)</strong>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Fiche Élève + Fiche Enseignant (.pdf)</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-zip-odt" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📦</span>
+                                        <div>
+                                            <strong>Pack ODT Fiches (.zip)</strong>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Fiche Élève + Fiche Enseignant (.odt)</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-zip-doc" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📦</span>
+                                        <div>
+                                            <strong>Pack Word Fiches (.zip)</strong>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Fiche Élève + Fiche Enseignant (.doc)</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-zip-all" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 7px 10px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>🎁</span>
+                                        <div>
+                                            <strong>Pack Complet Multi-formats (.zip)</strong>
+                                            <div style="font-size: 0.74rem; color: var(--text-muted);">Tous formats (PDF, ODT, Word, MD)</div>
                                         </div>
                                     </button>
                                 </div>

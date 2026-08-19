@@ -1,7 +1,7 @@
 import { makeStreamingRequest, formatMarkdown } from './api.js';
 import { appConfig, DEFAULT_SYSTEM_PROMPTS } from './config.js';
 import { checkRGPD } from './rgpd-guard.js';
-import { exportODT, exportWord, exportPDF, exportMarkdown, exportLatex } from './export-suite.js';
+import { exportODT, exportWord, exportDirectPDF, exportMarkdown, exportPackZip } from './export-suite.js';
 import { searchPictos, pictoUrl, ARASAAC_CREDIT } from './arasaac.js';
 
 export function initProfessorPlus() {
@@ -746,15 +746,14 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
         window.showToast("Document Word (.doc) téléchargé ! 📝");
     });
 
-    // 3. PDF Export
-    document.getElementById('pp-exp-pdf')?.addEventListener('click', () => {
+    // 3. PDF Export Direct
+    document.getElementById('pp-exp-pdf')?.addEventListener('click', async () => {
         if (!generatedMarkdown) {
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        exportPDF(getExportTitle(), outputEl.innerHTML || generatedMarkdown, getExportMeta());
         if (exportDropdown) exportDropdown.style.display = 'none';
-        window.showToast("Génération de la vue PDF en cours... 📑");
+        await exportDirectPDF(getExportTitle(), outputEl.innerHTML || generatedMarkdown, getExportMeta());
     });
 
     // 4. Markdown Export
@@ -768,15 +767,41 @@ ${selectedModule === 'conception-cua' ? '- Les fiches d\'activités et exercices
         window.showToast("Fichier Markdown (.md) téléchargé ! 📋");
     });
 
-    // 5. LaTeX Export
-    document.getElementById('pp-exp-latex')?.addEventListener('click', () => {
+    // 5. Packs ZIP Fiches Séparées
+    document.getElementById('pp-exp-zip-pdf')?.addEventListener('click', async () => {
         if (!generatedMarkdown) {
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        exportLatex(getExportTitle(), generatedMarkdown);
         if (exportDropdown) exportDropdown.style.display = 'none';
-        window.showToast("Document LaTeX (.tex) téléchargé ! 🔣");
+        await exportPackZip(getExportTitle(), outputEl.innerHTML, generatedMarkdown, 'pdf', getExportMeta());
+    });
+
+    document.getElementById('pp-exp-zip-odt')?.addEventListener('click', async () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        await exportPackZip(getExportTitle(), outputEl.innerHTML, generatedMarkdown, 'odt', getExportMeta());
+    });
+
+    document.getElementById('pp-exp-zip-doc')?.addEventListener('click', async () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        await exportPackZip(getExportTitle(), outputEl.innerHTML, generatedMarkdown, 'doc', getExportMeta());
+    });
+
+    document.getElementById('pp-exp-zip-all')?.addEventListener('click', async () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        await exportPackZip(getExportTitle(), outputEl.innerHTML, generatedMarkdown, 'all', getExportMeta());
     });
 
     // EXPORT STB (Pack de cours pour le Bureau Virtuel & Espace Élève)

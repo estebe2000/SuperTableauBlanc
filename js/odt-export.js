@@ -202,18 +202,24 @@ export function buildFodtXml(title, htmlContent) {
 }
 
 /**
- * Télécharge le document au format OpenDocument Accessible (.odt)
+ * Construit un Blob ODT (OpenDocument Accessible)
  */
-export function downloadOdt(title, markdownOrHtml, filename) {
+export function getOdtBlob(title, markdownOrHtml) {
   let html = markdownOrHtml || '';
   if (window.marked && !html.includes('<p>') && !html.includes('<h')) {
     html = window.marked.parse(markdownOrHtml);
   }
-
   const cleanTitle = title || 'Seance_Pedagogique';
   const xmlContent = buildFodtXml(cleanTitle, html);
-  
-  const blob = new Blob([xmlContent], { type: 'application/vnd.oasis.opendocument.text;charset=utf-8' });
+  return new Blob([xmlContent], { type: 'application/vnd.oasis.opendocument.text;charset=utf-8' });
+}
+
+/**
+ * Télécharge le document au format OpenDocument Accessible (.odt)
+ */
+export function downloadOdt(title, markdownOrHtml, filename) {
+  const cleanTitle = title || 'Seance_Pedagogique';
+  const blob = getOdtBlob(cleanTitle, markdownOrHtml);
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
