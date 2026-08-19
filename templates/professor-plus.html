@@ -196,9 +196,54 @@
                 <section class="panel output-panel studio-output-panel" style="display: flex; flex-direction: column;">
                     <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
                         <h2>Résultat Pédagogique</h2>
-                        <div class="actions" style="display: flex; gap: 6px; flex-wrap: wrap;">
-                            <button class="btn btn-secondary btn-sm" id="pp-copy-btn" title="Copier le Markdown">📋 Copier</button>
-                            <button class="btn btn-secondary btn-sm" id="pp-export-odt-btn" title="Télécharger en document accessible LibreOffice / Word">📄 Export .ODT</button>
+                        <div class="actions" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                            <button class="btn btn-secondary btn-sm" id="pp-copy-btn" title="Copier le contenu Markdown">📋 Copier</button>
+                            
+                            <!-- Unified Export Dropdown (ODT, Word, PDF, MD, LaTeX) -->
+                            <div class="export-dropdown-wrapper" style="position: relative; display: inline-block;">
+                                <button class="btn btn-primary btn-sm" id="pp-export-menu-btn" style="display: flex; align-items: center; gap: 6px; font-weight: 600;">
+                                    <span>📥 Exporter</span>
+                                    <span style="font-size: 0.75rem;">▼</span>
+                                </button>
+                                <div class="export-dropdown-menu" id="pp-export-dropdown" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); z-index: 1000; min-width: 220px; padding: 6px; flex-direction: column; gap: 2px;">
+                                    <button class="export-menu-item" id="pp-exp-odt" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📄</span>
+                                        <div>
+                                            <strong>OpenDocument (.odt)</strong>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Accessible CUA (LibreOffice / Docs)</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-word" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📝</span>
+                                        <div>
+                                            <strong>Microsoft Word (.doc)</strong>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page Office propre</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-pdf" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📑</span>
+                                        <div>
+                                            <strong>PDF / Impression</strong>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Mise en page prête à imprimer</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-md" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>📋</span>
+                                        <div>
+                                            <strong>Markdown (.md)</strong>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Fichier texte brut structuré</div>
+                                        </div>
+                                    </button>
+                                    <button class="export-menu-item" id="pp-exp-latex" style="display: flex; align-items: center; gap: 8px; width: 100%; text-align: left; padding: 8px 12px; border: none; background: transparent; color: var(--text); border-radius: 6px; cursor: pointer; font-size: 0.88rem;">
+                                        <span>🔣</span>
+                                        <div>
+                                            <strong>LaTeX (.tex)</strong>
+                                            <div style="font-size: 0.75rem; color: var(--text-muted);">Document scientifique compilable</div>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+
                             <button class="btn btn-secondary btn-sm" id="pp-export-stb-btn" title="Télécharger le pack de séance pour le Bureau Virtuel">📦 Pack .STB</button>
                             <button class="btn btn-secondary btn-sm" id="pp-export-hapi-btn" title="Ouvrir dans le générateur d'activités HAPI">🐝 Vers HAPI</button>
                         </div>

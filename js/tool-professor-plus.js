@@ -1,7 +1,7 @@
 import { makeStreamingRequest, formatMarkdown } from './api.js';
 import { appConfig, DEFAULT_SYSTEM_PROMPTS } from './config.js';
 import { checkRGPD } from './rgpd-guard.js';
-import { downloadOdt } from './odt-export.js';
+import { exportODT, exportWord, exportPDF, exportMarkdown, exportLatex } from './export-suite.js';
 
 export function initProfessorPlus() {
     const cycleSelect = document.getElementById('pp-cycle');
@@ -347,15 +347,82 @@ Réponds en Markdown soigné, avec une typographie aérée et structurée.`;
         });
     });
 
-    // EXPORT ODT (OpenDocument Accessible)
-    exportOdtBtn?.addEventListener('click', () => {
+    // Unified Export Dropdown Logic
+    const exportMenuBtn = document.getElementById('pp-export-menu-btn');
+    const exportDropdown = document.getElementById('pp-export-dropdown');
+
+    exportMenuBtn?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (exportDropdown) {
+            const isShown = exportDropdown.style.display === 'flex';
+            exportDropdown.style.display = isShown ? 'none' : 'flex';
+        }
+    });
+
+    // Close dropdown on outside click
+    document.addEventListener('click', (e) => {
+        if (exportDropdown && !exportDropdown.contains(e.target) && e.target !== exportMenuBtn) {
+            exportDropdown.style.display = 'none';
+        }
+    });
+
+    function getExportTitle() {
+        return themeInput?.value || moduleSelect?.options[moduleSelect.selectedIndex]?.text || "Seance_Pedagogique";
+    }
+
+    // 1. ODT Export
+    document.getElementById('pp-exp-odt')?.addEventListener('click', () => {
         if (!generatedMarkdown) {
             window.showToast("Générez d'abord un contenu à exporter.");
             return;
         }
-        const title = themeInput?.value || moduleSelect?.options[moduleSelect.selectedIndex]?.text || "Seance_Pedagogique";
-        downloadOdt(title, outputEl.innerHTML || generatedMarkdown);
+        exportODT(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        if (exportDropdown) exportDropdown.style.display = 'none';
         window.showToast("Document .ODT accessible téléchargé ! 📄");
+    });
+
+    // 2. Word Export (.doc / docx compatible)
+    document.getElementById('pp-exp-word')?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        exportWord(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        window.showToast("Document Word (.doc) téléchargé ! 📝");
+    });
+
+    // 3. PDF Export
+    document.getElementById('pp-exp-pdf')?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        exportPDF(getExportTitle(), outputEl.innerHTML || generatedMarkdown);
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        window.showToast("Génération de la vue PDF en cours... 📑");
+    });
+
+    // 4. Markdown Export
+    document.getElementById('pp-exp-md')?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        exportMarkdown(getExportTitle(), generatedMarkdown);
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        window.showToast("Fichier Markdown (.md) téléchargé ! 📋");
+    });
+
+    // 5. LaTeX Export
+    document.getElementById('pp-exp-latex')?.addEventListener('click', () => {
+        if (!generatedMarkdown) {
+            window.showToast("Générez d'abord un contenu à exporter.");
+            return;
+        }
+        exportLatex(getExportTitle(), generatedMarkdown);
+        if (exportDropdown) exportDropdown.style.display = 'none';
+        window.showToast("Document LaTeX (.tex) téléchargé ! 🔣");
     });
 
     // EXPORT STB (Pack de cours pour le Bureau Virtuel & Espace Élève)

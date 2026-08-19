@@ -6564,6 +6564,17 @@ body.bureau-active .bureau-desktop {
     min-height: 600px;
 }
 
+.export-menu-item {
+    transition: all 0.15s ease;
+}
+
+.export-menu-item:hover {
+    background: rgba(124, 58, 237, 0.1) !important;
+    color: var(--accent1) !important;
+    transform: translateX(3px);
+}
+
+
 
 
 
