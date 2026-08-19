@@ -13,6 +13,7 @@ Thumbs.db
 # User specific exclusions
 trash/
 scratch/
+inclusia/
 dist_test/
 *.mp3
 *.docx
